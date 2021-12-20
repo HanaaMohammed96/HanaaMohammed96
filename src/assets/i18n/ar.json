@@ -1,0 +1,156 @@
+{
+  "general": {
+    "open": "افتح",
+    "add": "إضافة",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "delete": "حذف",
+    "cancel": "إلغاء",
+    "close": "إغلاق",
+    "title": "العنوان",
+    "ar": "الإسم بالعربية",
+    "en": "الإسم بالإنجليزية",
+    "name": "الإسم",
+    "selected": "مختارة",
+    "search": "بحث",
+    "hitSearch": "اضغط زر enter للبحث",
+    "itemsPerPageLabel": "عدد العناصر بالصفحة",
+    "firstPageLabel": "الصفحة الأولى",
+    "previousPageLabel": "الصفحة السابقة",
+    "nextPageLabel": "الصفحة التالية",
+    "lastPageLabel": "الصفحة الأخير",
+    "of": "من",
+    "empty": "لا يوجد",
+    "putSuccess": "تم التحديث بنجاح!",
+    "filter": "تصفية",
+    "filterDialog": "صندوق التصفية",
+    "more": "المزيد",
+    "clear": "مسح"
+  },
+  "toolbar": {
+    "notifications_title": "الإشعارات",
+    "notifications_content": "لديك {{number}} إشعارات جديدية",
+    "notifications": {},
+    "mark_all_as_read": "تحديد الكل كمقروء",
+    "disable_notifications": "تعطيل الإشعارات",
+    "dark_mode": "الوضع الليلي",
+    "logout": "تسجيل الخروج",
+    "settings": "الإعدادات",
+    "update_profile": "تحديث الملف الشخصي",
+    "change_phone_number": "تحديث رقم الهاتف",
+    "change_password": "تحديث كلمة المرور"
+  },
+  "sidenav": {
+    "title": "لوحة تحكم دورة العمل "
+  },
+  "footer": {
+    "github": "عرض على Github",
+    "message": "Template - Angular 11+ Material Design Template"
+  },
+  "navigations": {
+    "content": "المحتوى المتغير",
+    "analytics": "الإحصائبات",
+    "categories": "الاقسام",
+    "service_providers": "مقدمي الخدمة",
+    "branches": "الفروع",
+    "groupServices": "الخدمات",
+    "queues": "الطوابير",
+    "transactions": "المعاملات المالية",
+    "users": "المستخدمين",
+    "team": "المشرفين",
+    "governorates": "المحافظات",
+    "districts": "المناطق",
+    "privacy_policy": "سياسة الخصوصية",
+    "privacy_policy_en": "للإنجليزية",
+    "privacy_policy_ar": "للعربية",
+    "terms_Cond": "الشروط والاحكام",
+    "terms_Cond_ar": "للعربية",
+    "terms_Cond_en": "للإنجليزية",
+    "reservations": "الحجوزات"
+  },
+  "account": {
+    "login_title": "مرحبًا بك في ",
+    "login_description": "يرجى ادخال بيانات الدخول",
+    "toggle": "اظاهر/اخفاء",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "remember_me": "تذكرني",
+    "forgot_password": "هل نسيت كلمة المرور؟",
+    "sign_in": "تسجيل الدخول"
+  },
+  "forbidden": {
+    "title": "403",
+    "description": "هذا الحساب غير مصرح بالدخول لهذه الصفحة"
+  },
+  "not_found": {
+    "title": "404",
+    "description": "هذه الصفحة غير موجودة"
+  },
+  "internal_server_error": {
+    "title": "500",
+    "description": "وه ، يبدو ان هناك مشكلة بالخادم",
+    "sub_text": "من فضلك ، تواصل من الفريق التقني في أسرع وقت"
+  },
+  "errors": {
+    "err400": "هذا الطلب لم يتم معاجلته بنجاح",
+    "err422": "بيانات غير صحيحة. برجاء إدخال بيانات صحيحة والمحاولة مرة أخرى",
+    "version": "أنت الان على نسخة قديمة من الموقع. برجاء التحديث والمحاولة مرة أخرى",
+    "general": "حدث خطأ أثناء تنفيذ طلبك"
+  },
+  "validations": {
+    "required": "{{field}} مطلوب"
+  },
+  "megaMenu": {
+    "lable": "Mega Menu",
+    "caption1": "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.",
+    "caption2": "Separated they live in Bookmarksgrove right at the coast of the Semantics, a largelanguage ocean.",
+    "features": "المميزات",
+    "pages": "الصفحات",
+    "learnMore": "تعلم اكثر",
+    "dashboard": "لوحة التحكم",
+    "aio-Table": "جدول الكل في واحد",
+    "helpCenter": "مركز الخدمة",
+    "contacts": "الاسماء",
+    "scrumboard": "سكرم بورد",
+    "documentation": "الوثائق",
+    "allInOneTable": "جدول الكل في واحد",
+    "authentication": "المصادقة",
+    "components": "العناصر",
+    "faq": "التعليمات",
+    "formElements": "عناصر النموذج",
+    "formWizard": "معالج النماذج",
+    "guides": "الارشادات"
+  },
+  "team": {
+    "title": "جدول مشرفي ",
+    "description": "هذا الجدول يحتوي على كل حسابات المشرفين",
+    "tableName": "عضو إداري",
+    "tableNamePlural": "الفريق الإداري",
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "username": "اسم المستخدم",
+    "pin": "الكود السري",
+    "fullname": "الاسم بالكامل",
+    "first_name": "الاسم الاول",
+    "last_name": "الاسم الاخير",
+    "created_at": "تم الانشاء",
+    "phone_number": "رقم الموبايل",
+    "role": "الدور",
+    "status": "الحالة",
+    "roles": {
+      "admin": "مشرف",
+      "serviceProvider": "مقدم خدمة",
+      "branch": "فرع",
+      "service": "خدمة",
+      "counter": "كاونتر",
+      "user": "مستخدم"
+    },
+    "serviceProvider": "مقدم الخدمة",
+    "branch": "الفرع",
+    "service": "الخدمة",
+    "resetPassword": "تغير كلمة المرور"
+  }
+}
+
+  

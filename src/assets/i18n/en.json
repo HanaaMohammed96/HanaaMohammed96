@@ -1,0 +1,154 @@
+{
+  "general": {
+    "open": "Open",
+    "add": "Add",
+    "create": "Create",
+    "update": "Update",
+    "delete": "Delete",
+    "cancel": "Cancel",
+    "close": "Close",
+    "title": "Title",
+    "ar": "Arabic Name",
+    "en": "English Name",
+    "name": "Name",
+    "selected": "selected",
+    "search": "Search",
+    "hitSearch": "Hit enter to search",
+    "itemsPerPageLabel": "Items Per Page",
+    "firstPageLabel": "First Page",
+    "previousPageLabel": "Previous Page",
+    "nextPageLabel": "Next Page",
+    "lastPageLabel": "Last Page",
+    "of": "Of",
+    "empty": "Empty",
+    "putSuccess": "Update has been completed successfully!",
+    "filter": "Filter",
+    "filterDialog": "Filter Dialog",
+    "more": "More",
+    "clear": "Clear"
+  },
+  "toolbar": {
+    "notifications_title": "Notifications",
+    "notifications_content": "You have {{number}} new notifications",
+    "notifications": {},
+    "mark_all_as_read": "Mark all as read",
+    "disable_notifications": "Disable Notifications",
+    "dark_mode": "Dark Mode",
+    "logout": "Logout",
+    "settings": "Settings",
+    "update_profile": "Update your Profile",
+    "change_phone_number": "Change Phone Number",
+    "change_password": "Change Password"
+  },
+  "sidenav": {
+    "title": "Work cycle"
+  },
+  "footer": {
+    "github": "View Github",
+    "message": "Template - Angular 11+ Material Design Template"
+  },
+  "navigations": {
+    "content": "Dynamic Content",
+    "analytics": "Analytics",
+    "categories": "Categories",
+    "service_providers": "Service Providers",
+    "branches": "Branches",
+    "groupServices": "Services",
+    "queues": "Queues",
+    "transactions": "Transactions",
+    "users": "Users",
+    "team": "Team",
+    "governorates": "Governorates",
+    "districts": "Districts",
+    "privacy_policy": "Privacy Policy",
+    "privacy_policy_en": "For English",
+    "privacy_policy_ar": "For Arabic",
+    "terms_Cond": "Terms and Conditions",
+    "terms_Cond_ar": "For Arabic",
+    "terms_Cond_en": "For English",
+    "reservations": "Reservations"
+  },
+  "account": {
+    "login_title": "Welcome to Qme!",
+    "login_description": "Sign in with your credentials below.",
+    "toggle": "Toggle Visibility",
+    "email": "E-mail",
+    "password": "Password",
+    "remember_me": "Remember Me",
+    "forgot_password": "Forgot Password?",
+    "sign_in": "Sign In"
+  },
+  "forbidden": {
+    "title": "403",
+    "description": "You don't have access to this page"
+  },
+  "not_found": {
+    "title": "404",
+    "description": "Page not found"
+  },
+  "internal_server_error": {
+    "title": "500",
+    "description": "Oops, it looks like there is a problem with the server",
+    "sub_text": "Please, contact the technical team as soon as possible"
+  },
+  "errors": {
+    "err400": "Request cannot be processed successfully",
+    "err422": "Invalid data. Please, check the form data and resubmit again",
+    "version": "You're running an old version of the website. Please, refresh and resubmit the form",
+    "general": "An error occurs while processing your request"
+  },
+  "validations": {
+    "required": "{{field}} is required"
+  },
+  "megaMenu": {
+    "lable": "Mega Menu",
+    "caption1": "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.",
+    "caption2": "Separated they live in Bookmarksgrove right at the coast of the Semantics, a largelanguage ocean.",
+    "features": "Features",
+    "pages": "Pages",
+    "learnMore": "Learn More",
+    "dashboard": "Dashboard",
+    "aio-Table": "AIO-Table",
+    "helpCenter": "Help Center",
+    "contacts": "Contacts",
+    "scrumboard": "Scrumboard",
+    "documentation": "Documentation",
+    "allInOneTable": "All-In-One Table",
+    "authentication": "Authentication",
+    "components": "Components",
+    "faq": "FAQ",
+    "formElements": "Form Elements",
+    "formWizard": "Form Wizard",
+    "guides": "Guides"
+  },
+  "team": {
+    "title": "Qme Admins Table",
+    "description": "This list includes all admins accounts",
+    "tableName": "Admin Member",
+    "tableNamePlural": "Admins Team",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm Password",
+    "username": "Username",
+    "pin": "Pin",
+    "fullname": "Fullname",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "created_at": "Created At",
+    "phone_number": "Phone Number",
+    "role": "Role",
+    "status": "Status",
+    "roles": {
+      "admin": "Admin",
+      "serviceProvider": "Service Provider",
+      "branch": "Branch",
+      "service": "Service",
+      "counter": "Counter",
+      "user": "User"
+    },
+    "serviceProvider": "Service Provider",
+    "branch": "Branch",
+    "service": "Service",
+    "resetPassword": "Reset Password"
+  }
+}

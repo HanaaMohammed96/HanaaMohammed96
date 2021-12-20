@@ -1,0 +1,41 @@
+<form
+  (ngSubmit)="onSubmit()"
+  [formGroup]="formGroup"
+  *ngIf="(!id ? 'general.create' : 'general.update') | translate as key"
+>
+  <div fxLayout="row" fxLayoutAlign="start center" mat-dialog-title>
+    <h2 *ngIf="!custom" class="headline m-0" fxFlex="auto">
+      {{ key }} {{ title | translate }}
+    </h2>
+    <h2 *ngIf="custom" class="headline m-0" fxFlex="auto">{{ title | translate }}</h2>
+
+    <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+      <mat-icon [icIcon]="icClose"></mat-icon>
+    </button>
+  </div>
+
+  <mat-divider class="-mx-6 text-border"></mat-divider>
+
+  <mat-dialog-content fxLayout="column">
+    <ng-content select="[form-dialog-content]"></ng-content>
+    <div *ngIf="errors.detail || errors.key" class="text-center text-red mt-2">
+      <p *ngIf="errors.detail" class="caption text-sm">{{ errors.detail }}</p>
+      <p *ngIf="errors.key" class="caption text-sm">{{ errors.key | translate }}</p>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close type="button">
+      {{ 'general.cancel' | translate }}
+    </button>
+    <button
+      [disabled]="!formGroup.valid || !formGroup.dirty || loading"
+      [class.spinner]="loading"
+      color="primary"
+      mat-button
+      type="submit"
+    >
+      <span [class.p-3]="loading">{{ !loading ? createBtn || key : '' }}</span>
+    </button>
+  </mat-dialog-actions>
+</form>

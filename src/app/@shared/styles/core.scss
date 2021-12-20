@@ -1,0 +1,147 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+
+// SCSS Variables
+@import 'var';
+
+// Styles / CSS Variables
+@import 'partials/styles/style-dark';
+@import 'partials/styles/style-light';
+@import 'partials/styles/style-default';
+
+// Mixins
+@import 'partials/mixins';
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core($config);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($app-theme);
+
+// Partials
+@import 'partials/horizontal';
+@import 'partials/vertical';
+@import 'partials/print';
+@import 'partials/typography';
+@import 'partials/overrides';
+@import 'partials/scrollbar';
+@import 'partials/plugins/angular-material';
+@import 'partials/plugins/apexcharts';
+
+// Layouts
+@import 'partials/layouts/layout-apollo';
+@import 'partials/layouts/layout-ares';
+@import 'partials/layouts/layout-hermes';
+@import 'partials/layouts/layout-ikaros';
+@import 'partials/layouts/layout-zeus';
+
+// Third-Pary
+@import '~ngx-toastr/toastr';
+
+// Plus imports for other components in your app.
+
+/* You can add global styles to this file, and also import other style files */
+
+html {
+  box-sizing: border-box;
+  font-size: 16px;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  @include mat-typography-level-to-styles($config, body-1);
+  @apply text-black leading-normal antialiased;
+  font-feature-settings: 'kern';
+}
+
+div {
+  box-sizing: border-box;
+}
+
+pre {
+  font-family: inherit;
+}
+
+label.mat-form-field-label,
+div.mat-select-value,
+input.mat-input-element,
+.mat-error {
+  height: 1.25rem !important;
+}
+
+div.mat-form-field-prefix,
+div.mat-form-field-suffix {
+  align-self: center;
+  padding-top: 0.4em;
+}
+
+mat-form-field.bold-field .mat-form-field-wrapper .mat-form-field-flex {
+  background-color: #ffffff !important;
+}
+
+.mat-expansion-panel:not([class*='mat-elevation-z']) {
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+}
+
+.mat-expansion-indicator::after {
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner 0.8s linear infinite;
+}
+
+:root [dir='rtl'] {
+  .english-text {
+    direction: ltr;
+  }
+
+  div.mat-form-field-suffix {
+    direction: ltr;
+  }
+}
+
+:root [dir='ltr'] {
+  .arabic-text {
+    direction: rtl;
+  }
+}
+
+.badge {
+  display: inline-block;
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 0.25rem;
+}

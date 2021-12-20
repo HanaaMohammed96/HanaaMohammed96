@@ -1,0 +1,65 @@
+<app-form-dialog
+  *ngIf="form"
+  [id]="this.id"
+  [title]="'profile.title' | translate"
+  [formGroup]="form"
+  [loading]="loading"
+  [errors]="errors"
+  (fgSubmit)="submit()"
+>
+  >
+  <div form-dialog-content>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'profile.email' | translate as email"
+        appearance="outline"
+        class="mt-6 flex-auto"
+      >
+        <mat-label>{{ email }}</mat-label>
+        <input cdkFocusInitial formControlName="email" type="email" matInput />
+        <mat-error *ngIf="form.get('email').hasError('required')">{{
+          'validations.required' | translate: { field: email }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('email').hasError('validation')">{{
+          form.get('email').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div formGroupName="fullName">
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field
+          *ngIf="'profile.firstName' | translate as firstNameLabel"
+          appearance="outline"
+          class="flex-auto"
+        >
+          <mat-label>{{ firstNameLabel }}</mat-label>
+          <input formControlName="FirstName" type="text" matInput />
+          <mat-error *ngIf="firstName.hasError('required')">{{
+            'validations.required' | translate: { field: firstNameLabel }
+          }}</mat-error>
+          <mat-error *ngIf="firstName.hasError('validation')">{{
+            firstName.errors.validation
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field
+          *ngIf="'profile.lastName' | translate as lastNameLabel"
+          appearance="outline"
+          class="flex-auto"
+        >
+          <mat-label>{{ lastNameLabel }}</mat-label>
+          <input formControlName="LastName" type="text" matInput />
+          <mat-error *ngIf="lastName.hasError('required')">{{
+            'validations.required' | translate: { field: lastNameLabel }
+          }}</mat-error>
+          <mat-error *ngIf="lastName.hasError('validation')">{{
+            lastName.errors.validation
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</app-form-dialog>

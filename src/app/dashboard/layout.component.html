@@ -1,0 +1,53 @@
+<div
+  [class.boxed]="isBoxed$ | async"
+  [class.horizontal-layout]="!(isLayoutVertical$ | async)"
+  [class.is-mobile]="!(isDesktop$ | async)"
+  [class.vertical-layout]="isLayoutVertical$ | async"
+  [class.has-fixed-footer]="(isFooterFixed$ | async) && isFooterVisible$ | async"
+  [class.has-footer]="isFooterVisible$ | async"
+  [class.scroll-disabled]="scrollDisabled$ | async"
+  [class.toolbar-fixed]="isToolbarFixed$ | async"
+  [class.sidenav-collapsed]="sidenavCollapsed$ | async"
+  [class.content-container]="containerEnabled$ | async"
+  [class.with-search]="searchOpen$ | async"
+  class="page-container"
+>
+  <app-progress-bar></app-progress-bar>
+
+  <app-search></app-search>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav
+      #sidenav
+      [disableClose]="isDesktop$ | async"
+      [fixedInViewport]="!(isDesktop$ | async)"
+      [mode]="!(isDesktop$ | async) || (isLayoutVertical$ | async) ? 'over' : 'side'"
+      [opened]="(isDesktop$ | async) && !(isLayoutVertical$ | async)"
+      class="sidenav"
+    >
+      <app-sidenav [collapsed]="sidenavCollapsed$ | async"></app-sidenav>
+    </mat-sidenav>
+
+    <mat-sidenav
+      #quickpanel
+      [fixedInViewport]="!(isDesktop$ | async)"
+      class="quickpanel"
+      mode="over"
+      position="end"
+    >
+      <app-quickpanel></app-quickpanel>
+    </mat-sidenav>
+
+    <mat-sidenav-content class="sidenav-content">
+      <app-toolbar
+        [hasShadow]="true"
+        [mobileQuery]="!(isDesktop$ | async)"
+        class="app-toolbar"
+      ></app-toolbar>
+
+      <main class="content">
+        <router-outlet></router-outlet>
+      </main>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

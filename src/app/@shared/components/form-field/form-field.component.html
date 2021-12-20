@@ -1,0 +1,16 @@
+<div class="flex flex-col sm:flex-row">
+  <mat-form-field
+    *ngIf="title | translate as titleName"
+    appearance="outline"
+    class="flex-auto"
+  >
+    <mat-label>{{ titleName }}</mat-label>
+    <input cdkFocusInitial formControlName="Ar" matInput input-form-field />
+    <mat-error *ngIf="control.hasError('required')">{{
+      'validations.required' | translate: { field: titleName }
+    }}</mat-error>
+    <mat-error *ngIf="control.hasError('validation')">{{
+      control.errors.validation
+    }}</mat-error>
+  </mat-form-field>
+</div>

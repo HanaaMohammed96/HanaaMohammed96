@@ -1,0 +1,274 @@
+<app-form-dialog
+  *ngIf="dto"
+  [id]="this.data.id"
+  [title]="'team.tableName'"
+  [formGroup]="form"
+  (fgSubmit)="submit()"
+  [loading]="loading"
+  [errors]="errors"
+>
+  >
+  <div form-dialog-content>
+    <div formGroupName="name">
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field
+          *ngIf="'team.first_name' | translate as first_name"
+          appearance="outline"
+          class="mt-6 flex-auto"
+        >
+          <mat-label>{{ first_name }}</mat-label>
+          <input cdkFocusInitial formControlName="FirstName" matInput />
+          <mat-error *ngIf="firstName.hasError('required')">{{
+            'validations.required' | translate: { field: first_name }
+          }}</mat-error>
+          <mat-error *ngIf="firstName.hasError('validation')">{{
+            firstName.errors.validation
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field
+          *ngIf="'team.last_name' | translate as last_name"
+          appearance="outline"
+          class="flex-auto"
+        >
+          <mat-label>{{ last_name }}</mat-label>
+          <input formControlName="LastName" matInput />
+          <mat-error *ngIf="lastName.hasError('required')">{{
+            'validations.required' | translate: { field: last_name }
+          }}</mat-error>
+          <mat-error *ngIf="lastName.hasError('validation')">{{
+            lastName.errors.validation
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'team.email' | translate as email"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ email }}</mat-label>
+        <input formControlName="email" matInput type="email" />
+        <mat-error *ngIf="form.get('email').hasError('required')">{{
+          'validations.required' | translate: { field: email }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('email').hasError('validation')">{{
+          form.get('email').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'team.phone_number' | translate as phone_number"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ phone_number }}</mat-label>
+        <span *ngIf="!isArabic" matPrefix>+20 &nbsp;</span>
+        <input
+          class="english-text text-left"
+          formControlName="phoneNumber"
+          matInput
+          max="10"
+          type="tel"
+        />
+        <span *ngIf="isArabic" matSuffix>+20 &nbsp;</span>
+        <mat-error *ngIf="form.get('phoneNumber').hasError('required')">{{
+          'validations.required' | translate: { field: phone_number }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('phoneNumber').hasError('validation')">{{
+          form.get('phoneNumber').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'team.role' | translate as roleName"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ roleName }}</mat-label>
+        <mat-select formControlName="role" matInput>
+          <mat-option [value]="+Role.Admin">{{
+            'team.roles.admin' | translate
+          }}</mat-option>
+          <mat-option [value]="+Role.ServiceProvider">{{
+            'team.roles.serviceProvider' | translate
+          }}</mat-option>
+          <mat-option [value]="+Role.Branch">{{
+            'team.roles.branch' | translate
+          }}</mat-option
+          ><mat-option [value]="+Role.Service">{{
+            'team.roles.service' | translate
+          }}</mat-option
+          ><mat-option [value]="+Role.Counter">{{
+            'team.roles.counter' | translate
+          }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="form.get('role').hasError('required')">{{
+          'validations.required' | translate: { field: roleName }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('role').hasError('validation')">{{
+          form.get('role').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="form.get('username').enabled" class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'team.username' | translate as usernameLabel"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ usernameLabel }}</mat-label>
+        <input formControlName="username" matInput type="text" />
+        <mat-error *ngIf="form.get('username').hasError('required')">{{
+          'validations.required' | translate: { field: usernameLabel }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('username').hasError('validation')">{{
+          form.get('username').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      *ngIf="serviceProviders && form.get('serviceProviderId').enabled"
+      class="flex flex-col sm:flex-row"
+    >
+      <mat-form-field
+        *ngIf="'team.serviceProvider' | translate as serviceProviderName"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ serviceProviderName }}</mat-label>
+
+        <mat-select formControlName="serviceProviderId" matInput>
+          <mat-option
+            *ngFor="let serviceProvider of serviceProviders"
+            [value]="serviceProvider.id"
+          >
+            {{ serviceProvider.name }}
+          </mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="form.get('serviceProviderId').hasError('required')">{{
+          'validations.required' | translate: { field: serviceProviderName }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('serviceProviderId').hasError('validation')">{{
+          form.get('serviceProviderId').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      *ngIf="branches && form.get('branchId').enabled"
+      class="flex flex-col sm:flex-row"
+    >
+      <mat-form-field
+        *ngIf="'team.branch' | translate as branchName"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ branchName }}</mat-label>
+
+        <mat-select formControlName="branchId" matInput>
+          <mat-option *ngFor="let branch of branches" [value]="branch.id">
+            {{ branch.name }}
+          </mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="form.get('branchId').hasError('required')">{{
+          'validations.required' | translate: { field: branchName }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('branchId').hasError('validation')">{{
+          form.get('branchId').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div
+      *ngIf="services && form.get('serviceId').enabled"
+      class="flex flex-col sm:flex-row"
+    >
+      <mat-form-field
+        *ngIf="'team.service' | translate as serviceName"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ serviceName }}</mat-label>
+
+        <mat-select formControlName="serviceId" matInput>
+          <mat-option *ngFor="let service of services" [value]="service.id">
+            {{ service.name }}
+          </mat-option>
+        </mat-select>
+
+        <mat-error *ngIf="form.get('serviceId').hasError('required')">{{
+          'validations.required' | translate: { field: serviceName }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('serviceId').hasError('validation')">{{
+          form.get('serviceId').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="form.get('pin').enabled" class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'team.pin' | translate as pinLabel"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ pinLabel }}</mat-label>
+        <input formControlName="pin" matInput type="text" />
+        <mat-error *ngIf="form.get('pin').hasError('required')">{{
+          'validations.required' | translate: { field: pinLabel }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('pin').hasError('validation')">{{
+          form.get('pin').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="!data.id">
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field
+          *ngIf="'team.password' | translate as password"
+          appearance="outline"
+          class="flex-auto"
+        >
+          <mat-label>{{ password }}</mat-label>
+          <input formControlName="password" matInput type="password" />
+          <mat-error *ngIf="form.get('password').hasError('required')">{{
+            'validations.required' | translate: { field: password }
+          }}</mat-error>
+          <mat-error *ngIf="form.get('password').hasError('validation')">{{
+            form.get('password').errors.validation
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field
+          *ngIf="'team.confirmPassword' | translate as confirmPassword"
+          appearance="outline"
+          class="flex-auto"
+        >
+          <mat-label>{{ confirmPassword }}</mat-label>
+          <input formControlName="confirmPassword" matInput type="password" />
+          <mat-error *ngIf="form.get('confirmPassword').hasError('required')">{{
+            'validations.required' | translate: { field: confirmPassword }
+          }}</mat-error>
+          <mat-error *ngIf="form.get('confirmPassword').hasError('validation')">{{
+            form.get('confirmPassword').errors.validation
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</app-form-dialog>
