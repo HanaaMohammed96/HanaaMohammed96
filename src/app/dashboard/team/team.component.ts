@@ -12,7 +12,6 @@ import {
   AccountsClient,
   AdminVm,
   Role,
-  ServiceProvidersClient,
   PaginatedListOfAdminVm,
 } from '@core/api';
 import { Observable } from 'rxjs';
@@ -50,7 +49,6 @@ export class TeamComponent implements OnInit {
 
   constructor(
     public accountsClient: AccountsClient,
-    private _spsClient: ServiceProvidersClient,
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _translateService: TranslateService
@@ -89,7 +87,6 @@ export class TeamComponent implements OnInit {
       {
         name: await this.translate('users.serviceProviderName'),
         control: this.form.get('serviceProviderId') as FormControl,
-        list$: this._spsClient.getList(),
         valueProperty: 'id',
         nameProperty: 'name',
       },
@@ -181,7 +178,6 @@ export class TeamComponent implements OnInit {
     const spId = +this.form.get('serviceProviderId').value;
 
     return this.accountsClient.getAdminsPage(
-      spId ? spId : null,
       pagingOptions.pageSize,
       pagingOptions.pageIndex,
       pagingOptions.query,

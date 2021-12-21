@@ -6,5 +6,4 @@ export class FilterControl {
   control: FormControl;
   valueProperty: string;
   nameProperty: string;
-  list$: Observable<any[]>;
 }

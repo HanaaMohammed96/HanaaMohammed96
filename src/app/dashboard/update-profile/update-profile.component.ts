@@ -66,8 +66,7 @@ export class UpdateProfileComponent implements OnInit {
         null,
         value.email,
         value.fullName.FirstName,
-        value.fullName.LastName,
-        null
+        value.fullName.LastName
       )
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(

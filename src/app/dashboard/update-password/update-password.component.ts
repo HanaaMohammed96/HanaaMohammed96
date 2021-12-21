@@ -50,7 +50,6 @@ export class UpdatePasswordComponent implements OnInit {
         new ChangePasswordCommand({
           oldPassword: value.oldPassword,
           newPassword: value.newPassword,
-          confirmPassword: value.confirmPassword,
         })
       )
       .pipe(finalize(() => (this.loading = false)))
