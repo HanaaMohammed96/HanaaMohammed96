@@ -35,6 +35,7 @@ export class ApiHandlerService {
         return this.handleAny();
     }
   }
+  
 
   private handle404(err: ProblemDetails): HttpResult {
     this._toastr.error(err.detail);
@@ -62,6 +63,12 @@ export class ApiHandlerService {
 
   private handleAny(): HttpResult {
     return this.createHttpResult('errors.general');
+  }
+  public handleSuccess():HttpResult {
+    this._translateService.get("Success").subscribe(d=>{
+      this._toastr.success(d)
+    })
+    return this.createHttpResult(null);
   }
 
   private createHttpResult(error: any): HttpResult {

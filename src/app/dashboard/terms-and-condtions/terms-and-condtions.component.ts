@@ -12,6 +12,7 @@ import {
 } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-terms-and-condtions',
@@ -34,7 +35,8 @@ export class TermsAndCondtionsComponent implements OnInit {
   constructor(
     private _contentClient: ContentsClient,
     private _route: ActivatedRoute,
-    private _handler: ApiHandlerService
+    private _handler: ApiHandlerService,
+    private _toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -61,15 +63,14 @@ export class TermsAndCondtionsComponent implements OnInit {
           value: this.form.value,
         })
       )
-      // .pipe(finalize(() => console.log('Finally callback')))
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        () => {console.log('Success')},
-        (err) =>{ 
-          console.log('error',err)
-          return this._handler.handleError(err).pushError()
+        () => {
+          this._handler.handleSuccess();
         },
-        () => console.log('Complete')
+        (err) =>{           
+          return this._handler.handleError(err).pushError()
+        }
       );
   }
 

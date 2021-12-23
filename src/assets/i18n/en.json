@@ -150,5 +150,6 @@
     "branch": "Branch",
     "service": "Service",
     "resetPassword": "Reset Password"
-  }
+  },
+  "Success":"Success"
 }
