@@ -155,7 +155,9 @@
         <mat-label>{{ branchName }}</mat-label>
 
         <mat-select formControlName="branchId" matInput>
-         
+          <!-- <mat-option *ngFor="let branch of branches" [value]="branch.id">
+            {{ branch.name }}
+          </mat-option> -->
         </mat-select>
 
         <mat-error *ngIf="form.get('branchId').hasError('required')">{{
@@ -165,15 +167,13 @@
           form.get('branchId').errors.validation
         }}</mat-error>
       </mat-form-field>
-   
+
       <mat-form-field
         *ngIf="'team.service' | translate as serviceName"
         appearance="outline"
         class="flex-auto"
       >
-        <mat-label>{{ serviceName }}</mat-label>
-
-       
+        <mat-label>{{ serviceName }}</mat-label>      
 
         <mat-error *ngIf="form.get('serviceId').hasError('required')">{{
           'validations.required' | translate: { field: serviceName }

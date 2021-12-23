@@ -61,10 +61,15 @@ export class TermsAndCondtionsComponent implements OnInit {
           value: this.form.value,
         })
       )
+      // .pipe(finalize(() => console.log('Finally callback')))
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        () => {},
-        (err) => this._handler.handleError(err).pushError()
+        () => {console.log('Success')},
+        (err) =>{ 
+          console.log('error',err)
+          return this._handler.handleError(err).pushError()
+        },
+        () => console.log('Complete')
       );
   }
 
