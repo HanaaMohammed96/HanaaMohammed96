@@ -65,12 +65,29 @@ export class AppComponent implements OnInit {
         type: 'subheading',
         label: await this.translate('navigations.content'),
         children: [
+          // {
+          //   type: 'link',
+          //   label: await this.translate('navigations.categories'),
+          //   route: '/categories',
+          //   icon: icStore,
+          // } as NavigationLink,
           {
-            type: 'link',
-            label: await this.translate('navigations.categories'),
-            route: '/categories',
-            icon: icStore,
-          } as NavigationLink,
+            type: 'dropdown',
+            label: await this.translate('navigations.terms_Cond'),
+            icon: icPolicy,
+            children: [
+              {
+                type: 'link',
+                label: await this.translate('navigations.terms_Cond_ar'),
+                route: '/tnc/ar',
+              } as NavigationLink,
+              {
+                type: 'link',
+                label: await this.translate('navigations.terms_Cond_en'),
+                route: '/tnc/en',
+              } as NavigationLink,
+            ],
+          } as NavigationDropdown,
           {
             type: 'dropdown',
             label: await this.translate('navigations.privacy_policy'),

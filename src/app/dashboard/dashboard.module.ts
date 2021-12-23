@@ -28,6 +28,7 @@ import { UpdatePasswordComponent } from './update-password/update-password.compo
 import { TeamComponent } from './team/team.component';
 import { TeamCreateUpdateComponent } from './team/team-create-update/team-create-update.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
+import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     TeamCreateUpdateComponent,
     ResetPasswordComponent,
     PrivacyPolicyComponent,
-    AccountsComponent
+    AccountsComponent,
+    TermsAndCondtionsComponent
   ],
   imports: [
     CommonModule,

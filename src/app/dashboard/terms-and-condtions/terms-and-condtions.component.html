@@ -1,0 +1,21 @@
+<div class="p-gutter container">
+  <div class="card">
+    <quill-editor
+      @fadeInUp
+      [formControl]="form"
+      [styles]="{ flex: '1 1 auto' }"
+    ></quill-editor>
+  </div>
+</div>
+
+<div class="inline-block absolute left-5 bottom-5">
+  <button
+    [disabled]="!form.valid || loading"
+    [class.spinner]="loading"
+    mat-mini-fab
+    color="warn"
+    (click)="save()"
+  >
+    <mat-icon *ngIf="!loading" [icIcon]="icSave"></mat-icon>
+  </button>
+</div>
