@@ -2,6 +2,7 @@ export interface DataField {
   _id?:any;
   name?:any;
   type?:any;
+  icon?:any;
   required?:any;
   regex?:any;
   errorText?:any;

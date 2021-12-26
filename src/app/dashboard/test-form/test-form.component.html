@@ -17,7 +17,7 @@
     <h4>Select Fields</h4>
     <p>Customize your form by drag and drop below fields to the form area.</p>
     <div *ngFor="let item of fieldModels">
-      <mat-form-field
+      <!-- <mat-form-field
         *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='autocomplete' && item.type!='file'" cdkDrag>
         <mat-label>{{item.label}}</mat-label>
         <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput disabled />
@@ -45,7 +45,13 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-      </div>
+      </div> -->
+      <!-- /////////////////// -->
+
+      <mat-grid-list cols="4"cdkDrag>
+        <mat-grid-tile  class="fields" colspan="1"><mat-icon>{{item.icon}}</mat-icon></mat-grid-tile>
+        <mat-grid-tile colspan="3"><span>{{item.label}}</span></mat-grid-tile>
+        </mat-grid-list>
     </div>
 
   </mat-sidenav>
@@ -89,7 +95,7 @@
 
 
           <mat-icon (click)="openDialog(myDialog)">
-            wb_incandescent
+            expand_more
           </mat-icon>
           <mat-icon (click)="removeField(item)">
             delete
@@ -107,7 +113,7 @@
 
                 <mat-form-field appearance="fill">
                   <mat-label>Type</mat-label>
-                  <mat-select>
+                  <mat-select [(ngModel)]="item.type">
                     <mat-option value="text">text</mat-option>
                     <mat-option value="email">email</mat-option>
                     <mat-option value="phone">phone</mat-option>

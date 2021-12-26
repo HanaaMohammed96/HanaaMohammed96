@@ -25,6 +25,7 @@ export class TestFormComponent implements OnInit {
     {
       "type": "text",
       "label": "Text",
+      "icon":"text_format",
       "description": "Enter your name",
       "placeholder": "Enter your name",
       "subtype": "text",
@@ -33,25 +34,30 @@ export class TestFormComponent implements OnInit {
     },
     {
       "type": "date",
+      "icon":"today",
       "label": "Date",
       "placeholder": "Date",
     },
     {
       "type": "datetime-local",
+      "icon":"today",
       "label": "DateTime",
       "placeholder": "Date Time",
     },
     {
       "type": "textarea",
+      "icon":"text_fields",
       "label": "Textarea" 
     },
     {
       "type": "paragraph",
+      "icon":"vertical_distribute",
       "label": "Paragraph",
       "placeholder": "Type your text to display here only" 
     },
     {
       "type": "checkbox",
+      "icon":"fact_check",
       "required": true,
       "label": "Checkbox",
       "description": "Checkbox",
@@ -69,6 +75,7 @@ export class TestFormComponent implements OnInit {
     },
     {
       "type": "radio",
+      "icon":"radio_button_checked",
       "label": "Radio",
       "description": "Radio boxes",
       "values": [
@@ -84,6 +91,7 @@ export class TestFormComponent implements OnInit {
     },
     {
       "type": "autocomplete",
+      "icon": "menu",
       "label": "Select",
       "description": "Select",
       "placeholder": "Select",
@@ -104,6 +112,7 @@ export class TestFormComponent implements OnInit {
     },
     {
       "type": "file",
+      "icon": "upload_file",
       "label": "File Upload",
       "subtype": "file"
     }
