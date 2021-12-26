@@ -31,11 +31,12 @@ export class FormDialogComponent {
   constructor(private _handler: ApiHandlerService) {}
 
   onSubmit(): void {
+
     if (this.fgSubmit.observers.length > 0) {
       this.fgSubmit.next();
       return;
     }
-
+    
     const value = this.formGroup.getRawValue();
 
     if (!value) {

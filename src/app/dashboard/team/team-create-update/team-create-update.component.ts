@@ -58,71 +58,72 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    
     // this._spsClient
     //   .getFullList()
     //   .subscribe((serviceProviders: ServiceProviderFullVm[]) => {
     //     this.serviceProviders = serviceProviders;
 
-    //     if (!this.data) {
-    //       this.data = {} as AdminVm;
-    //       this.dto = {} as AccountDashboardDto;
+        if (!this.data) {
+          this.data = {} as AdminVm;
+          this.dto = {} as AccountDashboardDto;
 
-    //       this.form = this._fb.group({
-    //         name: this._fb.group({
-    //           FirstName: ['', Validators.required],
-    //           LastName: ['', Validators.required],
-    //         }),
-    //         email: ['', Validators.required],
-    //         phoneNumber: ['', Validators.required],
-    //         role: ['', Validators.required],
-    //         username: ['', Validators.required],
-    //         serviceProviderId: [''],
-    //         branchId: [''],
-    //         serviceId: [''],
-    //         pin: [''],
-    //         password: ['', Validators.required],
-    //         confirmPassword: ['', Validators.required],
-    //       });
+          this.form = this._fb.group({
+            name: this._fb.group({
+              FirstName: ['', Validators.required],
+              LastName: ['', Validators.required],
+            }),
+            email: ['', Validators.required],
+            phoneNumber: ['', Validators.required],
+            role: ['', Validators.required],
+            username: ['', Validators.required],
+            // serviceProviderId: [''],
+            // branchId: [''],
+            // serviceId: [''],
+            // pin: [''],
+            password: ['', Validators.required],
+            confirmPassword: ['', Validators.required],
+          });
 
-    //       this.onValueChanges(0, Role.Admin);
-    //     } else {
-    //       this._accountsClient
-    //         .getUser(this.data.id)
-    //         .subscribe((account: AccountDashboardDto) => {
-    //           this.dto = account;
+          // this.onValueChanges(0, Role.Admin);
+        } else {
+          this._accountsClient
+            .getUser(this.data.id)
+            .subscribe((account: AccountDashboardDto) => {
+              this.dto = account;
 
-    //           this.form = this._fb.group({
-    //             name: this._fb.group({
-    //               FirstName: [this.dto.name.firstName || '', Validators.required],
-    //               LastName: [this.dto.name.lastName || '', Validators.required],
-    //             }),
-    //             email: new FormControl(
-    //               { value: this.dto.email || '', disabled: true },
-    //               Validators.required
-    //             ),
-    //             phoneNumber: [
-    //               this.dto.phoneNumber
-    //                 ? this.dto.phoneNumber.replace(
-    //                     this.dto.phoneNumber,
-    //                     this.dto.phoneNumber.substring(4)
-    //                   )
-    //                 : '',
-    //               Validators.required,
-    //             ],
-    //             role: new FormControl(
-    //               { value: this.dto.role || 0, disabled: true },
-    //               Validators.required
-    //             ),
-    //             username: [this.dto.username],
-    //             serviceProviderId: [this.dto.serviceProviderId],
-    //             branchId: [this.dto.branchId],
-    //             serviceId: [this.dto.serviceId],
-    //             pin: [this.dto.pin],
-    //           });
+              this.form = this._fb.group({
+                name: this._fb.group({
+                  FirstName: [this.dto.name.firstName || '', Validators.required],
+                  LastName: [this.dto.name.lastName || '', Validators.required],
+                }),
+                email: new FormControl(
+                  { value: this.dto.email || '', disabled: true },
+                  Validators.required
+                ),
+                phoneNumber: [
+                  this.dto.phoneNumber
+                    ? this.dto.phoneNumber.replace(
+                        this.dto.phoneNumber,
+                        this.dto.phoneNumber.substring(4)
+                      )
+                    : '',
+                  Validators.required,
+                ],
+                role: new FormControl(
+                  { value: this.dto.role || 0, disabled: true },
+                  Validators.required
+                ),
+                // username: [this.dto.username],
+                // serviceProviderId: [this.dto.serviceProviderId],
+                // branchId: [this.dto.branchId],
+                // serviceId: [this.dto.serviceId],
+                // pin: [this.dto.pin],
+              });
 
-    //           this.onValueChanges(this.dto.serviceProviderId, this.dto.role);
-    //         });
-    //     }
+              // this.onValueChanges(this.dto.serviceProviderId, this.dto.role);
+            });
+        }
     //   });
   }
 
@@ -130,78 +131,78 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
     this._dialogRef.close(this.data);
   }
 
-  onValueChanges(defaultSpId: number, defaultRole: Role): void {
-    const roleOnValueChanges = (value: number) => {
-      const role = +value as Role;
-      const username = this.form.get('username');
-      const spId = this.form.get('serviceProviderId');
-      const branchId = this.form.get('branchId');
-      const serviceId = this.form.get('serviceId');
-      const pin = this.form.get('pin');
+  // onValueChanges(defaultSpId: number, defaultRole: Role): void {
+  //   const roleOnValueChanges = (value: number) => {
+  //     const role = +value as Role;
+  //     const username = this.form.get('username');
+  //     const spId = this.form.get('serviceProviderId');
+  //     const branchId = this.form.get('branchId');
+  //     const serviceId = this.form.get('serviceId');
+  //     const pin = this.form.get('pin');
 
-      if (role === Role.Admin) {
-        username.disable();
-        spId.disable();
-        branchId.disable();
-        serviceId.disable();
-        pin.disable();
-      } else if (role === Role.Partner) {
-        username.enable();
-        spId.enable();
-        branchId.enable();
-        serviceId.enable();
-        pin.enable();
-      } else {
-        if (role === Role.Resident) {
-          username.enable();
-          pin.enable();
-        } else {
-          username.disable();
-          pin.disable();
-        }
+  //     if (role === Role.Admin) {
+  //       username.disable();
+  //       spId.disable();
+  //       branchId.disable();
+  //       serviceId.disable();
+  //       pin.disable();
+  //     } else if (role === Role.Partner) {
+  //       username.enable();
+  //       spId.enable();
+  //       branchId.enable();
+  //       serviceId.enable();
+  //       pin.enable();
+  //     } else {
+  //       if (role === Role.Resident) {
+  //         username.enable();
+  //         pin.enable();
+  //       } else {
+  //         username.disable();
+  //         pin.disable();
+  //       }
 
-        spId.enable();
-        branchId.enable();
-        serviceId.disable();
-      }
-    };
+  //       spId.enable();
+  //       branchId.enable();
+  //       serviceId.disable();
+  //     }
+  //   };
 
-    const spIdOnValueChanges = (value: number) => {
-      // const spId = +value;
+  //   const spIdOnValueChanges = (value: number) => {
+  //     // const spId = +value;
 
-      // const sp = this.serviceProviders.find((c) => c.id === spId);
+  //     // const sp = this.serviceProviders.find((c) => c.id === spId);
 
-      // if (!sp) {
-      //   this.branches = [];
-      //   this.services = [];
-      //   return;
-      // }
+  //     // if (!sp) {
+  //     //   this.branches = [];
+  //     //   this.services = [];
+  //     //   return;
+  //     // }
 
-      // this.branches = sp.branches;
-      // this.services = sp.services;
+  //     // this.branches = sp.branches;
+  //     // this.services = sp.services;
 
-      const branchId = this.form.get('branchId');
-      const serviceId = this.form.get('serviceId');
+  //     const branchId = this.form.get('branchId');
+  //     const serviceId = this.form.get('serviceId');
 
-      // const branch = this.branches.find((c) => c.id === +branchId.value);
+  //     // const branch = this.branches.find((c) => c.id === +branchId.value);
 
-      // if (branch) {
-      //   branchId.setValue(branch.id);
-      // }
+  //     // if (branch) {
+  //     //   branchId.setValue(branch.id);
+  //     // }
 
-      // const service = this.services.find((c) => c.id === +serviceId.value);
+  //     // const service = this.services.find((c) => c.id === +serviceId.value);
 
-      // if (service) {
-      //   serviceId.setValue(service.id);
-      // }
-    };
+  //     // if (service) {
+  //     //   serviceId.setValue(service.id);
+  //     // }
+  //   };
 
-    this.form.get('role').valueChanges.subscribe(roleOnValueChanges);
-    this.form.get('serviceProviderId').valueChanges.subscribe(spIdOnValueChanges);
+  //   this.form.get('role').valueChanges.subscribe(roleOnValueChanges);
+  //   this.form.get('serviceProviderId').valueChanges.subscribe(spIdOnValueChanges);
 
-    roleOnValueChanges(defaultRole);
-    spIdOnValueChanges(defaultSpId);
-  }
+  //   roleOnValueChanges(defaultRole);
+  //   spIdOnValueChanges(defaultSpId);
+  // }
 
   submit(): void {
     const value = this.form.value;
@@ -225,6 +226,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
     const phoneNumber = rawValue.phoneNumber ? '+20 ' + rawValue.phoneNumber : null;
 
     if (!this.data.id) {
+      
       action = this._accountsClient.post(
         new AccountsPostCommand({
           fullName,

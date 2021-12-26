@@ -9,6 +9,7 @@ import { ForbiddenAccessComponent } from './forbidden-access/forbidden-access.co
 import { AccountsComponent } from './accounts/accounts.component';
 import { TeamComponent } from './team/team.component';
 import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
+import { TestFormComponent } from './test-form/test-form.component';
 
 const routes: Routes = [
   {
@@ -21,6 +22,7 @@ const routes: Routes = [
       { path: '500', component: InternalServerErrorComponent },
       { path: 'users', component: AccountsComponent },
       { path: 'team', component: TeamComponent },
+      { path: 'form', component: TestFormComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: '**', component: NotFoundComponent },

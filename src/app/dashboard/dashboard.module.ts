@@ -29,6 +29,7 @@ import { TeamComponent } from './team/team.component';
 import { TeamCreateUpdateComponent } from './team/team-create-update/team-create-update.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
+import { TestFormComponent } from './test-form/test-form.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-cond
     ResetPasswordComponent,
     PrivacyPolicyComponent,
     AccountsComponent,
-    TermsAndCondtionsComponent
+    TermsAndCondtionsComponent,
+    TestFormComponent
   ],
   imports: [
     CommonModule,

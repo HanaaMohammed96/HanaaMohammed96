@@ -66,7 +66,8 @@
     "terms_Cond": "Terms and Conditions",
     "terms_Cond_ar": "For Arabic",
     "terms_Cond_en": "For English",
-    "reservations": "Reservations"
+    "reservations": "Reservations",
+    "form": "Create Form"
   },
   "account": {
     "login_title": "Welcome to Qme!",

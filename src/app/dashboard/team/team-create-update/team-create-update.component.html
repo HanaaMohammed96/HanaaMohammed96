@@ -128,7 +128,7 @@
     </div>
 
     
-      <mat-form-field
+      <!-- <mat-form-field
         *ngIf="'team.serviceProvider' | translate as serviceProviderName"
         appearance="outline"
         class="flex-auto"
@@ -145,20 +145,20 @@
         <mat-error *ngIf="form.get('serviceProviderId').hasError('validation')">{{
           form.get('serviceProviderId').errors.validation
         }}</mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
     
-      <mat-form-field
+      <!-- <mat-form-field
         *ngIf="'team.branch' | translate as branchName"
         appearance="outline"
         class="flex-auto"
       >
         <mat-label>{{ branchName }}</mat-label>
 
-        <mat-select formControlName="branchId" matInput>
+        <mat-select formControlName="branchId" matInput> -->
           <!-- <mat-option *ngFor="let branch of branches" [value]="branch.id">
             {{ branch.name }}
           </mat-option> -->
-        </mat-select>
+        <!-- </mat-select>
 
         <mat-error *ngIf="form.get('branchId').hasError('required')">{{
           'validations.required' | translate: { field: branchName }
@@ -166,9 +166,9 @@
         <mat-error *ngIf="form.get('branchId').hasError('validation')">{{
           form.get('branchId').errors.validation
         }}</mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
 
-      <mat-form-field
+      <!-- <mat-form-field
         *ngIf="'team.service' | translate as serviceName"
         appearance="outline"
         class="flex-auto"
@@ -181,10 +181,10 @@
         <mat-error *ngIf="form.get('serviceId').hasError('validation')">{{
           form.get('serviceId').errors.validation
         }}</mat-error>
-      </mat-form-field>
+      </mat-form-field> -->
     </div>
 
-    <div *ngIf="form.get('pin').enabled" class="flex flex-col sm:flex-row">
+    <!-- <div *ngIf="form.get('pin').enabled" class="flex flex-col sm:flex-row">
       <mat-form-field
         *ngIf="'team.pin' | translate as pinLabel"
         appearance="outline"
@@ -199,7 +199,7 @@
           form.get('pin').errors.validation
         }}</mat-error>
       </mat-form-field>
-    </div>
+    </div> -->
 
     <div *ngIf="!data.id">
       <div class="flex flex-col sm:flex-row">

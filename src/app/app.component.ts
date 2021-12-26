@@ -62,15 +62,15 @@ export class AppComponent implements OnInit {
         icon: icTeam,
       } as NavigationLink,
       {
+        type: 'link',
+        label: await this.translate('navigations.form'),
+        route: '/form',
+        icon: icTeam,
+      } as NavigationLink,
+      {
         type: 'subheading',
         label: await this.translate('navigations.content'),
         children: [
-          // {
-          //   type: 'link',
-          //   label: await this.translate('navigations.categories'),
-          //   route: '/categories',
-          //   icon: icStore,
-          // } as NavigationLink,
           {
             type: 'dropdown',
             label: await this.translate('navigations.terms_Cond'),
