@@ -63,7 +63,7 @@ export class PrivacyPolicyComponent implements OnInit {
       )
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        () => {},
+        () => this._handler.handleSuccess(),
         (err) => this._handler.handleError(err).pushError()
       );
   }
