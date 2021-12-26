@@ -59,11 +59,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     
-    // this._spsClient
-    //   .getFullList()
-    //   .subscribe((serviceProviders: ServiceProviderFullVm[]) => {
-    //     this.serviceProviders = serviceProviders;
-
         if (!this.data) {
           this.data = {} as AdminVm;
           this.dto = {} as AccountDashboardDto;
@@ -77,15 +72,15 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
             phoneNumber: ['', Validators.required],
             role: ['', Validators.required],
             username: ['', Validators.required],
-            // serviceProviderId: [''],
-            // branchId: [''],
-            // serviceId: [''],
-            // pin: [''],
+            serviceProviderId: [''],
+            branchId: [''],
+            serviceId: [''],
+            pin: [''],
             password: ['', Validators.required],
             confirmPassword: ['', Validators.required],
           });
 
-          // this.onValueChanges(0, Role.Admin);
+          this.onValueChanges(0, Role.Admin);
         } else {
           this._accountsClient
             .getUser(this.data.id)
@@ -104,9 +99,9 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
                 phoneNumber: [
                   this.dto.phoneNumber
                     ? this.dto.phoneNumber.replace(
-                        this.dto.phoneNumber,
-                        this.dto.phoneNumber.substring(4)
-                      )
+                      this.dto.phoneNumber,
+                      this.dto.phoneNumber.substring(4)
+                    )
                     : '',
                   Validators.required,
                 ],
@@ -114,95 +109,41 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
                   { value: this.dto.role || 0, disabled: true },
                   Validators.required
                 ),
-                // username: [this.dto.username],
-                // serviceProviderId: [this.dto.serviceProviderId],
-                // branchId: [this.dto.branchId],
-                // serviceId: [this.dto.serviceId],
-                // pin: [this.dto.pin],
+
               });
 
-              // this.onValueChanges(this.dto.serviceProviderId, this.dto.role);
             });
         }
-    //   });
   }
 
   ngOnDestroy(): void {
     this._dialogRef.close(this.data);
   }
 
-  // onValueChanges(defaultSpId: number, defaultRole: Role): void {
-  //   const roleOnValueChanges = (value: number) => {
-  //     const role = +value as Role;
-  //     const username = this.form.get('username');
-  //     const spId = this.form.get('serviceProviderId');
-  //     const branchId = this.form.get('branchId');
-  //     const serviceId = this.form.get('serviceId');
-  //     const pin = this.form.get('pin');
+  onValueChanges(defaultSpId: number, defaultRole: Role): void {
+    const roleOnValueChanges = (value: number) => {
+      const role = +value as Role;
+      const username = this.form.get('username');
 
-  //     if (role === Role.Admin) {
-  //       username.disable();
-  //       spId.disable();
-  //       branchId.disable();
-  //       serviceId.disable();
-  //       pin.disable();
-  //     } else if (role === Role.Partner) {
-  //       username.enable();
-  //       spId.enable();
-  //       branchId.enable();
-  //       serviceId.enable();
-  //       pin.enable();
-  //     } else {
-  //       if (role === Role.Resident) {
-  //         username.enable();
-  //         pin.enable();
-  //       } else {
-  //         username.disable();
-  //         pin.disable();
-  //       }
+      if (role === Role.Admin) {
+        username.disable();
+      } else if (role === Role.Partner) {
+        username.enable();
+      } else {
+        if (role === Role.Resident) {
+          username.enable();
+        } else {
+          username.disable();
+        }
+      }
+    };
 
-  //       spId.enable();
-  //       branchId.enable();
-  //       serviceId.disable();
-  //     }
-  //   };
 
-  //   const spIdOnValueChanges = (value: number) => {
-  //     // const spId = +value;
+    this.form.get('role').valueChanges.subscribe(roleOnValueChanges);
 
-  //     // const sp = this.serviceProviders.find((c) => c.id === spId);
-
-  //     // if (!sp) {
-  //     //   this.branches = [];
-  //     //   this.services = [];
-  //     //   return;
-  //     // }
-
-  //     // this.branches = sp.branches;
-  //     // this.services = sp.services;
-
-  //     const branchId = this.form.get('branchId');
-  //     const serviceId = this.form.get('serviceId');
-
-  //     // const branch = this.branches.find((c) => c.id === +branchId.value);
-
-  //     // if (branch) {
-  //     //   branchId.setValue(branch.id);
-  //     // }
-
-  //     // const service = this.services.find((c) => c.id === +serviceId.value);
-
-  //     // if (service) {
-  //     //   serviceId.setValue(service.id);
-  //     // }
-  //   };
-
-  //   this.form.get('role').valueChanges.subscribe(roleOnValueChanges);
-  //   this.form.get('serviceProviderId').valueChanges.subscribe(spIdOnValueChanges);
-
-  //   roleOnValueChanges(defaultRole);
-  //   spIdOnValueChanges(defaultSpId);
-  // }
+    roleOnValueChanges(defaultRole);
+   
+  }
 
   submit(): void {
     const value = this.form.value;
@@ -234,10 +175,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
           phoneNumber,
           role: +rawValue.role as Role,
           username: value.username,
-          // serviceProviderId: value.serviceProviderId ? +value.serviceProviderId : null,
-          // branchId: value.branchId ? +value.branchId : null,
-          // serviceId: value.serviceId ? +value.serviceId : null,
-          // pin: value.pin,
           password: rawValue.password,
           confirmPassword: rawValue.confirmPassword,
         })

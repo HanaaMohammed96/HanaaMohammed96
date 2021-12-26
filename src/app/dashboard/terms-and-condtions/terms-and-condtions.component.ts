@@ -65,9 +65,7 @@ export class TermsAndCondtionsComponent implements OnInit {
       )
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        () => {
-          this._handler.handleSuccess();
-        },
+        () => this._handler.handleSuccess(),
         (err) =>{           
           return this._handler.handleError(err).pushError()
         }

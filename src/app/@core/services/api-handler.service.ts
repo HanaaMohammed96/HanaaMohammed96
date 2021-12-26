@@ -65,9 +65,8 @@ export class ApiHandlerService {
     return this.createHttpResult('errors.general');
   }
   public handleSuccess():HttpResult {
-    this._translateService.get("Success").subscribe(d=>{
-      this._toastr.success(d)
-    })
+    this._toastr.success(this._translateService.instant('Success'));
+    
     return this.createHttpResult(null);
   }
 
