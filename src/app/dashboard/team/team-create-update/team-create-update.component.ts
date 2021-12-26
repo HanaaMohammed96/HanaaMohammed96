@@ -114,7 +114,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
 
             });
         }
-      alert(!this.data.id)
   }
 
   ngOnDestroy(): void {
