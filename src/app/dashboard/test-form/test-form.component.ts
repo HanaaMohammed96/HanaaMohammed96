@@ -4,6 +4,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSidenav } from '@angular/material/sidenav';
 import { DataField, value } from '@models/data-field';
+import { TranslateService } from '@ngx-translate/core';
 import { delay } from 'rxjs/operators';
 @Component({
   selector: 'app-test-form',
@@ -21,10 +22,12 @@ export class TestFormComponent implements OnInit {
     label:"",
     value:""
   };
+
+
   fieldModels:Array<DataField>=[
     {
       "type": "text",
-      "label": "Text",
+      "label": this.translateService.instant('formFields.text'),
       "icon":"text_format",
       "description": "Enter your name",
       "placeholder": "Enter your name",
@@ -35,31 +38,25 @@ export class TestFormComponent implements OnInit {
     {
       "type": "date",
       "icon":"today",
-      "label": "Date",
+      "label": this.translateService.instant('formFields.date'),
       "placeholder": "Date",
     },
     {
       "type": "datetime-local",
       "icon":"today",
-      "label": "DateTime",
+      "label": this.translateService.instant('formFields.dateTime'),
       "placeholder": "Date Time",
     },
     {
       "type": "textarea",
       "icon":"text_fields",
-      "label": "Textarea" 
-    },
-    {
-      "type": "paragraph",
-      "icon":"vertical_distribute",
-      "label": "Paragraph",
-      "placeholder": "Type your text to display here only" 
+      "label": this.translateService.instant('formFields.textarea') 
     },
     {
       "type": "checkbox",
       "icon":"fact_check",
       "required": true,
-      "label": "Checkbox",
+      "label": this.translateService.instant('formFields.checkBox'),
       "description": "Checkbox",
       "inline": true,
       "values": [
@@ -76,7 +73,7 @@ export class TestFormComponent implements OnInit {
     {
       "type": "radio",
       "icon":"radio_button_checked",
-      "label": "Radio",
+      "label": this.translateService.instant('formFields.radio'),
       "description": "Radio boxes",
       "values": [
         {
@@ -92,7 +89,7 @@ export class TestFormComponent implements OnInit {
     {
       "type": "autocomplete",
       "icon": "menu",
-      "label": "Select",
+      "label": this.translateService.instant('formFields.select'),
       "description": "Select",
       "placeholder": "Select",
       "values": [
@@ -113,23 +110,32 @@ export class TestFormComponent implements OnInit {
     {
       "type": "file",
       "icon": "upload_file",
-      "label": "File Upload",
+      "label": this.translateService.instant('formFields.fileUpload'),
       "subtype": "file"
     }
   ];
+
+
   modelFields:Array<DataField>=[];
   model:any = {
-    name:'Form Name',
-    description:'From Description...',
+    name:this.translateService.instant('model.name'),
+    description:this.translateService.instant('model.description'),
     attributes:this.modelFields
   };
+
+
   secondList:Array<DataField>=[]
+
+
   report = false;
   reports:any = [];
   shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
+
+
   constructor(
     private observer: BreakpointObserver,
-    public dialog:MatDialog
+    public dialog:MatDialog,
+    private translateService: TranslateService
     ) { }
 
   ngOnInit(): void {
@@ -139,8 +145,10 @@ export class TestFormComponent implements OnInit {
       .observe(['(max-width: 800px)'])
       .pipe(delay(1))
       .subscribe((res) => {
+        console.log(res)
+        console.log(this.sidenav)
         if (res.matches) {
-          this.sidenav.mode = 'over';
+          // this.sidenav.mode = 'push';
           this.sidenav.close();
         } else {
           this.sidenav.mode = 'side';
@@ -148,12 +156,15 @@ export class TestFormComponent implements OnInit {
         }
       });
   }
+
+
   drop(event: CdkDragDrop<string[]>) {
     // console.log(event)
     // console.log(event.isPointerOverContainer)
     // console.log(event.item.dropped)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      this.model.attributes = event.container.data as Array<DataField>
     } else {
       // transferArrayItem(
       //   event.previousContainer.data,
@@ -171,31 +182,49 @@ export class TestFormComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
+      this.model.attributes = event.container.data as Array<DataField>
     }
     if(!event.isPointerOverContainer){
       event.container.data.splice(event.previousIndex, 1)
     }
   }
+
+
   addValue(values){
+    console.log(values)
+    if(!values){
+      values = []
+    }
     values.push(this.value);
     this.value={label:"",value:""};
+    console.log(values)
+
   }
+
+
   removeField(i){    
     console.log(this.secondList)
     this.model.attributes.splice(i,1);
     this.secondList.splice(i,1);
   }
+
+
   initReport(){
+    console.log(this.model)
     this.report = true; 
+    this.reports = this.model.attributes
     let input = {
       id:this.model._id
     }
+    console.log("this.reports",this.reports)
   }
+
+
   onFileChanged(event) {
     const file = event.target.files[0]
     console.log(file)
   }
   openDialog(templateRef: TemplateRef<any>){
-this.dialog.open(templateRef);
+    this.dialog.open(templateRef);
   }
 }

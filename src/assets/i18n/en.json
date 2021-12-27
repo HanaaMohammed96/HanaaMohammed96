@@ -152,5 +152,36 @@
     "service": "Service",
     "resetPassword": "Reset Password"
   },
-  "Success":"Success"
+  "Success":"Success",
+  "formFields":{
+    "text": "Text",
+    "date":"Date",
+    "dateTime":"Date and Time",
+    "textarea":"Textarea",
+    "checkBox":"CheckBox",
+    "radio":"Radio",
+    "select":"Select",
+    "fileUpload":"Fileupload"
+  },
+  "model":{
+    "name":"Form Name",
+    "description":"From Description..."
+  },
+  "Select Field":"Select Field",
+  "Customize your form by drag and drop below fields to the form area.":"Customize your form by drag and drop below fields to the form area.",
+  "Drop Field Here":"Drop Field Here",
+  "Submit":"Submit",
+  "Label":"Label",
+  "placeholder":"placeholder",
+  "Type":"Type",
+  "text":"text",
+  "email":"email",
+  "number":"number",
+  "required":"required",
+  "not required":"not required",
+  "Min":"Min",
+  "Max":"Max",
+  "No":"No",
+  "Yes":"Yes",
+  "Back":"Back"
 }

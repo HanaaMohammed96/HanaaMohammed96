@@ -152,7 +152,39 @@
     "service": "الخدمة",
     "resetPassword": "تغير كلمة المرور"
   },
-  "Success":"تم الحفظ"
+  "Success":"تم الحفظ",
+  "formFields":{
+    "text": "إدخال نص",
+    "date":"التاريخ",
+    "dateTime":"التاريخ والوقت",
+    "textarea":"فقرة",
+    "checkBox":"خانة الاختيار",
+    "radio":"زر اختيار",
+    "select":"قائمة منسدلة",
+    "fileUpload":"تحميل ملف"
+  },
+  "model":{
+    "name":"اسم النموذج",
+    "description":"وصف النموذج"
+  },
+  "Select Field":"اختر حقل",
+  "Customize your form by drag and drop below fields to the form area.":"لإنشاء النموذج الخاص بك قم بسحب الحقل المخصص وإفلاته إلي منطقة إنشاء النموذج ",
+  "Drop Field Here":"إدرج الحقل هنا",
+  "Submit":"تم",
+  "Label":"اسم الحقل",
+  "placeholder":"توضيح",
+  "Type":"النوع",
+  "text":"نص",
+  "email":"بريد إلكتروني",
+  "number":"رقم",
+  "required":"مطلوب",
+  "not required":"غير مطلوب",
+  "Min":"أقل عدد",
+  "Max":"أكبر عدد",
+  "No":"غير موافق",
+  "Yes":"موافق",
+  "Back":"العودة"
+  
 }
 
   
