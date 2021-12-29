@@ -65,7 +65,7 @@ mat-sidenav-container {
 
 .font-in-dropped{
   font-size: 16px;
-  max-width: 201px !important;
+  width: 345px !important;
   margin-bottom: 10px;
 }
 .example-margin{
@@ -80,7 +80,7 @@ mat-sidenav-container {
   background: rgb(240, 240, 240);
   border-radius: 50px;  
   // box-shadow:0 15px 20px rgba(0, 0, 0, 0.1);
-  max-width: 201px;
+  max-width: 345px;
   outline: none;
 }
 ::-webkit-file-upload-button{

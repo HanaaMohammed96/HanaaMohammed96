@@ -50,7 +50,7 @@
 
               <mat-form-field
                 *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='autocomplete' && item.type!='file'"
-                cdkDrag >
+                cdkDrag  class="font-in-dropped">
                 <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
                 <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
               </mat-form-field>
@@ -236,7 +236,7 @@
             </div>
             <div *ngFor="let item of reports" fxLayout="column" fxLayoutAlign="space-evenly center">
               <div >
-                <mat-form-field
+                <mat-form-field class="font-in-dropped"
                   *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='autocomplete' && item.type!='file'" >
                   <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
                   <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
@@ -276,7 +276,7 @@
               </div>
             </div>
 
-            <button type="submit" mat-raised-button color="primary">{{"Submit" | translate}}</button>
+            <button type="submit" mat-raised-button color="primary" (click)="report=false">{{"Submit" | translate}}</button>
           </div>
           <!-- if no records found -->
           <div *ngIf="reports?.length == 0">
