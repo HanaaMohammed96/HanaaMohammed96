@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,iBAAiB,CAAC;EAChB,SAAS,EAAE,IAAI;EACf,SAAS,EAAE,GAAG;EACd,WAAW,EAAE,MAAM;EACnB,IAAI,EAAE,IAAI;EACV,KAAK,EAAE,IAAI;CACZ;;AAED,AAAA,WAAW,CAAC;EACV,KAAK,EAAE,IAAI;CACZ",
+    "sources": [
+        "aio-table.component.scss"
+    ],
+    "names": [],
+    "file": "aio-table.component.css"
+}

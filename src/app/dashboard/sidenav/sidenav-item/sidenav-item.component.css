@@ -1,0 +1,173 @@
+.item {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: var(--sidenav-item-color);
+  cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  min-height: 48px;
+  padding: var(--padding-8) var(--sidenav-item-padding);
+  position: relative;
+  text-decoration: none;
+  -webkit-transition: var(--trans-ease-out);
+  transition: var(--trans-ease-out);
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  width: 100%;
+  border-left: var(--sidenav-item-border);
+}
+
+.item:hover, .item.active {
+  background: var(--sidenav-item-background-active);
+  border-left-color: var(--sidenav-item-border-color-active);
+}
+
+.item:hover .item-icon, .item.active .item-icon {
+  color: var(--sidenav-item-icon-color-active);
+}
+
+.item:hover .item-label, .item.active .item-label {
+  color: var(--sidenav-item-color-active);
+}
+
+.item:hover .item-dropdown-icon, .item.active .item-dropdown-icon {
+  color: var(--sidenav-item-color-active);
+}
+
+.item.open .item-dropdown-icon {
+  -webkit-transform: rotate(90deg) !important;
+          transform: rotate(90deg) !important;
+}
+
+:host(.item-level-1) .item {
+  background: var(--sidenav-item-dropdown-background);
+  -webkit-padding-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 0));
+          padding-inline-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 0));
+}
+
+:host(.item-level-1) .item:hover {
+  background: var(--sidenav-item-dropdown-background-hover);
+}
+
+:host(.item-level-2) .item {
+  background: var(--sidenav-item-dropdown-background);
+  -webkit-padding-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 1));
+          padding-inline-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 1));
+}
+
+:host(.item-level-2) .item:hover {
+  background: var(--sidenav-item-dropdown-background-hover);
+}
+
+:host(.item-level-3) .item {
+  background: var(--sidenav-item-dropdown-background);
+  -webkit-padding-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 2));
+          padding-inline-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 2));
+}
+
+:host(.item-level-3) .item:hover {
+  background: var(--sidenav-item-dropdown-background-hover);
+}
+
+:host(.item-level-4) .item {
+  background: var(--sidenav-item-dropdown-background);
+  -webkit-padding-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 3));
+          padding-inline-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 3));
+}
+
+:host(.item-level-4) .item:hover {
+  background: var(--sidenav-item-dropdown-background-hover);
+}
+
+:host(.item-level-5) .item {
+  background: var(--sidenav-item-dropdown-background);
+  -webkit-padding-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 4));
+          padding-inline-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 4));
+}
+
+:host(.item-level-5) .item:hover {
+  background: var(--sidenav-item-dropdown-background-hover);
+}
+
+:host(.item-level-6) .item {
+  background: var(--sidenav-item-dropdown-background);
+  -webkit-padding-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 5));
+          padding-inline-start: calc( var(--sidenav-item-icon-size) + var(--sidenav-item-icon-gap) + var(--sidenav-item-padding) + (var(--sidenav-item-dropdown-gap) * 5));
+}
+
+:host(.item-level-6) .item:hover {
+  background: var(--sidenav-item-dropdown-background-hover);
+}
+
+.item-icon,
+.item-label,
+.item-dropdown-icon {
+  -webkit-transition: inherit;
+  transition: inherit;
+}
+
+.item-icon {
+  color: var(--sidenav-item-icon-color);
+  font-size: var(--sidenav-item-icon-size);
+  height: var(--sidenav-item-icon-size);
+  -webkit-margin-end: var(--sidenav-item-icon-gap);
+          margin-inline-end: var(--sidenav-item-icon-gap);
+  width: var(--sidenav-item-icon-size);
+}
+
+.item-label {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.item-badge {
+  border-radius: 9999px;
+  font-size: 11px;
+  line-height: 20px;
+  -webkit-margin-start: var(--padding-8);
+          margin-inline-start: var(--padding-8);
+  padding: 0 7px;
+  text-align: center;
+}
+
+.item-dropdown-icon {
+  color: var(--sidenav-item-icon-color);
+  font-size: 18px;
+  height: 18px;
+  line-height: 18px;
+  -webkit-margin-start: var(--padding-8);
+          margin-inline-start: var(--padding-8);
+  -webkit-transform: rotate(0deg) !important;
+          transform: rotate(0deg) !important;
+  width: 18px;
+}
+
+.item-dropdown {
+  overflow: hidden;
+}
+
+.subheading {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: var(--sidenav-item-color);
+  font: var(--font-caption);
+  margin-top: var(--padding);
+  padding: var(--padding-12) var(--padding);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/*# sourceMappingURL=sidenav-item.component.css.map */

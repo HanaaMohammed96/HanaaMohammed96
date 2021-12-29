@@ -1,0 +1,12 @@
+.content-overflow {
+  max-width: none;
+  min-width: 0px;
+  white-space: normal;
+  left: auto;
+  right: auto;
+}
+
+.column-url {
+  color: blue;
+}
+/*# sourceMappingURL=aio-table.component.css.map */

@@ -131,10 +131,12 @@ export class TestFormComponent implements OnInit {
   reports:any = [];
   shouldRun = /(^|.)(stackblitz|webcontainer).(io|com)$/.test(window.location.host);
 
-
+  openform = true;
+  closeForm = false
   constructor(
     private observer: BreakpointObserver,
     public dialog:MatDialog,
+    public formDialog:MatDialog,
     private translateService: TranslateService
     ) { }
 
@@ -148,7 +150,7 @@ export class TestFormComponent implements OnInit {
         console.log(res)
         console.log(this.sidenav)
         if (res.matches) {
-          // this.sidenav.mode = 'push';
+          // this.sidenav.mode = 'over';
           this.sidenav.close();
         } else {
           this.sidenav.mode = 'side';
@@ -164,7 +166,7 @@ export class TestFormComponent implements OnInit {
     // console.log(event.item.dropped)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      this.model.attributes = event.container.data as Array<DataField>
+      this.model.attributes = [...event.container.data ] as Array<DataField>
     } else {
       // transferArrayItem(
       //   event.previousContainer.data,
@@ -182,7 +184,7 @@ export class TestFormComponent implements OnInit {
         event.previousIndex,
         event.currentIndex
       );
-      this.model.attributes = event.container.data as Array<DataField>
+      this.model.attributes = [...event.container.data ] as Array<DataField>
     }
     if(!event.isPointerOverContainer){
       event.container.data.splice(event.previousIndex, 1)
@@ -202,10 +204,9 @@ export class TestFormComponent implements OnInit {
   }
 
 
-  removeField(i){    
-    console.log(this.secondList)
-    this.model.attributes.splice(i,1);
+  removeField(i){
     this.secondList.splice(i,1);
+    this.model.attributes.splice(i,1);
   }
 
 
@@ -224,7 +225,8 @@ export class TestFormComponent implements OnInit {
     const file = event.target.files[0]
     console.log(file)
   }
-  openDialog(templateRef: TemplateRef<any>){
+  openDialog(templateRef: TemplateRef<any>,openStaus:boolean){
+    this.openform = openStaus
     this.dialog.open(templateRef);
   }
 }

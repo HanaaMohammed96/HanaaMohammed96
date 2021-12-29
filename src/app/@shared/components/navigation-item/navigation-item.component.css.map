@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,gBAAgB,CAAC;EACf,MAAM,CAAN,4FAAM;EACN,iBAAiB,EAAE,gBAAgB;EACnC,UAAU,EAAE,qBAAqB;CAClC;;AAED,AAAA,iBAAiB,CAAC;EAChB,KAAK,EAAE,uBAAuB;CAC/B;;AAED,AAAA,qBAAqB,CAAC;EACpB,UAAU,EAAE,qBAAqB;CASlC;;AAVD,AAGE,qBAHmB,AAGlB,MAAM,CAAC;EACN,MAAM,CAAN,YAAM;CAKP;;AATH,AAMI,qBANiB,AAGlB,MAAM,CAGL,SAAS,CAAC;EACR,MAAM,CAAN,YAAM;CACP",
+    "sources": [
+        "navigation-item.component.scss"
+    ],
+    "names": [],
+    "file": "navigation-item.component.css"
+}

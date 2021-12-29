@@ -1,0 +1,73 @@
+.sidenav {
+  color: var(--sidenav-color);
+  height: 100%;
+  -webkit-transition: var(--trans-ease-out);
+  transition: var(--trans-ease-out);
+  width: var(--sidenav-width);
+}
+
+.sidenav.collapsed {
+  width: var(--sidenav-collapsed-width);
+}
+
+.sidenav.collapsed:not(.open) .sidenav-toolbar .title {
+  opacity: 0;
+  -webkit-padding-start: var(--sidenav-item-padding);
+          padding-inline-start: var(--sidenav-item-padding);
+}
+
+.sidenav.collapsed:not(.open) ::ng-deep .sidenav-items .item-icon {
+  -webkit-margin-end: var(--sidenav-item-padding);
+          margin-inline-end: var(--sidenav-item-padding);
+}
+
+.sidenav.collapsed:not(.open) ::ng-deep .sidenav-items .subheading,
+.sidenav.collapsed:not(.open) ::ng-deep .sidenav-items .item-badge,
+.sidenav.collapsed:not(.open) ::ng-deep .sidenav-items .item-label {
+  opacity: 0;
+}
+
+.sidenav.collapsed:not(.open) ::ng-deep .simplebar-track.simplebar-vertical {
+  visibility: hidden !important;
+}
+
+.sidenav.collapsed ::ng-deep .subheading,
+.sidenav.collapsed ::ng-deep .item-badge,
+.sidenav.collapsed ::ng-deep .item-label {
+  -webkit-transition: all 200ms var(--trans-ease-out-timing-function);
+  transition: all 200ms var(--trans-ease-out-timing-function);
+}
+
+.sidenav.collapsed.open {
+  width: var(--sidenav-width);
+}
+
+.sidenav-toolbar {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: var(--sidenav-toolbar-background);
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  height: var(--toolbar-height);
+  padding: 0 var(--padding);
+  white-space: nowrap;
+  width: 100%;
+}
+
+.sidenav-toolbar .title {
+  -webkit-transition: padding var(--trans-ease-out-duration) var(--trans-ease-out-timing-function), opacity var(--trans-ease-out-duration) var(--trans-ease-out-timing-function);
+  transition: padding var(--trans-ease-out-duration) var(--trans-ease-out-timing-function), opacity var(--trans-ease-out-duration) var(--trans-ease-out-timing-function);
+}
+
+.sidenav-items {
+  padding-top: var(--padding);
+}
+/*# sourceMappingURL=sidenav.component.css.map */

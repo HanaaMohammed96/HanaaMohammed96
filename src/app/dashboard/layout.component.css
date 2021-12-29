@@ -1,0 +1,116 @@
+.page-container {
+  bottom: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.sidenav {
+  background: var(--sidenav-background);
+}
+
+.sidenav ::ng-deep .mat-drawer-inner-container {
+  overflow: hidden;
+}
+
+.content {
+  background: var(--background-base);
+  min-height: calc(100% - var(--toolbar-height) - var(--navigation-height));
+  position: relative;
+  width: 100%;
+}
+
+.has-footer .content {
+  min-height: calc( 100% - var(--toolbar-height) - var(--navigation-height) - var(--footer-height));
+}
+
+.scroll-disabled {
+  overflow: hidden;
+}
+
+.scroll-disabled .content {
+  height: calc(100% - var(--toolbar-height) - var(--navigation-height));
+  min-height: unset;
+  overflow: hidden;
+}
+
+.scroll-disabled.has-fixed-footer .content,
+.scroll-disabled.has-footer .content {
+  height: calc( 100% - var(--toolbar-height) - var(--navigation-height) - var(--footer-height));
+  min-height: unset;
+}
+
+.is-mobile ::ng-deep .app-toolbar {
+  position: fixed;
+  width: 100%;
+}
+
+.is-mobile .content {
+  margin-top: var(--toolbar-height);
+}
+
+.sidenav-container {
+  background: var(--background-base);
+  height: 100%;
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: -webkit-transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), -webkit-transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+}
+
+.sidenav-content {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.with-search {
+  overflow: hidden;
+  position: fixed;
+}
+
+.with-search .sidenav-container {
+  pointer-events: none;
+  -webkit-transform: perspective(1000px) translate3d(0, 50vh, 0) rotate3d(1, 0, 0, 30deg);
+          transform: perspective(1000px) translate3d(0, 50vh, 0) rotate3d(1, 0, 0, 30deg);
+  -webkit-transform-origin: 50vw 50vh;
+          transform-origin: 50vw 50vh;
+  -webkit-transition: -webkit-transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: -webkit-transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  transition: transform 0.5s cubic-bezier(0.2, 1, 0.3, 1), -webkit-transform 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+  @apply rounded shadow-2xl overflow-visible;
+}
+
+.toolbar-fixed ::ng-deep .app-toolbar {
+  position: fixed;
+  width: var(--toolbar-width);
+  z-index: 50;
+}
+
+.toolbar-fixed .content {
+  margin-top: calc(var(--toolbar-height) + var(--navigation-height));
+}
+
+.has-fixed-footer ::ng-deep .app-footer {
+  -webkit-box-shadow: var(--footer-elevation);
+          box-shadow: var(--footer-elevation);
+  position: fixed;
+}
+
+.has-fixed-footer .content {
+  margin-bottom: var(--footer-height);
+  min-height: calc( 100% - var(--toolbar-height) - var(--navigation-height) - var(--footer-height));
+}
+
+.has-fixed-footer.scroll-disabled .content {
+  height: calc( 100% - var(--toolbar-height) - var(--navigation-height) - var(--footer-height));
+}
+/*# sourceMappingURL=layout.component.css.map */

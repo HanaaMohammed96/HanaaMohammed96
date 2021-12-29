@@ -1,0 +1,8 @@
+.button.active {
+  background: var(--background-hover);
+}
+
+.button .mat-icon {
+  color: var(--toolbar-icon-color);
+}
+/*# sourceMappingURL=toolbar-notifications.component.css.map */
