@@ -35,11 +35,11 @@
 
 
   <mat-sidenav-content fullscreen>
-    <div class="content  mb-8" fxLayout="column" fxLayoutAlign="center center">
+    <div class="content  mb-8" fxLayout="column" fxLayoutAlign="center center" >
 
-      <div [class.hidden]="report">
+      <div [class.hidden]="report" >
         <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
-          [cdkDropListData]="secondList" cdkDrag
+          [cdkDropListData]="secondList" cdkDrag cdkDragBoundary=".content"
           style="padding:20px; border:2px solid #ccc;box-shadow:0 15px 20px rgba(0, 0, 0, 0.1);border-radius:10px; min-width:500px; color:rgb(0, 0, 0);"
           fxLayout="column" fxLayoutAlign="space-evenly center" >
 
