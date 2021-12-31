@@ -30,6 +30,9 @@ import { TeamCreateUpdateComponent } from './team/team-create-update/team-create
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
 import { TestFormComponent } from './test-form/test-form.component';
+import { PartnersComponent } from './partners/partners.component';
+import { PartnerCreateUpdateComponent } from './partners/partner-create-update/partner-create-update.component';
+import { FormEditorComponent } from './form/form-editor/form-editor.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { TestFormComponent } from './test-form/test-form.component';
     PrivacyPolicyComponent,
     AccountsComponent,
     TermsAndCondtionsComponent,
-    TestFormComponent
+    TestFormComponent,
+    PartnersComponent,
+    PartnerCreateUpdateComponent,
+    FormEditorComponent
   ],
   imports: [
     CommonModule,

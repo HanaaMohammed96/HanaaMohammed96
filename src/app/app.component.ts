@@ -58,13 +58,25 @@ export class AppComponent implements OnInit {
       {
         type: 'link',
         label: await this.translate('navigations.team'),
-        route: '/team',
+        route: '/admins',
+        icon: icTeam,
+      } as NavigationLink,
+      {
+        type: 'link',
+        label: await this.translate('navigations.partner'),
+        route: '/partners',
         icon: icTeam,
       } as NavigationLink,
       {
         type: 'link',
         label: await this.translate('navigations.form'),
         route: '/form',
+        icon: icTeam,
+      } as NavigationLink,
+      {
+        type: 'link',
+        label: await this.translate('navigations.form'),
+        route: '/form-editor',
         icon: icTeam,
       } as NavigationLink,
       {

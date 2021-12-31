@@ -1,8 +1,6 @@
-import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { FilterControl } from '@core/interfaces/filter-control.interface';
-import { TeamCreateUpdateComponent } from './team-create-update/team-create-update.component';
 import { SelectionAction } from '@core/interfaces/selection-action';
 import { TableColumn } from '@core/interfaces/table-column.interface';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,52 +14,51 @@ import {
 } from '@core/api';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ResetPasswordComponent } from '../team/reset-password/reset-password.component';
+import { PartnerCreateUpdateComponent } from './partner-create-update/partner-create-update.component';
 
 @Component({
-  selector: 'app-team',
+  selector: 'app-partners',
   template: `<app-aio-table
     #table
     [ref]="this"
-    [title]="'team.title_admin' | translate"
-    [description]="'team.description_admin' | translate"
+    [title]="'team.title_partner' | translate"
+    [description]="'team.description_partner' | translate"
     [tableName]="'team.tableName' | translate"
     [tableNamePlural]="'team.tableNamePlural' | translate"
     [client]="accountsClient"
-    [createUpdateComponent]="component"    
+    [createUpdateComponent]="component"
     [columns]="columns"
     [actions]="actions"
     [dataObserable]="'getData'"
   ></app-aio-table>`,
 })
-export class TeamComponent implements OnInit {
+export class PartnersComponent implements OnInit {
   @ViewChild('table', { static: false }) table: AioTableComponent<AdminVm>;
 
   form: FormGroup;
 
-  component = TeamCreateUpdateComponent;
+  component = PartnerCreateUpdateComponent;
 
   columns: TableColumn<AdminVm>[] = [];
   actions: SelectionAction[] = [];
 
   localized = { ban: null, cancel: null };
-
   constructor(
     public accountsClient: AccountsClient,
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _translateService: TranslateService,
-    private activatedRoute: ActivatedRoute
-  ) {
+  ) { 
     this.form = this._fb.group({
       serviceProviderId: [''],
     });
   }
 
   async ngOnInit(): Promise<any> {
-    
     const roles = {
       Admin: { name: await this.translate('team.roles.admin'), color: 'bg-green' },
+      Partner: { name: await this.translate('team.roles.partner'), color: 'bg-teal' },
       ServiceProvider: {
         name: await this.translate('team.roles.serviceProvider'),
         color: 'bg-orange',
@@ -83,6 +80,7 @@ export class TeamComponent implements OnInit {
         color: 'bg-red',
       },
     };
+    
 
     this.columns = [
       {
@@ -165,7 +163,6 @@ export class TeamComponent implements OnInit {
       },
     ];
   }
-
   getData(pagingOptions: PagingOptions): Observable<PaginatedListOfAdminVm> {
     
     const spId = +this.form.get('serviceProviderId').value;
@@ -189,4 +186,5 @@ export class TeamComponent implements OnInit {
   private translate(key: string): Promise<string> {
     return this._translateService.get(key).toPromise();
   }
+
 }

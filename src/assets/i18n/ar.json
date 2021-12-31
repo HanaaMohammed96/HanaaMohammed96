@@ -58,6 +58,7 @@
     "transactions": "المعاملات المالية",
     "users": "المستخدمين",
     "team": "المشرفين",
+    "partner": "الشركاء",
     "governorates": "المحافظات",
     "districts": "المناطق",
     "privacy_policy": "سياسة الخصوصية",
@@ -123,8 +124,10 @@
     "guides": "الارشادات"
   },
   "team": {
-    "title": "جدول مشرفي ",
-    "description": "هذا الجدول يحتوي على كل حسابات المشرفين",
+    "title_admin": "جدول مشرفي ",
+    "title_partner": "جدول الشركاء ",
+    "description_admin": "هذا الجدول يحتوي على كل حسابات المشرفين",
+    "description_partner": "هذا الجدول يحتوي على كل حسابات الشركاء",
     "tableName": "عضو إداري",
     "tableNamePlural": "الفريق الإداري",
     "email": "البريد الإلكتروني",
@@ -141,6 +144,7 @@
     "status": "الحالة",
     "roles": {
       "admin": "مشرف",
+      "partner": "شريك",
       "serviceProvider": "مقدم خدمة",
       "branch": "فرع",
       "service": "خدمة",

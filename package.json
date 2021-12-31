@@ -3,7 +3,7 @@
   "version": "11.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4400",
+    "start": "ng serve -o --port 4200",
     "build": "node --max_old_space_size=6144 ./node_modules/@angular/cli/bin/ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
@@ -47,6 +47,7 @@
     "rxjs": "^6.6.7",
     "showdown": "~1.9.1",
     "simplebar": "~5.3.0",
+    "sweetalert": "^2.1.2",
     "tailwindcss": "~1.9.6",
     "tslib": "~2.0.3",
     "zone.js": "~0.10.3"

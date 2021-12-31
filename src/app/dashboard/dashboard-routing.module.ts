@@ -10,6 +10,8 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { TeamComponent } from './team/team.component';
 import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
 import { TestFormComponent } from './test-form/test-form.component';
+import { PartnersComponent } from './partners/partners.component';
+import { FormEditorComponent } from './form/form-editor/form-editor.component';
 
 const routes: Routes = [
   {
@@ -21,8 +23,10 @@ const routes: Routes = [
       { path: '404', component: NotFoundComponent },
       { path: '500', component: InternalServerErrorComponent },
       { path: 'users', component: AccountsComponent },
-      { path: 'team', component: TeamComponent },
+      { path: 'admins', component: TeamComponent },
+      { path: 'partners', component: PartnersComponent },
       { path: 'form', component: TestFormComponent },
+      { path: 'form-editor', component: FormEditorComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: '**', component: NotFoundComponent },

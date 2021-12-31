@@ -57,7 +57,8 @@
     "queues": "Queues",
     "transactions": "Transactions",
     "users": "Users",
-    "team": "Team",
+    "team": "Admins",
+    "partner": "Partners",
     "governorates": "Governorates",
     "districts": "Districts",
     "privacy_policy": "Privacy Policy",
@@ -70,7 +71,7 @@
     "form": "Create Form"
   },
   "account": {
-    "login_title": "Welcome to Qme!",
+    "login_title": "Welcome to Work Cycle Portal!",
     "login_description": "Sign in with your credentials below.",
     "toggle": "Toggle Visibility",
     "email": "E-mail",
@@ -123,8 +124,10 @@
     "guides": "Guides"
   },
   "team": {
-    "title": "Qme Admins Table",
-    "description": "This list includes all admins accounts",
+    "title_admin": "Work Cycle Portal Admins Table",
+    "title_partner": "Work Cycle Portal Partners Table",
+    "description_admin": "This list includes all admins accounts",
+    "description_partner": "This list includes all partners accounts",
     "tableName": "Admin Member",
     "tableNamePlural": "Admins Team",
     "email": "Email",
@@ -141,6 +144,7 @@
     "status": "Status",
     "roles": {
       "admin": "Admin",
+      "partner": "partner",
       "serviceProvider": "Service Provider",
       "branch": "Branch",
       "service": "Service",

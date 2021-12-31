@@ -1,0 +1,317 @@
+<div class="container p-4 mx-auto">
+  <div class="grid grid-cols-4 gap-4">
+    <!--dropzone-->
+    <div class="col-span-3">
+      <div class="content  mb-8" fxLayout="column" fxLayoutAlign="center center">
+        <mat-icon color="accent" class="w-8" (click)="formDetails()" [class.hidden]="report">edit_note</mat-icon>
+        <div [class.hidden]="report">
+          <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]"
+            (cdkDropListDropped)="drop($event)" [cdkDropListData]="secondList" cdkDrag cdkDragBoundary=".content"
+            fxLayout="column" fxLayoutAlign="space-evenly center"
+            class=" p-6 border-dashed border-4 border-blue-600 min-w-[50%] text-black">
+
+            <h4 *ngIf="!secondList.length" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
+
+            <div *ngFor="let item of model.attributes" fxLayout="column" fxLayoutAlign="space-evenly center">
+              <div fxLayout="row" fxLayoutAlign="space-evenly center">
+
+                <mat-form-field
+                  *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='autocomplete' && item.type!='file' && item.type!='textarea'"
+                  cdkDrag class="font-in-dropped">
+                  <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
+                  <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
+                </mat-form-field>
+
+                <div *ngIf="item.type=='textarea'" cdkDrag >
+                  <div >
+                    <mat-form-field  class="font-in-dropped">
+                      <mat-label>{{item.label}}</mat-label>
+                      <textarea matInput placeholder="{{item.placeholder}}"></textarea>
+                    </mat-form-field>
+                  </div>
+                  
+                </div>
+                <div *ngIf="item.type=='checkbox'" cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
+                  <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+                    <mat-label>{{item.label}}</mat-label>
+                  </div>
+                  <div class="flex flex-column flex-wrap">
+                    <div *ngFor="let i of item.values">
+                      <mat-checkbox class="px-3">
+                        <span class="whitespace-normal">
+                          {{i.label}}
+                        </span>
+                      </mat-checkbox>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="item.type=='radio'" cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
+                  <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+                    <mat-label>{{item.label}}</mat-label>
+                  </div>
+                  <div class="flex flex-column flex-wrap">
+                    <mat-radio-group aria-label="Select an option" *ngFor="let i of item.values">
+                      <mat-radio-button value="{{i.value}}" class="px-3">
+                        <span class="whitespace-normal">
+                          {{i.label}}
+                        </span>
+                      </mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div *ngIf="item.type=='file'" cdkDrag class="font-in-dropped ">
+                  <input type="file" (change)="onFileChanged($event)" multiple class="upload-box mb-4" />
+                </div>
+                <div *ngIf="item.type=='autocomplete'" cdkDrag>
+                  <mat-form-field appearance="fill" class="font-in-dropped ">
+                    <mat-label>Select</mat-label>
+                    <mat-select>
+                      <mat-option *ngFor="let i of item.values" value="{{i.value}}">
+                        {{i.label}}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+
+
+
+                <mat-icon (click)="openDialog(myDialog,item)" color="primary">
+                  expand_more
+                </mat-icon>
+
+                <mat-icon (click)="removeField(item)" color="accent">
+                  delete
+                </mat-icon>
+              </div>
+
+              <ng-template #myDialog class="text-white overflow-hidden p-4">
+                <div >
+                  <div  fxLayout="row" fxLayoutAlign="space-evenly center"  >
+                    <mat-icon color="warn" class='w-14'>add_task</mat-icon>
+                    <h3 class="whitespace-normal w-3/6" >
+                      {{item.label}}
+                    </h3>
+                  </div>
+                  <mat-dialog-actions>
+                    <div fxLayout="column" fxLayoutAlign="space-evenly center">
+                      
+                      <div fxLayout="row" fxLayoutAlign="space-between center">
+                        <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                          <div fxLayout="column" fxLayoutAlign="space-evenly center" class="field">
+
+                            <mat-form-field *ngIf="item.type =='checkbox'" >
+                              <mat-label>{{"Label" | translate}}</mat-label>
+                              <input type="text" [(ngModel)]="item.label" matInput  max="200" />
+                            </mat-form-field>
+
+                            <mat-form-field *ngIf="item.type !='checkbox'" >
+                              <mat-label>{{"Label" | translate}}</mat-label>
+                              <input type="text" [(ngModel)]="item.label" matInput   />
+                            </mat-form-field>
+
+                            <mat-form-field>
+                              <mat-label>{{"placeholder" |translate}}</mat-label>
+                              <input type="text" [(ngModel)]="item.placeholder" matInput />
+                            </mat-form-field>
+
+                            <mat-form-field appearance="fill">
+                              <mat-label>{{"Type" | translate}}</mat-label>
+                              <mat-select [(ngModel)]="item.type">
+                                <mat-option value="text">{{"text" |translate}}</mat-option>
+                                <mat-option value="email">{{"email" |translate}}</mat-option>
+                                <mat-option value="number">{{"number" | translate}}</mat-option>
+                                <mat-option value="number">{{"result" | translate}}</mat-option>
+                              </mat-select>
+                            </mat-form-field>
+
+                            <mat-form-field *ngIf="item.type!='file'">
+                              <mat-label>Regex</mat-label>
+                              <input type="text" [(ngModel)]="item.regex" matInput />
+                            </mat-form-field>
+
+                          </div>
+
+                          <!-- number -->
+                          <div *ngIf="item.type=='number' || item.type=='text'" fxLayout="column"
+                            fxLayoutAlign="space-evenly center">
+
+                            <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;">
+                              <span *ngIf="item.required">{{"required" | translate}}</span>
+                              <mat-icon *ngIf="item.required" (click)="item.required=false" color="warn">toggle_on
+                              </mat-icon>
+                              <span *ngIf="!item.required"> {{"not required"| translate}}</span>
+                              <mat-icon *ngIf="!item.required" (click)="item.required=true">toggle_off</mat-icon>
+                            </div>
+
+                            <mat-form-field>
+                              <mat-label>{{"Min" |translate}}</mat-label>
+                              <input type="text" [(ngModel)]="item.min" matInput />
+                            </mat-form-field>
+
+                            <mat-form-field>
+                              <mat-label>{{"Max" | translate}}</mat-label>
+                              <input type="text" [(ngModel)]="item.max" matInput />
+                            </mat-form-field>
+
+                          </div>
+                        </div>
+                        <!-- radio || checkbox || autocomplete -->
+                        <div class="field"
+                          *ngIf="item.type=='radio'|| item.type=='checkbox' || item.type=='autocomplete'"
+                          fxLayout="column" fxLayoutAlign="space-evenly center">
+                          <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;">
+
+                            <span *ngIf="item.required">{{"required" | translate}}</span>
+                            <mat-icon *ngIf="item.required" (click)="item.required=false" color="warn">toggle_on
+                            </mat-icon>
+                            <span *ngIf="!item.required"> {{"not required"| translate}}</span>
+                            <mat-icon *ngIf="!item.required" (click)="item.required=true">toggle_off</mat-icon>
+                          </div>
+
+                          <div *ngFor="let i of item.values; let valueIndex=index;">
+                            <div>
+                              <mat-form-field>
+                                <input type="text" [(ngModel)]="i.label" matInput />
+                              </mat-form-field>
+                              <mat-icon (click)="item.values.splice(valueIndex,1)" mat-fab color="primary">delete
+                              </mat-icon>
+                            </div>
+
+                          </div>
+                          <div>
+                            <div>
+                              <mat-form-field>
+                                <input type="text" [(ngModel)]="value.label" matInput />
+                              </mat-form-field>
+                              <mat-icon (click)="addValue(item.values)" mat-fab color="primary">control_point</mat-icon>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                        <button mat-button matDialogClose="yes" mat-raised-button color="primary">{{"Yes" |
+                          translate}}</button>
+                        <button mat-button matDialogClose="no" mat-raised-button color="primary">{{"No" |
+                          translate}}</button>
+                      </div>
+                    </div>
+                  </mat-dialog-actions>
+                </div>
+              </ng-template>
+            </div>
+
+            <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |
+              translate}}</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="report" class=" text-black">
+      <div>
+        <button (click)="report=false">
+          <mat-icon color="warn">undo</mat-icon>
+        </button>
+      </div>
+      <div>
+        <!-- if records found -->
+        <div *ngIf="reports?.length > 0" class="p-8 rounded shadow bg-white" style="border:2px solid #ccc;">
+          <div>
+            <h3 class="text-center m-6 ">{{model.name}}</h3>
+            <p class="text-center m-6">{{model.description}}</p>
+          </div>
+          <div *ngFor="let item of reports" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div>
+              <mat-form-field class="font-in-dropped "
+                *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='autocomplete' && item.type!='file' && item.type!='textarea'" >
+                <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
+                <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
+              </mat-form-field>
+              <div *ngIf="item.type=='textarea'" cdkDrag >
+                <div >
+                  <mat-form-field  class="font-in-dropped">
+                    <mat-label>{{item.label}}</mat-label>
+                    <textarea matInput placeholder="{{item.placeholder}}"></textarea>
+                  </mat-form-field>
+                </div>
+                
+              </div>
+              <div *ngIf="item.type=='checkbox'" class="font-in-dropped  flex flex-row flex-nowrap">
+                <div style="padding: 0px 6px ;text-center;max-width: 90px;overflow-wrap: break-word">
+                  <mat-label>{{item.label}}</mat-label>
+                </div>
+                <div class="flex flex-column flex-wrap">
+                  <div *ngFor="let i of item.values">
+                    <mat-checkbox class="px-3">
+                      <span class="whitespace-normal">
+                        {{i.label}}
+                      </span>
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="item.type=='radio'" class="font-in-dropped  flex flex-row flex-nowrap">
+                <div style="padding: 0px 6px ;text-center;max-width: 90px;overflow-wrap: break-word">
+                  <mat-label>{{item.label}}</mat-label>
+                </div>
+                <div class="flex flex-column flex-wrap">
+                  <mat-radio-group aria-label="Select an option" *ngFor="let i of item.values">
+                    <mat-radio-button value="{{i.value}}" class="px-3">
+                      <span class="whitespace-normal">
+                        {{i.label}}
+                      </span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+              <div *ngIf="item.type=='file'" class="font-in-dropped">
+                <input type="file" (change)="onFileChanged($event)" mat-raised-button />
+              </div>
+              <div *ngIf="item.type=='autocomplete'">
+                <mat-form-field appearance="fill" class="font-in-dropped ">
+                  <mat-label>Select</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let i of item.values" value="{{i.value}}">
+                      {{i.label}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" mat-raised-button color="primary" (click)="report=false">{{"Submit" |
+            translate}}</button>
+        </div>
+        <!-- if no records found -->
+        <div *ngIf="reports?.length == 0">
+          No response found
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="col mat-elevation-z8 p-4 editor" cdkDropList #formFields="cdkDropList"
+      (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
+      position="end" [class.hidden]="report">
+
+      <div class="text-center ">
+        <h4>{{"Select Field" | translate}}</h4>
+        <p>{{"Customize your form by drag and drop below fields to the form area." | translate}}</p>
+      </div>
+
+      <div *ngFor="let i of fieldModels">
+        <mat-grid-list cols="4" cdkDrag class="form-Prop">
+          <mat-grid-tile class="fields" colspan="1">
+            <mat-icon>{{i.icon}}</mat-icon>
+          </mat-grid-tile>
+          <mat-grid-tile colspan="3"><span>{{i.label}}</span></mat-grid-tile>
+        </mat-grid-list>
+      </div>
+
+    </div>
+  </div>
+
+</div>
