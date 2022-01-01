@@ -1,10 +1,11 @@
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit, TemplateRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { ChangeFormDetailsService } from '@core/services/change-form-details.service';
 import { DataField, value } from '@models/data-field';
 import { TranslateService } from '@ngx-translate/core';
 import {cloneDeep} from 'lodash'; 
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 
 @Component({
   selector: 'app-form-editor',
@@ -122,7 +123,8 @@ export class FormEditorComponent implements OnInit {
 
   constructor(
     public dialog:MatDialog,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private formDetailesModel:ChangeFormDetailsService
   ) { }
 
   ngOnInit(): void {
@@ -160,19 +162,15 @@ export class FormEditorComponent implements OnInit {
   
 
   removeField(i){
-    swal({
-      title: "",
-      text: "Are you sure to delete this field?",
-      icon: "warning",
-      dangerMode: true,
-    })
-    .then(willDelete => {
-      if (willDelete) {
-        this.secondList.splice(i,1);
-        this.model.attributes.splice(i,1);
-      }
-    });
-    
+      this.formDetailesModel.openConfirmDialog("Are you sure to delete this field ?")
+      .afterClosed().subscribe(data=>{
+        if(data){
+          this.secondList.splice(i,1);
+          this.model.attributes.splice(i,1);
+        }else{
+          return;
+        }
+      })    
   }
 
 
@@ -183,54 +181,23 @@ export class FormEditorComponent implements OnInit {
     let input = {
       id:this.model._id
     }
-    console.log("this.reports",this.reports)
   }
 
 
   onFileChanged(event) {
     const file = event.target.files[0]
   }
-  openDialog(templateRef: TemplateRef<any>, item:any){
-    console.log(item)
-    console.log(this.model)
+  openDialog(templateRef: TemplateRef<any>){
     this.dialog.open(templateRef);
   }
 
   formDetails(){
-    
-    swal({
-      text: 'Form name..',
-      content: {
-        element: "input",
-        attributes:{
-          name : "formName",
-          type: "text"
-        }
-      },
-    })
-    .then(name => {
-      if (!name) throw null;
-      this.model.name = name
-    }).then(res => {
-      swal({
-        text: 'Form description..',
-        content: {
-          element: "input",
-          attributes:{
-            name : "formdesc",
-            type: "text"
-          }
-        },
-      }).then(desc => {
-        if (!desc) throw null;
-        this.model.description = desc
-      })
-    }).catch(err => {
-      if (err) {
-        swal("Oh noes!", "The AJAX request failed!", "error");
-      } else {
-        swal.stopLoading();
-        swal.close();
+    this.formDetailesModel.openDialog().subscribe(data =>{      
+      if(data){
+        this.model.name = data.name
+        this.model.description = data.description
+      }else{
+        return;
       }
     });
   }

@@ -33,6 +33,8 @@ import { TestFormComponent } from './test-form/test-form.component';
 import { PartnersComponent } from './partners/partners.component';
 import { PartnerCreateUpdateComponent } from './partners/partner-create-update/partner-create-update.component';
 import { FormEditorComponent } from './form/form-editor/form-editor.component';
+import { FormDetailesComponent } from './form/form-detailes/form-detailes.component';
+import { ConfirmDialogComponent } from './form/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { FormEditorComponent } from './form/form-editor/form-editor.component';
     TestFormComponent,
     PartnersComponent,
     PartnerCreateUpdateComponent,
-    FormEditorComponent
+    FormEditorComponent,
+    FormDetailesComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     CommonModule,
