@@ -193,12 +193,10 @@ export class FormEditorComponent implements OnInit {
     this.currentItem = {...item}
     let dialogRef = this.dialog.open(templateRef,{
       data: item
-   })
-   dialogRef
-         .afterClosed()
-         .subscribe((result => {
-            
-         }))
+    })
+    dialogRef.afterClosed().subscribe((result => {
+      
+    }))
   }
 
   formDetails(){
