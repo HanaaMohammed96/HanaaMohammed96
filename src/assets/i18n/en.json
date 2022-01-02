@@ -165,7 +165,11 @@
     "checkBox":"CheckBox",
     "radio":"Radio",
     "select":"Select",
-    "fileUpload":"Fileupload"
+    "fileUpload":"Fileupload",
+    "delete":"Are you sure to delete this field ?",
+    "Option1":"Option 1",
+    "Option2":"Option 2",
+    "Option3":"Option 3"
   },
   "model":{
     "name":"Form Name",
@@ -187,5 +191,9 @@
   "Max":"Max",
   "No":"No",
   "Yes":"Yes",
-  "Back":"Back"
+  "Back":"Back",
+  "Form Detailes":"Form Detailes",
+  "Form Name":"Form Name",
+  "Form Description":"Form Description",
+  "No response found":"No response found"
 }

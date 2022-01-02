@@ -9,19 +9,30 @@ export interface DialogData {
   template:`
   <div class="p-4">
       <h3 color="primary" fxLayout="row" fxLayoutAlign="space-evenly center">
-      Form Detailes
+      {{"Form Detailes" | translate}}
     </h3>
     <mat-dialog-actions>
       <div fxLayout="column" fxLayoutAlign="start center">
-        <mat-form-field fxFlex="grow" appearance="outline">
-        <mat-label>{{"Form Name" | translate}}</mat-label>
-          <input matInput type="text" [(ngModel)]="data.name" />
-        </mat-form-field>
-
-        <mat-form-field fxFlex="grow" appearance="outline">
+      <div class="flex flex-row justify-evenly">
+      <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
+      <mat-label>{{"Form Name" | translate}}</mat-label>
+        <input matInput type="text" [(ngModel)]="data.name" />
+      </mat-form-field>
+      <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
+      <mat-label>{{"arName" | translate}}</mat-label>
+        <input matInput type="text" [(ngModel)]="data.name" />
+      </mat-form-field>
+      </div>
+      <div class="flex flex-row justify-evenly">
+        <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
         <mat-label>{{"Form Description" | translate}}</mat-label>
           <input matInput type="text" [(ngModel)]="data.description" />
         </mat-form-field>
+        <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
+        <mat-label>{{"arDescription" | translate}}</mat-label>
+          <input matInput type="text" [(ngModel)]="data.description" />
+        </mat-form-field>
+      </div>
       </div>
     </mat-dialog-actions>
     <div class="flex flex-row justify-evenly p-4">

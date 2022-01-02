@@ -13,7 +13,7 @@ import {cloneDeep} from 'lodash';
   styleUrls: ['./form-editor.component.scss']
 })
 export class FormEditorComponent implements OnInit {
-
+  currentItem:DataField
   value:value={
     label:"",
     value:""
@@ -54,11 +54,11 @@ export class FormEditorComponent implements OnInit {
       "label": this.translateService.instant('formFields.checkBox'),
       "values": [
         {
-          "label": "Option 1",
+          "label": this.translateService.instant('formFields.Option1'),
           "value": "option-1"
         },
         {
-          "label": "Option 2",
+          "label": this.translateService.instant('formFields.Option2'),
           "value": "option-2"
         }
       ]
@@ -70,11 +70,11 @@ export class FormEditorComponent implements OnInit {
       "required": false,
       "values": [
         {
-          "label": "Option 1",
+          "label": this.translateService.instant('formFields.Option1'),
           "value": "option-1"
         },
         {
-          "label": "Option 2",
+          "label": this.translateService.instant('formFields.Option2'),
           "value": "option-2"
         }
       ]
@@ -86,15 +86,15 @@ export class FormEditorComponent implements OnInit {
       "placeholder": "Select",
       "values": [
         {
-          "label": "Option 1",
+          "label": this.translateService.instant('formFields.Option1'),
           "value": "option-1"
         },
         {
-          "label": "Option 2",
+          "label": this.translateService.instant('formFields.Option2'),
           "value": "option-2"
         },
         {
-          "label": "Option 3",
+          "label": this.translateService.instant('formFields.Option3'),
           "value": "option-3"
         }
       ]
@@ -162,17 +162,19 @@ export class FormEditorComponent implements OnInit {
   
 
   removeField(i){
-      this.formDetailesModel.openConfirmDialog("Are you sure to delete this field ?")
-      .afterClosed().subscribe(data=>{
-        if(data){
-          this.secondList.splice(i,1);
+    console.log("this.secondList",this.secondList)
+    this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
+    .afterClosed().subscribe(data=>{
+      if(data){
+        this.secondList.splice(i,1);
+        console.log("this.secondList2= ",this.secondList)
           this.model.attributes.splice(i,1);
         }else{
           return;
         }
       })    
   }
-
+  
 
   initReport(){
     console.log(this.model)
@@ -187,8 +189,16 @@ export class FormEditorComponent implements OnInit {
   onFileChanged(event) {
     const file = event.target.files[0]
   }
-  openDialog(templateRef: TemplateRef<any>){
-    this.dialog.open(templateRef);
+  openDialog(templateRef: TemplateRef<any>, item){
+    this.currentItem = {...item}
+    let dialogRef = this.dialog.open(templateRef,{
+      data: item
+   })
+   dialogRef
+         .afterClosed()
+         .subscribe((result => {
+            
+         }))
   }
 
   formDetails(){

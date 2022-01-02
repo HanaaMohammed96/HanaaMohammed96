@@ -35,6 +35,7 @@ import { PartnerCreateUpdateComponent } from './partners/partner-create-update/p
 import { FormEditorComponent } from './form/form-editor/form-editor.component';
 import { FormDetailesComponent } from './form/form-detailes/form-detailes.component';
 import { ConfirmDialogComponent } from './form/confirm-dialog/confirm-dialog.component';
+import { EditFieldComponent } from './form/edit-field/edit-field.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { ConfirmDialogComponent } from './form/confirm-dialog/confirm-dialog.com
     PartnerCreateUpdateComponent,
     FormEditorComponent,
     FormDetailesComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    EditFieldComponent
   ],
   imports: [
     CommonModule,
