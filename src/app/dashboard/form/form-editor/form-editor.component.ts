@@ -13,7 +13,7 @@ import { EditFieldComponent } from '../edit-field/edit-field.component';
   styleUrls: ['./form-editor.component.scss']
 })
 export class FormEditorComponent implements OnInit {
-
+  lang:string
   value:value={
     label:"",
     value:""
@@ -24,7 +24,7 @@ export class FormEditorComponent implements OnInit {
       "type": "text",
       "label": this.translateService.instant('formFields.text'),
       "icon":"text_format",
-      "placeholder": "enter your text",
+      "placeholder": this.translateService.instant('formFields.enterText'),
       "required": false,
       "regex" : "",
     },
@@ -32,19 +32,18 @@ export class FormEditorComponent implements OnInit {
       "type": "date",
       "icon":"today",
       "label": this.translateService.instant('formFields.date'),
-      "placeholder": "Date",
     },
     {
       "type": "datetime-local",
       "icon":"today",
       "label": this.translateService.instant('formFields.dateTime'),
-      "placeholder": "Date Time",
+
     },
     {
       "type": "textarea",
       "icon":"text_fields",
       "label": this.translateService.instant('formFields.textarea'),
-      "placeholder": "enter description" 
+      "placeholder": this.translateService.instant('formFields.enterText') 
     },
     {
       "type": "checkbox",
@@ -110,6 +109,8 @@ export class FormEditorComponent implements OnInit {
   model:any = {
     name:this.translateService.instant('model.name'),
     description:this.translateService.instant('model.description'),
+    arName:this.translateService.instant('model.name'),
+    arDescription:this.translateService.instant('model.description'),
     attributes:this.modelFields
   };
 
@@ -123,7 +124,9 @@ export class FormEditorComponent implements OnInit {
     public dialog:MatDialog,
     private translateService: TranslateService,
     private formDetailesModel:ChangeFormDetailsService
-  ) { }
+  ) { 
+    this.lang = localStorage.getItem('lang') as string
+  }
 
   ngOnInit(): void {
   }
@@ -177,11 +180,11 @@ export class FormEditorComponent implements OnInit {
     const file = event.target.files[0]
   }
 
-  openDialog(item,index){
-    const config ={
-      data:item
-    } 
-    let dialogRef = this.dialog.open(EditFieldComponent, config)
+  openDialog(item:DataField,index:number){
+    let dialogRef = this.dialog.open(EditFieldComponent,{
+      data:item,
+      disableClose:true
+    } )
     dialogRef.afterClosed().subscribe((result => {    
       this.model.attributes[index] = result;  
     }))
@@ -192,6 +195,8 @@ export class FormEditorComponent implements OnInit {
       if(data){
         this.model.name = data.name
         this.model.description = data.description
+        this.model.arName = data.arName
+        this.model.arDescription = data.arDescription
       }else{
         return;
       }

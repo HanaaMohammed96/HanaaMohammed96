@@ -169,7 +169,8 @@
     "delete":"Are you sure to delete this field ?",
     "Option1":"Option 1",
     "Option2":"Option 2",
-    "Option3":"Option 3"
+    "Option3":"Option 3",
+    "enterText":"enter your text",
   },
   "model":{
     "name":"Form Name",

@@ -3,6 +3,9 @@ import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/materia
 export interface DialogData {
   name:string;
   description:string;
+  arName:string;
+  arDescription:string;
+
 }
 @Component({
   selector: 'app-form-detailes',
@@ -15,22 +18,22 @@ export interface DialogData {
       <div fxLayout="column" fxLayoutAlign="start center">
       <div class="flex flex-row justify-evenly">
       <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
-      <mat-label>{{"Form Name" | translate}}</mat-label>
+      <mat-label>Form Name</mat-label>
         <input matInput type="text" [(ngModel)]="data.name" />
       </mat-form-field>
       <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
       <mat-label>{{"arName" | translate}}</mat-label>
-        <input matInput type="text" [(ngModel)]="data.name" />
+        <input matInput type="text" [(ngModel)]="data.arName" />
       </mat-form-field>
       </div>
       <div class="flex flex-row justify-evenly">
         <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
-        <mat-label>{{"Form Description" | translate}}</mat-label>
+        <mat-label>Form Description</mat-label>
           <input matInput type="text" [(ngModel)]="data.description" />
         </mat-form-field>
         <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
         <mat-label>{{"arDescription" | translate}}</mat-label>
-          <input matInput type="text" [(ngModel)]="data.description" />
+          <input matInput type="text" [(ngModel)]="data.arDescription" />
         </mat-form-field>
       </div>
       </div>
@@ -46,8 +49,6 @@ export interface DialogData {
   `
 })
 export class FormDetailesComponent implements OnInit {
-  name:string;
-  description:string;
 
   constructor(
     public dialogRef: MatDialogRef<FormDetailesComponent>,
