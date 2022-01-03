@@ -12,7 +12,7 @@
 
             <h4 *ngIf="!secondList.length" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
 
-            <div *ngFor="let item of model.attributes" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div *ngFor="let item of model.attributes; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
 
                 <mat-form-field
@@ -75,15 +75,18 @@
 
 
 
-                <mat-icon (click)="openDialog(myDialog,item)" color="primary">
+                <!-- <mat-icon (click)="openDialog(myDialog,item)" color="primary">
+                  expand_more
+                </mat-icon> -->
+                <mat-icon (click)="openDialog(item,i)" color="primary">
                   expand_more
                 </mat-icon>
 
-                <mat-icon (click)="removeField(item)" color="accent">
+                <mat-icon (click)="removeField(i)" color="accent">
                   delete
                 </mat-icon>
               </div>
-              <ng-template #myDialog class="text-white overflow-hidden p-4">
+              <!-- <ng-template #myDialog class="text-white overflow-hidden p-4">
                 <div >
                   <div  fxLayout="row" fxLayoutAlign="space-evenly center"  >
                     <mat-icon color="warn" class='w-14'>add_task</mat-icon>
@@ -91,15 +94,16 @@
                       {{item.label}}
                     </h3>
                   </div>
-                  <mat-dialog-actions>
+                  <div mat-dialog-content>
                     <div fxLayout="column" fxLayoutAlign="space-evenly center">                      
                       <div fxLayout="row" fxLayoutAlign="space-between center">
                         <div fxLayout="row" fxLayoutAlign="space-evenly center">
                           <div fxLayout="column" fxLayoutAlign="space-evenly center" class="field">
 
-                            <mat-form-field *ngIf="item.type =='checkbox'" >
+                            <mat-form-field *ngIf="item.type =='checkbox'" appearance="legacy">
                               <mat-label>{{"Label" | translate}}</mat-label>
-                              <input type="text" [(ngModel)]="item.label" matInput  maxlength="200"/>
+                              <input type="text" [(ngModel)]="item.label"   maxlength="200"/>
+                              <mat-hint>Hint</mat-hint>
                             </mat-form-field>
 
                             <mat-form-field *ngIf="item.type !='checkbox'" >
@@ -127,10 +131,10 @@
                               <input type="text" [(ngModel)]="item.regex" matInput />
                             </mat-form-field>
 
-                          </div>
+                          </div> -->
 
                           <!-- number -->
-                          <div *ngIf="item.type=='number' || item.type=='text'" fxLayout="column"
+                          <!-- <div *ngIf="item.type=='number' || item.type=='text'" fxLayout="column"
                             fxLayoutAlign="space-evenly center">
 
                             <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;">
@@ -152,9 +156,9 @@
                             </mat-form-field>
 
                           </div>
-                        </div>
+                        </div> -->
                         <!-- radio || checkbox || autocomplete -->
-                        <div class="field"
+                        <!-- <div class="field"
                           *ngIf="item.type=='radio'|| item.type=='checkbox' || item.type=='autocomplete'"
                           fxLayout="column" fxLayoutAlign="space-evenly center">
                           <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;">
@@ -187,16 +191,18 @@
                         </div>
                       </div>
 
-                      <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                        <button mat-button [mat-dialog-close]="item" mat-raised-button color="primary">{{"Yes" |
-                          translate}}</button>
-                        <button mat-button  [mat-dialog-close]="currentItem" mat-raised-button color="primary">{{"No" |
-                          translate}}</button>
-                      </div>
                     </div>
-                  </mat-dialog-actions>
+                  </div>
+                  <div mat-dialog-actions>
+                    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                      <button mat-button [mat-dialog-close]="item" mat-raised-button color="primary">{{"Yes" |
+                        translate}}</button>
+                      <button mat-button  [mat-dialog-close]="item" mat-raised-button color="primary">{{"No" |
+                        translate}}</button>
+                    </div>
+                  </div>
                 </div>
-              </ng-template>
+              </ng-template> -->
               </div>
 
             <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |

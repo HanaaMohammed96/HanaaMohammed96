@@ -11,7 +11,7 @@ export interface DialogData {
       <h3 color="primary" fxLayout="row" fxLayoutAlign="space-evenly center">
       {{"Form Detailes" | translate}}
     </h3>
-    <mat-dialog-actions>
+    <div mat-dialog-content>
       <div fxLayout="column" fxLayoutAlign="start center">
       <div class="flex flex-row justify-evenly">
       <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
@@ -34,13 +34,13 @@ export interface DialogData {
         </mat-form-field>
       </div>
       </div>
-    </mat-dialog-actions>
-    <div class="flex flex-row justify-evenly p-4">
+    </div>
+    <div class="flex flex-row justify-evenly p-4" mat-dialog-actions>
       <button mat-button [mat-dialog-close]="data" cdkFocusInitial mat-raised-button color="primary">{{"Yes" |
         translate}}</button>
       <button mat-button (click)="onNoClick()" mat-raised-button color="primary">{{"No" |
           translate}}</button>
-    </div>
+    </div >
   </div>
       
   `

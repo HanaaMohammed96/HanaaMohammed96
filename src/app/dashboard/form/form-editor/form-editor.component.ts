@@ -5,7 +5,7 @@ import { ChangeFormDetailsService } from '@core/services/change-form-details.ser
 import { DataField, value } from '@models/data-field';
 import { TranslateService } from '@ngx-translate/core';
 import {cloneDeep} from 'lodash'; 
-// import swal from 'sweetalert';
+import { EditFieldComponent } from '../edit-field/edit-field.component';
 
 @Component({
   selector: 'app-form-editor',
@@ -13,12 +13,11 @@ import {cloneDeep} from 'lodash';
   styleUrls: ['./form-editor.component.scss']
 })
 export class FormEditorComponent implements OnInit {
-  currentItem:DataField
+
   value:value={
     label:"",
     value:""
   };
-
 
   fieldModels:Array<DataField>=[
     {
@@ -107,7 +106,6 @@ export class FormEditorComponent implements OnInit {
     }
   ];
 
-
   modelFields:Array<DataField>=[];
   model:any = {
     name:this.translateService.instant('model.name'),
@@ -131,24 +129,18 @@ export class FormEditorComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event)
-    // console.log(event.isPointerOverContainer)
-    // console.log(event.item.dropped)
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex); 
       // return;
     } else {
-      // Clone the item that was dropped.
-    const clone = cloneDeep(event.previousContainer.data[event.previousIndex]);
-
-    // Add the clone to the new array.
-    event.container.data.splice(event.currentIndex, 0, clone);
+      const clone = cloneDeep(event.previousContainer.data[event.previousIndex]);
+      event.container.data.splice(event.currentIndex, 0, clone);
     }
     if(!event.isPointerOverContainer){
       event.container.data.splice(event.previousIndex, 1)
     }
-    this.model.attributes = [...event.container.data ] 
-    this.thirdList = Array.from(this.model.attributes)
+      this.model.attributes = [...event.container.data ] 
+      this.thirdList = Array.from(this.model.attributes)
 
   }
 
@@ -156,18 +148,16 @@ export class FormEditorComponent implements OnInit {
     if(!values){
       values = []
     }
-    values.push(this.value);
-    this.value={label:"",value:""};
+      values.push(this.value);
+      this.value={label:"",value:""};
   }
   
 
-  removeField(i){
-    console.log("this.secondList",this.secondList)
+  removeField(i:number){
     this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
     .afterClosed().subscribe(data=>{
       if(data){
-        this.secondList.splice(i,1);
-        console.log("this.secondList2= ",this.secondList)
+          this.secondList.splice(i,1);
           this.model.attributes.splice(i,1);
         }else{
           return;
@@ -175,9 +165,7 @@ export class FormEditorComponent implements OnInit {
       })    
   }
   
-
   initReport(){
-    console.log(this.model)
     this.report = true; 
     this.reports = this.model.attributes
     let input = {
@@ -185,17 +173,17 @@ export class FormEditorComponent implements OnInit {
     }
   }
 
-
   onFileChanged(event) {
     const file = event.target.files[0]
   }
-  openDialog(templateRef: TemplateRef<any>, item){
-    this.currentItem = {...item}
-    let dialogRef = this.dialog.open(templateRef,{
-      data: item
-    })
-    dialogRef.afterClosed().subscribe((result => {
-      
+
+  openDialog(item,index){
+    const config ={
+      data:item
+    } 
+    let dialogRef = this.dialog.open(EditFieldComponent, config)
+    dialogRef.afterClosed().subscribe((result => {    
+      this.model.attributes[index] = result;  
     }))
   }
 
@@ -209,4 +197,5 @@ export class FormEditorComponent implements OnInit {
       }
     });
   }
+  
 }

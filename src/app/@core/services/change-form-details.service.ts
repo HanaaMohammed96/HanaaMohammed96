@@ -13,24 +13,27 @@ export class ChangeFormDetailsService {
   name:string;
   description:string;
   item:DataField;
+
   constructor(
     public dialog: MatDialog
   ) { }
+
   openEditFielDialog(): Observable<any> {
     const dialogRef = this.dialog.open(EditFieldComponent, {
       data: this.item
     });
     return dialogRef.afterClosed();
   }
+
   openDialog(): Observable<any> {
     const dialogRef = this.dialog.open(FormDetailesComponent, {
       data: {
         name: this.name, description: this.description
         }
     });
-
     return dialogRef.afterClosed();
   }
+
   openConfirmDialog(msg){
     return this.dialog.open(ConfirmDialogComponent, {
       width:'390px',
@@ -39,6 +42,6 @@ export class ChangeFormDetailsService {
         message : msg
       }
     });
-    
   }
+  
 }

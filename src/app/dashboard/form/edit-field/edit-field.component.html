@@ -1,12 +1,12 @@
-<ng-template #myDialog class="text-white overflow-hidden p-4">
-  <div >
+
+  <div class="text-white overflow-hidden p-4">
     <div  fxLayout="row" fxLayoutAlign="space-evenly center"  >
       <mat-icon color="warn" class='w-14'>add_task</mat-icon>
       <h3 class="whitespace-normal w-3/6" >
         {{data.label}}
       </h3>
     </div>
-    <mat-dialog-actions>
+    <div mat-dialog-content>
       <div fxLayout="column" fxLayoutAlign="space-evenly center">                      
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <div fxLayout="row" fxLayoutAlign="space-evenly center">
@@ -101,14 +101,14 @@
             </div>
           </div>
         </div>
-
-        <div fxLayout="row" fxLayoutAlign="space-evenly center">
-          <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" |
-            translate}}</button>
-          <button mat-button (click)="onNoClick()" mat-raised-button color="primary">{{"No" |
-            translate}}</button>
-        </div>
       </div>
-    </mat-dialog-actions>
+    </div>
+    <div mat-dialog-actions>
+      <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" |
+          translate}}</button>
+        <button mat-button (click)="onNoClick()" mat-raised-button color="primary">{{"No" |
+          translate}}</button>
+      </div>
+    </div>
   </div>
-</ng-template>
