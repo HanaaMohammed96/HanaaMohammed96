@@ -57,28 +57,7 @@ export class PartnersComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     const roles = {
-      Admin: { name: await this.translate('team.roles.admin'), color: 'bg-green' },
-      Partner: { name: await this.translate('team.roles.partner'), color: 'bg-teal' },
-      ServiceProvider: {
-        name: await this.translate('team.roles.serviceProvider'),
-        color: 'bg-orange',
-      },
-      Branch: {
-        name: await this.translate('team.roles.branch'),
-        color: 'bg-teal',
-      },
-      Service: {
-        name: await this.translate('team.roles.service'),
-        color: 'bg-purple',
-      },
-      Counter: {
-        name: await this.translate('team.roles.counter'),
-        color: 'bg-amber',
-      },
-      User: {
-        name: await this.translate('team.roles.user'),
-        color: 'bg-red',
-      },
+      Partner: { name: await this.translate('team.roles.partner'), color: 'bg-teal' }
     };
     
 
@@ -115,18 +94,6 @@ export class PartnersComponent implements OnInit {
         property: 'phoneNumber',
         type: 'text',
         visible: true,
-      },
-      {
-        label: 'team.role',
-        property: 'role',
-        converter: (value: Role): string => {
-          return roles[Role[value]].name;
-        },
-        type: 'badge',
-        visible: true,
-        ngCssClasses: (item: AdminVm): string[] => {
-          return [roles[Role[item.role]].color];
-        },
       },
       {
         label: 'Actions',
@@ -168,6 +135,7 @@ export class PartnersComponent implements OnInit {
     const spId = +this.form.get('serviceProviderId').value;
 
     return this.accountsClient.getAdminsPage(
+      Role.Partner,
       pagingOptions.pageSize,
       pagingOptions.pageIndex,
       pagingOptions.query,

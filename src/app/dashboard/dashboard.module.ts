@@ -29,13 +29,14 @@ import { TeamComponent } from './team/team.component';
 import { TeamCreateUpdateComponent } from './team/team-create-update/team-create-update.component';
 import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
-import { TestFormComponent } from './test-form/test-form.component';
 import { PartnersComponent } from './partners/partners.component';
 import { PartnerCreateUpdateComponent } from './partners/partner-create-update/partner-create-update.component';
 import { FormEditorComponent } from './form/form-editor/form-editor.component';
 import { FormDetailesComponent } from './form/form-detailes/form-detailes.component';
 import { ConfirmDialogComponent } from './form/confirm-dialog/confirm-dialog.component';
 import { EditFieldComponent } from './form/edit-field/edit-field.component';
+import { RealStatesComponent } from './real-states/real-states.component';
+import { RealStateCreateUpdateComponent } from './real-states/real-state-create-update/real-state-create-update.component';
 
 @NgModule({
   declarations: [
@@ -63,13 +64,14 @@ import { EditFieldComponent } from './form/edit-field/edit-field.component';
     PrivacyPolicyComponent,
     AccountsComponent,
     TermsAndCondtionsComponent,
-    TestFormComponent,
     PartnersComponent,
     PartnerCreateUpdateComponent,
     FormEditorComponent,
     FormDetailesComponent,
     ConfirmDialogComponent,
-    EditFieldComponent
+    EditFieldComponent,
+    RealStatesComponent,
+    RealStateCreateUpdateComponent,
   ],
   imports: [
     CommonModule,

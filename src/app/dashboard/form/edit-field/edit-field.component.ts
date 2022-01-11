@@ -13,7 +13,7 @@ export class EditFieldComponent implements OnInit {
     label:"",
     value:""
   };
-  resetItem:DataField
+  resetItem:DataField;
   constructor(
     public dialogRef: MatDialogRef<FormEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DataField
@@ -23,7 +23,7 @@ export class EditFieldComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
   addValue(values){
     if(!values){
       values = []
@@ -33,6 +33,8 @@ export class EditFieldComponent implements OnInit {
   }
 
   onNoClick(): void {
+    
+
     this.data = this.resetItem
     this.dialogRef.close(this.data);
   }

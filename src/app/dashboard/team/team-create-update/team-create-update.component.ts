@@ -21,7 +21,6 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { LocalizationService } from '@core/services/localization.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-team-create-update',
@@ -46,7 +45,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
     private _handler: ApiHandlerService,
     private _fb: FormBuilder,
     private _localizationService: LocalizationService,
-    private activatedRoute: ActivatedRoute
   ) {
     this.isArabic = this._localizationService.getLang() === Language.Ar;
   }
@@ -60,8 +58,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    // const role = this.activatedRoute.snapshot.paramMap.get('role');
-    
         if (!this.data) {
           this.data = {} as AdminVm;
           this.dto = {} as AccountDashboardDto;
@@ -73,7 +69,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
             }),
             email: ['', Validators.required],
             phoneNumber: ['', Validators.required],
-            // role: ['', Validators.required],
             username: ['', Validators.required],
             serviceProviderId: [''],
             branchId: [''],
@@ -82,8 +77,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
             password: ['', Validators.required],
             confirmPassword: ['', Validators.required],
           });
-
-          // this.onValueChanges(0, Role.Admin);
         } else {
           this._accountsClient
             .getUser(this.data.id)
@@ -110,12 +103,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
                   username: new FormControl(
                     { value: this.data.username || '', disabled: false},
                     Validators.required
-                  ),
-                // role: new FormControl(
-                //   { value: this.dto.role || 0, disabled: true },
-                //   Validators.required
-                // ),
-
+                  )
               });
             });
         }
@@ -124,32 +112,6 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._dialogRef.close(this.data);
   }
-
-  // onValueChanges(defaultSpId: number, defaultRole: Role): void {
-    
-  //   const roleOnValueChanges = (value: number) => {
-  //     const role = +value as Role;
-  //     const username = this.form.get('username');
-
-  //     if (role === Role.Admin) {
-  //       username.enable();
-  //     }
-  //      else if (role === Role.Partner) {
-  //       username.enable();
-  //     } else {
-  //       if (role === Role.Resident) {
-  //         username.enable();
-  //       } else {
-  //         username.disable();
-  //       }
-  //     }
-  //   };
-
-  //   this.form.get('role').valueChanges.subscribe(roleOnValueChanges);
-
-  //   roleOnValueChanges(defaultRole);
-   
-  // }
 
   submit(): void {
     const value = this.form.value;
@@ -190,12 +152,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
           fullName,
           email: rawValue.email,
           phoneNumber,
-          // role: +rawValue.role as Role,
-          username: value.username,
-          // serviceProviderId: value.serviceProviderId ? +value.serviceProviderId : null,
-          // branchId: value.branchId ? +value.branchId : null,
-          // serviceId: value.serviceId ? +value.serviceId : null,
-          // pin: value.pin,
+          username: value.username
         })
       );
     }

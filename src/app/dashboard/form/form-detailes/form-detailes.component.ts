@@ -29,11 +29,11 @@ export interface DialogData {
       <div class="flex flex-row justify-evenly">
         <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
         <mat-label>Form Description</mat-label>
-          <input matInput type="text" [(ngModel)]="data.description" />
+          <textarea matInput [(ngModel)]="data.description" ></textarea>
         </mat-form-field>
         <mat-form-field fxFlex="grow" appearance="outline" class="m-3">
         <mat-label>{{"arDescription" | translate}}</mat-label>
-          <input matInput type="text" [(ngModel)]="data.arDescription" />
+          <textarea matInput [(ngModel)]="data.arDescription"></textarea>
         </mat-form-field>
       </div>
       </div>

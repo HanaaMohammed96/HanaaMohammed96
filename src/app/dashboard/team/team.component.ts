@@ -1,7 +1,6 @@
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { FilterControl } from '@core/interfaces/filter-control.interface';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { TeamCreateUpdateComponent } from './team-create-update/team-create-update.component';
 import { SelectionAction } from '@core/interfaces/selection-action';
 import { TableColumn } from '@core/interfaces/table-column.interface';
@@ -59,29 +58,8 @@ export class TeamComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<any> {
-    
     const roles = {
-      Admin: { name: await this.translate('team.roles.admin'), color: 'bg-green' },
-      ServiceProvider: {
-        name: await this.translate('team.roles.serviceProvider'),
-        color: 'bg-orange',
-      },
-      Branch: {
-        name: await this.translate('team.roles.branch'),
-        color: 'bg-teal',
-      },
-      Service: {
-        name: await this.translate('team.roles.service'),
-        color: 'bg-purple',
-      },
-      Counter: {
-        name: await this.translate('team.roles.counter'),
-        color: 'bg-amber',
-      },
-      User: {
-        name: await this.translate('team.roles.user'),
-        color: 'bg-red',
-      },
+      Admin: { name: await this.translate('team.roles.admin'), color: 'bg-green' }
     };
 
     this.columns = [
@@ -117,18 +95,6 @@ export class TeamComponent implements OnInit {
         property: 'phoneNumber',
         type: 'text',
         visible: true,
-      },
-      {
-        label: 'team.role',
-        property: 'role',
-        converter: (value: Role): string => {
-          return roles[Role[value]].name;
-        },
-        type: 'badge',
-        visible: true,
-        ngCssClasses: (item: AdminVm): string[] => {
-          return [roles[Role[item.role]].color];
-        },
       },
       {
         label: 'Actions',
@@ -167,10 +133,11 @@ export class TeamComponent implements OnInit {
   }
 
   getData(pagingOptions: PagingOptions): Observable<PaginatedListOfAdminVm> {
-    
+
     const spId = +this.form.get('serviceProviderId').value;
 
     return this.accountsClient.getAdminsPage(
+      Role.Admin,
       pagingOptions.pageSize,
       pagingOptions.pageIndex,
       pagingOptions.query,

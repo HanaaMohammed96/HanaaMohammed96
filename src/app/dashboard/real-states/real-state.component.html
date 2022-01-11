@@ -1,0 +1,51 @@
+<app-page-layout>
+  <ng-page-layout-header class="pb-16" fxLayout="column" fxLayoutAlign="center start">
+    <div class="w-full flex flex-col sm:flex-row justify-between">
+      <div fxLayout="column" fxLayoutAlign="center">
+        <h1 class="title mt-0 mb-1">{{ 'realState.title' | translate}}</h1>
+        <p class="opacity-50 mt-0 mb-1">{{ 'realState.description' | translate  }}</p>
+      </div>
+      <div class="justify-self-end">
+        <button mat-mini-fab type="button" color="basic" (click)="add()">
+          <mat-icon [icIcon]="icAdd"></mat-icon>
+        </button>
+      </div>
+    </div>
+  </ng-page-layout-header>
+
+  <ng-page-layout-content class="-mt-16" *ngIf="list">
+    <div cdkDropList class="types-list m-auto" (cdkDropListDropped)="drop($event)">
+      <div class="type-box" *ngFor="let item of list" cdkDrag>
+        <div class="type-placeholder" *cdkDragPlaceholder></div>
+        <div class="flex justify-between items-center w-full h-6">
+          <span class="type-title">{{ item.name.en }}</span>
+          <span class="type-title">{{ item.name.ar }}</span>
+          <span class="type-title bg-green" *ngIf="item.isActive">{{'realState.Active' | translate}}</span>
+          <span class="type-title bg-teal" *ngIf="!item.isActive">{{'realState.notActive' | translate}}</span>
+          <button
+            [matMenuTriggerData]="{ item: item }"
+            [matMenuTriggerFor]="actionsMenu"
+            mat-icon-button
+            color="basic"
+            type="button"
+          >
+            <mat-icon [icIcon]="icMoreHoriz"></mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-page-layout-content>
+</app-page-layout>
+
+<mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+  <ng-template let-item="item" matMenuContent>
+    <button mat-menu-item (click)="update(item)">
+      <mat-icon [icIcon]="icEdit"></mat-icon>
+      <span>{{ 'general.update' | translate}}</span>
+    </button>
+    <button mat-menu-item (click)="delete(item)">
+      <mat-icon [icIcon]="icDelete"></mat-icon>
+      <span>{{ 'general.delete' | translate}}</span>
+    </button>
+  </ng-template>
+</mat-menu>

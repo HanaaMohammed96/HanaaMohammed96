@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://worckcycleportal.azurewebsites.net'
+  apiUrl: 'https://worckcycleportal.azurewebsites.net/'
 };
 
 /*

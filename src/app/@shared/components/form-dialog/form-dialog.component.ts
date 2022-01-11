@@ -28,7 +28,9 @@ export class FormDialogComponent {
 
   icClose = icClose;
 
-  constructor(private _handler: ApiHandlerService) {}
+  constructor(private _handler: ApiHandlerService) {
+    
+  }
 
   onSubmit(): void {
 

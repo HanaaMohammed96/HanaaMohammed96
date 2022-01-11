@@ -438,7 +438,6 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
 
   delete(action: SelectionAction, item: T): void {
     action.loading = true;
-
     this.client
       .delete(item[this.itemIdName])
       .pipe(finalize(() => (action.loading = false)))

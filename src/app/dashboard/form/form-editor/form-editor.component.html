@@ -16,11 +16,12 @@
           <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note</mat-icon>
           <h4 *ngIf="!secondList.length" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
           
-          <div *ngFor="let item of model.attributes; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
+          <!-- <div *ngFor="let item of model.attributes; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center"> -->
+            <div *ngFor="let item of secondList; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
             <div fxLayout="row" fxLayoutAlign="space-evenly center">
 
                 <mat-form-field
-                  *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='autocomplete' && item.type!='file' && item.type!='textarea'"
+                  *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='select' && item.type!='file' && item.type!='textarea'"
                   cdkDrag class="font-in-dropped">
                   <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
                   <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
@@ -69,7 +70,7 @@
                   <input type="file" (change)="onFileChanged($event)" multiple class="upload-box mb-4" />
                 </div>
 
-                <div *ngIf="item.type=='autocomplete'" cdkDrag>
+                <div *ngIf="item.type=='select'" cdkDrag>
                   <mat-form-field appearance="fill" class="font-in-dropped ">
                     <mat-label>{{item.label}}</mat-label>
                     <mat-select>
@@ -137,7 +138,7 @@
 
           <div>
             <mat-form-field class="font-in-dropped "
-              *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='autocomplete' && item.type!='file' && item.type!='textarea'" >
+              *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='select' && item.type!='file' && item.type!='textarea'" >
               <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
               <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
             </mat-form-field>
@@ -185,7 +186,7 @@
               <input type="file" (change)="onFileChanged($event)" mat-raised-button />
             </div>
 
-            <div *ngIf="item.type=='autocomplete'">
+            <div *ngIf="item.type=='select'">
               <mat-form-field appearance="fill" class="font-in-dropped ">
                 <mat-label>{{item.label}}</mat-label>
                 <mat-select>

@@ -1,7 +1,9 @@
 
   <div class="overflow-hidden p-4">
     <div  fxLayout="row" fxLayoutAlign="space-evenly center"  >
-      <mat-icon color="warn" class='w-14'>add_task</mat-icon>
+      <!-- <mat-icon color="warn" class='w-14'>add_task</mat-icon> -->
+      <span class="inline-flex items-center justify-center p-6 py-1 text-xs font-bold leading-none rounded-full badge" *ngIf="data.type =='number'">#{{data.code}}</span>
+      <!-- <span class="inline-flex items-center justify-center p-6 py-1 text-xs font-bold leading-none rounded-full badge" *ngIf="data.order > -1" [hidden]="data.type =='number'">{{data.order}}</span> -->
       <h3 class="whitespace-normal w-3/6" > {{data.label}} </h3>
     </div>
     <div mat-dialog-content>

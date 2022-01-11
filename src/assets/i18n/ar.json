@@ -71,7 +71,7 @@
     "form": "إنشاء نموذج"
   },
   "account": {
-    "login_title": "مرحبًا بك في ",
+    "login_title": " مرحبًا بك في مُنجز",
     "login_description": "يرجى ادخال بيانات الدخول",
     "toggle": "اظاهر/اخفاء",
     "email": "البريد الإلكتروني",
@@ -129,6 +129,7 @@
     "description_admin": "هذا الجدول يحتوي على كل حسابات المشرفين",
     "description_partner": "هذا الجدول يحتوي على كل حسابات الشركاء",
     "tableName": "عضو إداري",
+    "partnerTableName": "شريك",
     "tableNamePlural": "الفريق الإداري",
     "email": "البريد الإلكتروني",
     "password": "كلمة المرور",

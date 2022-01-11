@@ -27,6 +27,7 @@ export class ChangeFormDetailsService {
 
   openDialog(): Observable<any> {
     const dialogRef = this.dialog.open(FormDetailesComponent, {
+      disableClose:true,
       data: {
         name: this.name, description: this.description
         }

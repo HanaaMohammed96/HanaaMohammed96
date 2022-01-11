@@ -16,6 +16,10 @@ export interface DataField {
   inline?:any;
   value?:any;
   values?:Array<value>;
+  code?:string;
+  equation?:string;
+  order?:number;
+
 }
 export interface value {
   label?:any,
