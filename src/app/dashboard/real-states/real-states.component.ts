@@ -48,23 +48,24 @@ export class RealStatesComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    this._realStateClient
-      .put(
-        new RealStatesPutCommand({
-          id: this.list[event.previousIndex].id,
-          name: this.list[event.previousIndex].name,
-          isActive: this.list[event.previousIndex].isActive,
-        })
-      )
-      .subscribe(
-        () => { },
-        (err) => {
-          this._handler.handleError(err).pushError();
-          // return it to its position
-          moveItemInArray(this.list, event.currentIndex, event.previousIndex);
-        }
-      );
-    moveItemInArray(this.list, event.previousIndex, event.currentIndex);
+    // this._realStateClient
+    //   .put(
+    //     new RealStatesPutCommand({
+    //       id: this.list[event.previousIndex].id,
+    //       name: this.list[event.previousIndex].name,
+    //       isActive: this.list[event.previousIndex].isActive,
+    //     })
+    //   )
+    //   .subscribe(
+    //     () => { },
+    //     (err) => {
+    //       this._handler.handleError(err).pushError();
+    //       // return it to its position
+    //       moveItemInArray(this.list, event.currentIndex, event.previousIndex);
+    //     }
+    //   );
+    // moveItemInArray(this.list, event.previousIndex, event.currentIndex);
+    return;
   }
 
   add(): void {
@@ -86,7 +87,7 @@ export class RealStatesComponent implements OnInit {
   }
 
   update(item: RealStateDto): void {
-
+    console.log('update item = ', item)
     this._dialog
       .open(RealStateCreateUpdateComponent, {
         minWidth: '400px',
@@ -103,7 +104,7 @@ export class RealStatesComponent implements OnInit {
       .delete(item.id)
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
-        () => {
+        (a) => {
           this.remove(item);
         },
         (err: any) => this._handler.handleError(err).pushError()
@@ -111,6 +112,7 @@ export class RealStatesComponent implements OnInit {
   }
 
   remove(item: RealStateDto): void {
+    console.log('remove', item)
     this.list.splice(
       this.list.findIndex((c: RealStateDto) => c.id === item.id),
       1

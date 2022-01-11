@@ -1,4 +1,3 @@
-import { AccountsComponent } from './accounts/accounts.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { ToolbarSearchComponent } from './toolbar/toolbar-search/toolbar-search.component';
 import { FooterComponent } from './footer/footer.component';
@@ -62,7 +61,6 @@ import { RealStateCreateUpdateComponent } from './real-states/real-state-create-
     TeamCreateUpdateComponent,
     ResetPasswordComponent,
     PrivacyPolicyComponent,
-    AccountsComponent,
     TermsAndCondtionsComponent,
     PartnersComponent,
     PartnerCreateUpdateComponent,

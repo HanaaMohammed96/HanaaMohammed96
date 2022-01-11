@@ -2,6 +2,7 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { IRealStatesClient, LocalizedStringDto, RealStateDto, RealStatesClient, RealStatesPostCommand, RealStatesPutCommand } from '@core/api';
+import { ApiHandlerService } from '@core/services/api-handler.service';
 
 @Component({
   selector: 'app-real-state-create-update',
@@ -15,6 +16,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: RealStateDto,
     public realStateClient: RealStatesClient,
     private _dialogRef: MatDialogRef<RealStateCreateUpdateComponent>,
+    private _handler: ApiHandlerService,
     private _fb: FormBuilder
   ) { }
 
@@ -28,7 +30,6 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    console.log(this.data)
     if (!this.data) {
       this.data = {} as RealStateDto;
 
@@ -82,15 +83,21 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
     event.action.subscribe((response: any) => {
+      console.log('res', response)
       if (response) {
         this.data.id = response.result;
       }
 
       this.data.name = name;
       this.data.isActive = value.isActive;
-      
+
       this._dialogRef.close();
-    });
+    },
+      (err) => {
+        this._handler.handleError(err).pushError();
+        console.log('errqqq', err)
+      }
+    );
   }
 
   activate(event: boolean) {

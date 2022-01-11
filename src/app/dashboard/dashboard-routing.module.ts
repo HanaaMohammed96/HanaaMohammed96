@@ -6,7 +6,6 @@ import { DashboardAnalyticsComponent } from './dashboard-analytics/dashboard-ana
 import { NotFoundComponent } from './not-found/not-found.component';
 import { InternalServerErrorComponent } from './internal-server-error/internal-server-error.component';
 import { ForbiddenAccessComponent } from './forbidden-access/forbidden-access.component';
-import { AccountsComponent } from './accounts/accounts.component';
 import { TeamComponent } from './team/team.component';
 import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
 import { PartnersComponent } from './partners/partners.component';
@@ -22,7 +21,6 @@ const routes: Routes = [
       { path: '403', component: ForbiddenAccessComponent },
       { path: '404', component: NotFoundComponent },
       { path: '500', component: InternalServerErrorComponent },
-      { path: 'users', component: AccountsComponent },
       { path: 'admins', component: TeamComponent },
       { path: 'real-state', component: RealStatesComponent },
       { path: 'partners', component: PartnersComponent },

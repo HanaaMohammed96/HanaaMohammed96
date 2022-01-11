@@ -20,8 +20,8 @@
         <div class="flex justify-between items-center w-full h-6">
           <span class="type-title">{{ item.name.en }}</span>
           <span class="type-title">{{ item.name.ar }}</span>
-          <span class="type-title bg-green" *ngIf="item.isActive">{{'realState.Active' | translate}}</span>
-          <span class="type-title bg-teal" *ngIf="!item.isActive">{{'realState.notActive' | translate}}</span>
+          <span class="type-title " *ngIf="item.isActive">✅</span>
+          <span class="type-title " *ngIf="!item.isActive">❌</span>
           <button
             [matMenuTriggerData]="{ item: item }"
             [matMenuTriggerFor]="actionsMenu"

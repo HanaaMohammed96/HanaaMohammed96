@@ -45,8 +45,8 @@
     
     </div>
     <div class="flex flex-col sm:flex-row">
-      <!-- <mat-checkbox class="example-margin" [checked]="data.isActive" (change)="activate($event.checked)">Activate</mat-checkbox> -->
-      <mat-checkbox formControlName="isActive" [checked]="data.isActive">isActive</mat-checkbox>
+      <!-- <mat-checkbox  [checked]="data.isActive" (change)="activate($event.checked)" formControlName="isActive">Activate</mat-checkbox> -->
+      <mat-checkbox formControlName="isActive" [(ngModel)]="data.isActive">isActive</mat-checkbox>
     </div>
 
   </div>
