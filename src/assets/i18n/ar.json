@@ -41,7 +41,7 @@
     "change_password": "تحديث كلمة المرور"
   },
   "sidenav": {
-    "title": "لوحة تحكم دورة العمل "
+    "title": "لوحة تحكم منجز "
   },
   "footer": {
     "github": "عرض على Github",
@@ -68,7 +68,9 @@
     "terms_Cond_ar": "للعربية",
     "terms_Cond_en": "للإنجليزية",
     "reservations": "الحجوزات",
-    "form": "إنشاء نموذج"
+    "form": "إنشاء نموذج",
+    "realState": "العقارات"
+
   },
   "account": {
     "login_title": " مرحبًا بك في مُنجز",
@@ -200,7 +202,16 @@
   "arName":"اسم النموذج",
   "Form Description":"وصف النموذج",
   "arDescription":"وصف النموذج",
-  "No response found":"لم يتم إدخال بيانات"
+  "No response found":"لم يتم إدخال بيانات",
+  "realState":{
+    "title":"العقارات",
+    "description":"هذه القائمة تشمل كل العقارات",
+    "TableName":"العقار",
+    "tableNamePlural":"العقار",
+    "name":"الاسم",
+    "created_at": "تاريخ الإنشاء"
+  },
+  "isActive":"تفعيل"
 }
 
   
