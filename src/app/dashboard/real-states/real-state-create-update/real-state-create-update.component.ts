@@ -16,7 +16,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     public realStateClient: RealStatesClient,
     private _dialogRef: MatDialogRef<RealStateCreateUpdateComponent>,
     private _fb: FormBuilder
-  ) {}
+  ) { }
 
   get nameAr(): AbstractControl {
     return this.form.get('name.Ar');
@@ -27,6 +27,8 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+
+    console.log(this.data)
     if (!this.data) {
       this.data = {} as RealStateDto;
 
@@ -66,7 +68,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
     const isActive = value.isActive;
-    alert(isActive);
+
     return new RealStatesPutCommand({
       id,
       name,
@@ -85,11 +87,14 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
       }
 
       this.data.name = name;
+      this.data.isActive = value.isActive;
+
+        alert(this.data.isActive)
       this._dialogRef.close();
     });
   }
 
-  activate(event: boolean){
+  activate(event: boolean) {
     this.data.isActive = event;
   }
 

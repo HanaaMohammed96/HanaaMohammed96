@@ -86,7 +86,7 @@ export class RealStatesComponent implements OnInit {
   }
 
   update(item: RealStateDto): void {
-    console.log('item', item)
+
     this._dialog
       .open(RealStateCreateUpdateComponent, {
         minWidth: '400px',
