@@ -88,8 +88,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
 
       this.data.name = name;
       this.data.isActive = value.isActive;
-
-        alert(this.data.isActive)
+      
       this._dialogRef.close();
     });
   }
