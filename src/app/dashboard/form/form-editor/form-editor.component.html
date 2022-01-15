@@ -8,35 +8,28 @@
         <div [class.hidden]="report">
 
           <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]"
-            (cdkDropListDropped)="drop($event)" [cdkDropListData]="secondList" cdkDrag cdkDragBoundary=".content"
+            (cdkDropListDropped)="drop($event)" [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content"
             fxLayout="column" fxLayoutAlign="space-evenly center" style="width:500px"
             class=" p-6 border-dashed border-4 border-blue-600 text-black">
 
             <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
             </mat-icon>
-            <h4 *ngIf="!secondList.length" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
+            <h4 *ngIf="!model.fields.length" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
 
             <!-- <div *ngFor="let item of model.attributes; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center"> -->
-            <div *ngFor="let item of secondList; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div *ngFor="let item of model.fields; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
               <div fxLayout="row" fxLayoutAlign="space-evenly center">
                 <span
                   class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-4">{{item.code}}</span>
 
                 <mat-form-field
-                  *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='select' && item.type!='file' && item.type!='textarea'"
+                  *ngIf="item.fieldType == +type.TextArea"
                   cdkDrag class="font-in-dropped">
                   <mat-label>{{item.name.en}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                  <input type="type[item.fieldType]" placeholder="{{item.placeholder}}" matInput />
+                  <textarea matInput placeholder="{{item.placeholder}}"></textarea>
                 </mat-form-field>
 
-                <div *ngIf="type[item.fieldType]=='TextArea'" cdkDrag>
-                  <div>
-                    <mat-form-field class="font-in-dropped">
-                      <mat-label>{{item.name.en}}</mat-label>
-                      <textarea matInput placeholder="{{item.placeholder}}"></textarea>
-                    </mat-form-field>
-                  </div>
-                </div>
+              
 
                 <div *ngIf="item.type=='checkbox'" cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
                   <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">

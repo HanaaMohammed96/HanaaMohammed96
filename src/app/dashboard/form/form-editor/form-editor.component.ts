@@ -10,19 +10,8 @@ import { EditFieldComponent } from '../edit-field/edit-field.component';
 import icSave from '@iconify/icons-ic/baseline-save';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { finalize } from 'rxjs/operators';
+import { addSeconds } from 'date-fns';
 
-
-// export enum DataFieldType {
-//   Text = 'text',
-//   Date = 'date',
-//   DateTime = 'datetime-local',
-//   TextArea = 'textarea',
-//   CheckBox = 'checkbox',
-//   Radio = 'radio',
-//   Select = 'select',
-//   File = 'file',
-//   Result = 'result',
-// }
 @Component({
   selector: 'app-form-editor',
   templateUrl: './form-editor.component.html',
@@ -40,106 +29,8 @@ export class FormEditorComponent implements OnInit {
 
   icSave = icSave;
 
-  // fieldModels: Array<DataField> = [
-  //   {
-  //     type: DataFieldType.Text,
-  //     label: this.translateService.instant('formFields.text'),
-  //     icon: 'text_format',
-  //     placeholder: this.translateService.instant('formFields.enterText'),
-  //     required: false,
-  //     regex: '',
-  //     code: 'A'
-  //   },
-  //   {
-  //     type: DataFieldType.Date,
-  //     icon: 'today',
-  //     label: this.translateService.instant('formFields.date'),
-  //     code: 'B'
-  //   },
-  //   {
-  //     type: DataFieldType.DateTime,
-  //     icon: 'today',
-  //     label: this.translateService.instant('formFields.dateTime'),
-  //     code: 'B'
-  //   },
-  //   {
-  //     type: DataFieldType.TextArea,
-  //     label: this.translateService.instant('formFields.textarea'),
-  //     icon: 'text_fields',
-  //     placeholder: this.translateService.instant('formFields.enterText'),
-  //     required: false,
-  //     code: 'C'
-  //   },
-  //   {
-  //     type: DataFieldType.CheckBox,
-  //     label: this.translateService.instant('formFields.checkBox'),
-  //     values: [
-  //       {
-  //         label: this.translateService.instant('formFields.Option1'),
-  //         value: 'option-1'
-  //       },
-  //       {
-  //         label: this.translateService.instant('formFields.Option2'),
-  //         value: 'option-2'
-  //       }
-  //     ],
-  //     icon: 'fact_check',
-  //     required: false,
-  //     code: 'D'
-  //   },
-  //   {
-  //     type: DataFieldType.Radio,
-  //     label: this.translateService.instant('formFields.radio'),
-  //     values: [
-  //       {
-  //         label: this.translateService.instant('formFields.Option1'),
-  //         value: 'option-1'
-  //       },
-  //       {
-  //         label: this.translateService.instant('formFields.Option2'),
-  //         value: 'option-2'
-  //       }
-  //     ],
-  //     icon: 'radio_button_checked',
-  //     required: false,
-  //     code: 'E'
-  //   },
-  //   {
-  //     type: DataFieldType.Select,
-  //     label: this.translateService.instant('formFields.select'),
-  //     values: [
-  //       {
-  //         label: this.translateService.instant('formFields.Option1'),
-  //         value: 'option-1'
-  //       },
-  //       {
-  //         label: this.translateService.instant('formFields.Option2'),
-  //         value: 'option-2'
-  //       },
-  //       {
-  //         label: this.translateService.instant('formFields.Option3'),
-  //         value: 'option-3'
-  //       }
-  //     ],
-  //     icon: 'menu',
-  //     required: false,
-  //     code: 'F'
-  //   },
-  //   {
-  //     type: DataFieldType.File,
-  //     icon: 'upload_file',
-  //     label: this.translateService.instant('formFields.fileUpload'),
-  //     subtype: 'file',
-  //     code: 'G'
-  //   }
-  //   // ,
-  //   // {
-  //   //   "type": DataFieldType.Result,
-  //   //   "label": this.translateService.instant('formFields.text'),
-  //   //   "equation": ""
-  //   // }
-  // ];
   type = FieldType;
+
   fieldModels: Array<IDataFieldDto> = [
     {
       name: new LocalizedStringDto({
@@ -149,7 +40,8 @@ export class FormEditorComponent implements OnInit {
       orders: null,
       equation: '',
       isRequired: false,
-      fieldType: FieldType.Text
+      fieldType: FieldType.Text,
+      code: "A"
     },
     {
       name: new LocalizedStringDto({
@@ -158,7 +50,8 @@ export class FormEditorComponent implements OnInit {
       }),
       orders: null,
       isRequired: false,
-      fieldType: FieldType.Date
+      fieldType: FieldType.Date,
+      code: "A"
     },
     {
       name: new LocalizedStringDto({
@@ -167,7 +60,8 @@ export class FormEditorComponent implements OnInit {
       }),
       orders: null,
       isRequired: false,
-      fieldType: FieldType.DateTime
+      fieldType: FieldType.DateTime,
+      code: "A"
     },
     {
       name: new LocalizedStringDto({
@@ -176,23 +70,18 @@ export class FormEditorComponent implements OnInit {
       }),
       orders: null,
       isRequired: false,
-      fieldType: FieldType.DateTime
+      fieldType: FieldType.TextArea,
+      code: "A"
     }
   ];
-  // modelFields: Array<DataField> = [];
-  // model: any = {
-  //   name: this.translateService.instant('model.name'),
-  //   description: this.translateService.instant('model.description'),
-  //   arName: this.translateService.instant('model.name'),
-  //   arDescription: this.translateService.instant('model.description'),
-  //   attributes: this.modelFields
-  // };
-  // modelFields: Array<DataField> = [];
 
-  model: IFormPostPutCommon = {};
-
-  // secondList: Array<DataField> = [];
-  secondList: Array<IDataFieldDto> = [];
+  model: IFormPostPutCommon = {
+    name: null,
+    description: null,
+    realStateId: null,
+    type: null,
+    fields: [],
+  };
 
   report = false;
   reports: any = [];
@@ -205,35 +94,42 @@ export class FormEditorComponent implements OnInit {
     private translateService: TranslateService
   ) {
     this.lang = localStorage.getItem('lang') as string;
+
   }
 
   ngOnInit(): void { }
 
+  toLang(name: LocalizedStringDto) {
+    if (this.lang == 'en')
+      return name.en;
+
+    return name.ar
+  }
+
   drop(event: CdkDragDrop<string[]>) {
-    console.log(event.container.data);
+
+    console.log(this.model.fields);
+
+    if (event.container.connectedTo[0].id == "cdk-drop-list-0") {
+      this.removeField(event.currentIndex);
+      return;
+    }
+
     if (event.previousContainer === event.container) {
 
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-      this.model.fields = [...event.container.data] as unknown as DataFieldDto[];
+
       this.model.fields[event.currentIndex].orders = event.currentIndex + 1;
-      // this.model.attributes = [...event.container.data];
-      // this.model.attributes[event.currentIndex].orders = event.currentIndex + 1;
 
     } else {
       const clone = cloneDeep(event.previousContainer.data[event.previousIndex]);
       event.container.data.splice(event.currentIndex, 0, clone);
-      this.model.fields = [...event.container.data] as unknown as DataFieldDto[];
+
       this.model.fields[event.currentIndex].orders = event.currentIndex + 1;
-      // this.model.attributes = [...event.container.data];
-      // this.model.attributes[event.currentIndex].orders = event.currentIndex + 1;
 
-      // this.model.attributes[event.currentIndex].code += `${event.container.data.length}`;
-
+      this.model.fields[event.currentIndex].code += `${event.container.data.length}`;
     }
-    // if(!event.isPointerOverContainer){
-    //   event.container.data.splice(event.previousIndex, 1)
-    //
-    // }
+
   }
 
   addValue(values) {
@@ -249,7 +145,7 @@ export class FormEditorComponent implements OnInit {
     this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
       .afterClosed().subscribe(data => {
         if (data) {
-          this.secondList.splice(i, 1);
+          this.model.fields.splice(i, 1);
           // this.model.attributes.splice(i, 1);
           this.model.fields.splice(i, 1);
         } else {

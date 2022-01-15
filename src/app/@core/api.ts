@@ -3796,6 +3796,7 @@ export class DataFieldDto implements IDataFieldDto {
     isRequired?: boolean;
     fieldType?: FieldType;
     dataValues?: DataValueDto[] | undefined;
+    code? : string | undefined
 
     constructor(data?: IDataFieldDto) {
         if (data) {
@@ -3854,6 +3855,7 @@ export interface IDataFieldDto {
     isRequired?: boolean;
     fieldType?: FieldType;
     dataValues?: DataValueDto[] | undefined;
+    code? : string | undefined
 }
 
 /** 0 = Text 1 = Date 2 = DateTime 3 = TextArea 4 = CheckBox 5 = Radio 6 = Select 7 = Image 8 = Pdf 9 = Result */
