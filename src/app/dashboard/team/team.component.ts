@@ -15,7 +15,6 @@ import {
 } from '@core/api';
 import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-team',
@@ -50,7 +49,6 @@ export class TeamComponent implements OnInit {
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _translateService: TranslateService,
-    private activatedRoute: ActivatedRoute
   ) {
     this.form = this._fb.group({
       serviceProviderId: [''],

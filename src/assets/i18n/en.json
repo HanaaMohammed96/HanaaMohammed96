@@ -207,5 +207,13 @@
     "name":"Name",
     "created_at": "Created At"
   },
-  "isActive":"isActive"
+  "isActive":"isActive",
+  "Form": {
+    "enName":" English Name",
+    "arName": "Arabic Name",
+    "enDescription": "English Description",
+    "arDescription": "Arabic Description",
+    "type": "Type",
+    "RealState": "RealEstate"
+  }
 }

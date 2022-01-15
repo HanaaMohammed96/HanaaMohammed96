@@ -44,7 +44,7 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
     private _handler: ApiHandlerService,
     private _fb: FormBuilder,
     private _localizationService: LocalizationService,
-  ) { 
+  ) {
     this.isArabic = this._localizationService.getLang() === Language.Ar;
   }
   get firstName(): AbstractControl {
@@ -87,17 +87,17 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
             ),
             phoneNumber: [
               this.dto.phoneNumber
-              ? this.dto.phoneNumber.replace(
-                this.dto.phoneNumber,
-                this.dto.phoneNumber.substring(4)
+                ? this.dto.phoneNumber.replace(
+                  this.dto.phoneNumber,
+                  this.dto.phoneNumber.substring(4)
                 )
                 : '',
-                Validators.required,
-              ],
+              Validators.required,
+            ],
             username: new FormControl(
-              { value: this.data.username || '', disabled: false},
+              { value: this.data.username || '', disabled: false },
               Validators.required
-            ),         
+            ),
           });
         });
     }
@@ -132,7 +132,7 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
           fullName,
           email: rawValue.email,
           phoneNumber,
-          role:  Role.Partner,
+          role: Role.Partner,
           username: value.username,
           password: rawValue.password,
           confirmPassword: rawValue.confirmPassword,

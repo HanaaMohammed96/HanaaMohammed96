@@ -9,11 +9,13 @@ import { NavigationService } from '@core/services/navigation.service';
 import { LocalizationService } from '@core/services/localization.service';
 import { PreloaderService } from '@core/services/preloader.service';
 import icLayers from '@iconify/icons-ic/twotone-layers';
-import icStore from '@iconify/icons-ic/round-storefront';
 import icUsers from '@iconify/icons-ic/baseline-people-alt';
 import icTeam from '@iconify/icons-ic/round-supervised-user-circle';
 import icPolicy from '@iconify/icons-ic/baseline-policy';
 import { TranslateService } from '@ngx-translate/core';
+import icEdit from '@iconify/icons-ic/twotone-edit';
+import icPageView from '@iconify/icons-ic/twotone-pageview';
+import icReceipt from '@iconify/icons-ic/twotone-receipt';
 
 @Component({
   selector: 'app-root',
@@ -59,19 +61,19 @@ export class AppComponent implements OnInit {
         type: 'link',
         label: await this.translate('navigations.partner'),
         route: '/partners',
-        icon: icTeam,
+        icon: icUsers,
       } as NavigationLink,
       {
         type: 'link',
         label: await this.translate('navigations.realState'),
         route: '/real-state',
-        icon: icTeam,
+        icon: icReceipt,
       } as NavigationLink,
       {
         type: 'link',
         label: await this.translate('navigations.form'),
         route: '/form-editor',
-        icon: icTeam,
+        icon: icEdit,
       } as NavigationLink,
       {
         type: 'subheading',
@@ -80,7 +82,7 @@ export class AppComponent implements OnInit {
           {
             type: 'dropdown',
             label: await this.translate('navigations.terms_Cond'),
-            icon: icPolicy,
+            icon: icPageView,
             children: [
               {
                 type: 'link',

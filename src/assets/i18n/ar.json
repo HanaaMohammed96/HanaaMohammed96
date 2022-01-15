@@ -69,7 +69,7 @@
     "terms_Cond_en": "للإنجليزية",
     "reservations": "الحجوزات",
     "form": "إنشاء نموذج",
-    "realState": "العقارات"
+    "realState": "الأصول"
 
   },
   "account": {
@@ -190,12 +190,12 @@
   "text":"نص",
   "email":"بريد إلكتروني",
   "number":"رقم",
-  "required":"مطلوب",
-  "not required":"غير مطلوب",
+  "required":"ضروري",
+  "not required":"غير ضروري",
   "Min":"أقل عدد",
   "Max":"أكبر عدد",
-  "No":"غير موافق",
-  "Yes":"موافق",
+  "No":"إلغاء",
+  "Yes":"حفظ",
   "Back":"العودة",
   "Form Detailes":"تفاصيل النموذج",
   "Form Name":"اسم النموذج",
@@ -204,14 +204,22 @@
   "arDescription":"وصف النموذج",
   "No response found":"لم يتم إدخال بيانات",
   "realState":{
-    "title":"العقارات",
-    "description":"هذه القائمة تشمل كل العقارات",
+    "title":"الأصول",
+    "description":"هذه القائمة تشمل كل الأصول",
     "TableName":"العقار",
     "tableNamePlural":"العقار",
     "name":"الاسم",
     "created_at": "تاريخ الإنشاء"
   },
-  "isActive":"تفعيل"
+  "isActive":"تفعيل",
+  "Form": {
+    "enName":" الاسم باللغة الإنجليزية",
+    "arName": "الإسم باللغة العربية",
+    "enDescription": "الوصف باللغة لإنجليزية",
+    "arDescription": "الوصف باللغة العربية",
+    "type": "نوع النموذج",
+    "RealState": "العقار"
+  }
 }
 
   

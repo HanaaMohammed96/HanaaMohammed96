@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { IFormDto } from '@core/api';
 import { DataField } from '@models/data-field';
 import { Observable } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/dashboard/form/confirm-dialog/confirm-dialog.component';
@@ -10,8 +11,7 @@ import { FormDetailesComponent } from 'src/app/dashboard/form/form-detailes/form
   providedIn: 'root'
 })
 export class ChangeFormDetailsService {
-  name:string;
-  description:string;
+  form:IFormDto
   item:DataField;
 
   constructor(
@@ -29,8 +29,15 @@ export class ChangeFormDetailsService {
     const dialogRef = this.dialog.open(FormDetailesComponent, {
       disableClose:true,
       data: {
-        name: this.name, description: this.description
+        name:{
+          ar:"",
+          en: ""
+        },
+        description:{
+          ar:"",
+          en: ""
         }
+      }
     });
     return dialogRef.afterClosed();
   }

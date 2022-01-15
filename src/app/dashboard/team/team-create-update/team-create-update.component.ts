@@ -58,55 +58,51 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-        if (!this.data) {
-          this.data = {} as AdminVm;
-          this.dto = {} as AccountDashboardDto;
+    if (!this.data) {
+      this.data = {} as AdminVm;
+      this.dto = {} as AccountDashboardDto;
 
+      this.form = this._fb.group({
+        name: this._fb.group({
+          FirstName: ['', Validators.required],
+          LastName: ['', Validators.required],
+        }),
+        email: ['', Validators.required],
+        phoneNumber: ['', Validators.required],
+        username: ['', Validators.required],
+        password: ['', Validators.required],
+        confirmPassword: ['', Validators.required],
+      });
+    } else {
+      this._accountsClient
+        .getUser(this.data.id)
+        .subscribe((account: AccountDashboardDto) => {
+          this.dto = account;
           this.form = this._fb.group({
             name: this._fb.group({
-              FirstName: ['', Validators.required],
-              LastName: ['', Validators.required],
+              FirstName: [this.dto.name.firstName || '', Validators.required],
+              LastName: [this.dto.name.lastName || '', Validators.required],
             }),
-            email: ['', Validators.required],
-            phoneNumber: ['', Validators.required],
-            username: ['', Validators.required],
-            serviceProviderId: [''],
-            branchId: [''],
-            serviceId: [''],
-            pin: [''],
-            password: ['', Validators.required],
-            confirmPassword: ['', Validators.required],
+            email: new FormControl(
+              { value: this.dto.email || '', disabled: true },
+              Validators.required
+            ),
+            phoneNumber: [
+              this.dto.phoneNumber
+                ? this.dto.phoneNumber.replace(
+                  this.dto.phoneNumber,
+                  this.dto.phoneNumber.substring(4)
+                )
+                : '',
+              Validators.required,
+            ],
+            username: new FormControl(
+              { value: this.data.username || '', disabled: false },
+              Validators.required
+            )
           });
-        } else {
-          this._accountsClient
-            .getUser(this.data.id)
-            .subscribe((account: AccountDashboardDto) => {
-              this.dto = account;
-              this.form = this._fb.group({
-                name: this._fb.group({
-                  FirstName: [this.dto.name.firstName || '', Validators.required],
-                  LastName: [this.dto.name.lastName || '', Validators.required],
-                }),
-                email: new FormControl(
-                  { value: this.dto.email || '', disabled: true },
-                  Validators.required
-                ),
-                phoneNumber: [
-                  this.dto.phoneNumber
-                  ? this.dto.phoneNumber.replace(
-                    this.dto.phoneNumber,
-                    this.dto.phoneNumber.substring(4)
-                    )
-                    : '',
-                    Validators.required,
-                  ],
-                  username: new FormControl(
-                    { value: this.data.username || '', disabled: false},
-                    Validators.required
-                  )
-              });
-            });
-        }
+        });
+    }
   }
 
   ngOnDestroy(): void {
@@ -139,7 +135,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
           fullName,
           email: rawValue.email,
           phoneNumber,
-          role:  Role.Admin,
+          role: Role.Admin,
           username: value.username,
           password: rawValue.password,
           confirmPassword: rawValue.confirmPassword,

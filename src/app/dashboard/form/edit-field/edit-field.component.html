@@ -1,108 +1,126 @@
+<div class="overflow-hidden p-4">
+  <div fxLayout="row" fxLayoutAlign="space-evenly center">
+    <!-- <mat-icon color="warn" class='w-14'>add_task</mat-icon> -->
+    <!-- <span class="inline-flex items-center justify-center p-6 py-1 text-xs font-bold leading-none rounded-full badge" >{{data.code}}</span> -->
+    <!-- <span class="inline-flex items-center justify-center p-6 py-1 text-xs font-bold leading-none rounded-full badge" *ngIf="data.order > -1" [hidden]="data.fieldType =='number'">{{data.order}}</span> -->
+    <h3 class="whitespace-normal w-3/6"> {{data.name.en}} </h3>
+  </div>
+  <div mat-dialog-content>
+    <div fxLayout="column" fxLayoutAlign="space-evenly center" class="w-full">
+      <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full">
+        <div fxLayout="row" fxLayoutAlign="space-evenly center" class="w-full">
+          <div fxLayout="column" fxLayoutAlign="space-evenly center" class="field m-6 w-full">
 
-  <div class="overflow-hidden p-4">
-    <div  fxLayout="row" fxLayoutAlign="space-evenly center"  >
-      <!-- <mat-icon color="warn" class='w-14'>add_task</mat-icon> -->
-      <span class="inline-flex items-center justify-center p-6 py-1 text-xs font-bold leading-none rounded-full badge" *ngIf="data.type =='number'">#{{data.code}}</span>
-      <!-- <span class="inline-flex items-center justify-center p-6 py-1 text-xs font-bold leading-none rounded-full badge" *ngIf="data.order > -1" [hidden]="data.type =='number'">{{data.order}}</span> -->
-      <h3 class="whitespace-normal w-3/6" > {{data.label}} </h3>
-    </div>
-    <div mat-dialog-content>
-      <div fxLayout="column" fxLayoutAlign="space-evenly center" class="w-full">                      
-        <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full">
-          <div fxLayout="row" fxLayoutAlign="space-evenly center" class="w-full">
-            <div fxLayout="column" fxLayoutAlign="space-evenly center" class="field m-6 w-full">
-              
-              <mat-form-field *ngIf="data.type =='checkbox'"  class="w-full">
-                <mat-label>{{"Label" | translate}}</mat-label>
-                <input type="text" [(ngModel)]="data.label" matInput  max="200" />
-              </mat-form-field>
+            <mat-form-field *ngIf="data.fieldType == 4" class="w-full">
+              <mat-label>{{"Label" | translate}}</mat-label>
+              <input type="text" [(ngModel)]="data.name.en" matInput max="200" />
+            </mat-form-field>
+            <mat-form-field *ngIf="data.fieldType == 4" class="w-full">
+              <mat-label>{{"Label" | translate}}</mat-label>
+              <input type="text" [(ngModel)]="data.name.ar" matInput max="200" />
+            </mat-form-field>
 
-              <mat-form-field *ngIf="data.type !='checkbox'"  class="w-full">
-                <mat-label>{{"Label" | translate}}</mat-label>
-                <input type="text" [(ngModel)]="data.label" matInput   />
-              </mat-form-field>
+            <mat-form-field *ngIf="data.fieldType != 4" class="w-full">
+              <mat-label>{{"Label" | translate}}</mat-label>
+              <input type="text" [(ngModel)]="data.name.en" matInput />
+            </mat-form-field>
+            <mat-form-field *ngIf="data.fieldType != 4" class="w-full">
+              <mat-label>{{"Label" | translate}}</mat-label>
+              <input type="text" [(ngModel)]="data.name.ar" matInput />
+            </mat-form-field>
 
-              <mat-form-field class="w-full" *ngIf="data.type!='checkbox' && data.type!='radio' && data.type!='autocomplete' && data.type!='file' && data.type!='date' && data.type!='datetime-local'">
-                <mat-label>{{"placeholder" |translate}}</mat-label>
-                <input type="text" [(ngModel)]="data.placeholder" matInput />
-              </mat-form-field>
+            <!-- <mat-form-field class="w-full"
+              *ngIf="data.fieldType!='checkbox' && data.fieldType!='radio' && data.fieldType!='autocomplete' && data.fieldType!='file' && data.fieldType!='date' && data.fieldType!='datetime-local'">
+              <mat-label>{{"placeholder" |translate}}</mat-label>
+              <input type="text" [(ngModel)]="data.placeholder" matInput />
+            </mat-form-field> -->
 
-              <mat-form-field appearance="fill" class="w-full">
-                <mat-label>{{"Type" | translate}}</mat-label>
-                <mat-select [(ngModel)]="data.type">
-                  <mat-option value="text">{{"text" |translate}}</mat-option>
-                  <mat-option value="email">{{"email" |translate}}</mat-option>
-                  <mat-option value="number">{{"number" | translate}}</mat-option>
-                  <mat-option value="number">{{"result" | translate}}</mat-option>
-                </mat-select>
-              </mat-form-field>
+            <mat-form-field appearance="fill" class="w-full">
+              <mat-label>{{"Type" | translate}}</mat-label>
+              <mat-select [(ngModel)]="data.fieldType">
+                <mat-option value="0">{{"text" |translate}}</mat-option>
+                <mat-option value="number">{{"number" | translate}}</mat-option>
+                <mat-option value="9">{{"result" | translate}}</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-              <mat-form-field *ngIf="data.type!='file'" class="w-full">
-                <mat-label>Regex</mat-label>
-                <input type="text" [(ngModel)]="data.regex" matInput />
-              </mat-form-field>
+            <mat-form-field *ngIf="data.fieldType != 8 || data.fieldType != 9" class="w-full">
+              <mat-label>Regex</mat-label>
+              <!-- <input type="text" [(ngModel)]="data.regex" matInput /> -->
+            </mat-form-field>
 
-            </div>
+            <!-- Equation -->
+            <mat-form-field class="w-full" *ngIf="data.fieldType == 9">
+              <mat-label>{{"Equation" | translate}}</mat-label>
+              <input type="text" matInput />
+            </mat-form-field>
 
-            <!-- number -->
-            <div *ngIf="data.type=='number' || data.type=='text'" fxLayout="column"
-              fxLayoutAlign="space-evenly center" class="m-6 w-full">
-
-              <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;" class="w-full">
-                <span *ngIf="data.required">{{"required" | translate}}</span>
-                <mat-icon *ngIf="data.required" (click)="data.required=false" color="warn" class="icon-display pl-3">toggle_on
-                </mat-icon>
-                <span *ngIf="!data.required"> {{"not required"| translate}}</span>
-                <mat-icon *ngIf="!data.required" (click)="data.required=true" class="icon-display pl-3">toggle_off</mat-icon>
-              </div>
-
-              <mat-form-field class="w-full">
-                <mat-label>{{"Min" |translate}}</mat-label>
-                <input type="text" [(ngModel)]="data.min" matInput />
-              </mat-form-field>
-
-              <mat-form-field class="w-full">
-                <mat-label>{{"Max" | translate}}</mat-label>
-                <input type="text" [(ngModel)]="data.max" matInput />
-              </mat-form-field>
-
-            </div>
           </div>
-          <!-- radio || checkbox || autocomplete -->
-          <div class="field w-full" *ngIf="data.type=='radio'|| data.type=='checkbox' || data.type=='autocomplete'"
-            fxLayout="column" fxLayoutAlign="space-evenly center">
-            <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;" class="m-6 w-full">
 
-              <span *ngIf="data.required">{{"required" | translate}}</span>
-              <mat-icon *ngIf="data.required" (click)="data.required=false" color="warn">toggle_on
+          <!-- number -->
+          <!-- <div *ngIf="data.fieldType=='number' || data.fieldType == 0" fxLayout="column" fxLayoutAlign="space-evenly center" -->
+          <div *ngIf=" data.fieldType == 0" fxLayout="column" fxLayoutAlign="space-evenly center"
+            class="m-6 w-full">
+
+            <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;" class="w-full">
+              <span *ngIf="data.isRequired">{{"required" | translate}}</span>
+              <mat-icon *ngIf="data.isRequired" (click)="data.isRequired=false" color="warn" class="icon-display pl-3">
+                toggle_on
               </mat-icon>
-              <span *ngIf="!data.required"> {{"not required"| translate}}</span>
-              <mat-icon *ngIf="!data.required" (click)="data.required=true">toggle_off</mat-icon>
+              <span *ngIf="!data.isRequired"> {{"not required"| translate}}</span>
+              <mat-icon *ngIf="!data.isRequired" (click)="data.isRequired=true" class="icon-display pl-3">toggle_off
+              </mat-icon>
             </div>
 
-            <div *ngFor="let i of data.values; let valueIndex=index;">
-              <div class="w-full">
-                <mat-form-field>
-                  <input type="text" [(ngModel)]="i.label" matInput />
-                </mat-form-field>
-                <mat-icon (click)="data.values.splice(valueIndex,1)" mat-fab color="primary">delete </mat-icon>              
-              </div>
+            <mat-form-field class="w-full">
+              <mat-label>{{"Min" |translate}}</mat-label>
+              <!-- <input type="text" [(ngModel)]="data.min" matInput /> -->
+            </mat-form-field>
 
+            <mat-form-field class="w-full">
+              <mat-label>{{"Max" | translate}}</mat-label>
+              <!-- <input type="text" [(ngModel)]="data.max" matInput /> -->
+            </mat-form-field>
+
+          </div>
+
+
+        </div>
+        <!-- radio || checkbox || autocomplete -->
+        <div class="field w-full" *ngIf="data.fieldType == 5|| data.fieldType == 4 || data.fieldType == 6"
+          fxLayout="column" fxLayoutAlign="space-evenly center">
+          <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;" class="m-6 w-full">
+
+            <span *ngIf="data.isRequired">{{"required" | translate}}</span>
+            <mat-icon *ngIf="data.isRequired" (click)="data.isRequired=false" color="warn">toggle_on
+            </mat-icon>
+            <span *ngIf="!data.isRequired"> {{"not required"| translate}}</span>
+            <mat-icon *ngIf="!data.isRequired" (click)="data.isRequired=true">toggle_off</mat-icon>
+          </div>
+
+          <!-- <div *ngFor="let i of data.values; let valueIndex=index;">
+            <div class="w-full">
+              <mat-form-field>
+                <input type="text" [(ngModel)]="i.label" matInput />
+              </mat-form-field>
+              <mat-icon (click)="data.values.splice(valueIndex,1)" mat-fab color="primary">delete </mat-icon>
             </div>
-            <div>
-              <div>
-                <mat-form-field>
-                  <input type="text" [(ngModel)]="value.label" matInput />
-                </mat-form-field>
-                <mat-icon (click)="addValue(data.values)" mat-fab color="primary">control_point</mat-icon>
-              </div>
-            </div>
+
+          </div> -->
+          <div>
+            <!-- <div>
+              <mat-form-field>
+                <input type="text" [(ngModel)]="value.label" matInput />
+              </mat-form-field>
+              <mat-icon (click)="addValue(data.values)" mat-fab color="primary">control_point</mat-icon>
+            </div> -->
           </div>
         </div>
       </div>
     </div>
-    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" >
-        <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" | translate}}</button>
-        <button mat-button (click)="onNoClick()" mat-raised-button color="primary">{{"No" | translate}}</button>
-    </div>
   </div>
+  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
+    <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" | translate}}</button>
+    <button mat-button (click)="onNoClick()" mat-raised-button color="primary">{{"No" | translate}}</button>
+  </div>
+<!-- </div> -->

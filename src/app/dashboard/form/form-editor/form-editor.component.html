@@ -1,4 +1,3 @@
-
 <div class=" lg:container p-4 mx-auto">
   <div class="grid grid-cols-4 gap-4" [class.hidden]="report">
 
@@ -9,31 +8,34 @@
         <div [class.hidden]="report">
 
           <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]"
-          (cdkDropListDropped)="drop($event)" [cdkDropListData]="secondList" cdkDrag cdkDragBoundary=".content"
-          fxLayout="column" fxLayoutAlign="space-evenly center" style="width:500px"
-          class=" p-6 border-dashed border-4 border-blue-600 text-black">
-          
-          <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note</mat-icon>
-          <h4 *ngIf="!secondList.length" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
-          
-          <!-- <div *ngFor="let item of model.attributes; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center"> -->
+            (cdkDropListDropped)="drop($event)" [cdkDropListData]="secondList" cdkDrag cdkDragBoundary=".content"
+            fxLayout="column" fxLayoutAlign="space-evenly center" style="width:500px"
+            class=" p-6 border-dashed border-4 border-blue-600 text-black">
+
+            <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
+            </mat-icon>
+            <h4 *ngIf="!secondList.length" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
+
+            <!-- <div *ngFor="let item of model.attributes; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center"> -->
             <div *ngFor="let item of secondList; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
-            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+              <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                <span
+                  class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-4">{{item.code}}</span>
 
                 <mat-form-field
                   *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='select' && item.type!='file' && item.type!='textarea'"
                   cdkDrag class="font-in-dropped">
-                  <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
-                  <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
+                  <mat-label>{{item.name.en}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
+                  <input type="type[item.fieldType]" placeholder="{{item.placeholder}}" matInput />
                 </mat-form-field>
 
-                <div *ngIf="item.type=='textarea'" cdkDrag >
-                  <div >
-                    <mat-form-field  class="font-in-dropped">
-                      <mat-label>{{item.label}}</mat-label>
+                <div *ngIf="type[item.fieldType]=='TextArea'" cdkDrag>
+                  <div>
+                    <mat-form-field class="font-in-dropped">
+                      <mat-label>{{item.name.en}}</mat-label>
                       <textarea matInput placeholder="{{item.placeholder}}"></textarea>
                     </mat-form-field>
-                  </div>                  
+                  </div>
                 </div>
 
                 <div *ngIf="item.type=='checkbox'" cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
@@ -85,16 +87,17 @@
                 <mat-icon (click)="removeField(i)" color="accent"> delete </mat-icon>
 
               </div>
-              </div>
-            <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" | translate}}</button>
+            </div>
+            <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |
+              translate}}</button>
           </div>
         </div>
       </div>
     </div>
-    
+
     <div class="col mat-elevation-z8 p-4 editor" cdkDropList #formFields="cdkDropList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
-      position="end" >
+      position="end">
 
       <div class="text-center ">
         <h4>{{"Select Field" | translate}}</h4>
@@ -106,7 +109,7 @@
           <mat-grid-tile class="fields" colspan="1">
             <mat-icon>{{i.icon}}</mat-icon>
           </mat-grid-tile>
-          <mat-grid-tile colspan="3"><span>{{i.label}}</span></mat-grid-tile>
+          <mat-grid-tile colspan="3"><span>{{i.name.en}}</span></mat-grid-tile>
         </mat-grid-list>
       </div>
 
@@ -120,36 +123,36 @@
         <mat-icon color="accent">keyboard_return</mat-icon>
       </button>
     </div>
-    
+
     <div>
       <!-- if records found -->
       <div *ngIf="reports?.length > 0" class="p-8 rounded shadow bg-white " style="border:2px solid #ccc;">
 
         <div *ngIf="lang=='en'">
-          <h3 class="text-center m-6 ">{{model.name}}</h3>
-          <p class="text-center m-6">{{model.description}}</p>
+          <!-- <h3 class="text-center m-6 ">{{model.name}}</h3>
+          <p class="text-center m-6">{{model.description}}</p> -->
         </div>
         <div *ngIf="lang=='ar'">
-          <h3 class="text-center m-6 ">{{model.arName}}</h3>
-          <p class="text-center m-6">{{model.arDescription}}</p>
+          <!-- <h3 class="text-center m-6 ">{{model.arName}}</h3>
+          <p class="text-center m-6">{{model.arDescription}}</p> -->
         </div>
 
         <div *ngFor="let item of reports" fxLayout="column" fxLayoutAlign="space-evenly center">
 
           <div>
             <mat-form-field class="font-in-dropped "
-              *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='select' && item.type!='file' && item.type!='textarea'" >
+              *ngIf="item.type!='checkbox' && item.type!='radio' && item.type!='select' && item.type!='file' && item.type!='textarea'">
               <mat-label>{{item.label}}<label *ngIf="item.required" color="warn">*</label></mat-label>
               <input type="{{item.type}}" placeholder="{{item.placeholder}}" matInput />
             </mat-form-field>
 
-            <div *ngIf="item.type=='textarea'" cdkDrag >
-              <div >
-                <mat-form-field  class="font-in-dropped">
+            <div *ngIf="item.type=='textarea'" cdkDrag>
+              <div>
+                <mat-form-field class="font-in-dropped">
                   <mat-label>{{item.label}}</mat-label>
                   <textarea matInput placeholder="{{item.placeholder}}"></textarea>
                 </mat-form-field>
-              </div>              
+              </div>
             </div>
 
             <div *ngIf="item.type=='checkbox'" class="font-in-dropped  flex flex-row flex-nowrap">
@@ -200,7 +203,8 @@
           </div>
         </div>
 
-        <button type="submit" mat-raised-button color="primary" (click)="report=false" style="margin-left: 39%;">{{"Submit" | translate}}</button>
+        <button type="submit" mat-raised-button color="primary" (click)="report=false"
+          style="margin-left: 39%;">{{"Submit" | translate}}</button>
       </div>
       <!-- if no records found -->
       <div *ngIf="reports?.length == 0" class="text-center pt-8">
@@ -211,4 +215,9 @@
 
   </div>
 
+</div>
+<div class="inline-block absolute left-5 bottom-5">
+  <button [class.spinner]="loading" mat-mini-fab color="warn" (click)="save()">
+    <mat-icon *ngIf="!loading" [icIcon]="icSave"></mat-icon>
+  </button>
 </div>
