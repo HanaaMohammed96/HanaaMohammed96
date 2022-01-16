@@ -218,7 +218,16 @@
     "enDescription": "الوصف باللغة لإنجليزية",
     "arDescription": "الوصف باللغة العربية",
     "type": "نوع النموذج",
-    "RealState": "العقار"
+    "RealState": "العقار",
+    "requestsNumber": "عدد الطلبات",
+    "title_table_page": "[جدول النماذج]",
+    "description_table_page": "هذه القائمة تحتوي على جميع النماذج",
+    "tableName": "النماذج",
+    "tableNamePlural": "النماذج",
+    "types":{
+      "preview": "معاينة",
+      "evaluation": "تقييم"
+    }
   }
 }
 

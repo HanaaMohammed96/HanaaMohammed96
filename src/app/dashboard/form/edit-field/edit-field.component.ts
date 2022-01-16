@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FieldType, IDataFieldDto } from '@core/api';
+import { DataValueDto, FieldType, IDataFieldDto, LocalizedStringDto } from '@core/api';
 import { FormEditorComponent } from '../form-editor/form-editor.component';
 import { DataField, value } from './../../../@models/data-field';
 
@@ -10,10 +10,10 @@ import { DataField, value } from './../../../@models/data-field';
   styleUrls: ['./edit-field.component.scss']
 })
 export class EditFieldComponent implements OnInit {
-  value: value = {
-    label: '',
-    value: ''
-  };
+  lang: string;
+
+  value: LocalizedStringDto
+
 
   type = FieldType;
 
@@ -25,17 +25,34 @@ export class EditFieldComponent implements OnInit {
   ) {
     console.log(this.data);
     this.resetItem = {...this.data};
+    this.lang = localStorage.getItem('lang') as string;
+    this.value = new LocalizedStringDto({
+      ar: 'الاختيار الاول',
+      en: 'Option-1'
+    });
+
   }
 
   ngOnInit(): void {
   }
 
-  addValue(values){
+  toLang(name: LocalizedStringDto) {
+    if (this.lang == 'en') {
+      return name.en;
+    }
+
+    return name.ar;
+  }
+
+  addValue(values:DataValueDto[]){
     if (!values){
-      values = [];
+      return;
     }
     values.push(this.value);
-    this.value = {label: '', value: ''};
+    this.value = new LocalizedStringDto({
+      ar: '',
+      en: ''
+    });
   }
 
   onNoClick(): void {

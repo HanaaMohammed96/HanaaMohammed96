@@ -36,6 +36,7 @@ import { ConfirmDialogComponent } from './form/confirm-dialog/confirm-dialog.com
 import { EditFieldComponent } from './form/edit-field/edit-field.component';
 import { RealStatesComponent } from './real-states/real-states.component';
 import { RealStateCreateUpdateComponent } from './real-states/real-state-create-update/real-state-create-update.component';
+import { FormsPageComponent } from './form/forms-page/forms-page.component';
 
 @NgModule({
   declarations: [
@@ -70,6 +71,7 @@ import { RealStateCreateUpdateComponent } from './real-states/real-state-create-
     EditFieldComponent,
     RealStatesComponent,
     RealStateCreateUpdateComponent,
+    FormsPageComponent,
   ],
   imports: [
     CommonModule,

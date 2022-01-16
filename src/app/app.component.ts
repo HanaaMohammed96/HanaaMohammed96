@@ -16,6 +16,7 @@ import { TranslateService } from '@ngx-translate/core';
 import icEdit from '@iconify/icons-ic/twotone-edit';
 import icPageView from '@iconify/icons-ic/twotone-pageview';
 import icReceipt from '@iconify/icons-ic/twotone-receipt';
+import icFilterList from '@iconify/icons-ic/twotone-filter-list';
 
 @Component({
   selector: 'app-root',
@@ -72,8 +73,8 @@ export class AppComponent implements OnInit {
       {
         type: 'link',
         label: await this.translate('navigations.form'),
-        route: '/form-editor',
-        icon: icEdit,
+        route: '/forms',
+        icon: icFilterList,
       } as NavigationLink,
       {
         type: 'subheading',

@@ -11,6 +11,7 @@ import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-cond
 import { PartnersComponent } from './partners/partners.component';
 import { FormEditorComponent } from './form/form-editor/form-editor.component';
 import { RealStatesComponent } from './real-states/real-states.component';
+import { FormsPageComponent } from './form/forms-page/forms-page.component';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
       { path: 'admins', component: TeamComponent },
       { path: 'real-state', component: RealStatesComponent },
       { path: 'partners', component: PartnersComponent },
-      { path: 'form-editor', component: FormEditorComponent },
+      { path: 'forms', component: FormsPageComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: '**', component: NotFoundComponent },
