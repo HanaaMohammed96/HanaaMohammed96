@@ -68,7 +68,7 @@
     "terms_Cond_ar": "للعربية",
     "terms_Cond_en": "للإنجليزية",
     "reservations": "الحجوزات",
-    "form": "إنشاء نموذج",
+    "form": "إنشاء نماذج",
     "realState": "الأصول"
 
   },
@@ -220,7 +220,7 @@
     "type": "نوع النموذج",
     "RealState": "العقار",
     "requestsNumber": "عدد الطلبات",
-    "title_table_page": "[جدول النماذج]",
+    "title_table_page": "جدول النماذج",
     "description_table_page": "هذه القائمة تحتوي على جميع النماذج",
     "tableName": "النماذج",
     "tableNamePlural": "النماذج",
