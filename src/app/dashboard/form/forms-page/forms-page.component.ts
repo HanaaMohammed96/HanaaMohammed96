@@ -22,6 +22,7 @@ import { FormEditorComponent } from '../form-editor/form-editor.component';
     [client]="formsClient"
     [createUpdateComponent]="component"    
     [columns]="columns"
+    [forForm]="createForm"
     [actions]="actions"
     [dataObserable]="'getData'"
   ></app-aio-table>`,
@@ -38,11 +39,11 @@ export class FormsPageComponent implements OnInit {
   actions: SelectionAction[] = [];
 
   localized = { ban: null, cancel: null };
-
+  
+  createForm = true;
   constructor(
     public formsClient: FormsClient,
     private _fb: FormBuilder,
-    private _dialog: MatDialog,
     private _translateService: TranslateService,
   ) {
     this.form = this._fb.group({
@@ -103,17 +104,17 @@ export class FormsPageComponent implements OnInit {
 
     this.actions = [
       {
-        label: await this.translate('general.update'),
+        label: await this.translate('general.updateForm'),
         ref: this.table,
-        actionName: 'update',
+        actionName: 'updateForm',
         icon: this.table.icEdit,
         disabled: false,
         loading: false,
       },
       {
-        label: await this.translate('general.delete'),
+        label: await this.translate('general.deleteForm'),
         ref: this.table,
-        actionName: 'delete',
+        actionName: 'deleteForm',
         icon: this.table.icDelete,
         disabled: false,
         loading: false,

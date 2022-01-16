@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IFormDto, RealStatesClient, RealStatesVm, RequestType } from '@core/api';
+import { FormsClient, IFormDto, RealStatesClient, RealStatesVm, RequestType } from '@core/api';
 
 @Component({
   selector: 'app-form-detailes',
@@ -61,31 +61,44 @@ import { IFormDto, RealStatesClient, RealStatesVm, RequestType } from '@core/api
   `
 })
 export class FormDetailesComponent implements OnInit {
+
   realStates: RealStatesVm[];
+
   formType = RequestType;
+
   types = [];
+
   constructor(
-    public dialogRef: MatDialogRef<FormDetailesComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IFormDto,
-    private realStateClient: RealStatesClient
+    public dialogRef: MatDialogRef<FormDetailesComponent>,
+    private realStateClient: RealStatesClient,
+    private _FormsClient: FormsClient
   ) {
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
   }
 
   ngOnInit(): void {
     this.realStateClient.getList().subscribe(result => {
-      this.realStates = result
+      this.realStates = result;
     })
+    if (this.data.id){
+      this._FormsClient.get(this.data.id).subscribe(result => {
+        this.data.realStateId = result.realStateId;
+        this.data.type = result.type;
+      });
+    }
   }
 
   onNoClick(): void {
-    this.dialogRef.close();
+
+    this.dialogRef.close(this.data);
   }
-  onSelect(event:any) {
+
+  onSelect(event: any) {
     this.data.realStateId = event;
   }
-  _onSelect(event:any) {
-    console.log('event', event)
+
+  _onSelect(event: any) {
     this.data.type = event;
   }
 }

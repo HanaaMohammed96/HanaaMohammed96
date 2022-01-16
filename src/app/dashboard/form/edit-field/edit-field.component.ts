@@ -12,8 +12,7 @@ import { DataField, value } from './../../../@models/data-field';
 export class EditFieldComponent implements OnInit {
   lang: string;
 
-  value: LocalizedStringDto
-
+  value: LocalizedStringDto;
 
   type = FieldType;
 
@@ -25,7 +24,9 @@ export class EditFieldComponent implements OnInit {
   ) {
     console.log(this.data);
     this.resetItem = {...this.data};
+    console.log('resetItem=>', this.resetItem);
     this.lang = localStorage.getItem('lang') as string;
+
     this.value = new LocalizedStringDto({
       ar: 'الاختيار الاول',
       en: 'Option-1'
@@ -44,11 +45,13 @@ export class EditFieldComponent implements OnInit {
     return name.ar;
   }
 
-  addValue(values:DataValueDto[]){
+  addValue(values: any[]){
+    console.log('values',values)
     if (!values){
       return;
     }
-    values.push(this.value);
+    const newValue = {value:this.value}
+    values.push(newValue);
     this.value = new LocalizedStringDto({
       ar: '',
       en: ''
@@ -57,7 +60,8 @@ export class EditFieldComponent implements OnInit {
 
   onNoClick(): void {
 
-    this.data = this.resetItem;
+    this.data = {...this.resetItem};
+    console.log('===>', this.resetItem);
     this.dialogRef.close(this.data);
   }
 

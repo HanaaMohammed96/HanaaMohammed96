@@ -25,19 +25,10 @@ export class ChangeFormDetailsService {
     return dialogRef.afterClosed();
   }
 
-  openDialog(): Observable<any> {
+  openDialog(model:IFormDto): Observable<any> {
     const dialogRef = this.dialog.open(FormDetailesComponent, {
       disableClose:true,
-      data: {
-        name:{
-          ar:"",
-          en: ""
-        },
-        description:{
-          ar:"",
-          en: ""
-        }
-      }
+      data: {...model}
     });
     return dialogRef.afterClosed();
   }

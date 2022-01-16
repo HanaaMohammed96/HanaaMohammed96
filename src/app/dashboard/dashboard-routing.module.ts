@@ -12,6 +12,7 @@ import { PartnersComponent } from './partners/partners.component';
 import { FormEditorComponent } from './form/form-editor/form-editor.component';
 import { RealStatesComponent } from './real-states/real-states.component';
 import { FormsPageComponent } from './form/forms-page/forms-page.component';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 const routes: Routes = [
   {
@@ -26,6 +27,7 @@ const routes: Routes = [
       { path: 'real-state', component: RealStatesComponent },
       { path: 'partners', component: PartnersComponent },
       { path: 'forms', component: FormsPageComponent },
+      { path: 'form-editor', component: FormEditorComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: '**', component: NotFoundComponent },
@@ -36,6 +38,10 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
+  providers: [
+    { provide: MAT_DIALOG_DATA, useValue: {} },
+    // { provide: MdDialogRef, useValue: {} }
+]
 })
 export class DashboardRoutingModule {
   static resolvers = [];

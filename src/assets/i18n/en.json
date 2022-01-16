@@ -4,6 +4,8 @@
     "add": "Add",
     "create": "Create",
     "update": "Update",
+    "createForm": "CreateForm",
+    "updateForm": "UpdateForm",
     "delete": "Delete",
     "cancel": "Cancel",
     "close": "Close",

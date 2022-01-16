@@ -1,9 +1,10 @@
 import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { FieldType, FormPostCommand,
+import { DataFieldDto, DataValueDto, FieldType, FormPostCommand,
   FormPutCommand, FormsClient,
   FormVmForDashboard, IDataFieldDto,
+  IFormDto,
   IFormPostPutCommon, LocalizedStringDto
 } from '@core/api';
 import { ChangeFormDetailsService } from '@core/services/change-form-details.service';
@@ -25,14 +26,11 @@ import { Observable } from 'rxjs';
 export class FormEditorComponent implements OnInit {
   lang: string;
 
-
   loading = false;
 
   icSave = icSave;
 
   type = FieldType;
-
-  value: LocalizedStringDto;
 
   fieldModels: Array<IDataFieldDto> = [];
 
@@ -41,10 +39,9 @@ export class FormEditorComponent implements OnInit {
   report = false;
   reports: IFormPostPutCommon = {} ;
 
-  icon: string;
-
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: FormVmForDashboard,
+    @Inject(MAT_DIALOG_DATA) public data: IFormDto,
+    // @Inject(MAT_DIALOG_DATA) public data: FormVmForDashboard,
     public dialog: MatDialog,
     private _FormsClient: FormsClient,
     private formDetailesModel: ChangeFormDetailsService,
@@ -54,18 +51,26 @@ export class FormEditorComponent implements OnInit {
 
     this.lang = localStorage.getItem('lang') as string;
 
+    const dataValues = new DataValueDto({
+      value:new LocalizedStringDto({
+        ar: 'اختيار',
+        en: 'Option'
+      })
+    })
+
     this.model = {
-      name: null,
-      description: null,
+      name: new LocalizedStringDto({
+        ar: '',
+        en: ''
+      }),
+      description: new LocalizedStringDto({
+        ar: '',
+        en: ''
+      }),
       realStateId: null,
       type: null,
       fields: [],
     };
-
-    this.value = new LocalizedStringDto({
-      ar: 'الاختيار الاول',
-      en: 'Option-1'
-    });
 
     this.fieldModels = [
       {
@@ -162,7 +167,7 @@ export class FormEditorComponent implements OnInit {
         isRequired: false,
         fieldType: FieldType.CheckBox,
         code: 'A',
-        dataValues: []
+        dataValues: [dataValues,dataValues]
       },
       {
         name: new LocalizedStringDto({
@@ -173,7 +178,7 @@ export class FormEditorComponent implements OnInit {
         isRequired: false,
         fieldType: FieldType.Radio,
         code: 'A',
-        dataValues: []
+        dataValues: [dataValues,dataValues]
       },
       {
         name: new LocalizedStringDto({
@@ -184,14 +189,13 @@ export class FormEditorComponent implements OnInit {
         isRequired: false,
         fieldType: FieldType.Select,
         code: 'A',
-        dataValues: []
+        dataValues: [dataValues,dataValues]
       }
     ];
-
   }
 
   ngOnInit(): void {
-    if (this.data){
+    if (this.data.id){
       this._FormsClient.get(this.data.id).subscribe(result => {
         this.model = result;
       });
@@ -202,25 +206,25 @@ export class FormEditorComponent implements OnInit {
     if (this.lang == 'en') {
       return name.en;
     }
-
     return name.ar;
   }
 
   drop(event: CdkDragDrop<string[]>) {
-
+    // for prevent duplicate items in dragable list
     if (event.container.connectedTo[0].id == 'cdk-drop-list-0') {
+
       this.removeField(event.currentIndex);
       return;
     }
-
+    // for coping item in dropzone
     if (event.previousContainer === event.container) {
-
+      // for sorting items
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
 
       this.model.fields[event.currentIndex].orders = event.currentIndex + 1;
 
     } else {
-      console.log('event.container.data= ', event.container.data);
+
       const clone = cloneDeep(event.previousContainer.data[event.previousIndex]);
       event.container.data.splice(event.currentIndex, 0, clone);
 
@@ -251,7 +255,7 @@ export class FormEditorComponent implements OnInit {
     const file = event.target.files[0];
   }
 
-  openDialog(item: DataField, index: number) {
+  openDialog(item: IDataFieldDto, index: number) {
 
     const dialogRef = this.dialog.open(EditFieldComponent, {
       data: item,
@@ -259,35 +263,25 @@ export class FormEditorComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe((result => {
-      console.log('res', result);
       this.model.fields[index] = result;
-      // this.model.fields[index].code = `A${this.model.fields.length}`;
     }));
   }
 
   formDetails() {
-    this.formDetailesModel.openDialog().subscribe(data => {
-      const _model = {...this.model};
-      if (!_model.fields){
-        this.model = { ...data };
-      }else{
-        this.model = { ...data };
-        this.model.fields = _model.fields;
-      }
-      console.log('formDetails', this.model);
-    });
+      this.formDetailesModel.openDialog(this.model).subscribe(data => {
+        this.model = data;
+      });
   }
 
   save(): void {
+    console.log('postput', this.model);
     let action: Observable<any>;
 
     this.loading = true;
     if (!this.data){
       action = this._FormsClient
         .postPOST(
-          new FormPostCommand({
-            ...this.model
-          })
+          new FormPostCommand(this.model)
         );
 
     }else{

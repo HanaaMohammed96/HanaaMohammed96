@@ -76,6 +76,7 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   @Input() onClickAction: SelectionAction;
   @Input() moreActions: SelectionAction[];
   @Input() actions: SelectionAction[];
+  @Input() forForm: boolean;
   @Input() imageColumnName: string;
   @Input() pageIndex = 0;
   @Input() pageSize = 10;

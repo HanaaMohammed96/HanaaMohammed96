@@ -100,8 +100,20 @@
         </button>
 
         <button
-          *ngIf="createAction"
+          *ngIf="createAction && !forForm"
           (click)="callAction(createAction, null)"
+          class="ml-4"
+          color="primary"
+          fxFlex="none"
+          mat-mini-fab
+          matTooltip="{{ 'general.add' | translate }} {{ tableName }}"
+          type="button"
+        >
+          <mat-icon [icIcon]="icAdd"></mat-icon>
+        </button>
+        <button
+          *ngIf="forForm"
+          [routerLink]="['/form-editor']"
           class="ml-4"
           color="primary"
           fxFlex="none"

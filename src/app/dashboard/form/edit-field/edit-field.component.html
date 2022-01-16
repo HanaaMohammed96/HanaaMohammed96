@@ -73,7 +73,7 @@
 
           <div *ngFor="let i of data.dataValues; let valueIndex = index;">
             <div class="w-full">
-              <mat-label>{{toLang(i)}}</mat-label>
+              <mat-label>{{toLang(i.value)}}</mat-label>
               <!-- <mat-form-field>
                 <mat-label>English value</mat-label>
                 <input type="text" [(ngModel)]="i.value.en" matInput />
