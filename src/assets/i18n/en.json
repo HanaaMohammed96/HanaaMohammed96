@@ -71,7 +71,8 @@
     "terms_Cond_en": "For English",
     "reservations": "Reservations",
     "form": "Forms",
-    "realState": "RealStates"
+    "realState": "RealStates",
+    "country": "Country"
   },
   "account": {
     "login_title": "Welcome to Monjez Portal!",
@@ -210,6 +211,14 @@
     "created_at": "Created At"
   },
   "isActive":"isActive",
+  "country":{
+    "title":"Monjez Portal Countries Page",
+    "description":"This list includes all Countries",
+    "TableName":" Country",
+    "tableNamePlural":"Country",
+    "name":"Name",
+    "created_at": "Created At"
+  },
   "Form": {
     "enName":" English Name",
     "arName": "Arabic Name",
