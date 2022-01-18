@@ -72,6 +72,12 @@ export class AppComponent implements OnInit {
       } as NavigationLink,
       {
         type: 'link',
+        label: await this.translate('navigations.country'),
+        route: '/country',
+        icon: icReceipt,
+      }as NavigationLink,
+      {
+        type: 'link',
         label: await this.translate('navigations.form'),
         route: '/forms',
         icon: icFilterList,

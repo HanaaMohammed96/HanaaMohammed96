@@ -69,7 +69,8 @@
     "terms_Cond_en": "للإنجليزية",
     "reservations": "الحجوزات",
     "form": "إنشاء نماذج",
-    "realState": "الأصول"
+    "realState": "الأصول",
+    "country": "المدن"
 
   },
   "account": {
@@ -212,6 +213,14 @@
     "created_at": "تاريخ الإنشاء"
   },
   "isActive":"تفعيل",
+  "country":{
+    "title":"المدن",
+    "description":"هذه القائمة تشمل كل المدن",
+    "TableName":"المدن",
+    "tableNamePlural":"المدن",
+    "name":"الاسم",
+    "created_at": "تاريخ الإنشاء"
+  },
   "Form": {
     "enName":" الاسم باللغة الإنجليزية",
     "arName": "الإسم باللغة العربية",
