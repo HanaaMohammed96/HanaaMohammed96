@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IFormDto } from '@core/api';
+import { IFormDto, IFormPostPutCommon } from '@core/api';
 import { DataField } from '@models/data-field';
 import { Observable } from 'rxjs';
 import { ConfirmDialogComponent } from 'src/app/dashboard/form/confirm-dialog/confirm-dialog.component';
@@ -11,12 +11,14 @@ import { FormDetailesComponent } from 'src/app/dashboard/form/form-detailes/form
   providedIn: 'root'
 })
 export class ChangeFormDetailsService {
-  form:IFormDto
-  item:DataField;
-
+  form: IFormDto
+  item: DataField;
+  resetForm: IFormPostPutCommon;
   constructor(
     public dialog: MatDialog
-  ) { }
+  ) {
+    console.log('&&&', this.resetForm)
+  }
 
   openEditFielDialog(): Observable<any> {
     const dialogRef = this.dialog.open(EditFieldComponent, {
@@ -25,22 +27,22 @@ export class ChangeFormDetailsService {
     return dialogRef.afterClosed();
   }
 
-  openDialog(model:IFormDto): Observable<any> {
+  openDialog(model: IFormDto): Observable<any> {
     const dialogRef = this.dialog.open(FormDetailesComponent, {
-      disableClose:true,
-      data: {...model}
+      disableClose: true,
+      data: model
     });
     return dialogRef.afterClosed();
   }
 
-  openConfirmDialog(msg){
+  openConfirmDialog(msg) {
     return this.dialog.open(ConfirmDialogComponent, {
-      width:'390px',
-      disableClose:true,
-      data:{
-        message : msg
+      width: '390px',
+      disableClose: true,
+      data: {
+        message: msg
       }
     });
   }
-  
+
 }

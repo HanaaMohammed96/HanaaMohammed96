@@ -16,15 +16,11 @@ export class EditFieldComponent implements OnInit {
 
   type = FieldType;
 
-  resetItem: IDataFieldDto;
 
   constructor(
     public dialogRef: MatDialogRef<FormEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDataFieldDto
   ) {
-    console.log(this.data);
-    this.resetItem = {...this.data};
-    console.log('resetItem=>', this.resetItem);
     this.lang = localStorage.getItem('lang') as string;
 
     this.value = new LocalizedStringDto({
@@ -34,8 +30,7 @@ export class EditFieldComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   toLang(name: LocalizedStringDto) {
     if (this.lang == 'en') {
@@ -58,11 +53,8 @@ export class EditFieldComponent implements OnInit {
     });
   }
 
-  onNoClick(): void {
-
-    this.data = {...this.resetItem};
-    console.log('===>', this.resetItem);
-    this.dialogRef.close(this.data);
-  }
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
 
 }

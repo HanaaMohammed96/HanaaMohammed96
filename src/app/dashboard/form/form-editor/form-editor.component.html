@@ -5,101 +5,100 @@
     <div class="col-span-3">
       <div class="content  mb-8" fxLayout="column" fxLayoutAlign="center center">
 
-          <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]"
-            (cdkDropListDropped)="drop($event)" [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content"
-            fxLayout="column" fxLayoutAlign="space-evenly center" style="width:700px"
-            class=" p-6 border-dashed border-4 border-blue-600 text-black">
+        <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
+          [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content" fxLayout="column"
+          fxLayoutAlign="space-evenly center" style="width:700px"
+          class=" p-6 border-dashed border-4 border-blue-600 text-black">
 
-            <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
-            </mat-icon>
-            <h4 *ngIf="model.fields?.length == 0" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
+          <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
+          </mat-icon>
+          <h4 *ngIf="model.fields?.length == 0" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
 
-            <div *ngFor="let item of model.fields; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
-              <div fxLayout="row" fxLayoutAlign="space-evenly center">
-                <span
-                  class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-4">{{item.code}}</span>
+          <div *ngFor="let item of model.fields; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+              <span
+                class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-4">{{item.code}}</span>
 
-                <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
-                  class="font-in-dropped">
-                  <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                  <input type="text" placeholder="{{item.placeholder}}" matInput />
-                </mat-form-field>
+              <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
+                class="font-in-dropped">
+                <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
+                <input type="text" placeholder="{{item.placeholder}}" matInput />
+              </mat-form-field>
 
-                <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
-                  <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                  <input type="number" matInput />
-                </mat-form-field>
+              <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
+                <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
+                <input type="number" matInput />
+              </mat-form-field>
 
-                <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped">
-                  <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                  <input type="date" matInput />
-                </mat-form-field>
+              <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped">
+                <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
+                <input type="date" matInput />
+              </mat-form-field>
 
-                <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped">
-                  <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                  <input type="datetime-local" matInput />
-                </mat-form-field>
+              <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped">
+                <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
+                <input type="datetime-local" matInput />
+              </mat-form-field>
 
-                <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
-                  <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                  <textarea matInput placeholder="{{item.placeholder}}"></textarea>
-                </mat-form-field>
+              <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
+                <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
+                <textarea matInput placeholder="{{item.placeholder}}"></textarea>
+              </mat-form-field>
 
-                <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag
-                  class="font-in-dropped ">
-                  <input type="file" (change)="onFileChanged($event)" multiple class="upload-box mb-4" />
-                </div>
-
-                <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag
-                  class="font-in-dropped flex flex-row flex-nowrap">
-                  <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
-                    <mat-label>{{toLang(item.name)}}</mat-label>
-                  </div>
-                  <div class="flex flex-column flex-wrap">
-                    <div *ngFor="let i of item.dataValues">
-                      <mat-checkbox class="px-3">
-                        <span class="whitespace-normal">
-                          {{toLang(i.value)}}
-                        </span>
-                      </mat-checkbox>
-                    </div>
-                  </div>
-                </div>
-
-                <div *ngIf="item.fieldType == +type.Radio " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
-                  <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
-                    <mat-label>{{toLang(item.name)}}</mat-label>
-                  </div>
-                  <div class="flex flex-column flex-wrap">
-                    <mat-radio-group aria-label="Select an option" *ngFor="let i of item.dataValues">
-                      <mat-radio-button value="" class="px-3">
-                        <span class="whitespace-normal">
-                          {{toLang(i.value)}}
-                        </span>
-                      </mat-radio-button>
-                    </mat-radio-group>
-                  </div>
-                </div>
-
-                <div *ngIf="item.fieldType == +type.Select " cdkDrag>
-                  <mat-form-field appearance="fill" class="font-in-dropped ">
-                    <mat-label>{{toLang(item.name)}}</mat-label>
-                    <mat-select>
-                      <mat-option *ngFor="let i of item.dataValues" value="{{toLang(i.value)}}">
-                        {{toLang(i.value)}}
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-
-                <mat-icon (click)="openDialog(item,i)" color="primary"> expand_more</mat-icon>
-                <mat-icon (click)="removeField(i)" color="accent"> delete </mat-icon>
-
+              <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag
+                class="font-in-dropped ">
+                <input type="file" (change)="onFileChanged($event)" multiple class="upload-box mb-4" />
               </div>
+
+              <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
+                <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+                  <mat-label>{{toLang(item.name)}}</mat-label>
+                </div>
+                <div class="flex flex-column flex-wrap">
+                  <div *ngFor="let i of item.dataValues">
+                    <mat-checkbox class="px-3">
+                      <span class="whitespace-normal">
+                        {{toLang(i.value)}}
+                      </span>
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="item.fieldType == +type.Radio " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
+                <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+                  <mat-label>{{toLang(item.name)}}</mat-label>
+                </div>
+                <div class="flex flex-column flex-wrap">
+                  <mat-radio-group aria-label="Select an option" *ngFor="let i of item.dataValues">
+                    <mat-radio-button value="" class="px-3">
+                      <span class="whitespace-normal">
+                        {{toLang(i.value)}}
+                      </span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+
+              <div *ngIf="item.fieldType == +type.Select " cdkDrag>
+                <mat-form-field appearance="fill" class="font-in-dropped ">
+                  <mat-label>{{toLang(item.name)}}</mat-label>
+                  <mat-select>
+                    <mat-option *ngFor="let i of item.dataValues" value="{{toLang(i.value)}}">
+                      {{toLang(i.value)}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+
+              <mat-icon (click)="openDialog(item,i)" color="primary"> expand_more</mat-icon>
+              <mat-icon (click)="removeField(i)" color="accent"> delete </mat-icon>
+
             </div>
-            <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |
-              translate}}</button>
           </div>
+          <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |
+            translate}}</button>
+        </div>
       </div>
     </div>
 
@@ -116,7 +115,7 @@
       <div *ngFor="let item of fieldModels">
         <mat-grid-list cols="4" cdkDrag class="form-Prop">
           <mat-grid-tile class="fields" colspan="1">
-            <!-- <mat-icon ></mat-icon> -->
+            <mat-icon >{{item.icon}}</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile colspan="3"><span>{{toLang(item.name)}}</span></mat-grid-tile>
         </mat-grid-list>

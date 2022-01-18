@@ -105,6 +105,6 @@
   </div>
   <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
     <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" | translate}}</button>
-    <button mat-button (click)="onNoClick()" mat-raised-button color="primary">{{"No" | translate}}</button>
+    <button mat-button [mat-dialog-close]="false" mat-raised-button color="primary">{{"No" | translate}}</button>
   </div>
 <!-- </div> -->

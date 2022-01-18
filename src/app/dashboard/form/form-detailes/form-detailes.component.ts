@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, NgModule } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormsClient, IFormDto, RealStatesClient, RealStatesVm, RequestType } from '@core/api';
 
@@ -36,7 +36,7 @@ import { FormsClient, IFormDto, RealStatesClient, RealStatesVm, RequestType } fr
     <div class="flex flex-row justify-evenly">
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.RealState' | translate}}</mat-label>
-        <mat-select (valueChange)="onSelect($event)">
+        <mat-select (valueChange)="onSelect($event)" >
           <mat-option *ngFor="let realState of realStates" [value]="realState.id">
             {{realState.name}}
           </mat-option>
@@ -52,9 +52,9 @@ import { FormsClient, IFormDto, RealStatesClient, RealStatesVm, RequestType } fr
       </mat-form-field> 
     </div>
     <div class="flex flex-row justify-evenly p-4" mat-dialog-actions>
-      <button mat-button [mat-dialog-close]="data" cdkFocusInitial mat-raised-button color="primary">{{"Yes" |
+      <button mat-button [mat-dialog-close]="true" cdkFocusInitial mat-raised-button color="primary">{{"Yes" |
         translate}}</button>
-      <button mat-button (click)="onNoClick()" mat-raised-button color="primary">{{"No" |
+      <button mat-button [mat-dialog-close]="false" mat-raised-button color="primary">{{"No" |
           translate}}</button>
     </div >
   </div>
@@ -67,7 +67,7 @@ export class FormDetailesComponent implements OnInit {
   formType = RequestType;
 
   types = [];
-
+  
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialogRef: MatDialogRef<FormDetailesComponent>,
@@ -89,10 +89,9 @@ export class FormDetailesComponent implements OnInit {
     }
   }
 
-  onNoClick(): void {
-
-    this.dialogRef.close(this.data);
-  }
+  // onNoClick(): void {
+  //   this.dialogRef.close();
+  // }
 
   onSelect(event: any) {
     this.data.realStateId = event;

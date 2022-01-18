@@ -1,22 +1,21 @@
-import { CdkDragDrop, copyArrayItem, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Inject, OnInit, TemplateRef } from '@angular/core';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { DataFieldDto, DataValueDto, FieldType, FormPostCommand,
-  FormPutCommand, FormsClient,
-  FormVmForDashboard, IDataFieldDto,
+import {
+  DataFieldDto, DataValueDto, FieldType, FormPostCommand,
+  FormPutCommand, FormsClient, IDataFieldDto,
   IFormDto,
   IFormPostPutCommon, LocalizedStringDto
 } from '@core/api';
 import { ChangeFormDetailsService } from '@core/services/change-form-details.service';
-import { DataField, value } from '@models/data-field';
 import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep } from 'lodash';
 import { EditFieldComponent } from '../edit-field/edit-field.component';
 import icSave from '@iconify/icons-ic/baseline-save';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { finalize } from 'rxjs/operators';
-import { addSeconds } from 'date-fns';
 import { Observable } from 'rxjs';
+import { FormDetailesComponent } from '../form-detailes/form-detailes.component';
 
 @Component({
   selector: 'app-form-editor',
@@ -37,11 +36,10 @@ export class FormEditorComponent implements OnInit {
   model: IFormPostPutCommon = {};
 
   report = false;
-  reports: IFormPostPutCommon = {} ;
+  reports: IFormPostPutCommon = {};
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IFormDto,
-    // @Inject(MAT_DIALOG_DATA) public data: FormVmForDashboard,
     public dialog: MatDialog,
     private _FormsClient: FormsClient,
     private formDetailesModel: ChangeFormDetailsService,
@@ -52,7 +50,7 @@ export class FormEditorComponent implements OnInit {
     this.lang = localStorage.getItem('lang') as string;
 
     const dataValues = new DataValueDto({
-      value:new LocalizedStringDto({
+      value: new LocalizedStringDto({
         ar: 'اختيار',
         en: 'Option'
       })
@@ -83,7 +81,7 @@ export class FormEditorComponent implements OnInit {
         fieldType: FieldType.Text,
         code: 'A',
         placeholder: '',
-        regex: ''
+        regex: '',
       },
       {
         name: new LocalizedStringDto({
@@ -102,7 +100,7 @@ export class FormEditorComponent implements OnInit {
         }),
         orders: null,
         isRequired: false,
-        equation: '',
+        equation: null,
         fieldType: FieldType.Result,
         code: 'A'
       },
@@ -167,7 +165,7 @@ export class FormEditorComponent implements OnInit {
         isRequired: false,
         fieldType: FieldType.CheckBox,
         code: 'A',
-        dataValues: [dataValues,dataValues]
+        dataValues: [dataValues, dataValues]
       },
       {
         name: new LocalizedStringDto({
@@ -178,7 +176,7 @@ export class FormEditorComponent implements OnInit {
         isRequired: false,
         fieldType: FieldType.Radio,
         code: 'A',
-        dataValues: [dataValues,dataValues]
+        dataValues: [dataValues, dataValues]
       },
       {
         name: new LocalizedStringDto({
@@ -189,13 +187,14 @@ export class FormEditorComponent implements OnInit {
         isRequired: false,
         fieldType: FieldType.Select,
         code: 'A',
-        dataValues: [dataValues,dataValues]
+        dataValues: [dataValues, dataValues]
       }
     ];
+
   }
 
-  ngOnInit(): void {
-    if (this.data.id){
+  ngOnInit(): void { 
+    if (this.data.id) {
       this._FormsClient.get(this.data.id).subscribe(result => {
         this.model = result;
       });
@@ -248,7 +247,7 @@ export class FormEditorComponent implements OnInit {
 
   initReport() {
     this.report = true;
-    this.reports = {...this.model};
+    this.reports = { ...this.model };
   }
 
   onFileChanged(event) {
@@ -257,20 +256,63 @@ export class FormEditorComponent implements OnInit {
 
   openDialog(item: IDataFieldDto, index: number) {
 
+    localStorage.setItem('resetIem', JSON.stringify(this.model.fields[index]));
+
     const dialogRef = this.dialog.open(EditFieldComponent, {
       data: item,
       disableClose: true
     });
 
     dialogRef.afterClosed().subscribe((result => {
-      this.model.fields[index] = result;
+
+      if (!result) {
+
+        this.model.fields[index] = JSON.parse(localStorage.getItem('resetIem')) as DataFieldDto;
+
+      } else {
+
+        this.model.fields[index] = result;
+      }
+
+      localStorage.removeItem('resetIem');
+
     }));
+
   }
 
   formDetails() {
-      this.formDetailesModel.openDialog(this.model).subscribe(data => {
-        this.model = data;
-      });
+    // console.log('before send model', this.model)
+    //   this.formDetailesModel.openDialog(this.model).subscribe(data => {
+    //     this.model = data;
+    //   });
+
+    const dialoRef = this.dialog.open(FormDetailesComponent, {
+      data: this.model
+    })
+    dialoRef.afterClosed().subscribe(result => {
+      console.log('formDetails result', result);
+      if (!result) {
+        if (this.data.id) {
+          this._FormsClient.get(this.data.id).subscribe(result => {
+            this.model = result;
+          });
+        } else {
+          this.model = {
+            name: new LocalizedStringDto({
+              ar: '',
+              en: ''
+            }),
+            description: new LocalizedStringDto({
+              ar: '',
+              en: ''
+            }),
+            realStateId: null,
+            type: null,
+            fields: [],
+          };
+        }
+      }
+    })
   }
 
   save(): void {
@@ -278,13 +320,15 @@ export class FormEditorComponent implements OnInit {
     let action: Observable<any>;
 
     this.loading = true;
-    if (!this.data){
+    if (!this.data) {
       action = this._FormsClient
         .postPOST(
-          new FormPostCommand(this.model)
+          new FormPostCommand({
+          ...this.model
+        })
         );
 
-    }else{
+    } else {
       action = this._FormsClient.postPUT(
         new FormPutCommand({
           ...this.model

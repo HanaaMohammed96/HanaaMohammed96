@@ -2250,7 +2250,7 @@ export class RealStatesClient implements IRealStatesClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 204) {
+        if (status === 20) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
@@ -3860,7 +3860,6 @@ export interface IDataFieldDto {
     code? : string | undefined;
     placeholder? : string | undefined;
     regex? : string | undefined;
-    
 }
 
 /** 0 = Text 1 = Date 2 = DateTime 3 = TextArea 4 = CheckBox 5 = Radio 6 = Select 7 = Image 8 = Pdf 9 = Result */
