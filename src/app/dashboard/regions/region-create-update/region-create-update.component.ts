@@ -45,7 +45,7 @@ export class RegionCreateUpdateComponent implements OnInit {
           En: ['', Validators.required],
         }),
         countryId: ['', Validators.required],
-        isActive: ['', Validators.required],
+        isActive: [''],
       });
     } else {
       this.form = this._fb.group({
@@ -54,7 +54,7 @@ export class RegionCreateUpdateComponent implements OnInit {
           En: [this.data.name.en || '', Validators.required],
         }),
         countryId: ['', Validators.required],
-        isActive: ['', Validators.required],
+        isActive: [''],
       });
     }
   }
@@ -99,14 +99,13 @@ export class RegionCreateUpdateComponent implements OnInit {
       countryId
     });
   }
-  
+
   submit(event: any) {
     const value = event.value;
-    
+
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
     event.action.subscribe((response: any) => {
-      console.log('res', response)
       if (response) {
         this.data.id = response.result;
       }
@@ -118,7 +117,6 @@ export class RegionCreateUpdateComponent implements OnInit {
     },
       (err) => {
         this._handler.handleError(err).pushError();
-        console.log('errqqq', err)
       }
     );
   }

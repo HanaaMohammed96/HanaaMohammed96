@@ -46,8 +46,8 @@ export class RegionsComponent implements OnInit {
 
   async ngOnInit(): Promise<any> {
     const status = {
-      Active: { isActive: true, color: 'bg-green' },
-      NotActive: { isActive: false, color: 'bg-teal' },
+      Active: { name: await this.translate('regions.isActive'), color: 'bg-green' },
+      NotActive: { name: await this.translate('regions.isNotActive'), color: 'bg-teal' },
     };
 
     this.columns = [
@@ -66,23 +66,23 @@ export class RegionsComponent implements OnInit {
       {
         label: 'regions.status',
         property: 'isActive',
-        type: 'text',
+        converter: (value: any): string => {
+          if(value){
+            return status.Active.name;
+          }else{
+            return status.NotActive.name;
+          }
+        },
+        type: 'badge',
         visible: true,
-      },
-      // {
-      //   label: 'regions.status',
-      //   property: 'isActive',
-      //   converter: (value: any): string => {
-      //     return "gg"
-      //     // return statuses[AccountStatus[value]].name;
-      //   },
-      //   type: 'badge',
-      //   visible: true,
-      //   ngCssClasses: (item: any): string[] => {
-      //     return ["gg"]
-      //     // return [statuses[AccountStatus[item.status]].color];
-      //   },
-      // }
+        ngCssClasses: (item: any): string[] => {
+          if(item.isActive){
+            return ['bg-green'];
+          }else{
+            return ['bg-teal'];
+          }
+        },
+      }
     ];
 
     this.actions = [

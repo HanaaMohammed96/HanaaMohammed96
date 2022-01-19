@@ -1840,7 +1840,7 @@ export class CountriesClient implements ICountriesClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 204) {
+        if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
@@ -1890,7 +1890,7 @@ export class CountriesClient implements ICountriesClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 204) {
+        if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
@@ -2988,11 +2988,11 @@ export class RegionsClient implements IRegionsClient {
         };
 
         return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-            return this.processPostPOST(response_);
+            return this.processPost(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostPOST(<any>response_);
+                    return this.processPost(<any>response_);
                 } catch (e) {
                     return <Observable<HttpResultOfInteger>><any>_observableThrow(e);
                 }
@@ -3001,7 +3001,7 @@ export class RegionsClient implements IRegionsClient {
         }));
     }
 
-    protected processPostPOST(response: HttpResponseBase): Observable<HttpResultOfInteger> {
+    protected processPost(response: HttpResponseBase): Observable<HttpResultOfInteger> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3062,11 +3062,11 @@ export class RegionsClient implements IRegionsClient {
         };
 
         return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
-            return this.processPostPUT(response_);
+            return this.processPut(response_);
         })).pipe(_observableCatch((response_: any) => {
             if (response_ instanceof HttpResponseBase) {
                 try {
-                    return this.processPostPUT(<any>response_);
+                    return this.processPut(<any>response_);
                 } catch (e) {
                     return <Observable<void>><any>_observableThrow(e);
                 }
@@ -3075,7 +3075,7 @@ export class RegionsClient implements IRegionsClient {
         }));
     }
 
-    protected processPostPUT(response: HttpResponseBase): Observable<void> {
+    protected processPut(response: HttpResponseBase): Observable<void> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -5292,6 +5292,7 @@ export class RealStatesVmForDashboard implements IRealStatesVmForDashboard {
     id?: number;
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
+    order?: number;
 
     constructor(data?: IRealStatesVmForDashboard) {
         if (data) {
@@ -5307,6 +5308,7 @@ export class RealStatesVmForDashboard implements IRealStatesVmForDashboard {
             this.id = _data["id"];
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
             this.isActive = _data["isActive"];
+            this.order = _data["order"];
         }
     }
 
@@ -5322,6 +5324,7 @@ export class RealStatesVmForDashboard implements IRealStatesVmForDashboard {
         data["id"] = this.id;
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
         data["isActive"] = this.isActive;
+        data["order"] = this.order;
         return data;
     }
 }
@@ -5330,6 +5333,7 @@ export interface IRealStatesVmForDashboard {
     id?: number;
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
+    order?: number;
 }
 
 export class RealStatesVm implements IRealStatesVm {
@@ -5532,6 +5536,7 @@ export class RegionDto implements IRegionDto {
             this.id = _data["id"];
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
             this.isActive = _data["isActive"];
+            this.countryId = _data["countryId"];
         }
     }
 
@@ -5547,6 +5552,7 @@ export class RegionDto implements IRegionDto {
         data["id"] = this.id;
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
         data["isActive"] = this.isActive;
+        data["countryId"] = this.countryId;
         return data;
     }
 }
@@ -5609,6 +5615,7 @@ export interface IPaginatedListOfRegionVmForDashboard {
 export class RegionVmForDashboard implements IRegionVmForDashboard {
     id?: number;
     name?: LocalizedStringDto | undefined;
+    countryName?: string | undefined;
     isActive?: boolean;
 
     constructor(data?: IRegionVmForDashboard) {
@@ -5624,6 +5631,7 @@ export class RegionVmForDashboard implements IRegionVmForDashboard {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
+            this.countryName = _data["countryName"];
             this.isActive = _data["isActive"];
         }
     }
@@ -5639,6 +5647,7 @@ export class RegionVmForDashboard implements IRegionVmForDashboard {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
+        data["countryName"] = this.countryName;
         data["isActive"] = this.isActive;
         return data;
     }
@@ -5647,6 +5656,7 @@ export class RegionVmForDashboard implements IRegionVmForDashboard {
 export interface IRegionVmForDashboard {
     id?: number;
     name?: LocalizedStringDto | undefined;
+    countryName?: string | undefined;
     isActive?: boolean;
 }
 
