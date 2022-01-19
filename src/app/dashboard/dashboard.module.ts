@@ -39,6 +39,8 @@ import { RealStateCreateUpdateComponent } from './real-states/real-state-create-
 import { FormsPageComponent } from './form/forms-page/forms-page.component';
 import { CountryComponent } from './country/country.component';
 import { CountryCreateUpdateComponent } from './country/country-create-update/country-create-update.component';
+import { RegionsComponent } from './regions/regions.component';
+import { RegionCreateUpdateComponent } from './regions/region-create-update/region-create-update.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,8 @@ import { CountryCreateUpdateComponent } from './country/country-create-update/co
     FormsPageComponent,
     CountryComponent,
     CountryCreateUpdateComponent,
+    RegionsComponent,
+    RegionCreateUpdateComponent,
   ],
   imports: [
     CommonModule,

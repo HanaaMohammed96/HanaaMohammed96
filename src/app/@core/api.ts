@@ -2822,8 +2822,8 @@ export class RealStatesClient implements IRealStatesClient {
 export interface IRegionsClient {
     get(id: number): Observable<RegionDto>;
     getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard>;
-    postPOST(command: RegionsPostCommand): Observable<HttpResultOfInteger>;
-    postPUT(command: RegionsPutCommand): Observable<void>;
+    post(command: RegionsPostCommand): Observable<HttpResultOfInteger>;
+    put(command: RegionsPutCommand): Observable<void>;
     delete(id: number | undefined): Observable<void>;
 }
 
@@ -2971,7 +2971,7 @@ export class RegionsClient implements IRegionsClient {
         }
     }
 
-    postPOST(command: RegionsPostCommand): Observable<HttpResultOfInteger> {
+    post(command: RegionsPostCommand): Observable<HttpResultOfInteger> {
         let url_ = this.baseUrl + "/api/Regions";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3046,7 +3046,7 @@ export class RegionsClient implements IRegionsClient {
         }
     }
 
-    postPUT(command: RegionsPutCommand): Observable<void> {
+    put(command: RegionsPutCommand): Observable<void> {
         let url_ = this.baseUrl + "/api/Regions";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3082,7 +3082,7 @@ export class RegionsClient implements IRegionsClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 200) {
+        if (status === 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
@@ -5516,6 +5516,7 @@ export class RegionDto implements IRegionDto {
     id?: number;
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
+    countryId?: number;
 
     constructor(data?: IRegionDto) {
         if (data) {
@@ -5554,6 +5555,7 @@ export interface IRegionDto {
     id?: number;
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
+    countryId?: number;
 }
 
 export class PaginatedListOfRegionVmForDashboard implements IPaginatedListOfRegionVmForDashboard {
