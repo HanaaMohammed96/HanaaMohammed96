@@ -45,11 +45,14 @@ export class CountryComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    console.log('event in drop', typeof this.list[event.previousIndex])
+    console.log('event in drop',  this.list[event.previousIndex])
+
     this.countriesClient
       .putOrder(new CountriesPutOrderCommand({
+       
         id: this.list[event.previousIndex].id,
-        order: event.currentIndex+1
+        order: event.currentIndex+1,
+
       }))
       .subscribe(
         (data) => { console.log('data', data) },

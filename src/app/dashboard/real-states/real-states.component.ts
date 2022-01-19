@@ -49,27 +49,11 @@ export class RealStatesComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    // this._realStateClient
-    //   .put(
-    //     new RealStatesPutCommand({
-    //       id: this.list[event.previousIndex].id,
-    //       name: this.list[event.previousIndex].name,
-    //       isActive: this.list[event.previousIndex].isActive,
-    //     })
-    //   )
-    //   .subscribe(
-    //     () => { },
-    //     (err) => {
-    //       this._handler.handleError(err).pushError();
-    //       // return it to its position
-    //       moveItemInArray(this.list, event.currentIndex, event.previousIndex);
-    //     }
-    //   );
-    console.log('event in drop', typeof this.list[event.previousIndex])
+    console.log('event in drop', this.list[event.previousIndex])
     this._realStateClient
       .putOrder(new RealStatesPutOrderCommand({
         id: this.list[event.previousIndex].id,
-        order: event.currentIndex
+        order: event.currentIndex+1
       }))
       .subscribe(
         (data) => { console.log('data', data) },
