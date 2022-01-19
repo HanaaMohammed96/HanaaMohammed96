@@ -1659,414 +1659,414 @@ export interface ICountriesClient {
   providedIn: 'root'
 })
 export class CountriesClient implements ICountriesClient {
-  private http: HttpClient;
-  private baseUrl: string;
-  protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-    this.http = http;
-    this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-  }
-
-  get(id: number | undefined): Observable<CountryDto> {
-    let url_ = this.baseUrl + "/api/Countries?";
-    if (id === null)
-      throw new Error("The parameter 'id' cannot be null.");
-    else if (id !== undefined)
-      url_ += "id=" + encodeURIComponent("" + id) + "&";
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Accept": "application/json"
-      })
-    };
-
-    return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGet(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processGet(<any>response_);
-        } catch (e) {
-          return <Observable<CountryDto>><any>_observableThrow(e);
-        }
-      } else
-        return <Observable<CountryDto>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processGet(response: HttpResponseBase): Observable<CountryDto> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result200: any = null;
-        let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result200 = CountryDto.fromJS(resultData200);
-        return _observableOf(result200);
-      }));
-    } else if (status === 422) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result422: any = null;
-        let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result422 = ValidationProblemDetails.fromJS(resultData422);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result422);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
-  }
 
-  post(command: CountriesPostCommand): Observable<HttpResultOfInteger> {
-    let url_ = this.baseUrl + "/api/Countries";
-    url_ = url_.replace(/[?&]$/, "");
+    get(id: number | undefined): Observable<CountryDto> {
+        let url_ = this.baseUrl + "/api/Countries?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
-    const content_ = JSON.stringify(command);
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
 
-    let options_: any = {
-      body: content_,
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      })
-    };
-
-    return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processPost(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processPost(<any>response_);
-        } catch (e) {
-          return <Observable<HttpResultOfInteger>><any>_observableThrow(e);
-        }
-      } else
-        return <Observable<HttpResultOfInteger>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processPost(response: HttpResponseBase): Observable<HttpResultOfInteger> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result200: any = null;
-        let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result200 = HttpResultOfInteger.fromJS(resultData200);
-        return _observableOf(result200);
-      }));
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result404: any = null;
-        let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result404 = ProblemDetails.fromJS(resultData404);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result404);
-      }));
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result400: any = null;
-        let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result400 = ProblemDetails.fromJS(resultData400);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result400);
-      }));
-    } else if (status === 422) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result422: any = null;
-        let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result422 = ValidationProblemDetails.fromJS(resultData422);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result422);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(<any>response_);
+                } catch (e) {
+                    return <Observable<CountryDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CountryDto>><any>_observableThrow(response_);
+        }));
     }
-  }
 
-  put(command: CountriesPutCommand): Observable<void> {
-    let url_ = this.baseUrl + "/api/Countries";
-    url_ = url_.replace(/[?&]$/, "");
+    protected processGet(response: HttpResponseBase): Observable<CountryDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-    const content_ = JSON.stringify(command);
-
-    let options_: any = {
-      body: content_,
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-      })
-    };
-
-    return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processPut(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processPut(<any>response_);
-        } catch (e) {
-          return <Observable<void>><any>_observableThrow(e);
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = CountryDto.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
         }
-      } else
-        return <Observable<void>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processPut(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        return _observableOf<void>(<any>null);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
     }
-  }
 
-  delete(id: number | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/Countries?";
-    if (id === null)
-      throw new Error("The parameter 'id' cannot be null.");
-    else if (id !== undefined)
-      url_ += "id=" + encodeURIComponent("" + id) + "&";
-    url_ = url_.replace(/[?&]$/, "");
+    post(command: CountriesPostCommand): Observable<HttpResultOfInteger> {
+        let url_ = this.baseUrl + "/api/Countries";
+        url_ = url_.replace(/[?&]$/, "");
 
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-      })
-    };
+        const content_ = JSON.stringify(command);
 
-    return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processDelete(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processDelete(<any>response_);
-        } catch (e) {
-          return <Observable<void>><any>_observableThrow(e);
-        }
-      } else
-        return <Observable<void>><any>_observableThrow(response_);
-    }));
-  }
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
 
-  protected processDelete(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        return _observableOf<void>(<any>null);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPost(<any>response_);
+                } catch (e) {
+                    return <Observable<HttpResultOfInteger>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<HttpResultOfInteger>><any>_observableThrow(response_);
+        }));
     }
-  }
 
-  getPage(): Observable<CountryVmForDashboard[]> {
-    let url_ = this.baseUrl + "/api/Countries/GetPage";
-    url_ = url_.replace(/[?&]$/, "");
+    protected processPost(response: HttpResponseBase): Observable<HttpResultOfInteger> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Accept": "application/json"
-      })
-    };
-
-    return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetPage(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processGetPage(<any>response_);
-        } catch (e) {
-          return <Observable<CountryVmForDashboard[]>><any>_observableThrow(e);
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = HttpResultOfInteger.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
         }
-      } else
-        return <Observable<CountryVmForDashboard[]>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processGetPage(response: HttpResponseBase): Observable<CountryVmForDashboard[]> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result200: any = null;
-        let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        if (Array.isArray(resultData200)) {
-          result200 = [] as any;
-          for (let item of resultData200)
-            result200!.push(CountryVmForDashboard.fromJS(item));
-        }
-        else {
-          result200 = <any>null;
-        }
-        return _observableOf(result200);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
     }
-  }
 
-  getList(): Observable<CountryVm[]> {
-    let url_ = this.baseUrl + "/api/Countries/GetList";
-    url_ = url_.replace(/[?&]$/, "");
+    put(command: CountriesPutCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/Countries";
+        url_ = url_.replace(/[?&]$/, "");
 
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Accept": "application/json"
-      })
-    };
+        const content_ = JSON.stringify(command);
 
-    return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetList(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processGetList(<any>response_);
-        } catch (e) {
-          return <Observable<CountryVm[]>><any>_observableThrow(e);
-        }
-      } else
-        return <Observable<CountryVm[]>><any>_observableThrow(response_);
-    }));
-  }
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
 
-  protected processGetList(response: HttpResponseBase): Observable<CountryVm[]> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result200: any = null;
-        let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        if (Array.isArray(resultData200)) {
-          result200 = [] as any;
-          for (let item of resultData200)
-            result200!.push(CountryVm.fromJS(item));
-        }
-        else {
-          result200 = <any>null;
-        }
-        return _observableOf(result200);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPut(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPut(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
     }
-  }
 
-  putOrder(command: CountriesPutOrderCommand): Observable<void> {
-    let url_ = this.baseUrl + "/api/Countries/PutOrder";
-    url_ = url_.replace(/[?&]$/, "");
+    protected processPut(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-    const content_ = JSON.stringify(command);
-
-    let options_: any = {
-      body: content_,
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-      })
-    };
-
-    return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processPutOrder(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processPutOrder(<any>response_);
-        } catch (e) {
-          return <Observable<void>><any>_observableThrow(e);
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
         }
-      } else
-        return <Observable<void>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processPutOrder(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        return _observableOf<void>(<any>null);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
     }
-  }
+
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Countries?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    getPage(): Observable<CountryVmForDashboard[]> {
+        let url_ = this.baseUrl + "/api/Countries/GetPage";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetPage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPage(<any>response_);
+                } catch (e) {
+                    return <Observable<CountryVmForDashboard[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CountryVmForDashboard[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetPage(response: HttpResponseBase): Observable<CountryVmForDashboard[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (Array.isArray(resultData200)) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(CountryVmForDashboard.fromJS(item));
+                }
+                else {
+                    result200 = <any>null;
+                }
+                return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    getList(): Observable<CountryVm[]> {
+        let url_ = this.baseUrl + "/api/Countries/GetList";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetList(<any>response_);
+                } catch (e) {
+                    return <Observable<CountryVm[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CountryVm[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetList(response: HttpResponseBase): Observable<CountryVm[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (Array.isArray(resultData200)) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(CountryVm.fromJS(item));
+                }
+                else {
+                    result200 = <any>null;
+                }
+                return _observableOf(result200);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    putOrder(command: CountriesPutOrderCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/Countries/PutOrder";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPutOrder(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPutOrder(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPutOrder(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
 }
 
 export interface IFormsClient {
@@ -2820,352 +2820,352 @@ export class RealStatesClient implements IRealStatesClient {
 }
 
 export interface IRegionsClient {
-  get(id: number): Observable<RegionDto>;
-  getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard>;
-  post(command: RegionsPostCommand): Observable<HttpResultOfInteger>;
-  put(command: RegionsPutCommand): Observable<void>;
-  delete(id: number | undefined): Observable<void>;
+    get(id: number): Observable<RegionDto>;
+    getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard>;
+    post(command: RegionsPostCommand): Observable<HttpResultOfInteger>;
+    put(command: RegionsPutCommand): Observable<void>;
+    delete(id: number | undefined): Observable<void>;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class RegionsClient implements IRegionsClient {
-  private http: HttpClient;
-  private baseUrl: string;
-  protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
 
-  constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
-    this.http = http;
-    this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
-  }
-
-  get(id: number): Observable<RegionDto> {
-    let url_ = this.baseUrl + "/api/Regions/{id}";
-    if (id === undefined || id === null)
-      throw new Error("The parameter 'id' must be defined.");
-    url_ = url_.replace("{id}", encodeURIComponent("" + id));
-    url_ = url_.replace(/[?&]$/, "");
-
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Accept": "application/json"
-      })
-    };
-
-    return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGet(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processGet(<any>response_);
-        } catch (e) {
-          return <Observable<RegionDto>><any>_observableThrow(e);
-        }
-      } else
-        return <Observable<RegionDto>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processGet(response: HttpResponseBase): Observable<RegionDto> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result200: any = null;
-        let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result200 = RegionDto.fromJS(resultData200);
-        return _observableOf(result200);
-      }));
-    } else if (status === 422) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result422: any = null;
-        let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result422 = ValidationProblemDetails.fromJS(resultData422);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result422);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
     }
-  }
 
-  getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard> {
-    let url_ = this.baseUrl + "/api/Regions/GetPage?";
-    if (parentId !== undefined && parentId !== null)
-      url_ += "ParentId=" + encodeURIComponent("" + parentId) + "&";
-    if (offset !== undefined && offset !== null)
-      url_ += "Offset=" + encodeURIComponent("" + offset) + "&";
-    if (pageIndex !== undefined && pageIndex !== null)
-      url_ += "PageIndex=" + encodeURIComponent("" + pageIndex) + "&";
-    if (search !== undefined && search !== null)
-      url_ += "Search=" + encodeURIComponent("" + search) + "&";
-    if (ascending === null)
-      throw new Error("The parameter 'ascending' cannot be null.");
-    else if (ascending !== undefined)
-      url_ += "Ascending=" + encodeURIComponent("" + ascending) + "&";
-    if (sortBy !== undefined && sortBy !== null)
-      url_ += "SortBy=" + encodeURIComponent("" + sortBy) + "&";
-    url_ = url_.replace(/[?&]$/, "");
+    get(id: number): Observable<RegionDto> {
+        let url_ = this.baseUrl + "/api/Regions/{id}";
+        if (id === undefined || id === null)
+            throw new Error("The parameter 'id' must be defined.");
+        url_ = url_.replace("{id}", encodeURIComponent("" + id));
+        url_ = url_.replace(/[?&]$/, "");
 
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Accept": "application/json"
-      })
-    };
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
 
-    return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processGetPage(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processGetPage(<any>response_);
-        } catch (e) {
-          return <Observable<PaginatedListOfRegionVmForDashboard>><any>_observableThrow(e);
-        }
-      } else
-        return <Observable<PaginatedListOfRegionVmForDashboard>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processGetPage(response: HttpResponseBase): Observable<PaginatedListOfRegionVmForDashboard> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result200: any = null;
-        let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result200 = PaginatedListOfRegionVmForDashboard.fromJS(resultData200);
-        return _observableOf(result200);
-      }));
-    } else if (status === 422) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result422: any = null;
-        let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result422 = ValidationProblemDetails.fromJS(resultData422);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result422);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(<any>response_);
+                } catch (e) {
+                    return <Observable<RegionDto>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RegionDto>><any>_observableThrow(response_);
+        }));
     }
-  }
 
-  post(command: RegionsPostCommand): Observable<HttpResultOfInteger> {
-    let url_ = this.baseUrl + "/api/Regions";
-    url_ = url_.replace(/[?&]$/, "");
+    protected processGet(response: HttpResponseBase): Observable<RegionDto> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
-    const content_ = JSON.stringify(command);
-
-    let options_: any = {
-      body: content_,
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-        "Accept": "application/json"
-      })
-    };
-
-    return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processPost(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processPost(<any>response_);
-        } catch (e) {
-          return <Observable<HttpResultOfInteger>><any>_observableThrow(e);
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = RegionDto.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
         }
-      } else
-        return <Observable<HttpResultOfInteger>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processPost(response: HttpResponseBase): Observable<HttpResultOfInteger> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result200: any = null;
-        let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result200 = HttpResultOfInteger.fromJS(resultData200);
-        return _observableOf(result200);
-      }));
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result404: any = null;
-        let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result404 = ProblemDetails.fromJS(resultData404);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result404);
-      }));
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result400: any = null;
-        let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result400 = ProblemDetails.fromJS(resultData400);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result400);
-      }));
-    } else if (status === 422) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result422: any = null;
-        let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result422 = ValidationProblemDetails.fromJS(resultData422);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result422);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
     }
-  }
 
-  put(command: RegionsPutCommand): Observable<void> {
-    let url_ = this.baseUrl + "/api/Regions";
-    url_ = url_.replace(/[?&]$/, "");
+    getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard> {
+        let url_ = this.baseUrl + "/api/Regions/GetPage?";
+        if (parentId !== undefined && parentId !== null)
+            url_ += "ParentId=" + encodeURIComponent("" + parentId) + "&";
+        if (offset !== undefined && offset !== null)
+            url_ += "Offset=" + encodeURIComponent("" + offset) + "&";
+        if (pageIndex !== undefined && pageIndex !== null)
+            url_ += "PageIndex=" + encodeURIComponent("" + pageIndex) + "&";
+        if (search !== undefined && search !== null)
+            url_ += "Search=" + encodeURIComponent("" + search) + "&";
+        if (ascending === null)
+            throw new Error("The parameter 'ascending' cannot be null.");
+        else if (ascending !== undefined)
+            url_ += "Ascending=" + encodeURIComponent("" + ascending) + "&";
+        if (sortBy !== undefined && sortBy !== null)
+            url_ += "SortBy=" + encodeURIComponent("" + sortBy) + "&";
+        url_ = url_.replace(/[?&]$/, "");
 
-    const content_ = JSON.stringify(command);
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
 
-    let options_: any = {
-      body: content_,
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-        "Content-Type": "application/json",
-      })
-    };
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetPage(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetPage(<any>response_);
+                } catch (e) {
+                    return <Observable<PaginatedListOfRegionVmForDashboard>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<PaginatedListOfRegionVmForDashboard>><any>_observableThrow(response_);
+        }));
+    }
 
-    return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processPut(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processPut(<any>response_);
-        } catch (e) {
-          return <Observable<void>><any>_observableThrow(e);
+    protected processGetPage(response: HttpResponseBase): Observable<PaginatedListOfRegionVmForDashboard> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = PaginatedListOfRegionVmForDashboard.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
         }
-      } else
-        return <Observable<void>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processPut(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 204) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        return _observableOf<void>(<any>null);
-      }));
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result404: any = null;
-        let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result404 = ProblemDetails.fromJS(resultData404);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result404);
-      }));
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result400: any = null;
-        let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result400 = ProblemDetails.fromJS(resultData400);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result400);
-      }));
-    } else if (status === 422) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let result422: any = null;
-        let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        result422 = ValidationProblemDetails.fromJS(resultData422);
-        return throwException("A server side error occurred.", status, _responseText, _headers, result422);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
     }
-  }
 
-  delete(id: number | undefined): Observable<void> {
-    let url_ = this.baseUrl + "/api/Regions?";
-    if (id === null)
-      throw new Error("The parameter 'id' cannot be null.");
-    else if (id !== undefined)
-      url_ += "id=" + encodeURIComponent("" + id) + "&";
-    url_ = url_.replace(/[?&]$/, "");
+    post(command: RegionsPostCommand): Observable<HttpResultOfInteger> {
+        let url_ = this.baseUrl + "/api/Regions";
+        url_ = url_.replace(/[?&]$/, "");
 
-    let options_: any = {
-      observe: "response",
-      responseType: "blob",
-      headers: new HttpHeaders({
-      })
-    };
+        const content_ = JSON.stringify(command);
 
-    return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
-      return this.processDelete(response_);
-    })).pipe(_observableCatch((response_: any) => {
-      if (response_ instanceof HttpResponseBase) {
-        try {
-          return this.processDelete(<any>response_);
-        } catch (e) {
-          return <Observable<void>><any>_observableThrow(e);
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPost(<any>response_);
+                } catch (e) {
+                    return <Observable<HttpResultOfInteger>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<HttpResultOfInteger>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPost(response: HttpResponseBase): Observable<HttpResultOfInteger> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = HttpResultOfInteger.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
         }
-      } else
-        return <Observable<void>><any>_observableThrow(response_);
-    }));
-  }
-
-  protected processDelete(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse ? response.body :
-        (<any>response).error instanceof Blob ? (<any>response).error : undefined;
-
-    let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        return _observableOf<void>(<any>null);
-      }));
-    } else {
-      return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-        let resultdefault: any = null;
-        let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-        resultdefault = ProblemDetails.fromJS(resultDatadefault);
-        return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
-      }));
     }
-  }
+
+    put(command: RegionsPutCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/Regions";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPut(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPut(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPut(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/Regions?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
 }
 
 export class ProblemDetails implements IProblemDetails {
@@ -5289,51 +5289,51 @@ export interface IRealStateDto {
 }
 
 export class RealStatesVmForDashboard implements IRealStatesVmForDashboard {
-  id?: number;
-  name?: LocalizedStringDto | undefined;
-  isActive?: boolean;
-  order?: number;
+    id?: number;
+    name?: LocalizedStringDto | undefined;
+    isActive?: boolean;
+    order?: number;
 
-  constructor(data?: IRealStatesVmForDashboard) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
+    constructor(data?: IRealStatesVmForDashboard) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
     }
-  }
 
-  init(_data?: any) {
-    if (_data) {
-      this.id = _data["id"];
-      this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
-      this.isActive = _data["isActive"];
-      this.order = _data["order"];
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
+            this.isActive = _data["isActive"];
+            this.order = _data["order"];
+        }
     }
-  }
 
-  static fromJS(data: any): RealStatesVmForDashboard {
-    data = typeof data === 'object' ? data : {};
-    let result = new RealStatesVmForDashboard();
-    result.init(data);
-    return result;
-  }
+    static fromJS(data: any): RealStatesVmForDashboard {
+        data = typeof data === 'object' ? data : {};
+        let result = new RealStatesVmForDashboard();
+        result.init(data);
+        return result;
+    }
 
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data["id"] = this.id;
-    data["name"] = this.name ? this.name.toJSON() : <any>undefined;
-    data["isActive"] = this.isActive;
-    data["order"] = this.order;
-    return data;
-  }
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name ? this.name.toJSON() : <any>undefined;
+        data["isActive"] = this.isActive;
+        data["order"] = this.order;
+        return data;
+    }
 }
 
 export interface IRealStatesVmForDashboard {
-  id?: number;
-  name?: LocalizedStringDto | undefined;
-  isActive?: boolean;
-  order?: number;
+    id?: number;
+    name?: LocalizedStringDto | undefined;
+    isActive?: boolean;
+    order?: number;
 }
 
 export class RealStatesVm implements IRealStatesVm {
@@ -5517,51 +5517,51 @@ export interface IRealStatesPutOrderCommand {
 }
 
 export class RegionDto implements IRegionDto {
-  id?: number;
-  name?: LocalizedStringDto | undefined;
-  isActive?: boolean;
-  countryId?: number;
+    id?: number;
+    name?: LocalizedStringDto | undefined;
+    isActive?: boolean;
+    countryId?: number;
 
-  constructor(data?: IRegionDto) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
+    constructor(data?: IRegionDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
     }
-  }
 
-  init(_data?: any) {
-    if (_data) {
-      this.id = _data["id"];
-      this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
-      this.isActive = _data["isActive"];
-      this.countryId = _data["countryId"];
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
+            this.isActive = _data["isActive"];
+            this.countryId = _data["countryId"];
+        }
     }
-  }
 
-  static fromJS(data: any): RegionDto {
-    data = typeof data === 'object' ? data : {};
-    let result = new RegionDto();
-    result.init(data);
-    return result;
-  }
+    static fromJS(data: any): RegionDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionDto();
+        result.init(data);
+        return result;
+    }
 
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data["id"] = this.id;
-    data["name"] = this.name ? this.name.toJSON() : <any>undefined;
-    data["isActive"] = this.isActive;
-    data["countryId"] = this.countryId;
-    return data;
-  }
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name ? this.name.toJSON() : <any>undefined;
+        data["isActive"] = this.isActive;
+        data["countryId"] = this.countryId;
+        return data;
+    }
 }
 
 export interface IRegionDto {
-  id?: number;
-  name?: LocalizedStringDto | undefined;
-  isActive?: boolean;
-  countryId?: number;
+    id?: number;
+    name?: LocalizedStringDto | undefined;
+    isActive?: boolean;
+    countryId?: number;
 }
 
 export class PaginatedListOfRegionVmForDashboard implements IPaginatedListOfRegionVmForDashboard {
@@ -5613,51 +5613,51 @@ export interface IPaginatedListOfRegionVmForDashboard {
 }
 
 export class RegionVmForDashboard implements IRegionVmForDashboard {
-  id?: number;
-  name?: LocalizedStringDto | undefined;
-  countryName?: string | undefined;
-  isActive?: boolean;
+    id?: number;
+    name?: LocalizedStringDto | undefined;
+    countryName?: string | undefined;
+    isActive?: boolean;
 
-  constructor(data?: IRegionVmForDashboard) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
+    constructor(data?: IRegionVmForDashboard) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
     }
-  }
 
-  init(_data?: any) {
-    if (_data) {
-      this.id = _data["id"];
-      this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
-      this.countryName = _data["countryName"];
-      this.isActive = _data["isActive"];
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
+            this.countryName = _data["countryName"];
+            this.isActive = _data["isActive"];
+        }
     }
-  }
 
-  static fromJS(data: any): RegionVmForDashboard {
-    data = typeof data === 'object' ? data : {};
-    let result = new RegionVmForDashboard();
-    result.init(data);
-    return result;
-  }
+    static fromJS(data: any): RegionVmForDashboard {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionVmForDashboard();
+        result.init(data);
+        return result;
+    }
 
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data["id"] = this.id;
-    data["name"] = this.name ? this.name.toJSON() : <any>undefined;
-    data["countryName"] = this.countryName;
-    data["isActive"] = this.isActive;
-    return data;
-  }
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name ? this.name.toJSON() : <any>undefined;
+        data["countryName"] = this.countryName;
+        data["isActive"] = this.isActive;
+        return data;
+    }
 }
 
 export interface IRegionVmForDashboard {
-  id?: number;
-  name?: LocalizedStringDto | undefined;
-  countryName?: string | undefined;
-  isActive?: boolean;
+    id?: number;
+    name?: LocalizedStringDto | undefined;
+    countryName?: string | undefined;
+    isActive?: boolean;
 }
 
 export class RegionsPostPutCommon implements IRegionsPostPutCommon {
