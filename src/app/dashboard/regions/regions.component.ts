@@ -86,14 +86,14 @@ export class RegionsComponent implements OnInit {
     ];
 
     this.actions = [
-      // {
-      //   label: await this.translate('regions.viewSubRegions'),
-      //   ref: this,
-      //   actionName: 'viewSubRegions',
-      //   icon: this.table.icMoreHoriz,
-      //   disabled: false,
-      //   loading: false,
-      // },
+      {
+        label: await this.translate('regions.viewSubRegions'),
+        ref: this,
+        actionName: 'viewSubRegions',
+        icon: this.table.icMoreHoriz,
+        disabled: false,
+        loading: false,
+      },
       {
         label: await this.translate('general.update'),
         ref: this.table,
@@ -125,12 +125,12 @@ export class RegionsComponent implements OnInit {
     );
   }
   
-  // viewSubRegions(action: SelectionAction, item: RegionVmForDashboard): void {
-  //   this._dialog.open(SubRegionsComponent, {
-  //     minWidth: this.table.minWidth,
-  //     data: item,
-  //   });
-  // }
+  viewSubRegions(action: SelectionAction, item: RegionVmForDashboard): void {
+    this._dialog.open(RegionsComponent, {
+      minWidth: this.table.minWidth,
+      data: item,
+    });
+  }
 
   private translate(key: string): Promise<string> {
     return this._translateService.get(key).toPromise();
