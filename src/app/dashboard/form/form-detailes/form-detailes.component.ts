@@ -36,7 +36,7 @@ import { FormsClient, IFormDto, RealStatesClient, RealStatesVm, RequestType } fr
     <div class="flex flex-row justify-evenly">
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.RealState' | translate}}</mat-label>
-        <mat-select (valueChange)="onSelect($event)" >
+        <mat-select (valueChange)="onSelect($event)" [(ngModel)]="data.realStateId">
           <mat-option *ngFor="let realState of realStates" [value]="realState.id">
             {{realState.name}}
           </mat-option>
@@ -44,7 +44,7 @@ import { FormsClient, IFormDto, RealStatesClient, RealStatesVm, RequestType } fr
       </mat-form-field> 
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.type' | translate}}</mat-label>
-        <mat-select (valueChange)="_onSelect($event)">
+        <mat-select (valueChange)="_onSelect($event)" [(ngModel)]="data.type">
           <mat-option *ngFor="let type of types" [value]="type" >
             {{formType[type]}}
           </mat-option>
@@ -74,7 +74,9 @@ export class FormDetailesComponent implements OnInit {
     private realStateClient: RealStatesClient,
     private _FormsClient: FormsClient
   ) {
+    console.log('FormDetailesComponent',this.data)
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
+    console.log('this.types ',this.formType[this.types[0]] )
   }
 
   ngOnInit(): void {

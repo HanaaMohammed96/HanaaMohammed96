@@ -30,6 +30,7 @@ const routes: Routes = [
       { path: 'partners', component: PartnersComponent },
       { path: 'forms', component: FormsPageComponent },
       { path: 'form-editor', component: FormEditorComponent },
+      { path: 'form-update/:id', component: FormEditorComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: '**', component: NotFoundComponent },
