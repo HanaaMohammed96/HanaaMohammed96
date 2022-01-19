@@ -83,7 +83,6 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
     event.action.subscribe((response: any) => {
-      console.log('res', response)
       if (response) {
         this.data.id = response.result;
       }
@@ -95,7 +94,6 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     },
       (err) => {
         this._handler.handleError(err).pushError();
-        console.log('errqqq', err)
       }
     );
   }

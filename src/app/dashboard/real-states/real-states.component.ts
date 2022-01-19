@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { finalize } from 'rxjs/operators';
-import { IRealStatesClient, RealStateDto, RealStatesClient, RealStatesPutCommand } from '@core/api';
+import { IRealStatesClient, RealStateDto, RealStatesClient, RealStatesPutCommand, RealStatesPutOrderCommand } from '@core/api';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
 import { RealStateCreateUpdateComponent } from './real-state-create-update/real-state-create-update.component';
 
@@ -15,6 +15,7 @@ export enum Status {
   Active = 0,
   NotActive = 1,
 }
+
 @Component({
   selector: 'app-real-states',
   templateUrl: './real-state.component.html',
@@ -64,7 +65,21 @@ export class RealStatesComponent implements OnInit {
     //       moveItemInArray(this.list, event.currentIndex, event.previousIndex);
     //     }
     //   );
-    // moveItemInArray(this.list, event.previousIndex, event.currentIndex);
+    console.log('event in drop', typeof this.list[event.previousIndex])
+    this._realStateClient
+      .putOrder(new RealStatesPutOrderCommand({
+        id: this.list[event.previousIndex].id,
+        order: event.currentIndex
+      }))
+      .subscribe(
+        (data) => { console.log('data', data) },
+        (err) => {
+          this._handler.handleError(err).pushError();
+          // return it to its position
+          moveItemInArray(this.list, event.currentIndex, event.previousIndex);
+        }
+      );
+    moveItemInArray(this.list, event.previousIndex, event.currentIndex);
     return;
   }
 

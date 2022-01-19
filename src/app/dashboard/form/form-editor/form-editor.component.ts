@@ -180,14 +180,14 @@ export class FormEditorComponent implements OnInit {
     this.loading = true;
     if (!this.formId) {
       action = this._FormsClient
-        .postPOST(
+        .post(
           new FormPostCommand({
             ...this.model
           })
         );
 
     } else {
-      action = this._FormsClient.postPUT(
+      action = this._FormsClient.put(
         new FormPutCommand({
           ...this.model
         })

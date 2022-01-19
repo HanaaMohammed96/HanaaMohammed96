@@ -8,7 +8,7 @@ export class FormEditorService {
   _fieldModels: Array<IDataFieldDto> = [];
 
   _model: IFormPostPutCommon = {};
-  constructor() { 
+  constructor() {
     const dataValues = new DataValueDto({
       value: new LocalizedStringDto({
         ar: 'اختيار',
@@ -40,7 +40,10 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.Text,
         code: 'A',
-        placeholder: '',
+        placeHolder: new LocalizedStringDto({
+          ar: 'نص',
+          en: 'Text'
+        }),
         regex: '',
       },
       {
@@ -93,7 +96,10 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.TextArea,
         code: 'A',
-        placeholder: '',
+        placeHolder: new LocalizedStringDto({
+          ar: 'نص',
+          en: 'Text'
+        }),
         regex: '',
       },
       {

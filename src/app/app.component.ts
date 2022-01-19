@@ -17,6 +17,7 @@ import icEdit from '@iconify/icons-ic/twotone-edit';
 import icPageView from '@iconify/icons-ic/twotone-pageview';
 import icReceipt from '@iconify/icons-ic/twotone-receipt';
 import icFilterList from '@iconify/icons-ic/twotone-filter-list';
+import icBallot from '@iconify/icons-ic/twotone-ballot';
 
 @Component({
   selector: 'app-root',
@@ -76,6 +77,12 @@ export class AppComponent implements OnInit {
         route: '/country',
         icon: icReceipt,
       }as NavigationLink,
+      {
+        type: 'link',
+        label: await this.translate('navigations.regoins'),
+        route: '/regions',
+        icon: icBallot,
+      } as NavigationLink,
       {
         type: 'link',
         label: await this.translate('navigations.form'),
