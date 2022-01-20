@@ -6,9 +6,9 @@
           <p class="opacity-50 mt-0 mb-1">{{ 'country.description' | translate  }}</p>
         </div>
         <div class="justify-self-end">
-          <button mat-mini-fab type="button" color="basic" (click)="add()">
+          <!-- <button mat-mini-fab type="button" color="basic" (click)="add()">
             <mat-icon [icIcon]="icAdd"></mat-icon>
-          </button>
+          </button> -->
         </div>
       </div>
     </ng-page-layout-header>
@@ -38,11 +38,11 @@
 
 <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
   <ng-template let-item="item" matMenuContent>
-    <button mat-menu-item (click)="update(item)" >
+    <button mat-menu-item >
       <mat-icon [icIcon]="icEdit"></mat-icon>
       <span>{{ 'general.update' | translate}}</span>
     </button>
-    <button mat-menu-item (click)="delete(item)">
+    <button mat-menu-item >
       <mat-icon [icIcon]="icDelete"></mat-icon>
       <span>{{ 'general.delete' | translate}}</span>
     </button>

@@ -12,15 +12,12 @@ import { FormDetailesComponent } from 'src/app/dashboard/form/form-detailes/form
 })
 export class ChangeFormDetailsService {
   form: IFormDto
-
   item: DataField;
-
   resetForm: IFormPostPutCommon;
-
-  
   constructor(
     public dialog: MatDialog
   ) {
+    console.log('&&&', this.resetForm)
   }
 
   openEditFielDialog(): Observable<any> {
