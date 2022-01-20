@@ -1,22 +1,30 @@
 <div class="overflow-hidden p-4">
+
   <div fxLayout="row" fxLayoutAlign="space-evenly center">
     <mat-icon color="warn" class='w-14'>add_task</mat-icon>
     <h3 class="whitespace-normal w-3/6"> {{toLang(data.name)}} </h3>
   </div>
+
   <div mat-dialog-content>
+
     <div fxLayout="column" fxLayoutAlign="space-evenly center" class="w-full">
+
       <div fxLayout="row" fxLayoutAlign="space-between center" class="w-full">
+
         <div fxLayout="row" fxLayoutAlign="space-evenly center" class="w-full">
           <div fxLayout="column" fxLayoutAlign="space-evenly center" class="field m-6 w-full">
 
             <div fxLayout="row" fxLayoutAlign="space-evenly center" style="margin-bottom: 10px;" class="w-full">
+
               <span *ngIf="data.isRequired">{{"required" | translate}}</span>
               <mat-icon *ngIf="data.isRequired" (click)="data.isRequired=false" color="warn" class="icon-display pl-3">
                 toggle_on
               </mat-icon>
+
               <span *ngIf="!data.isRequired"> {{"not required"| translate}}</span>
               <mat-icon *ngIf="!data.isRequired" (click)="data.isRequired=true" class="icon-display pl-3">toggle_off
               </mat-icon>
+
             </div>
 
             <mat-form-field *ngIf="data.fieldType >=0" class="w-full">
@@ -30,8 +38,13 @@
             </mat-form-field>
 
             <mat-form-field *ngIf="data.fieldType == +type.Text || data.fieldType == +type.TextArea" class="w-full">
-              <mat-label>Placeholder</mat-label>
-              <input type="text" [(ngModel)]="data.placeholder" matInput  />
+              <mat-label>English Placeholder</mat-label>
+              <input type="text" [(ngModel)]="data.placeHolder.en" matInput  />
+            </mat-form-field>
+
+            <mat-form-field *ngIf="data.fieldType == +type.Text || data.fieldType == +type.TextArea" class="w-full">
+              <mat-label>Arabic Placeholder</mat-label>
+              <input type="text" [(ngModel)]="data.placeHolder.ar" matInput  />
             </mat-form-field>
 
             <mat-form-field *ngIf="data.fieldType == +type.Text " class="w-full">
@@ -47,11 +60,10 @@
           </div>
 
           <!-- number -->
+
           <!-- <div *ngIf="data.fieldType=='number' || data.fieldType == 0" fxLayout="column" fxLayoutAlign="space-evenly center" -->
           <!-- <div fxLayout="column" fxLayoutAlign="space-evenly center"
             class="m-6 w-full">
-
-            
 
             <mat-form-field class="w-full">
               <mat-label>{{"Min" |translate}}</mat-label>
@@ -64,9 +76,8 @@
             </mat-form-field>
 
           </div> -->
-
-
         </div>
+
         <!-- radio || checkbox || select -->
         <div class="field w-full" *ngIf="data.fieldType == +type.CheckBox || data.fieldType == +type.Radio || data.fieldType == +type.Select"
           fxLayout="column" fxLayoutAlign="space-evenly center">
@@ -76,25 +87,30 @@
               <mat-label class="whitespace-normal w-3/6">{{toLang(i.value)}}</mat-label>
               <mat-icon (click)="data.dataValues.splice(valueIndex,1)" mat-fab color="primary">delete</mat-icon>
             </div>
-
           </div>
+
           <div >
               <mat-form-field>
                 <mat-label>English value</mat-label>
                 <input type="text" [(ngModel)]="value.en" matInput />
               </mat-form-field>
+
               <mat-form-field>
                 <mat-label>Arabic value</mat-label>
                 <input type="text" [(ngModel)]="value.ar" matInput />
               </mat-form-field>
+
               <mat-icon (click)="addValue(data.dataValues)" mat-fab color="primary">control_point</mat-icon>
           </div>
+
         </div>
       </div>
     </div>
   </div>
+
   <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center">
     <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" | translate}}</button>
     <button mat-button [mat-dialog-close]="false" mat-raised-button color="primary">{{"No" | translate}}</button>
   </div>
-<!-- </div> -->
+
+</div>

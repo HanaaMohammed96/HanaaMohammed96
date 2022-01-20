@@ -40,7 +40,10 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.Text,
         code: 'A',
-        placeholder: '',
+        placeHolder: new LocalizedStringDto({
+          ar: 'نص',
+          en: 'Text'
+        }),
         regex: '',
       },
       {
@@ -57,6 +60,10 @@ export class FormEditorService {
         name: new LocalizedStringDto({
           ar: 'ناتج',
           en: 'Result'
+        }),
+        placeHolder: new LocalizedStringDto({
+          ar: 'نص',
+          en: 'Text'
         }),
         orders: null,
         isRequired: false,
@@ -93,7 +100,10 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.TextArea,
         code: 'A',
-        placeholder: '',
+        placeHolder: new LocalizedStringDto({
+          ar: 'نص',
+          en: 'Text'
+        }),
         regex: '',
       },
       {

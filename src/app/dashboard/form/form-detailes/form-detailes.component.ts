@@ -67,33 +67,35 @@ export class FormDetailesComponent implements OnInit {
   formType = RequestType;
 
   types = [];
-  
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialogRef: MatDialogRef<FormDetailesComponent>,
     private realStateClient: RealStatesClient,
     private _FormsClient: FormsClient
   ) {
-    console.log('FormDetailesComponent',this.data)
+    console.log('FormDetailesComponent', this.data);
+
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
-    console.log('this.types ',this.formType[this.types[0]] )
+
+    console.log('this.types ', this.formType[+this.types[0]]);
+
+    console.log('this.types ', this.types);
   }
 
   ngOnInit(): void {
+
     this.realStateClient.getList().subscribe(result => {
       this.realStates = result;
-    })
-    if (this.data.id){
+    });
+
+    if (this.data.id) {
       this._FormsClient.get(this.data.id).subscribe(result => {
         this.data.realStateId = result.realStateId;
-        this.data.type = result.type;
+        this.data.type = +result.type;
       });
     }
   }
-
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
 
   onSelect(event: any) {
     this.data.realStateId = event;

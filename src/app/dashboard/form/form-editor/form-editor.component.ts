@@ -154,7 +154,7 @@ export class FormEditorComponent implements OnInit {
 
     const dialoRef = this.dialog.open(FormDetailesComponent, {
       data: this.model
-    })
+    });
 
     dialoRef.afterClosed().subscribe(result => {
 
@@ -166,28 +166,32 @@ export class FormEditorComponent implements OnInit {
             this.model = result;
           });
         } else {
-          
+
           this.model = this.formEditorService._model;
+
         }
       }
-    })
+    });
+
   }
 
   save(): void {
+    this.model.type = (Number)(this.model.type)
     console.log('postput', this.model);
     let action: Observable<any>;
 
     this.loading = true;
     if (!this.formId) {
+      
       action = this._FormsClient
-        .postPOST(
+        .post(
           new FormPostCommand({
             ...this.model
           })
         );
 
     } else {
-      action = this._FormsClient.postPUT(
+      action = this._FormsClient.put(
         new FormPutCommand({
           ...this.model
         })
