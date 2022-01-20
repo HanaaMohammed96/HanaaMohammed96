@@ -110,7 +110,7 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
     private _route: ActivatedRoute,
     private _router: Router,
     private _fileManager: FileManagerService
-  ) {}
+  ) { }
 
   get visibleColumns() {
     return this.columns
@@ -306,6 +306,9 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   callAction(action: SelectionAction, param: any): void {
+    if (this.forForm) {
+      this._router.navigate(['/form-update', param.id])
+    }
     if (!action || action.disabled || action.loading) {
       return;
     }

@@ -290,6 +290,7 @@
         </ng-container>
 
         <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+        
         <tr
           (click)="callAction(onClickAction, row)"
           *matRowDef="let row; columns: visibleColumns"

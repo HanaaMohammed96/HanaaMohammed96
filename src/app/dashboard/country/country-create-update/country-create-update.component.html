@@ -1,48 +1,33 @@
-<app-form-dialog
-  [id]="this.data.id"
-  [title]="'country.TableName'"
-  [formGroup]="form"
-  [data]="country"
-  [post]="post"
-  [put]="put"
-  (request)="submit($event)"
->
+<app-form-dialog [id]="this.data.id" [title]="'country.TableName'" [formGroup]="form" [client]="countriesClient"
+  [post]="post" [put]="put" (request)="submit($event)">
   <div form-dialog-content>
     <div formGroupName="name">
       <div class="flex flex-col sm:flex-row">
-        <mat-form-field
-          *ngIf="'general.ar' | translate as ar"
-          appearance="outline"
-          class="mt-6 flex-auto"
-        >
+        <mat-form-field *ngIf="'general.ar' | translate as ar" appearance="outline" class="mt-6 flex-auto">
           <mat-label>{{ ar }}</mat-label>
           <input cdkFocusInitial formControlName="Ar" matInput />
           <mat-error *ngIf="nameAr.hasError('required')">{{
             'validations.required' | translate: { field: ar }
-          }}</mat-error>
+            }}</mat-error>
           <mat-error *ngIf="nameAr.hasError('validation')">{{
             nameAr.errors.validation
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
 
       <div class="flex flex-col sm:flex-row">
-        <mat-form-field
-          *ngIf="'general.en' | translate as en"
-          appearance="outline"
-          class="flex-auto"
-        >
+        <mat-form-field *ngIf="'general.en' | translate as en" appearance="outline" class="flex-auto">
           <mat-label>{{ en }}</mat-label>
           <input formControlName="En" matInput />
           <mat-error *ngIf="nameEn.hasError('required')">{{
             'validations.required' | translate: { field: en }
-          }}</mat-error>
+            }}</mat-error>
           <mat-error *ngIf="nameEn.hasError('validation')">{{
             nameEn.errors.validation
-          }}</mat-error>
+            }}</mat-error>
         </mat-form-field>
       </div>
-    
+
     </div>
     <div class="flex flex-col sm:flex-row">
       <!-- <mat-checkbox  [checked]="data.isActive" (change)="activate($event.checked)" formControlName="isActive">Activate</mat-checkbox> -->

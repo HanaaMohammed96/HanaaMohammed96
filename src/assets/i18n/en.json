@@ -61,6 +61,7 @@
     "users": "Users",
     "team": "Admins",
     "partner": "Partners",
+    "regoins": "Regions",
     "governorates": "Governorates",
     "districts": "Districts",
     "privacy_policy": "Privacy Policy",
@@ -160,6 +161,22 @@
     "branch": "Branch",
     "service": "Service",
     "resetPassword": "Reset Password"
+  },
+  "regions":{
+    "title": "Monjez Regions Table",
+    "description": "This list includes all Regions",
+    "tableName": "Regions",
+    "tableNamePlural": "Regions",
+    "enName": "English Name",
+    "arName": "Arabic Name",
+    "status": "Status",
+    "isActive": "Active",
+    "isNotActive": "Not Active",
+    "viewSubRegions":"View Sub Regions",
+    "subRegionTitle": "Monjez SubRegions Table",
+    "subRegionDescription": "This list includes all SubRegions",
+    "subRegionTableName": "SubRegion",
+    "subRegionTableNamePlural": "SubRegions"
   },
   "Success":"Success",
   "formFields":{

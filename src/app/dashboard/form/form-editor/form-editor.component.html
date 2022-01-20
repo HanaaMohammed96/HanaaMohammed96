@@ -103,7 +103,7 @@
     </div>
 
     <!-- dragable Zone -->
-    <div class="col mat-elevation-z8 p-4 editor" cdkDropList #formFields="cdkDropList"
+    <div class="col mat-elevation-z8 p-4 editor" cdkDropList #formFields="cdkDropList" 
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
       position="end" cdkDrag>
 

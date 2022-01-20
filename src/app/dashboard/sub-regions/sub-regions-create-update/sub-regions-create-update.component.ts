@@ -1,23 +1,23 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IRealStatesClient, LocalizedStringDto, RealStateDto, RealStatesClient, RealStatesPostCommand, RealStatesPutCommand } from '@core/api';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand, RegionVmForDashboard } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { SubregionService } from '../subregion.service';
 
 @Component({
-  selector: 'app-real-state-create-update',
-  templateUrl: './real-state-create-update.component.html',
+  selector: 'app-sub-regions-create-update',
+  templateUrl: './sub-regions-create-update.component.html'
 })
-export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
-
+export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: RealStateDto,
-    public realStateClient: RealStatesClient,
-    private _dialogRef: MatDialogRef<RealStateCreateUpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RegionDto,
+    public _RegionsClient: RegionsClient,
+    private _dialogRef: MatDialogRef<SubRegionsCreateUpdateComponent>,
     private _handler: ApiHandlerService,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
   ) { }
 
   get nameAr(): AbstractControl {
@@ -28,10 +28,10 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     return this.form.get('name.En');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
     if (!this.data) {
-      this.data = {} as RealStateDto;
+      this.data = {} as RegionDto;
 
       this.form = this._fb.group({
         name: this._fb.group({
@@ -56,24 +56,39 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   post(value: any): any {
+    console.log('inpost', this.data);
+
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
     const isActive = value.isActive;
 
-    return new RealStatesPostCommand({
+
+    const countryId = null;
+
+    return new RegionsPostCommand({
       name,
-      isActive
+      isActive,
+      // parentRegionId,
+      countryId
     });
   }
 
   put(id: any, value: any): any {
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
     const isActive = value.isActive;
 
-    return new RealStatesPutCommand({
+    const parentRegionId = this.data.id;
+    // XXXXX
+    const countryId = this.data.countryId;
+
+    return new RegionsPutCommand({
       id,
       name,
-      isActive
+      isActive,
+      parentRegionId,
+      countryId
     });
   }
 
@@ -88,7 +103,10 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
       }
 
       this.data.name = name;
+
       this.data.isActive = value.isActive;
+
+      this.data.countryId = value.countryId;
 
       this._dialogRef.close();
     },

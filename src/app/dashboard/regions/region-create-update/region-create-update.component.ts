@@ -1,24 +1,27 @@
-import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IRealStatesClient, LocalizedStringDto, RealStateDto, RealStatesClient, RealStatesPostCommand, RealStatesPutCommand } from '@core/api';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CountriesClient, CountryVm, LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 
 @Component({
-  selector: 'app-real-state-create-update',
-  templateUrl: './real-state-create-update.component.html',
+  selector: 'app-region-create-update',
+  templateUrl: './region-create-update.component.html'
 })
-export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
-
+export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
+  countries: CountryVm[]
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: RealStateDto,
-    public realStateClient: RealStatesClient,
-    private _dialogRef: MatDialogRef<RealStateCreateUpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RegionDto,
+    public _RegionsClient: RegionsClient,
+    private _dialogRef: MatDialogRef<RegionCreateUpdateComponent>,
     private _handler: ApiHandlerService,
-    private _fb: FormBuilder
-  ) { }
+    private _fb: FormBuilder,
+    private countriesClient: CountriesClient,
+  ) {
+    console.log('regions@@@', this.data)
+   }
 
   get nameAr(): AbstractControl {
     return this.form.get('name.Ar');
@@ -28,16 +31,20 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     return this.form.get('name.En');
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
 
+    this.countriesClient.getList().subscribe(result => {
+      this.countries = result;
+    })
     if (!this.data) {
-      this.data = {} as RealStateDto;
+      this.data = {} as RegionDto;
 
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: ['', Validators.required],
           En: ['', Validators.required],
         }),
+        countryId: ['', Validators.required],
         isActive: [''],
       });
     } else {
@@ -46,6 +53,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
+        countryId: ['', Validators.required],
         isActive: [''],
       });
     }
@@ -56,24 +64,39 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   post(value: any): any {
+
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
     const isActive = value.isActive;
 
-    return new RealStatesPostCommand({
+    const countryId = value.countryId;
+
+    const parentRegionId = null;
+
+    return new RegionsPostCommand({
       name,
-      isActive
+      isActive,
+      parentRegionId,
+      countryId
     });
   }
 
   put(id: any, value: any): any {
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
     const isActive = value.isActive;
 
-    return new RealStatesPutCommand({
+    const countryId = value.countryId;
+
+    const parentRegionId = null;
+
+    return new RegionsPutCommand({
       id,
       name,
-      isActive
+      isActive,
+      parentRegionId,
+      countryId
     });
   }
 
@@ -89,7 +112,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
 
       this.data.name = name;
       this.data.isActive = value.isActive;
-
+      this.data.countryId = value.countryId
       this._dialogRef.close();
     },
       (err) => {
@@ -101,5 +124,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
   activate(event: boolean) {
     this.data.isActive = event;
   }
-
+  onSelect(event: any) {
+    this.data.countryId = event;
+  }
 }

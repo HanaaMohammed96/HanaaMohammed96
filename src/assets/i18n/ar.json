@@ -59,6 +59,7 @@
     "users": "المستخدمين",
     "team": "المشرفين",
     "partner": "الشركاء",
+    "regoins": "المناطق",
     "governorates": "المحافظات",
     "districts": "المناطق",
     "privacy_policy": "سياسة الخصوصية",
@@ -159,6 +160,22 @@
     "branch": "الفرع",
     "service": "الخدمة",
     "resetPassword": "تغير كلمة المرور"
+  },
+  "regions":{
+    "title": "جدول المناطق",
+    "description": "هذه القائمة تحتوى على كل المناطق",
+    "tableName": "المناطق",
+    "tableNamePlural": "المناطق",
+    "enName": "الاسم باللغة الإنجليزية",
+    "arName": "الاسم باللغة العربية",
+    "status": "الحالة",
+    "isActive": "مفعل",
+    "isNotActive": "غير مفعل",
+    "viewSubRegions":"المناطق الفرعية",
+    "subRegionTitle": "جدول المناطق الفرعية",
+    "subRegionDescription": "هذه القائمة تحتوي على كل المناطق الفرعية",
+    "subRegionTableName": "المناطق الفرعية",
+    "subRegionTableNamePlural": "المناطق الفرعية"
   },
   "Success":"تم الحفظ",
   "formFields":{
