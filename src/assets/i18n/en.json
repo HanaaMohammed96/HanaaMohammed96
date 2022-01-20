@@ -176,7 +176,8 @@
     "subRegionTitle": "Monjez SubRegions Table",
     "subRegionDescription": "This list includes all SubRegions",
     "subRegionTableName": "SubRegion",
-    "subRegionTableNamePlural": "SubRegions"
+    "subRegionTableNamePlural": "SubRegions",
+    "ctryName": "Country"
   },
   "Success":"Success",
   "formFields":{

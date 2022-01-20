@@ -40,7 +40,6 @@ export class RegionsComponent implements OnInit {
   localized = { ban: null, cancel: null };
   constructor(
     public regionsClient: RegionsClient,
-    private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _translateService: TranslateService,
   ) { }
@@ -61,6 +60,12 @@ export class RegionsComponent implements OnInit {
       {
         label: 'regions.arName',
         property: 'name.ar',
+        type: 'text',
+        visible: true,
+      },
+      {
+        label: 'regions.ctryName',
+        property: 'countryName',
         type: 'text',
         visible: true,
       },
@@ -131,7 +136,7 @@ export class RegionsComponent implements OnInit {
       pagingOptions.sortBy
     );
   }
-  
+
   viewSubRegions(action: SelectionAction, item: RegionVmForDashboard): void {
     this._dialog.open(SubRegionsComponent, {
       minWidth: this.table.minWidth,
@@ -142,4 +147,5 @@ export class RegionsComponent implements OnInit {
   private translate(key: string): Promise<string> {
     return this._translateService.get(key).toPromise();
   }
+
 }

@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { PaginatedListOfRegionVmForDashboard, RegionDto, RegionsClient, RegionVmForDashboard } from '@core/api';
+import { PaginatedListOfRegionVmForDashboard, RegionsClient, RegionVmForDashboard } from '@core/api';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
 import { SelectionAction } from '@core/interfaces/selection-action';
 import { TableColumn } from '@core/interfaces/table-column.interface';
