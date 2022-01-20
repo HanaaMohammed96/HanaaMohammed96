@@ -135,7 +135,7 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.CheckBox,
         code: 'A',
-        dataValues: [dataValues, dataValues]
+        dataValues: [dataValues]
       },
       {
         name: new LocalizedStringDto({
@@ -146,7 +146,7 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.Radio,
         code: 'A',
-        dataValues: [dataValues, dataValues]
+        dataValues: [ dataValues]
       },
       {
         name: new LocalizedStringDto({
@@ -157,7 +157,7 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.Select,
         code: 'A',
-        dataValues: [dataValues, dataValues]
+        dataValues: [dataValues]
       }
     ];
   }
