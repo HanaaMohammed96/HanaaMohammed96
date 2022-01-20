@@ -171,7 +171,11 @@
     "status": "الحالة",
     "isActive": "مفعل",
     "isNotActive": "غير مفعل",
-    "viewSubRegions":"المناطق الفرعية"
+    "viewSubRegions":"المناطق الفرعية",
+    "subRegionTitle": "جدول المناطق الفرعية",
+    "subRegionDescription": "هذه القائمة تحتوي على كل المناطق الفرعية",
+    "subRegionTableName": "المناطق الفرعية",
+    "subRegionTableNamePlural": "المناطق الفرعية"
   },
   "Success":"تم الحفظ",
   "formFields":{

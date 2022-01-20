@@ -1,25 +1,25 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { PaginatedListOfRegionVmForDashboard, RegionsClient, RegionVmForDashboard } from '@core/api';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { PaginatedListOfRegionVmForDashboard, RegionDto, RegionsClient, RegionVmForDashboard } from '@core/api';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
 import { SelectionAction } from '@core/interfaces/selection-action';
 import { TableColumn } from '@core/interfaces/table-column.interface';
 import { TranslateService } from '@ngx-translate/core';
 import { AioTableComponent } from '@shared/components/widgets/aio-table/aio-table.component';
 import { Observable } from 'rxjs';
-import { SubRegionsComponent } from '../sub-regions/sub-regions.component';
-import { RegionCreateUpdateComponent } from './region-create-update/region-create-update.component';
+import { SubRegionsCreateUpdateComponent } from './sub-regions-create-update/sub-regions-create-update.component';
+import { SubregionService } from './subregion.service';
 
 @Component({
-  selector: 'app-regions',
+  selector: 'app-sub-regions',
   template: `<app-aio-table
     #table
     [ref]="this"
-    [title]="'regions.title' | translate"
-    [description]="'regions.description' | translate"
-    [tableName]="'regions.tableName' | translate"
-    [tableNamePlural]="'regions.tableNamePlural' | translate"
+    [title]="'regions.subRegionTitle' | translate"
+    [description]="'regions.subRegionDescription' | translate"
+    [tableName]="'regions.subRegionTableName' | translate"
+    [tableNamePlural]="'regions.subRegionTableNamePlural' | translate"
     [client]="regionsClient"
     [createUpdateComponent]="component"
     [columns]="columns"
@@ -27,23 +27,27 @@ import { RegionCreateUpdateComponent } from './region-create-update/region-creat
     [dataObserable]="'getData'"
   ></app-aio-table>`,
 })
-export class RegionsComponent implements OnInit {
+export class SubRegionsComponent implements OnInit {
   @ViewChild('table', { static: false }) table: AioTableComponent<RegionVmForDashboard>;
 
   form: FormGroup;
 
-  component = RegionCreateUpdateComponent;
+  component = SubRegionsCreateUpdateComponent;
 
   columns: TableColumn<RegionVmForDashboard>[] = [];
+
   actions: SelectionAction[] = [];
 
   localized = { ban: null, cancel: null };
+
   constructor(
+    @Inject(MAT_DIALOG_DATA) public data: RegionVmForDashboard ,
     public regionsClient: RegionsClient,
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _translateService: TranslateService,
-  ) { }
+  ) {
+  }
 
   async ngOnInit(): Promise<any> {
     const status = {
@@ -68,18 +72,18 @@ export class RegionsComponent implements OnInit {
         label: 'regions.status',
         property: 'isActive',
         converter: (value: any): string => {
-          if(value){
+          if (value) {
             return status.Active.name;
-          }else{
+          } else {
             return status.NotActive.name;
           }
         },
         type: 'badge',
         visible: true,
         ngCssClasses: (item: any): string[] => {
-          if(item.isActive){
+          if (item.isActive) {
             return ['bg-green'];
-          }else{
+          } else {
             return ['bg-teal'];
           }
         },
@@ -93,14 +97,6 @@ export class RegionsComponent implements OnInit {
     ];
 
     this.actions = [
-      {
-        label: await this.translate('regions.viewSubRegions'),
-        ref: this,
-        actionName: 'viewSubRegions',
-        icon: this.table.icMoreHoriz,
-        disabled: false,
-        loading: false,
-      },
       {
         label: await this.translate('general.update'),
         ref: this.table,
@@ -121,9 +117,8 @@ export class RegionsComponent implements OnInit {
   }
 
   getData(pagingOptions: PagingOptions): Observable<PaginatedListOfRegionVmForDashboard> {
-
     return this.regionsClient.getPage(
-      null,
+      this.data.id,
       pagingOptions.pageSize,
       pagingOptions.pageIndex,
       pagingOptions.query,
@@ -131,15 +126,9 @@ export class RegionsComponent implements OnInit {
       pagingOptions.sortBy
     );
   }
-  
-  viewSubRegions(action: SelectionAction, item: RegionVmForDashboard): void {
-    this._dialog.open(SubRegionsComponent, {
-      minWidth: this.table.minWidth,
-      data: item,
-    });
-  }
 
   private translate(key: string): Promise<string> {
     return this._translateService.get(key).toPromise();
   }
+
 }

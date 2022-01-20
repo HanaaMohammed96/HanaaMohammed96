@@ -172,7 +172,11 @@
     "status": "Status",
     "isActive": "Active",
     "isNotActive": "Not Active",
-    "viewSubRegions":"View Sub Regions"
+    "viewSubRegions":"View Sub Regions",
+    "subRegionTitle": "Monjez SubRegions Table",
+    "subRegionDescription": "This list includes all SubRegions",
+    "subRegionTableName": "SubRegion",
+    "subRegionTableNamePlural": "SubRegions"
   },
   "Success":"Success",
   "formFields":{

@@ -1,4 +1,4 @@
-<app-form-dialog [id]="this.data.id" [title]="'regions.tableName'" [formGroup]="form" [client]="_RegionsClient"
+<app-form-dialog [id]="this.data.id" [title]="'regions.subRegionTableName'" [formGroup]="form" [client]="_RegionsClient"
     [post]="post" [put]="put" (request)="submit($event)">
     <div form-dialog-content>
         <div formGroupName="name">
@@ -28,19 +28,6 @@
                 </mat-form-field>
             </div>
         </div>
-        <!-- <div class="flex flex-col sm:flex-row w-full">
-            <mat-form-field appearance="fill" class=" w-full">
-                <mat-label>Country</mat-label>
-                <mat-select (valueChange)="onSelect($event)" formControlName="countryId" [(ngModel)]="data.countryName">
-                    <mat-option *ngFor="let country of countries" [value]="country.id">
-                        {{country.name}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf="nameEn.hasError('validation')">{{
-                    nameEn.errors.validation
-                    }}</mat-error>
-            </mat-form-field>
-        </div> -->
         <div class="flex flex-col sm:flex-row">
             <mat-checkbox formControlName="isActive" [(ngModel)]="data.isActive">{{'isActive' | translate}}
             </mat-checkbox>

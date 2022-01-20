@@ -20,7 +20,7 @@ import { FormEditorComponent } from '../form-editor/form-editor.component';
     [tableName]="'Form.tableName' | translate"
     [tableNamePlural]="'Form.tableNamePlural' | translate"
     [client]="formsClient"
-    [createUpdateComponent]="component"    
+    [createUpdateComponent]="component"
     [columns]="columns"
     [forForm]="createForm"
     [actions]="actions"

@@ -41,6 +41,8 @@ import { CountryComponent } from './country/country.component';
 import { CountryCreateUpdateComponent } from './country/country-create-update/country-create-update.component';
 import { RegionsComponent } from './regions/regions.component';
 import { RegionCreateUpdateComponent } from './regions/region-create-update/region-create-update.component';
+import { SubRegionsComponent } from './sub-regions/sub-regions.component';
+import { SubRegionsCreateUpdateComponent } from './sub-regions/sub-regions-create-update/sub-regions-create-update.component';
 
 @NgModule({
   declarations: [
@@ -81,6 +83,8 @@ import { RegionCreateUpdateComponent } from './regions/region-create-update/regi
     CountryCreateUpdateComponent,
     RegionsComponent,
     RegionCreateUpdateComponent,
+    SubRegionsComponent,
+    SubRegionsCreateUpdateComponent,
   ],
   imports: [
     CommonModule,

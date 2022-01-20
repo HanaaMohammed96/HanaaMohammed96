@@ -1,27 +1,24 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CountriesClient, CountryVm, LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand } from '@core/api';
+import { LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand, RegionVmForDashboard } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { SubregionService } from '../subregion.service';
 
 @Component({
-  selector: 'app-region-create-update',
-  templateUrl: './region-create-update.component.html'
+  selector: 'app-sub-regions-create-update',
+  templateUrl: './sub-regions-create-update.component.html'
 })
-export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
+export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
-  countries: CountryVm[]
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: RegionDto,
     public _RegionsClient: RegionsClient,
-    private _dialogRef: MatDialogRef<RegionCreateUpdateComponent>,
+    private _dialogRef: MatDialogRef<SubRegionsCreateUpdateComponent>,
     private _handler: ApiHandlerService,
     private _fb: FormBuilder,
-    private countriesClient: CountriesClient,
-  ) {
-    console.log('regions@@@', this.data)
-   }
+  ) { }
 
   get nameAr(): AbstractControl {
     return this.form.get('name.Ar');
@@ -33,9 +30,6 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    this.countriesClient.getList().subscribe(result => {
-      this.countries = result;
-    })
     if (!this.data) {
       this.data = {} as RegionDto;
 
@@ -44,7 +38,6 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
           Ar: ['', Validators.required],
           En: ['', Validators.required],
         }),
-        countryId: ['', Validators.required],
         isActive: [''],
       });
     } else {
@@ -53,7 +46,6 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-        countryId: ['', Validators.required],
         isActive: [''],
       });
     }
@@ -64,19 +56,19 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   post(value: any): any {
+    console.log('inpost', this.data);
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
     const isActive = value.isActive;
 
-    const countryId = value.countryId;
 
-    const parentRegionId = null;
+    const countryId = null;
 
     return new RegionsPostCommand({
       name,
       isActive,
-      parentRegionId,
+      // parentRegionId,
       countryId
     });
   }
@@ -87,9 +79,9 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
 
     const isActive = value.isActive;
 
-    const countryId = value.countryId;
-
-    const parentRegionId = null;
+    const parentRegionId = this.data.id;
+    // XXXXX
+    const countryId = this.data.countryId;
 
     return new RegionsPutCommand({
       id,
@@ -111,8 +103,11 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
       }
 
       this.data.name = name;
+
       this.data.isActive = value.isActive;
-      this.data.countryId = value.countryId
+
+      this.data.countryId = value.countryId;
+
       this._dialogRef.close();
     },
       (err) => {
@@ -124,7 +119,5 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
   activate(event: boolean) {
     this.data.isActive = event;
   }
-  onSelect(event: any) {
-    this.data.countryId = event;
-  }
+
 }
