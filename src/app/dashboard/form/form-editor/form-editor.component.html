@@ -22,7 +22,7 @@
               <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
                 class="font-in-dropped">
                 <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                <input type="text" placeholder="{{item.placeholder}}" matInput />
+                <input type="text" placeholder="{{toLang(item.placeHolder)}}" matInput />
               </mat-form-field>
 
               <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
@@ -42,7 +42,7 @@
 
               <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
                 <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                <textarea matInput placeholder="{{item.placeholder}}"></textarea>
+                <textarea matInput placeholder="{{toLang(item.placeHolder)}}"></textarea>
               </mat-form-field>
 
               <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag
@@ -144,10 +144,11 @@
         <div *ngFor="let item of reports.fields" fxLayout="column" fxLayoutAlign="space-evenly center">
 
           <div>
+
             <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
               class="font-in-dropped">
               <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-              <input type="text" placeholder="{{item.placeholder}}" matInput />
+              <input type="text" placeholder="{{toLang(item.placeHolder)}}" matInput />
             </mat-form-field>
 
             <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
@@ -167,7 +168,7 @@
 
             <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
               <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-              <textarea matInput placeholder="{{item.placeholder}}"></textarea>
+              <textarea matInput placeholder="{{toLang(item.placeHolder)}}"></textarea>
             </mat-form-field>
 
             <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">
@@ -204,8 +205,6 @@
               </div>
             </div>
 
-
-
             <div *ngIf="item.fieldType == +type.Select " cdkDrag>
               <mat-form-field appearance="fill" class="font-in-dropped ">
                 <mat-label>{{toLang(item.name)}}</mat-label>
@@ -221,13 +220,14 @@
         </div>
 
         <button type="submit" mat-raised-button color="primary" (click)="report=false"
-          style="margin-left: 39%;">{{"Submit" | translate}}</button>
+          style="margin-left: 39%;">{{"Submit" | translate}}
+        </button>
       </div>
+
       <!-- if no records found -->
       <div *ngIf="reports?.fields.length == 0" class="text-center pt-8">
         {{"No response found" | translate}}
       </div>
-
     </div>
 
   </div>

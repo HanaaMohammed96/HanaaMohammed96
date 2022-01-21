@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataValueDto, FieldType, IDataFieldDto, LocalizedStringDto } from '@core/api';
+import { EditValueComponent } from '../edit-value/edit-value.component';
 import { FormEditorComponent } from '../form-editor/form-editor.component';
 import { DataField, value } from './../../../@models/data-field';
 
@@ -19,7 +20,8 @@ export class EditFieldComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<FormEditorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: IDataFieldDto
+    @Inject(MAT_DIALOG_DATA) public data: IDataFieldDto,
+    public dialog: MatDialog,
   ) {
     this.lang = localStorage.getItem('lang') as string;
 
@@ -30,7 +32,7 @@ export class EditFieldComponent implements OnInit {
 
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   toLang(name: LocalizedStringDto) {
     if (this.lang == 'en') {
@@ -40,12 +42,11 @@ export class EditFieldComponent implements OnInit {
     return name.ar;
   }
 
-  addValue(values: any[]){
-    console.log('values',values)
-    if (!values){
+  addValue(values: any[]) {
+    if (!values) {
       return;
     }
-    const newValue = {value:this.value}
+    const newValue = { value: this.value }
     values.push(newValue);
     this.value = new LocalizedStringDto({
       ar: '',
@@ -53,8 +54,29 @@ export class EditFieldComponent implements OnInit {
     });
   }
 
-  // onNoClick(): void {
-  //   this.dialogRef.close();
-  // }
+  openDialog(item,index): void {
+
+    localStorage.setItem('resetIem', JSON.stringify(item));
+
+    const dialogRef = this.dialog.open(EditValueComponent, {
+      data: item,
+      disableClose: true
+    });
+
+    dialogRef.afterClosed().subscribe((result => {
+      if (!result) {
+
+        this.data.dataValues[index] = JSON.parse(localStorage.getItem('resetIem')) as DataValueDto;
+
+      } else {
+
+        this.data.dataValues[index] = result;
+      }
+
+      localStorage.removeItem('resetIem');
+
+    }));
+
+  }
 
 }
