@@ -17,9 +17,6 @@ import icEdit from '@iconify/icons-ic/twotone-edit';
 import icPageView from '@iconify/icons-ic/twotone-pageview';
 import icReceipt from '@iconify/icons-ic/twotone-receipt';
 import icFilterList from '@iconify/icons-ic/twotone-filter-list';
-import icBallot from '@iconify/icons-ic/twotone-ballot';
-import icBusiness from '@iconify/icons-ic/twotone-business';
-import icMoreVert from '@iconify/icons-ic/twotone-more-vert';
 
 @Component({
   selector: 'app-root',
@@ -77,14 +74,8 @@ export class AppComponent implements OnInit {
         type: 'link',
         label: await this.translate('navigations.country'),
         route: '/country',
-        icon: icBusiness,
+        icon: icReceipt,
       }as NavigationLink,
-      {
-        type: 'link',
-        label: await this.translate('navigations.regoins'),
-        route: '/regions',
-        icon: icMoreVert,
-      } as NavigationLink,
       {
         type: 'link',
         label: await this.translate('navigations.form'),

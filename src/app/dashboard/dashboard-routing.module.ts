@@ -14,7 +14,6 @@ import { RealStatesComponent } from './real-states/real-states.component';
 import { FormsPageComponent } from './form/forms-page/forms-page.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CountryComponent } from './country/country.component';
-import { RegionsComponent } from './regions/regions.component';
 
 const routes: Routes = [
   {
@@ -26,13 +25,11 @@ const routes: Routes = [
       { path: '404', component: NotFoundComponent },
       { path: '500', component: InternalServerErrorComponent },
       { path: 'admins', component: TeamComponent },
-      { path: 'partners', component: PartnersComponent },
       { path: 'real-state', component: RealStatesComponent },
       { path: 'country', component: CountryComponent },
-      { path: 'regions', component: RegionsComponent },
+      { path: 'partners', component: PartnersComponent },
       { path: 'forms', component: FormsPageComponent },
       { path: 'form-editor', component: FormEditorComponent },
-      { path: 'form-update/:id', component: FormEditorComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: '**', component: NotFoundComponent },

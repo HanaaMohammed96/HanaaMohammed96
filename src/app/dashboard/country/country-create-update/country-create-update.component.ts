@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CountriesClient, CountriesPostCommand, CountriesPutCommand, CountryDto, LocalizedStringDto } from '@core/api';
+import { LocalizedStringDto } from '@core/api';
+import { CountryDto } from '@core/apiTest.service';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { Country } from '../country.component';
 
 @Component({
   selector: 'app-country-create-update',
@@ -14,8 +16,8 @@ export class CountryCreateUpdateComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CountryDto,
-    public countriesClient: CountriesClient,
+    @Inject(MAT_DIALOG_DATA) public data : CountryDto,
+    private country:CountryDto,
     private _dialogRef: MatDialogRef<CountryCreateUpdateComponent>,
     private _handler: ApiHandlerService,
     private _fb: FormBuilder
@@ -30,6 +32,7 @@ export class CountryCreateUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
     if (!this.data) {
       this.data = {} as CountryDto;
 
@@ -49,58 +52,62 @@ export class CountryCreateUpdateComponent implements OnInit {
         isActive: [''],
       });
     }
-
+    
   }
 
+  
   ngOnDestroy(): void {
     this._dialogRef.close(this.data);
   }
 
-  post(value: any): any {
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
-    const isActive = value.isActive;
+  // post(value: any): any {
+  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+  //   const isActive = value.isActive;
 
-    return new CountriesPostCommand({
-      name,
-      isActive
-    });
-  }
+  //   return new CountryPostCommand({
+  //     name,
+  //     isActive
+  //   });
+  // }
 
-  put(id: any, value: any): any {
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
-    const isActive = value.isActive;
-    const order = value.order;
+  // put(id: any, value: any): any {
 
-    return new CountriesPutCommand({
-      id,
-      name,
-      isActive
-    });
-  }
+  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+  //   const isActive = value.isActive;
 
-  submit(event: any) {
-    const value = event.value;
+  //   return new CountryPutCommand({
+  //     id,
+  //     name,
+  //     isActive
+  //   });
+  // }
 
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+  // submit(event: any) {
+  //   const value = event.value;
 
-    event.action.subscribe((response: any) => {
-      if (response) {
-        this.data.id = response.result;
-      }
+  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-      this.data.name = name;
-      this.data.isActive = value.isActive;
+  //   event.action.subscribe((response: any) => {
+  //     console.log('res', response)
+  //     if (response) {
+  //       this.data.id = response.result;
+  //     }
 
-      this._dialogRef.close();
-    },
-      (err) => {
-        this._handler.handleError(err).pushError();
-      }
-    );
-  }
+  //     this.data.name = name;
+  //     this.data.isActive = value.isActive;
 
-  activate(event: boolean) {
-    this.data.isActive = event;
-  }
+  //     this._dialogRef.close();
+  //   },
+  //     (err) => {
+  //       this._handler.handleError(err).pushError();
+  //       console.log('errqqq', err)
+  //     }
+  //   );
+  // }
+
+  // activate(event: boolean) {
+  //   this.data.isActive = event;
+  // }
+
 
 }

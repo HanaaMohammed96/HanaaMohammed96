@@ -16,8 +16,6 @@ import { ApiHandlerService } from '@core/services/api-handler.service';
 import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormDetailesComponent } from '../form-detailes/form-detailes.component';
-import { FormEditorService } from '@core/services/form-editor.service';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-editor',
@@ -38,34 +36,166 @@ export class FormEditorComponent implements OnInit {
   model: IFormPostPutCommon = {};
 
   report = false;
-
   reports: IFormPostPutCommon = {};
 
-  formId: number;
-
   constructor(
-    // @Inject(MAT_DIALOG_DATA) public data: IFormDto,
+    @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialog: MatDialog,
     private _FormsClient: FormsClient,
     private formDetailesModel: ChangeFormDetailsService,
     private _handler: ApiHandlerService,
-    private translateService: TranslateService,
-    private formEditorService: FormEditorService,
-    private route: ActivatedRoute
+    private translateService: TranslateService
   ) {
 
     this.lang = localStorage.getItem('lang') as string;
 
-    this.model = this.formEditorService._model;
+    const dataValues = new DataValueDto({
+      value: new LocalizedStringDto({
+        ar: 'اختيار',
+        en: 'Option'
+      })
+    })
 
-    this.fieldModels = this.formEditorService._fieldModels;
+    this.model = {
+      name: new LocalizedStringDto({
+        ar: '',
+        en: ''
+      }),
+      description: new LocalizedStringDto({
+        ar: '',
+        en: ''
+      }),
+      realStateId: null,
+      type: null,
+      fields: [],
+    };
+
+    this.fieldModels = [
+      {
+        name: new LocalizedStringDto({
+          ar: 'نص',
+          en: 'Text'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.Text,
+        code: 'A',
+        placeholder: '',
+        regex: '',
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: 'رقم',
+          en: 'Number'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.Number,
+        code: 'A'
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: 'ناتج',
+          en: 'Result'
+        }),
+        orders: null,
+        isRequired: false,
+        equation: null,
+        fieldType: FieldType.Result,
+        code: 'A'
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: 'تاريخ',
+          en: 'Date'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.Date,
+        code: 'A'
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: ' تاريخ ووقت',
+          en: 'Date & Time'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.DateTime,
+        code: 'A'
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: ' فقرة',
+          en: 'Textarea'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.TextArea,
+        code: 'A',
+        placeholder: '',
+        regex: '',
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: ' صورة',
+          en: 'Image'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.Image,
+        code: 'A',
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: ' ملف',
+          en: 'Pdf'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.Pdf,
+        code: 'A',
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: 'خانة اختيار ',
+          en: 'CheckBox'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.CheckBox,
+        code: 'A',
+        dataValues: [dataValues, dataValues]
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: 'زر اختيارات',
+          en: 'Radio Button'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.Radio,
+        code: 'A',
+        dataValues: [dataValues, dataValues]
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: 'قائمة منسدلة',
+          en: 'Dropdown Menu'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.Select,
+        code: 'A',
+        dataValues: [dataValues, dataValues]
+      }
+    ];
 
   }
 
-  ngOnInit(): void {
-    this.formId = this.route.snapshot.params.id;
-    if (this.formId) {
-      this._FormsClient.get(this.formId).subscribe(result => {
+  ngOnInit(): void { 
+    if (this.data.id) {
+      this._FormsClient.get(this.data.id).subscribe(result => {
         this.model = result;
       });
     }
@@ -151,23 +281,35 @@ export class FormEditorComponent implements OnInit {
   }
 
   formDetails() {
+    // console.log('before send model', this.model)
+    //   this.formDetailesModel.openDialog(this.model).subscribe(data => {
+    //     this.model = data;
+    //   });
 
     const dialoRef = this.dialog.open(FormDetailesComponent, {
       data: this.model
     })
-
     dialoRef.afterClosed().subscribe(result => {
-
+      console.log('formDetails result', result);
       if (!result) {
-
-        if (this.formId) {
-
-          this._FormsClient.get(this.formId).subscribe(result => {
+        if (this.data.id) {
+          this._FormsClient.get(this.data.id).subscribe(result => {
             this.model = result;
           });
         } else {
-          
-          this.model = this.formEditorService._model;
+          this.model = {
+            name: new LocalizedStringDto({
+              ar: '',
+              en: ''
+            }),
+            description: new LocalizedStringDto({
+              ar: '',
+              en: ''
+            }),
+            realStateId: null,
+            type: null,
+            fields: [],
+          };
         }
       }
     })
@@ -178,16 +320,16 @@ export class FormEditorComponent implements OnInit {
     let action: Observable<any>;
 
     this.loading = true;
-    if (!this.formId) {
+    if (!this.data) {
       action = this._FormsClient
-        .post(
+        .postPOST(
           new FormPostCommand({
-            ...this.model
-          })
+          ...this.model
+        })
         );
 
     } else {
-      action = this._FormsClient.put(
+      action = this._FormsClient.postPUT(
         new FormPutCommand({
           ...this.model
         })

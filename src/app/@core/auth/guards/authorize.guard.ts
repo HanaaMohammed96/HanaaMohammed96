@@ -38,7 +38,7 @@ export class AuthorizeGuard implements CanActivate, CanLoad {
     const user = this._identityManager.user;
 
     const authorized = !!user;
-    // return of(true);
+    //return of(true);
     if (!authorized) {
       this._router.navigate([PATHS.Login], {
         queryParams: {
