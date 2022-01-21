@@ -1,25 +1,23 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CountriesClient, CountriesPostCommand, CountriesPutCommand, CountryDto, LocalizedStringDto } from '@core/api';
+import { LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand, RegionVmForDashboard } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { SubregionService } from '../subregion.service';
 
 @Component({
-  selector: 'app-country-create-update',
-  templateUrl: './country-create-update.component.html',
+  selector: 'app-sub-regions-create-update',
+  templateUrl: './sub-regions-create-update.component.html'
 })
-export class CountryCreateUpdateComponent implements OnInit {
-
+export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
-  isActive
-
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CountryDto,
-    public countriesClient: CountriesClient,
-    private _dialogRef: MatDialogRef<CountryCreateUpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RegionDto,
+    public _RegionsClient: RegionsClient,
+    private _dialogRef: MatDialogRef<SubRegionsCreateUpdateComponent>,
     private _handler: ApiHandlerService,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
   ) { }
 
   get nameAr(): AbstractControl {
@@ -31,8 +29,9 @@ export class CountryCreateUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log('inpost', this.data);
     if (!this.data) {
-      this.data = {} as CountryDto;
+      this.data = {} as RegionDto;
 
       this.form = this._fb.group({
         name: this._fb.group({
@@ -42,7 +41,6 @@ export class CountryCreateUpdateComponent implements OnInit {
         isActive: [''],
       });
     } else {
-      this.isActive =  {isActive : this.data.isActive};
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: [this.data.name.ar || '', Validators.required],
@@ -51,7 +49,6 @@ export class CountryCreateUpdateComponent implements OnInit {
         isActive: [''],
       });
     }
-
   }
 
   ngOnDestroy(): void {
@@ -59,24 +56,41 @@ export class CountryCreateUpdateComponent implements OnInit {
   }
 
   post(value: any): any {
+    console.log('inpost', this.data);
+
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
     const isActive = value.isActive;
 
-    return new CountriesPostCommand({
+
+    const countryId = null;
+
+     const parentRegionId = value;
+
+    return new RegionsPostCommand({
       name,
-      isActive
+      isActive,
+       parentRegionId,
+      countryId
     });
   }
 
   put(id: any, value: any): any {
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
-    const isActive = value.isActive;
-    const order = value.order;
 
-    return new CountriesPutCommand({
+    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
+    const isActive = value.isActive;
+
+    const parentRegionId = this.data.id;
+    // XXXXX
+    const countryId = this.data.countryId;
+
+    return new RegionsPutCommand({
       id,
       name,
-      isActive
+      isActive,
+      parentRegionId,
+      countryId
     });
   }
 
@@ -91,7 +105,10 @@ export class CountryCreateUpdateComponent implements OnInit {
       }
 
       this.data.name = name;
+
       this.data.isActive = value.isActive;
+
+      this.data.countryId = value.countryId;
 
       this._dialogRef.close();
     },

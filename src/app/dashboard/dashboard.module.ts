@@ -1,4 +1,3 @@
-import { MatSliderModule } from '@angular/material/slider';
 import { ToolbarSearchComponent } from './toolbar/toolbar-search/toolbar-search.component';
 import { FooterComponent } from './footer/footer.component';
 import { QuickpanelComponent } from './quickpanel/quickpanel.component';
@@ -40,6 +39,10 @@ import { FormsPageComponent } from './form/forms-page/forms-page.component';
 import { CountryComponent } from './country/country.component';
 import { CountryCreateUpdateComponent } from './country/country-create-update/country-create-update.component';
 import { EditValueComponent } from './form/edit-value/edit-value.component';
+import { SubRegionsComponent } from './sub-regions/sub-regions.component';
+import { RegionCreateUpdateComponent } from './regions/region-create-update/region-create-update.component';
+import { SubRegionsCreateUpdateComponent } from './sub-regions/sub-regions-create-update/sub-regions-create-update.component';
+import { RegionsComponent } from './regions/regions.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +82,10 @@ import { EditValueComponent } from './form/edit-value/edit-value.component';
     CountryComponent,
     CountryCreateUpdateComponent,
     EditValueComponent,
+    SubRegionsComponent,
+    RegionCreateUpdateComponent,
+    SubRegionsCreateUpdateComponent,
+    RegionsComponent
   ],
   imports: [
     CommonModule,

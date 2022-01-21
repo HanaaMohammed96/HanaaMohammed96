@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  DataFieldDto, DataValueDto, FieldType, FormPostCommand,
+  DataFieldDto, DataValueDto, FieldType,
   FormPutCommand, FormsClient, IDataFieldDto,
   IFormDto,
   IFormPostPutCommon, LocalizedStringDto
@@ -177,18 +177,12 @@ export class FormEditorComponent implements OnInit {
 
   save(): void {
     this.model.type = (Number)(this.model.type)
-    console.log('postput', this.model);
     let action: Observable<any>;
-
+    const form = this.model;
     this.loading = true;
+console.log(form.fields)
     if (!this.formId) {
-      
-      action = this._FormsClient
-        .post(
-          new FormPostCommand({
-            ...this.model
-          })
-        );
+      action = this._FormsClient.post(form.name.ar, form.name.en, form.description.ar, form.description.en, form.realStateId, form.type, form.fields);
 
     } else {
       action = this._FormsClient.put(

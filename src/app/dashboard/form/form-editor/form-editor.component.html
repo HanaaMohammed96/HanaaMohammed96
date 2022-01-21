@@ -22,7 +22,7 @@
               <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
                 class="font-in-dropped">
                 <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                <input type="text" placeholder="{{toLang(item.placeHolder)}}" matInput />
+                <input type="text" placeholder="{{toLang(item.placeholder)}}" matInput />
               </mat-form-field>
 
               <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
@@ -42,7 +42,7 @@
 
               <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
                 <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-                <textarea matInput placeholder="{{toLang(item.placeHolder)}}"></textarea>
+                <textarea matInput placeholder="{{toLang(item.placeholder)}}"></textarea>
               </mat-form-field>
 
               <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag
@@ -148,7 +148,7 @@
             <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
               class="font-in-dropped">
               <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-              <input type="text" placeholder="{{toLang(item.placeHolder)}}" matInput />
+              <input type="text" placeholder="{{toLang(item.placeholder)}}" matInput />
             </mat-form-field>
 
             <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
@@ -168,7 +168,7 @@
 
             <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
               <mat-label>{{toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label></mat-label>
-              <textarea matInput placeholder="{{toLang(item.placeHolder)}}"></textarea>
+              <textarea matInput placeholder="{{toLang(item.placeholder)}}"></textarea>
             </mat-form-field>
 
             <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">

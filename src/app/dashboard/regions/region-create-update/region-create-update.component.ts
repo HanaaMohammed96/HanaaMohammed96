@@ -1,26 +1,27 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CountriesClient, CountriesPostCommand, CountriesPutCommand, CountryDto, LocalizedStringDto } from '@core/api';
+import { CountriesClient, CountryVm, LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 
 @Component({
-  selector: 'app-country-create-update',
-  templateUrl: './country-create-update.component.html',
+  selector: 'app-region-create-update',
+  templateUrl: './region-create-update.component.html'
 })
-export class CountryCreateUpdateComponent implements OnInit {
-
+export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
-  isActive
-
+  countries: CountryVm[]
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: CountryDto,
-    public countriesClient: CountriesClient,
-    private _dialogRef: MatDialogRef<CountryCreateUpdateComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: RegionDto,
+    public _RegionsClient: RegionsClient,
+    private _dialogRef: MatDialogRef<RegionCreateUpdateComponent>,
     private _handler: ApiHandlerService,
-    private _fb: FormBuilder
-  ) { }
+    private _fb: FormBuilder,
+    private countriesClient: CountriesClient,
+  ) {
+    console.log('regions@@@', this.data)
+   }
 
   get nameAr(): AbstractControl {
     return this.form.get('name.Ar');
@@ -31,27 +32,31 @@ export class CountryCreateUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    this.countriesClient.getList().subscribe(result => {
+      this.countries = result;
+    })
     if (!this.data) {
-      this.data = {} as CountryDto;
+      this.data = {} as RegionDto;
 
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: ['', Validators.required],
           En: ['', Validators.required],
         }),
+        countryId: ['', Validators.required],
         isActive: [''],
       });
     } else {
-      this.isActive =  {isActive : this.data.isActive};
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
+        countryId: ['', Validators.required],
         isActive: [''],
       });
     }
-
   }
 
   ngOnDestroy(): void {
@@ -59,24 +64,39 @@ export class CountryCreateUpdateComponent implements OnInit {
   }
 
   post(value: any): any {
+
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
     const isActive = value.isActive;
 
-    return new CountriesPostCommand({
+    const countryId = value.countryId;
+
+    const parentRegionId = null;
+
+    return new RegionsPostCommand({
       name,
-      isActive
+      isActive,
+      parentRegionId,
+      countryId
     });
   }
 
   put(id: any, value: any): any {
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
-    const isActive = value.isActive;
-    const order = value.order;
 
-    return new CountriesPutCommand({
+    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+
+    const isActive = value.isActive;
+
+    const countryId = value.countryId;
+
+    const parentRegionId = null;
+
+    return new RegionsPutCommand({
       id,
       name,
-      isActive
+      isActive,
+      parentRegionId,
+      countryId
     });
   }
 
@@ -92,7 +112,7 @@ export class CountryCreateUpdateComponent implements OnInit {
 
       this.data.name = name;
       this.data.isActive = value.isActive;
-
+      this.data.countryId = value.countryId
       this._dialogRef.close();
     },
       (err) => {
@@ -104,5 +124,7 @@ export class CountryCreateUpdateComponent implements OnInit {
   activate(event: boolean) {
     this.data.isActive = event;
   }
-
+  onSelect(event: any) {
+    this.data.countryId = event;
+  }
 }

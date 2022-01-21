@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { IRealStatesClient, LocalizedStringDto, RealStateDto, RealStatesClient, RealStatesPostCommand, RealStatesPutCommand } from '@core/api';
+import { LocalizedStringDto, RealStateDto, RealStatesClient, RealStatesPostCommand, RealStatesPutCommand } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 
 @Component({
@@ -11,6 +11,8 @@ import { ApiHandlerService } from '@core/services/api-handler.service';
 export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
+
+  isActive
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: RealStateDto,
@@ -29,10 +31,8 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     if (!this.data) {
       this.data = {} as RealStateDto;
-
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: ['', Validators.required],
@@ -41,6 +41,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
         isActive: [''],
       });
     } else {
+      this.isActive =  {isActive : this.data.isActive};
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: [this.data.name.ar || '', Validators.required],
@@ -83,7 +84,6 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
     event.action.subscribe((response: any) => {
-      console.log('res', response)
       if (response) {
         this.data.id = response.result;
       }
@@ -95,13 +95,8 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
     },
       (err) => {
         this._handler.handleError(err).pushError();
-        console.log('errqqq', err)
       }
     );
-  }
-
-  activate(event: boolean) {
-    this.data.isActive = event;
   }
 
 }

@@ -59,6 +59,7 @@
     "users": "المستخدمين",
     "team": "المشرفين",
     "partner": "الشركاء",
+    "regoins": "المناطق",
     "governorates": "المحافظات",
     "districts": "المناطق",
     "privacy_policy": "سياسة الخصوصية",
@@ -254,6 +255,16 @@
       "preview": "معاينة",
       "evaluation": "تقييم"
     }
+  },
+  "profile": {
+    "title": "تحديث الملف الشخصي ",
+    "email": "البريد الإلكترونى",
+    "firstName": "الإسم الأول",
+    "lastName": "الإسم الأخير",
+    "password": "الرقم السري",
+    "oldPassword": "الرقم السري الحالى",
+    "newPassword": "الرقم السري الجديد",
+    "confirmPassword": "تأكيد الرقم السري"
   }
 }
 

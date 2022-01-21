@@ -40,7 +40,7 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.Text,
         code: 'A',
-        placeHolder: new LocalizedStringDto({
+        placeholder: new LocalizedStringDto({
           ar: 'نص',
           en: 'Text'
         }),
@@ -61,7 +61,7 @@ export class FormEditorService {
           ar: 'ناتج',
           en: 'Result'
         }),
-        placeHolder: new LocalizedStringDto({
+        placeholder: new LocalizedStringDto({
           ar: 'نص',
           en: 'Text'
         }),
@@ -100,7 +100,7 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.TextArea,
         code: 'A',
-        placeHolder: new LocalizedStringDto({
+        placeholder: new LocalizedStringDto({
           ar: 'نص',
           en: 'Text'
         }),

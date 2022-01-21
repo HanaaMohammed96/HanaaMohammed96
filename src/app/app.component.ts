@@ -17,6 +17,7 @@ import icEdit from '@iconify/icons-ic/twotone-edit';
 import icPageView from '@iconify/icons-ic/twotone-pageview';
 import icReceipt from '@iconify/icons-ic/twotone-receipt';
 import icFilterList from '@iconify/icons-ic/twotone-filter-list';
+import icMoreVert from '@iconify/icons-ic/twotone-more-vert';
 
 @Component({
   selector: 'app-root',
@@ -65,27 +66,34 @@ export class AppComponent implements OnInit {
         icon: icUsers,
       } as NavigationLink,
       {
-        type: 'link',
-        label: await this.translate('navigations.realState'),
-        route: '/real-state',
-        icon: icReceipt,
-      } as NavigationLink,
-      {
-        type: 'link',
-        label: await this.translate('navigations.country'),
-        route: '/country',
-        icon: icReceipt,
-      }as NavigationLink,
-      {
-        type: 'link',
-        label: await this.translate('navigations.form'),
-        route: '/forms',
-        icon: icFilterList,
-      } as NavigationLink,
-      {
         type: 'subheading',
         label: await this.translate('navigations.content'),
+        icon: icUsers,
         children: [
+          {
+            type: 'link',
+            label: await this.translate('navigations.realState'),
+            route: '/real-state',
+            icon: icReceipt,
+          } as NavigationLink,
+          {
+            type: 'link',
+            label: await this.translate('navigations.country'),
+            route: '/country',
+            icon: icReceipt,
+          }as NavigationLink,
+          {
+            type: 'link',
+            label: await this.translate('navigations.regoins'),
+            route: '/regions',
+            icon: icMoreVert,
+          } as NavigationLink,
+          {
+            type: 'link',
+            label: await this.translate('navigations.form'),
+            route: '/forms',
+            icon: icFilterList,
+          } as NavigationLink,
           {
             type: 'dropdown',
             label: await this.translate('navigations.terms_Cond'),

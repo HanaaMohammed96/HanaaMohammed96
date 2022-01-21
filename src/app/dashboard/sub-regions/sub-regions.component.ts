@@ -9,7 +9,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { AioTableComponent } from '@shared/components/widgets/aio-table/aio-table.component';
 import { Observable } from 'rxjs';
 import { SubRegionsCreateUpdateComponent } from './sub-regions-create-update/sub-regions-create-update.component';
-import { SubregionService } from './subregion.service';
 
 @Component({
   selector: 'app-sub-regions',

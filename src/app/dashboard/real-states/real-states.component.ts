@@ -7,7 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { finalize } from 'rxjs/operators';
-import { IRealStatesClient, RealStateDto, RealStatesClient, RealStatesPutCommand } from '@core/api';
+import { IRealStatesClient, RealStateDto, RealStatesClient, RealStatesPutCommand, RealStatesPutOrderCommand } from '@core/api';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
 import { RealStateCreateUpdateComponent } from './real-state-create-update/real-state-create-update.component';
 
@@ -48,24 +48,22 @@ export class RealStatesComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>): void {
-    // this._realStateClient
-    //   .put(
-    //     new RealStatesPutCommand({
-    //       id: this.list[event.previousIndex].id,
-    //       name: this.list[event.previousIndex].name,
-    //       isActive: this.list[event.previousIndex].isActive,
-    //     })
-    //   )
-    //   .subscribe(
-    //     () => { },
-    //     (err) => {
-    //       this._handler.handleError(err).pushError();
-    //       // return it to its position
-    //       moveItemInArray(this.list, event.currentIndex, event.previousIndex);
-    //     }
-    //   );
-    // moveItemInArray(this.list, event.previousIndex, event.currentIndex);
-    return;
+    this._realStateClient
+      .putOrder(
+        new RealStatesPutOrderCommand({
+          id: this.list[event.previousIndex].id,
+          order: event.currentIndex + 1,
+        })
+      )
+      .subscribe(
+        () => { },
+        (err) => {
+          this._handler.handleError(err).pushError();
+          // return it to its position
+          moveItemInArray(this.list, event.currentIndex, event.previousIndex);
+        }
+      );
+    moveItemInArray(this.list, event.previousIndex, event.currentIndex);
   }
 
   add(): void {
@@ -87,7 +85,6 @@ export class RealStatesComponent implements OnInit {
   }
 
   update(item: RealStateDto): void {
-    console.log('update item = ', item)
     this._dialog
       .open(RealStateCreateUpdateComponent, {
         minWidth: '400px',
@@ -112,7 +109,6 @@ export class RealStatesComponent implements OnInit {
   }
 
   remove(item: RealStateDto): void {
-    console.log('remove', item)
     this.list.splice(
       this.list.findIndex((c: RealStateDto) => c.id === item.id),
       1

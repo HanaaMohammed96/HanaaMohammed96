@@ -61,6 +61,7 @@
     "users": "Users",
     "team": "Admins",
     "partner": "Partners",
+    "regoins": "Regions",
     "governorates": "Governorates",
     "districts": "Districts",
     "privacy_policy": "Privacy Policy",
@@ -252,6 +253,16 @@
       "preview": "Preview",
       "evaluation": "Evaluation"
     }
-  }
+  },
+  "profile":{
+    "title" : "Edit profile",
+    "email" : "email",
+    "firstName" : "first name",
+    "lastName" : "last name",
+    "password" : "Password",
+    "oldPassword" : "old password",
+    "newPassword" : "new password",
+    "confirmPassword" : "confirm password"
 
+  }
 }
