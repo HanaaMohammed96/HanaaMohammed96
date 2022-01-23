@@ -2073,7 +2073,7 @@ export interface IFormsClient {
     get(id: number): Observable<FormDto>;
     getPage(offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfFormVmForDashboard>;
     post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, fields: DataFieldDto[] | null | undefined): Observable<HttpResultOfInteger>;
-    put(command: FormPutCommand): Observable<void>;
+    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, fields: DataFieldDto[] | null | undefined): Observable<void>;
     delete(id: number | undefined): Observable<void>;
 }
 
@@ -2240,43 +2240,44 @@ export class FormsClient implements IFormsClient {
             throw new Error("The parameter 'type' cannot be null.");
         else
             content_.append("Type", type.toString());
-        if (fields !== null && fields !== undefined){
-            fields.forEach((item_, index_)=> {
-            
-                if(item_.name){
-                    content_.append(`Fields[${index_}].name.ar`, item_.name.ar.toString())
-                }
-                if(item_.name){
-                    content_.append(`Fields[${index_}].name.en`, item_.name.en.toString())
-                }
-                if(item_.placeholder){
-                    content_.append(`Fields[${index_}].placeholder.ar`, item_.placeholder.ar.toString())
-                }
-                if(item_.placeholder){
-                    content_.append(`Fields[${index_}].placeholder.en`, item_.placeholder.en.toString())
-                }
-               
-                if(item_.orders){
-                    content_.append(`Fields[${index_}].orders`, item_.orders.toString())
-                }
-                if(item_.code){
-                    content_.append(`Fields[${index_}].code`, item_.code.toString())
-                } 
-                if(item_.equation){
-                    content_.append(`Fields[${index_}].equation`, item_.equation.toString())
-                } 
-                if(item_.regex){
-                    content_.append(`Fields[${index_}].regex`, item_.regex.toString())
-                }
-                 if(item_.isRequired){
-                    content_.append(`Fields[${index_}].isRequired`, item_.isRequired.toString())
-                }
-                 if(item_.fieldType){
-                    content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
-                }
+      
+            if (fields !== null && fields !== undefined){
+                fields.forEach((item_, index_)=> {
                 
-            });
-        }
+                    if(item_.name){
+                        content_.append(`Fields[${index_}].name.ar`, item_.name.ar.toString())
+                    }
+                    if(item_.name){
+                        content_.append(`Fields[${index_}].name.en`, item_.name.en.toString())
+                    }
+                    if(item_.placeholder){
+                        content_.append(`Fields[${index_}].placeholder.ar`, item_.placeholder.ar.toString())
+                    }
+                    if(item_.placeholder){
+                        content_.append(`Fields[${index_}].placeholder.en`, item_.placeholder.en.toString())
+                    }
+                   
+                    if(item_.orders){
+                        content_.append(`Fields[${index_}].orders`, item_.orders.toString())
+                    }
+                    if(item_.code){
+                        content_.append(`Fields[${index_}].code`, item_.code.toString())
+                    } 
+                    if(item_.equation){
+                        content_.append(`Fields[${index_}].equation`, item_.equation.toString())
+                    } 
+                    if(item_.regex){
+                        content_.append(`Fields[${index_}].regex`, item_.regex.toString())
+                    }
+                     if(item_.isRequired){
+                        content_.append(`Fields[${index_}].isRequired`, item_.isRequired.toString())
+                    }
+                     if(item_.fieldType){
+                        content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
+                    }
+                    
+                });
+            }
 
         let options_ : any = {
             body: content_,
@@ -2346,18 +2347,75 @@ export class FormsClient implements IFormsClient {
         }
     }
 
-    put(command: FormPutCommand): Observable<void> {
+    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, fields: DataFieldDto[] | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Forms";
         url_ = url_.replace(/[?&]$/, "");
 
-        const content_ = JSON.stringify(command);
+        const content_ = new FormData();
+        if (id === null || id === undefined)
+            throw new Error("The parameter 'id' cannot be null.");
+        else
+            content_.append("Id", id.toString());
+        if (name_Ar !== null && name_Ar !== undefined)
+            content_.append("Name.Ar", name_Ar.toString());
+        if (name_En !== null && name_En !== undefined)
+            content_.append("Name.En", name_En.toString());
+        if (description_Ar !== null && description_Ar !== undefined)
+            content_.append("Description.Ar", description_Ar.toString());
+        if (description_En !== null && description_En !== undefined)
+            content_.append("Description.En", description_En.toString());
+        if (realStateId === null || realStateId === undefined)
+            throw new Error("The parameter 'realStateId' cannot be null.");
+        else
+            content_.append("RealStateId", realStateId.toString());
+        if (type === null || type === undefined)
+            throw new Error("The parameter 'type' cannot be null.");
+        else
+            content_.append("Type", type.toString());
+
+            if (fields !== null && fields !== undefined){
+                fields.forEach((item_, index_)=> {
+                
+                    if(item_.name){
+                        content_.append(`Fields[${index_}].name.ar`, item_.name.ar.toString())
+                    }
+                    if(item_.name){
+                        content_.append(`Fields[${index_}].name.en`, item_.name.en.toString())
+                    }
+                    if(item_.placeholder){
+                        content_.append(`Fields[${index_}].placeholder.ar`, item_.placeholder.ar.toString())
+                    }
+                    if(item_.placeholder){
+                        content_.append(`Fields[${index_}].placeholder.en`, item_.placeholder.en.toString())
+                    }
+                   
+                    if(item_.orders){
+                        content_.append(`Fields[${index_}].orders`, item_.orders.toString())
+                    }
+                    if(item_.code){
+                        content_.append(`Fields[${index_}].code`, item_.code.toString())
+                    } 
+                    if(item_.equation){
+                        content_.append(`Fields[${index_}].equation`, item_.equation.toString())
+                    } 
+                    if(item_.regex){
+                        content_.append(`Fields[${index_}].regex`, item_.regex.toString())
+                    }
+                     if(item_.isRequired){
+                        content_.append(`Fields[${index_}].isRequired`, item_.isRequired.toString())
+                    }
+                     if(item_.fieldType){
+                        content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
+                    }
+                    
+                });
+            }
 
         let options_ : any = {
             body: content_,
             observe: "response",
             responseType: "blob",
             headers: new HttpHeaders({
-                "Content-Type": "application/json",
             })
         };
 
@@ -3134,30 +3192,9 @@ export class RegionsClient implements IRegionsClient {
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }}
-        if (status === 204) {
+        if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             return _observableOf<void>(<any>null);
-            }));
-        } else if (status === 404) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result404: any = null;
-            let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result404 = ProblemDetails.fromJS(resultData404);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result404);
-            }));
-        } else if (status === 400) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result400: any = null;
-            let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result400 = ProblemDetails.fromJS(resultData400);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result400);
-            }));
-        } else if (status === 422) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-            let result422: any = null;
-            let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-            result422 = ValidationProblemDetails.fromJS(resultData422);
-            return throwException("A server side error occurred.", status, _responseText, _headers, result422);
             }));
         } else {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -5176,99 +5213,6 @@ export interface IFormVmForDashboard {
     requestsNumber?: number;
 }
 
-export class FormPostPutCommon implements IFormPostPutCommon {
-    name?: LocalizedStringDto | undefined;
-    description?: LocalizedStringDto | undefined;
-    realStateId?: number;
-    type?: RequestType;
-    fields?: DataFieldDto[] | undefined;
-
-    constructor(data?: IFormPostPutCommon) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
-            this.description = _data["description"] ? LocalizedStringDto.fromJS(_data["description"]) : <any>undefined;
-            this.realStateId = _data["realStateId"];
-            this.type = _data["type"];
-            if (Array.isArray(_data["fields"])) {
-                this.fields = [] as any;
-                for (let item of _data["fields"])
-                    this.fields!.push(DataFieldDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): FormPostPutCommon {
-        data = typeof data === 'object' ? data : {};
-        let result = new FormPostPutCommon();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["name"] = this.name ? this.name.toJSON() : <any>undefined;
-        data["description"] = this.description ? this.description.toJSON() : <any>undefined;
-        data["realStateId"] = this.realStateId;
-        data["type"] = this.type;
-        if (Array.isArray(this.fields)) {
-            data["fields"] = [];
-            for (let item of this.fields)
-                data["fields"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IFormPostPutCommon {
-    name?: LocalizedStringDto | undefined;
-    description?: LocalizedStringDto | undefined;
-    realStateId?: number;
-    type?: RequestType;
-    fields?: DataFieldDto[] | undefined;
-}
-
-export class FormPutCommand extends FormPostPutCommon implements IFormPutCommand {
-    id?: number;
-
-    constructor(data?: IFormPutCommand) {
-        super(data);
-    }
-
-    init(_data?: any) {
-        super.init(_data);
-        if (_data) {
-            this.id = _data["id"];
-        }
-    }
-
-    static fromJS(data: any): FormPutCommand {
-        data = typeof data === 'object' ? data : {};
-        let result = new FormPutCommand();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        super.toJSON(data);
-        return data;
-    }
-}
-
-export interface IFormPutCommand extends IFormPostPutCommon {
-    id?: number;
-}
-
 export class RealStateDto implements IRealStateDto {
     id?: number;
     name?: LocalizedStringDto | undefined;
@@ -5689,7 +5633,7 @@ export class RegionsPostPutCommon implements IRegionsPostPutCommon {
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
     parentRegionId?: number | undefined;
-    countryId?: number;
+    countryId?: number | undefined;
 
     constructor(data?: IRegionsPostPutCommon) {
         if (data) {
@@ -5730,7 +5674,7 @@ export interface IRegionsPostPutCommon {
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
     parentRegionId?: number | undefined;
-    countryId?: number;
+    countryId?: number | undefined;
 }
 
 export class RegionsPostCommand extends RegionsPostPutCommon implements IRegionsPostCommand {
