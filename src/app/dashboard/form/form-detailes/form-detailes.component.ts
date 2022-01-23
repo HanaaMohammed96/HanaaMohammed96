@@ -74,7 +74,6 @@ export class FormDetailesComponent implements OnInit {
     private realStateClient: RealStatesClient,
     private _FormsClient: FormsClient
   ) {
-    console.log('FormDetailesComponent', this.data);
 
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
 

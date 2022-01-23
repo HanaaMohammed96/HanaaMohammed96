@@ -2,8 +2,10 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  DataFieldDto, DataValueDto, FieldType, FormsClient, IDataFieldDto,
-  IFormDto, LocalizedStringDto
+  DataFieldDto, DataValueDto, FieldType,
+   FormDto,
+   FormsClient, IDataFieldDto,
+  IFormDto,LocalizedStringDto
 } from '@core/api';
 import { ChangeFormDetailsService } from '@core/services/change-form-details.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -16,6 +18,7 @@ import { Observable } from 'rxjs';
 import { FormDetailesComponent } from '../form-detailes/form-detailes.component';
 import { FormEditorService } from '@core/services/form-editor.service';
 import { ActivatedRoute } from '@angular/router';
+import { IFormPostPut } from '@models/data-field';
 
 @Component({
   selector: 'app-form-editor',
@@ -23,7 +26,6 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./form-editor.component.scss']
 })
 export class FormEditorComponent implements OnInit {
-  lang: string;
 
   loading = false;
 
@@ -33,11 +35,11 @@ export class FormEditorComponent implements OnInit {
 
   fieldModels: Array<IDataFieldDto> = [];
 
-  model: IFormPostPutCommon = {};
+  model: IFormPostPut;
 
   report = false;
 
-  reports: IFormPostPutCommon = {};
+  reports: IFormPostPut;
 
   formId: number;
 
@@ -48,11 +50,10 @@ export class FormEditorComponent implements OnInit {
     private formDetailesModel: ChangeFormDetailsService,
     private _handler: ApiHandlerService,
     private translateService: TranslateService,
-    private formEditorService: FormEditorService,
+    public formEditorService: FormEditorService,
     private route: ActivatedRoute
   ) {
 
-    this.lang = localStorage.getItem('lang') as string;
 
     this.model = this.formEditorService._model;
 
@@ -64,16 +65,9 @@ export class FormEditorComponent implements OnInit {
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).subscribe(result => {
-        this.model = result;
+        this.model = result ;
       });
     }
-  }
-
-  toLang(name: LocalizedStringDto) {
-    if (this.lang == 'en') {
-      return name.en;
-    }
-    return name.ar;
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -180,10 +174,23 @@ export class FormEditorComponent implements OnInit {
     this.loading = true;
 
     if (!this.formId) {
-      action = this._FormsClient.post(form.name.ar, form.name.en, form.description.ar, form.description.en, form.realStateId, form.type, form.fields);
+      action = this._FormsClient.post(
+        form.name.ar,
+        form.name.en,
+        form.description.ar,
+        form.description.en,
+        form.realStateId,
+        form.type, form.fields);
 
     } else {
-      action = this._FormsClient.put(form.id, form.name.ar, form.name.en, form.description.ar, form.description.en, form.realStateId, form.type, form.fields);
+      action = this._FormsClient.put(
+        form.id,
+        form.name.ar,
+        form.name.en,
+        form.description.ar,
+        form.description.en,
+        form.realStateId,
+        form.type, form.fields);
     }
     action.pipe(finalize(() => (this.loading = false))).subscribe(
       (response: any) => {

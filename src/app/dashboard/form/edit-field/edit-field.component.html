@@ -2,7 +2,7 @@
 
   <div fxLayout="row" fxLayoutAlign="space-evenly center">
     <mat-icon color="accent" class='w-14'>add_task</mat-icon>
-    <h3 class="whitespace-normal w-3/6"> {{toLang(data.name)}} </h3>
+    <h3 class="whitespace-normal w-3/6"> {{formEditorService.toLang(data.name)}} </h3>
   </div>
 
   <div mat-dialog-content>
@@ -83,7 +83,7 @@
 
         <div *ngFor="let i of data.dataValues; let valueIndex = index;">
           <div class="w-full flex flex-nowrap justify-between items-center justify-center m-4">
-            <mat-label class="whitespace-normal w-3/6">{{toLang(i.value)}}</mat-label>
+            <mat-label class="whitespace-normal w-3/6">{{formEditorService.toLang(i.value)}}</mat-label>
             <mat-icon (click)="openDialog(i,valueIndex)" color="primary"> expand_more</mat-icon>
             <mat-icon (click)="data.dataValues.splice(valueIndex,1)" mat-fab color="primary">delete</mat-icon>
           </div>

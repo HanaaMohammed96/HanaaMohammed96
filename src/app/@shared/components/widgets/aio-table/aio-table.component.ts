@@ -306,6 +306,10 @@ export class AioTableComponent<T> implements OnInit, AfterViewInit, OnDestroy {
   }
 
   callAction(action: SelectionAction, param: any): void {
+    if (this.forForm && action.actionName == 'update') {
+      console.log('action',action)
+      this._router.navigate(['/form-update', param.id]);
+    }
     if (!action || action.disabled || action.loading) {
       return;
     }

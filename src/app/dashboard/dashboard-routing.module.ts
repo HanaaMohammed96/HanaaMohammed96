@@ -31,6 +31,7 @@ const routes: Routes = [
       { path: 'regions', component: RegionsComponent },
       { path: 'partners', component: PartnersComponent },
       { path: 'forms', component: FormsPageComponent },
+      { path: 'form-update/:id', component: FormEditorComponent },
       { path: 'form-editor', component: FormEditorComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },

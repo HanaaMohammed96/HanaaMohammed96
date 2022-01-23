@@ -1,13 +1,14 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IDataValueDto, LocalizedStringDto } from '@core/api';
+import { FormEditorService } from '@core/services/form-editor.service';
 
 @Component({
   selector: 'app-edit-value',
   template: `
   <div fxLayout="row" fxLayoutAlign="space-evenly center" class="m-4" >
     <mat-icon color="accent" class='w-14'>add_task</mat-icon>
-    <h3 class="whitespace-normal w-3/6"> {{toLang(data.value)}} </h3>
+    <h3 class="whitespace-normal w-3/6"> {{formEditorService.toLang(data.value)}} </h3>
   </div>
   <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-evenly center" >
     <mat-form-field>
@@ -29,22 +30,13 @@ import { IDataValueDto, LocalizedStringDto } from '@core/api';
   ]
 })
 export class EditValueComponent implements OnInit {
-  lang: string;
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IDataValueDto,
+    public formEditorService: FormEditorService,
   ) {
-    this.lang = localStorage.getItem('lang') as string;
   }
 
   ngOnInit(): void {
-  }
-  
-  toLang(name: LocalizedStringDto) {
-    if (this.lang == 'en') {
-      return name.en;
-    }
-
-    return name.ar;
   }
 
 }

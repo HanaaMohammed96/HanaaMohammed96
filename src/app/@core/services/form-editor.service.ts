@@ -1,14 +1,20 @@
 import { Injectable } from '@angular/core';
-import { DataValueDto, FieldType, IDataFieldDto, IFormPostPutCommon, LocalizedStringDto } from '@core/api';
+import { DataValueDto, FieldType, FormDto, IDataFieldDto, LocalizedStringDto } from '@core/api';
+import { IFormPostPut } from '@models/data-field';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormEditorService {
+  lang: string;
+
   _fieldModels: Array<IDataFieldDto> = [];
 
-  _model: IFormPostPutCommon = {};
-  constructor() { 
+  _model: IFormPostPut = {};
+
+  constructor() {
+    this.lang = localStorage.getItem('lang') as string;
+
     const dataValues = new DataValueDto({
       value: new LocalizedStringDto({
         ar: 'اختيار',
@@ -146,7 +152,7 @@ export class FormEditorService {
         isRequired: false,
         fieldType: FieldType.Radio,
         code: 'A',
-        dataValues: [ dataValues]
+        dataValues: [dataValues]
       },
       {
         name: new LocalizedStringDto({
@@ -160,5 +166,15 @@ export class FormEditorService {
         dataValues: [dataValues]
       }
     ];
+  }
+  toLang(name: LocalizedStringDto) {
+    if (name) {
+      if (this.lang == 'en') {
+        return name.en;
+      }
+      return name.ar;
+    } else {
+      return " "
+    }
   }
 }

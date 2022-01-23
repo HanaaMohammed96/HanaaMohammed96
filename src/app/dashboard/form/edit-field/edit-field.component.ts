@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DataValueDto, FieldType, IDataFieldDto, LocalizedStringDto } from '@core/api';
+import { FormEditorService } from '@core/services/form-editor.service';
 import { EditValueComponent } from '../edit-value/edit-value.component';
 import { FormEditorComponent } from '../form-editor/form-editor.component';
-import { DataField, value } from './../../../@models/data-field';
 
 @Component({
   selector: 'app-edit-field',
@@ -11,7 +11,6 @@ import { DataField, value } from './../../../@models/data-field';
   styleUrls: ['./edit-field.component.scss']
 })
 export class EditFieldComponent implements OnInit {
-  lang: string;
 
   value: LocalizedStringDto;
 
@@ -22,8 +21,8 @@ export class EditFieldComponent implements OnInit {
     public dialogRef: MatDialogRef<FormEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDataFieldDto,
     public dialog: MatDialog,
+    public formEditorService: FormEditorService,
   ) {
-    this.lang = localStorage.getItem('lang') as string;
 
     this.value = new LocalizedStringDto({
       ar: 'الاختيار الاول',
@@ -33,14 +32,6 @@ export class EditFieldComponent implements OnInit {
   }
 
   ngOnInit(): void { }
-
-  toLang(name: LocalizedStringDto) {
-    if (this.lang == 'en') {
-      return name.en;
-    }
-
-    return name.ar;
-  }
 
   addValue(values: any[]) {
     if (!values) {
@@ -54,7 +45,7 @@ export class EditFieldComponent implements OnInit {
     });
   }
 
-  openDialog(item,index): void {
+  openDialog(item, index): void {
 
     localStorage.setItem('resetIem', JSON.stringify(item));
 

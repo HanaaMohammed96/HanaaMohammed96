@@ -106,7 +106,7 @@ export class FormsPageComponent implements OnInit {
       {
         label: await this.translate('general.updateForm'),
         ref: this.table,
-        actionName: 'updateForm',
+        actionName: 'update',
         icon: this.table.icEdit,
         disabled: false,
         loading: false,
@@ -114,7 +114,7 @@ export class FormsPageComponent implements OnInit {
       {
         label: await this.translate('general.deleteForm'),
         ref: this.table,
-        actionName: 'deleteForm',
+        actionName: 'delete',
         icon: this.table.icDelete,
         disabled: false,
         loading: false,
