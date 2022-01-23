@@ -12,7 +12,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
-  isActive
+  isActive  = {isActive : false};
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: RealStateDto,

@@ -2440,7 +2440,7 @@ export class FormsClient implements IFormsClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 200) {
+        if (status === 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
@@ -2490,7 +2490,7 @@ export class FormsClient implements IFormsClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 200) {
+        if (status === 204) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
