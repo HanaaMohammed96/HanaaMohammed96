@@ -167,6 +167,7 @@ export class FormEditorService {
       }
     ];
   }
+  
   toLang(name: LocalizedStringDto) {
     if (name) {
       if (this.lang == 'en') {

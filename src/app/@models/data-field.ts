@@ -2,11 +2,12 @@ import { DataFieldDto, LocalizedStringDto, RequestType } from '@core/api';
 
 export interface IFormPostPut {
   id?: number;
-  name?: LocalizedStringDto | undefined;
-  description?: LocalizedStringDto | undefined;
+  name?: LocalizedStringDto;
+  description?: LocalizedStringDto;
   realStateId?: number;
   type?: RequestType;
-  fields?: DataFieldDto[] | undefined;
+  regionId?: number;
+  fields?: DataFieldDto[];
 }
 
 

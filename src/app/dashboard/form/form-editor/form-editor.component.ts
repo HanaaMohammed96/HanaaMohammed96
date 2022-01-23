@@ -146,7 +146,7 @@ export class FormEditorComponent implements OnInit {
     });
 
     dialoRef.afterClosed().subscribe(result => {
-      console.log('!!!!!',result)
+      console.log('!!!!!', result)
       if (!result) {
 
         if (this.formId) {
@@ -155,7 +155,7 @@ export class FormEditorComponent implements OnInit {
             this.model = result;
           });
         } else {
-console.log('this.formEditorService._model',this.formEditorService._model)
+          console.log('this.formEditorService._model', this.formEditorService._model)
           this.model = this.formEditorService._model;
 
         }
@@ -177,7 +177,7 @@ console.log('this.formEditorService._model',this.formEditorService._model)
         form.description.ar,
         form.description.en,
         form.realStateId,
-        form.type, form.fields);
+        form.type, form.regionId, form.fields);
 
     } else {
       action = this._FormsClient.put(
@@ -187,7 +187,7 @@ console.log('this.formEditorService._model',this.formEditorService._model)
         form.description.ar,
         form.description.en,
         form.realStateId,
-        form.type, form.fields);
+        form.type, form.regionId, form.fields);
     }
     action.pipe(finalize(() => (this.loading = false))).subscribe(
       (response: any) => {

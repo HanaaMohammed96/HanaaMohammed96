@@ -2072,8 +2072,8 @@ export class CountriesClient implements ICountriesClient {
 export interface IFormsClient {
     get(id: number): Observable<FormDto>;
     getPage(offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfFormVmForDashboard>;
-    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, fields: DataFieldDto[] | null | undefined): Observable<HttpResultOfInteger>;
-    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, fields: DataFieldDto[] | null | undefined): Observable<void>;
+    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<HttpResultOfInteger>;
+    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<void>;
     delete(id: number | undefined): Observable<void>;
 }
 
@@ -2219,7 +2219,7 @@ export class FormsClient implements IFormsClient {
         }
     }
 
-    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, fields: DataFieldDto[] | null | undefined): Observable<HttpResultOfInteger> {
+    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<HttpResultOfInteger> {
         let url_ = this.baseUrl + "/api/Forms";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2240,44 +2240,12 @@ export class FormsClient implements IFormsClient {
             throw new Error("The parameter 'type' cannot be null.");
         else
             content_.append("Type", type.toString());
-
-        if (fields !== null && fields !== undefined) {
-            fields.forEach((item_, index_) => {
-
-                if (item_.name) {
-                    content_.append(`Fields[${index_}].name.ar`, item_.name.ar.toString())
-                }
-                if (item_.name) {
-                    content_.append(`Fields[${index_}].name.en`, item_.name.en.toString())
-                }
-                if (item_.placeholder) {
-                    content_.append(`Fields[${index_}].placeholder.ar`, item_.placeholder.ar.toString())
-                }
-                if (item_.placeholder) {
-                    content_.append(`Fields[${index_}].placeholder.en`, item_.placeholder.en.toString())
-                }
-
-                if (item_.orders) {
-                    content_.append(`Fields[${index_}].orders`, item_.orders.toString())
-                }
-                if (item_.code) {
-                    content_.append(`Fields[${index_}].code`, item_.code.toString())
-                }
-                if (item_.equation) {
-                    content_.append(`Fields[${index_}].equation`, item_.equation.toString())
-                }
-                if (item_.regex) {
-                    content_.append(`Fields[${index_}].regex`, item_.regex.toString())
-                }
-                if (item_.isRequired) {
-                    content_.append(`Fields[${index_}].isRequired`, item_.isRequired.toString())
-                }
-                if (item_.fieldType) {
-                    content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
-                }
-
-            });
-        }
+        if (regionId === null || regionId === undefined)
+            throw new Error("The parameter 'regionId' cannot be null.");
+        else
+            content_.append("RegionId", regionId.toString());
+        if (fields !== null && fields !== undefined)
+            fields.forEach(item_ => content_.append("Fields", item_.toString()));
 
         let options_: any = {
             body: content_,
@@ -2347,7 +2315,7 @@ export class FormsClient implements IFormsClient {
         }
     }
 
-    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, fields: DataFieldDto[] | null | undefined): Observable<void> {
+    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<void> {
         let url_ = this.baseUrl + "/api/Forms";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2372,44 +2340,12 @@ export class FormsClient implements IFormsClient {
             throw new Error("The parameter 'type' cannot be null.");
         else
             content_.append("Type", type.toString());
-
-        if (fields !== null && fields !== undefined) {
-            fields.forEach((item_, index_) => {
-
-                if (item_.name) {
-                    content_.append(`Fields[${index_}].name.ar`, item_.name.ar.toString())
-                }
-                if (item_.name) {
-                    content_.append(`Fields[${index_}].name.en`, item_.name.en.toString())
-                }
-                if (item_.placeholder) {
-                    content_.append(`Fields[${index_}].placeholder.ar`, item_.placeholder.ar.toString())
-                }
-                if (item_.placeholder) {
-                    content_.append(`Fields[${index_}].placeholder.en`, item_.placeholder.en.toString())
-                }
-
-                if (item_.orders) {
-                    content_.append(`Fields[${index_}].orders`, item_.orders.toString())
-                }
-                if (item_.code) {
-                    content_.append(`Fields[${index_}].code`, item_.code.toString())
-                }
-                if (item_.equation) {
-                    content_.append(`Fields[${index_}].equation`, item_.equation.toString())
-                }
-                if (item_.regex) {
-                    content_.append(`Fields[${index_}].regex`, item_.regex.toString())
-                }
-                if (item_.isRequired) {
-                    content_.append(`Fields[${index_}].isRequired`, item_.isRequired.toString())
-                }
-                if (item_.fieldType) {
-                    content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
-                }
-
-            });
-        }
+        if (regionId === null || regionId === undefined)
+            throw new Error("The parameter 'regionId' cannot be null.");
+        else
+            content_.append("RegionId", regionId.toString());
+        if (fields !== null && fields !== undefined)
+            fields.forEach(item_ => content_.append("Fields", item_.toString()));
 
         let options_: any = {
             body: content_,
@@ -2440,7 +2376,7 @@ export class FormsClient implements IFormsClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 204) {
+        if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
@@ -2490,7 +2426,7 @@ export class FormsClient implements IFormsClient {
                 (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
-        if (status === 204) {
+        if (status === 200) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 return _observableOf<void>(<any>null);
             }));
@@ -2932,7 +2868,8 @@ export class RealStatesClient implements IRealStatesClient {
 export interface IRegionsClient {
     get(id: number): Observable<RegionDto>;
     getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard>;
-    post(command: RegionsPostCommand): Observable<HttpResultOfInteger>;
+    getList(query: RegionsGetListQueryForDashboard): Observable<RegionVm[]>;
+    post(command: RegionsPostCommand): Observable<HttpResultOfLong>;
     put(command: RegionsPutCommand): Observable<void>;
     delete(id: number | undefined): Observable<void>;
 }
@@ -3081,7 +3018,75 @@ export class RegionsClient implements IRegionsClient {
         }
     }
 
-    post(command: RegionsPostCommand): Observable<HttpResultOfInteger> {
+    getList(query: RegionsGetListQueryForDashboard): Observable<RegionVm[]> {
+        let url_ = this.baseUrl + "/api/Regions/GetList";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(query);
+
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetList(<any>response_);
+                } catch (e) {
+                    return <Observable<RegionVm[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<RegionVm[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetList(response: HttpResponseBase): Observable<RegionVm[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (Array.isArray(resultData200)) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(RegionVm.fromJS(item));
+                }
+                else {
+                    result200 = <any>null;
+                }
+                return _observableOf(result200);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    post(command: RegionsPostCommand): Observable<HttpResultOfLong> {
         let url_ = this.baseUrl + "/api/Regions";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -3104,14 +3109,14 @@ export class RegionsClient implements IRegionsClient {
                 try {
                     return this.processPost(<any>response_);
                 } catch (e) {
-                    return <Observable<HttpResultOfInteger>><any>_observableThrow(e);
+                    return <Observable<HttpResultOfLong>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<HttpResultOfInteger>><any>_observableThrow(response_);
+                return <Observable<HttpResultOfLong>><any>_observableThrow(response_);
         }));
     }
 
-    protected processPost(response: HttpResponseBase): Observable<HttpResultOfInteger> {
+    protected processPost(response: HttpResponseBase): Observable<HttpResultOfLong> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -3122,7 +3127,7 @@ export class RegionsClient implements IRegionsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 let result200: any = null;
                 let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = HttpResultOfInteger.fromJS(resultData200);
+                result200 = HttpResultOfLong.fromJS(resultData200);
                 return _observableOf(result200);
             }));
         } else if (status === 404) {
@@ -5627,6 +5632,122 @@ export interface IRegionVmForDashboard {
     name?: LocalizedStringDto | undefined;
     countryName?: string | undefined;
     isActive?: boolean;
+}
+
+export class RegionVm implements IRegionVm {
+    id?: number;
+    name?: string | undefined;
+
+    constructor(data?: IRegionVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): RegionVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+export interface IRegionVm {
+    id?: number;
+    name?: string | undefined;
+}
+
+export class RegionsGetListQueryForDashboard implements IRegionsGetListQueryForDashboard {
+    countryId?: number | undefined;
+    parentRegionId?: number | undefined;
+
+    constructor(data?: IRegionsGetListQueryForDashboard) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.countryId = _data["countryId"];
+            this.parentRegionId = _data["parentRegionId"];
+        }
+    }
+
+    static fromJS(data: any): RegionsGetListQueryForDashboard {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionsGetListQueryForDashboard();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["countryId"] = this.countryId;
+        data["parentRegionId"] = this.parentRegionId;
+        return data;
+    }
+}
+
+export interface IRegionsGetListQueryForDashboard {
+    countryId?: number | undefined;
+    parentRegionId?: number | undefined;
+}
+
+export class HttpResultOfLong implements IHttpResultOfLong {
+    result?: number;
+
+    constructor(data?: IHttpResultOfLong) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.result = _data["result"];
+        }
+    }
+
+    static fromJS(data: any): HttpResultOfLong {
+        data = typeof data === 'object' ? data : {};
+        let result = new HttpResultOfLong();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["result"] = this.result;
+        return data;
+    }
+}
+
+export interface IHttpResultOfLong {
+    result?: number;
 }
 
 export class RegionsPostPutCommon implements IRegionsPostPutCommon {
