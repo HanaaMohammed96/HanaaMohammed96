@@ -12,7 +12,7 @@ export class CountryCreateUpdateComponent implements OnInit {
 
   form: FormGroup;
 
-  isActive
+  isActive  = {isActive : false};
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CountryDto,
