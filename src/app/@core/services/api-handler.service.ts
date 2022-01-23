@@ -48,6 +48,12 @@ export class ApiHandlerService {
   private handle422(err: ValidationProblemDetails): HttpResult {
     if (err.errors && Object.keys(err.errors).length < 1) {
       return this.createHttpResult('errors.err422');
+    }else{
+      for(let error of Object.keys(err.errors)){
+        for(let i of err.errors[error]){
+            this._toastr.error(i);
+        }
+      }
     }
 
     return this.createHttpResult(err);

@@ -1,5 +1,5 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   DataFieldDto, FieldType, FormsClient, IDataFieldDto
@@ -16,13 +16,14 @@ import { FormDetailesComponent } from '../form-detailes/form-detailes.component'
 import { FormEditorService } from '@core/services/form-editor.service';
 import { ActivatedRoute } from '@angular/router';
 import { IFormPostPut } from '@models/data-field';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-form-editor',
   templateUrl: './form-editor.component.html',
   styleUrls: ['./form-editor.component.scss']
 })
-export class FormEditorComponent implements OnInit {
+export class FormEditorComponent implements OnInit, OnDestroy {
 
   loading = false;
 
@@ -40,6 +41,9 @@ export class FormEditorComponent implements OnInit {
 
   formId: number;
 
+  validForm:boolean;
+
+  
   constructor(
     // @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialog: MatDialog,
@@ -48,14 +52,17 @@ export class FormEditorComponent implements OnInit {
     private _handler: ApiHandlerService,
     private translateService: TranslateService,
     public formEditorService: FormEditorService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
   ) {
-
+    localStorage.setItem('resetFormDetailes', JSON.stringify(this.formEditorService._model))
 
     this.model = this.formEditorService._model;
 
     this.fieldModels = this.formEditorService._fieldModels;
 
+  }
+  ngOnDestroy(): void {
+    localStorage.removeItem('resetFormDetailes');
   }
 
   ngOnInit(): void {
@@ -90,6 +97,7 @@ export class FormEditorComponent implements OnInit {
 
       this.model.fields[event.currentIndex].code += `${event.container.data.length}`;
     }
+    this.validForm = this.formEditorService.validForm(this.model)
 
   }
 
@@ -146,21 +154,23 @@ export class FormEditorComponent implements OnInit {
     });
 
     dialoRef.afterClosed().subscribe(result => {
-      console.log('!!!!!', result)
       if (!result) {
-
         if (this.formId) {
-
-          this._FormsClient.get(this.formId).subscribe(result => {
+          // update form
+          this._FormsClient.get(this.formId).subscribe( result => {
             this.model = result;
           });
         } else {
-          console.log('this.formEditorService._model', this.formEditorService._model)
-          this.model = this.formEditorService._model;
-
+          // to reset incase cancel
+          this.model = JSON.parse( localStorage.getItem('resetFormDetailes'));
+          this.formEditorService.countryId = this.formEditorService.subRegionId = null;
+          this.model.fields = this.formEditorService._model.fields;
         }
+      }else{
+        localStorage.setItem('resetFormDetailes',JSON.stringify(this.model))
       }
     });
+    this.validForm = this.formEditorService.validForm(this.model);
 
   }
 
@@ -194,8 +204,11 @@ export class FormEditorComponent implements OnInit {
         if (response) {
           this.model = response;
         }
+        this._handler.handleSuccess()
       },
-      (err) => this._handler.handleError(err).pushError()
+      (err) => {
+        this._handler.handleError(err).pushError();
+      }
     );
   }
 

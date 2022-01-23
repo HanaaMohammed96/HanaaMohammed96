@@ -12,6 +12,9 @@ export class FormEditorService {
 
   _model: IFormPostPut = {};
 
+  countryId: number;
+  subRegionId: number;
+
   constructor() {
     this.lang = localStorage.getItem('lang') as string;
 
@@ -167,7 +170,7 @@ export class FormEditorService {
       }
     ];
   }
-  
+
   toLang(name: LocalizedStringDto) {
     if (name) {
       if (this.lang == 'en') {
@@ -177,5 +180,19 @@ export class FormEditorService {
     } else {
       return " "
     }
+  }
+
+  validForm(form): boolean {
+    console.log('form in fun', form)
+    if (form.name.ar != '' &&
+        form.name.en != '' &&
+        form.description.ar != '' &&
+        form.description.en != '' &&
+        form.realStateId!= null &&
+        form.type!= null && form.regionId!= null && form.fields!=[]) {
+        return true;
+      }else{
+        return false;
+      }
   }
 }

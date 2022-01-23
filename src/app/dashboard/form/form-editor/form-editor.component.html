@@ -50,9 +50,15 @@
                 <textarea matInput placeholder="{{formEditorService.toLang(item.placeholder)}}"></textarea>
               </mat-form-field>
 
-              <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag
+              <div *ngIf="item.fieldType == +type.Pdf" cdkDrag
                 class="font-in-dropped ">
-                <input type="file" (change)="onFileChanged($event)" multiple class="upload-box mb-4" />
+                <button class="upload-box mb-4 p-3 w-full" onclick="document.getElementById('pdf').click(); return false;">PDF</button>
+                <input type="file" (change)="onFileChanged($event)" id ="pdf" multiple class="upload-box mb-4" style="display:none" />
+              </div>
+              <div *ngIf="item.fieldType == +type.Image" cdkDrag
+                class="font-in-dropped ">
+                <button class="upload-box mb-4 p-3 w-full" onclick="document.getElementById('image').click(); return false;">Image</button>
+                <input type="file" (change)="onFileChanged($event)" id ="image" multiple class="upload-box mb-4 " style="display:none" />
               </div>
 
               <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
@@ -244,7 +250,7 @@
 
 </div>
 <div class="inline-block fixed mx-6 bottom-5">
-  <button [class.spinner]="loading" mat-mini-fab color="accent" (click)="save()">
+  <button [class.spinner]="loading" mat-mini-fab color="accent" (click)="save()" [disabled]="!validForm">
     <mat-icon *ngIf="!loading" [icIcon]="icSave"></mat-icon>
   </button>
 </div>
