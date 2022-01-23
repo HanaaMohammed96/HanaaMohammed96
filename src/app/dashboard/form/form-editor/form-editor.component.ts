@@ -2,10 +2,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  DataFieldDto, DataValueDto, FieldType,
-  FormPutCommand, FormsClient, IDataFieldDto,
-  IFormDto,
-  IFormPostPutCommon, LocalizedStringDto
+  DataFieldDto, DataValueDto, FieldType, FormsClient, IDataFieldDto,
+  IFormDto, LocalizedStringDto
 } from '@core/api';
 import { ChangeFormDetailsService } from '@core/services/change-form-details.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -180,16 +178,12 @@ export class FormEditorComponent implements OnInit {
     let action: Observable<any>;
     const form = this.model;
     this.loading = true;
-console.log(form.fields)
+
     if (!this.formId) {
       action = this._FormsClient.post(form.name.ar, form.name.en, form.description.ar, form.description.en, form.realStateId, form.type, form.fields);
 
     } else {
-      action = this._FormsClient.put(
-        new FormPutCommand({
-          ...this.model
-        })
-      );
+      action = this._FormsClient.put(form.id, form.name.ar, form.name.en, form.description.ar, form.description.en, form.realStateId, form.type, form.fields);
     }
     action.pipe(finalize(() => (this.loading = false))).subscribe(
       (response: any) => {
