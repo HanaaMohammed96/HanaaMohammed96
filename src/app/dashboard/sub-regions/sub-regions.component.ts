@@ -40,12 +40,13 @@ export class SubRegionsComponent implements OnInit {
   localized = { ban: null, cancel: null };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: RegionVmForDashboard ,
+    @Inject(MAT_DIALOG_DATA) public data: RegionVmForDashboard,
     public regionsClient: RegionsClient,
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _translateService: TranslateService,
   ) {
+    localStorage.setItem('parentRegion', JSON.stringify(this.data))
   }
 
   async ngOnInit(): Promise<any> {

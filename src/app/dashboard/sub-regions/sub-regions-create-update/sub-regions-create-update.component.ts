@@ -29,7 +29,6 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    console.log('inpost', this.data);
     if (!this.data) {
       this.data = {} as RegionDto;
 
@@ -56,7 +55,6 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   post(value: any): any {
-    console.log('inpost', this.data);
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
@@ -65,12 +63,11 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
 
     const countryId = null;
 
-     const parentRegionId = value;
-
+    const parentRegionId = JSON.parse(localStorage.getItem('parentRegion'));
     return new RegionsPostCommand({
       name,
       isActive,
-       parentRegionId,
+      parentRegionId,
       countryId
     });
   }

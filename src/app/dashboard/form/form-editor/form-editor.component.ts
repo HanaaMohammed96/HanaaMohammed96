@@ -2,10 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  DataFieldDto, DataValueDto, FieldType,
-   FormDto,
-   FormsClient, IDataFieldDto,
-  IFormDto,LocalizedStringDto
+  DataFieldDto, FieldType, FormsClient, IDataFieldDto
 } from '@core/api';
 import { ChangeFormDetailsService } from '@core/services/change-form-details.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -65,7 +62,7 @@ export class FormEditorComponent implements OnInit {
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).subscribe(result => {
-        this.model = result ;
+        this.model = result;
       });
     }
   }
@@ -149,7 +146,7 @@ export class FormEditorComponent implements OnInit {
     });
 
     dialoRef.afterClosed().subscribe(result => {
-
+      console.log('!!!!!',result)
       if (!result) {
 
         if (this.formId) {
@@ -158,7 +155,7 @@ export class FormEditorComponent implements OnInit {
             this.model = result;
           });
         } else {
-
+console.log('this.formEditorService._model',this.formEditorService._model)
           this.model = this.formEditorService._model;
 
         }

@@ -20,8 +20,7 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
     private _fb: FormBuilder,
     private countriesClient: CountriesClient,
   ) {
-    console.log('regions@@@', this.data)
-   }
+  }
 
   get nameAr(): AbstractControl {
     return this.form.get('name.Ar');
