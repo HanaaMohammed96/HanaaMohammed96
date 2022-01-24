@@ -28,7 +28,7 @@
     <div class="flex flex-row justify-evenly">
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.RealState' | translate}}</mat-label>
-        <mat-select (valueChange)="onSelect($event)" [(value)]="data.realStateId">
+        <mat-select (valueChange)="onSelectRealState($event)" [(value)]="data.realStateId">
           <mat-option *ngFor="let realState of realStates" [value]="realState.id">
             {{realState.name}}
           </mat-option>
@@ -36,7 +36,7 @@
       </mat-form-field>
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.type' | translate}}</mat-label>
-        <mat-select (valueChange)="_onSelect($event)"  [(value)]="data.type">
+        <mat-select (valueChange)="onSelectType($event)" [(value)]="data.type">
           <mat-option *ngFor="let type of types" [value]="type">
             {{formType[type]}}
           </mat-option>
@@ -44,7 +44,7 @@
       </mat-form-field>
     </div>
     <div class="flex flex-row justify-evenly">
-      <mat-form-field appearance="fill" class=" w-full">
+      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>Country</mat-label>
         <mat-select (valueChange)="onSelectCountry($event)" [(value)]="formEditorService.countryId">
           <mat-option *ngFor="let country of countries" [value]="country.id">
@@ -54,7 +54,7 @@
       </mat-form-field>
     </div>
     <div class="flex flex-row justify-evenly">
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4" >
+      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>Region</mat-label>
         <mat-select [(value)]="data.regionId" (valueChange)="onSelectRegion($event)" [disabled]="regions?.length <= 0">
           <mat-option *ngFor="let region of regions" [value]="region.id">
@@ -64,7 +64,8 @@
       </mat-form-field>
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>SubRegion</mat-label>
-        <mat-select [disabled]="subRegions?.length <= 0" (valueChange)="onSelectSub($event)" [(value)]="formEditorService.subRegionId" >
+        <mat-select [disabled]="subRegions?.length <= 0" (valueChange)="onSelectSub($event)"
+          [(value)]="formEditorService.subRegionId">
           <mat-option *ngFor="let sub of subRegions" [value]="sub.id">
             {{sub.name}}
           </mat-option>
@@ -79,4 +80,5 @@
     <button mat-button [mat-dialog-close]="false" mat-raised-button color="primary">{{"No" |
       translate}}</button>
   </div>
+
 </div>

@@ -1,6 +1,12 @@
 import { Component, Inject, OnInit, NgModule } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CountriesClient, CountryVm, FormsClient, RealStatesClient, RealStatesVm, RegionsClient, RegionsGetListQueryForDashboard, RegionVm, RequestType } from '@core/api';
+import {
+  CountriesClient,
+  CountryVm, FormsClient,
+  RealStatesClient, RealStatesVm,
+  RegionsClient, RegionsGetListQueryForDashboard,
+  RegionVm, RequestType
+} from '@core/api';
 import { FormEditorService } from '@core/services/form-editor.service';
 import { IFormPostPut } from '@models/data-field';
 
@@ -45,27 +51,24 @@ export class FormDetailesComponent implements OnInit {
       this.realStates = result;
     });
 
-    this.countriesClient.getList().subscribe(result => {
-      this.countries = result;
-    })
-
-    
-    
-    console.log("=>", this.countryId, this.regionId);
-
     if (this.data.id) {
       this._FormsClient.get(this.data.id).subscribe(result => {
         this.data.realStateId = result.realStateId;
         this.data.type = +result.type;
       });
     }
+
+    this.countriesClient.getList().subscribe(result => {
+      this.countries = result;
+    });
+
   }
 
-  onSelect(event: any) {
+  onSelectRealState(event: any) {
     this.data.realStateId = event;
   }
-  
-  _onSelect(event: any) {
+
+  onSelectType(event: any) {
     this.data.type = event;
   }
 
@@ -74,7 +77,9 @@ export class FormDetailesComponent implements OnInit {
 
     const query = new RegionsGetListQueryForDashboard({ countryId: this.countryId, parentRegionId: null });
     if (this.countryId) {
+      console.log('@@', this.countryId)
       this.regionsClient.getList(query).subscribe(result => {
+        console.log('%%%', result)
         this.regions = result;
       });
     }
@@ -83,9 +88,10 @@ export class FormDetailesComponent implements OnInit {
   }
   onSelectRegion(event: any) {
     this.regionId = event;
-    const _query = new RegionsGetListQueryForDashboard({ countryId: null, parentRegionId: this.regionId });
+
+    const query = new RegionsGetListQueryForDashboard({ countryId: null, parentRegionId: this.regionId });
     if (this.regionId) {
-      this.regionsClient.getList(_query).subscribe(result => {
+      this.regionsClient.getList(query).subscribe(result => {
         this.subRegions = result;
       });
     }
