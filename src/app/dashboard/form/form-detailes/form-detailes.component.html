@@ -56,7 +56,7 @@
     <div class="flex flex-row justify-evenly">
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4" >
         <mat-label>Region</mat-label>
-        <mat-select [(value)]="data.regionId" [disabled]="regions?.length <= 0">
+        <mat-select [(value)]="data.regionId" (valueChange)="onSelectRegion($event)" [disabled]="regions?.length <= 0">
           <mat-option *ngFor="let region of regions" [value]="region.id">
             {{region.name}}
           </mat-option>

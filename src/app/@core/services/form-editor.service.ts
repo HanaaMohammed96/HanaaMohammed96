@@ -195,4 +195,43 @@ export class FormEditorService {
         return false;
       }
   }
+
+  myIcon(type): string{
+    switch(type){
+      case 'Text':
+        return 'format_color_text';
+        break;
+      case 'Number':
+        return 'filter_7';
+        break;
+      case 'Date':
+        return 'date_range';
+        break;
+      case 'DateTime':
+        return 'event';
+        break;
+      case 'TextArea':
+        return 'format_indent_increase';
+        break;
+      case 'CheckBox':
+        return 'checklist';
+        break;
+      case 'Radio':
+        return 'radio_button_checked';
+        break;
+      case 'Select':
+        return 'menu';
+        break;
+      case 'Image':
+        return 'image';
+        break;
+      case 'Pdf':
+        return 'picture_as_pdf';
+        break;
+      default:
+        return 'text_fields';
+    }
+
+  }
+  
 }

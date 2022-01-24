@@ -15,12 +15,12 @@ export class FormDetailesComponent implements OnInit {
   countries: CountryVm[];
   countryId: number;
 
-  regions = [{ name: 'region 1' , id: 1}];
-  // regions: RegionVm[];
+  // regions = [{ name: 'region 1' , id: 1}];
+  regions: RegionVm[];
   regionId: number;
 
-  subRegions = [{ name: 'subregion 1', id: 1 }];
-  // subRegions: RegionVm[];
+  // subRegions = [{ name: 'subregion 1', id: 1 }];
+  subRegions: RegionVm[];
 
   formType = RequestType;
 
@@ -40,8 +40,6 @@ export class FormDetailesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const query = new RegionsGetListQueryForDashboard({ countryId: this.countryId, parentRegionId: null });
-    const _query = new RegionsGetListQueryForDashboard({ countryId: null, parentRegionId: this.regionId });
 
     this.realStateClient.getList().subscribe(result => {
       this.realStates = result;
@@ -50,16 +48,9 @@ export class FormDetailesComponent implements OnInit {
     this.countriesClient.getList().subscribe(result => {
       this.countries = result;
     })
-    if (this.countryId) {
-      this.regionsClient.getList(query).subscribe(result => {
-        // this.regions = result;
-      });
-    }
-    if (this.regionId) {
-      this.regionsClient.getList(_query).subscribe(result => {
-        // this.subRegions = result;
-      });
-    }
+
+    
+    
     console.log("=>", this.countryId, this.regionId);
 
     if (this.data.id) {
@@ -79,7 +70,25 @@ export class FormDetailesComponent implements OnInit {
   }
 
   onSelectCountry(event: any) {
+    this.countryId = event;
+
+    const query = new RegionsGetListQueryForDashboard({ countryId: this.countryId, parentRegionId: null });
+    if (this.countryId) {
+      this.regionsClient.getList(query).subscribe(result => {
+        this.regions = result;
+      });
+    }
+
     this.formEditorService.countryId = event;
+  }
+  onSelectRegion(event: any) {
+    this.regionId = event;
+    const _query = new RegionsGetListQueryForDashboard({ countryId: null, parentRegionId: this.regionId });
+    if (this.regionId) {
+      this.regionsClient.getList(_query).subscribe(result => {
+        this.subRegions = result;
+      });
+    }
   }
   onSelectSub(event: any) {
     this.formEditorService.subRegionId = event;

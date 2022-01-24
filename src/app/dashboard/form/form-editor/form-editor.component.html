@@ -126,7 +126,7 @@
       <div *ngFor="let item of fieldModels">
         <mat-grid-list cols="4" cdkDrag class="form-Prop">
           <mat-grid-tile class="fields" colspan="1">
-            <mat-icon>{{item.icon}}</mat-icon>
+            <mat-icon>{{formEditorService.myIcon(type[item.fieldType])}}</mat-icon>
           </mat-grid-tile>
           <mat-grid-tile colspan="3"><span>{{formEditorService.toLang(item.name)}}</span></mat-grid-tile>
         </mat-grid-list>

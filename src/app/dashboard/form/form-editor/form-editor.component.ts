@@ -41,11 +41,10 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   formId: number;
 
-  validForm:boolean;
+  validForm: boolean;
 
-  
+
   constructor(
-    // @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialog: MatDialog,
     private _FormsClient: FormsClient,
     private formDetailesModel: ChangeFormDetailsService,
