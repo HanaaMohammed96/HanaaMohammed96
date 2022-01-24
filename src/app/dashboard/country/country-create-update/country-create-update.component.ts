@@ -42,7 +42,8 @@ export class CountryCreateUpdateComponent implements OnInit {
         isActive: [''],
       });
     } else {
-      this.isActive =  {isActive : this.data.isActive};
+      this.isActive.isActive =   this.data.isActive;
+      
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: [this.data.name.ar || '', Validators.required],

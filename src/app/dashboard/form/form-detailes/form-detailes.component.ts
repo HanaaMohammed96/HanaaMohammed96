@@ -4,7 +4,7 @@ import {
   CountriesClient,
   CountryVm, FormsClient,
   RealStatesClient, RealStatesVm,
-  RegionsClient, RegionsGetListQueryForDashboard,
+  RegionsClient,
   RegionVm, RequestType
 } from '@core/api';
 import { FormEditorService } from '@core/services/form-editor.service';
@@ -74,10 +74,9 @@ export class FormDetailesComponent implements OnInit {
 
   onSelectCountry(event: any) {
     this.countryId = event;
-
-    const query = new RegionsGetListQueryForDashboard({ countryId: this.countryId, parentRegionId: null });
+console.log(event)
     if (this.countryId) {
-      this.regionsClient.getList(query).subscribe(result => {
+      this.regionsClient.getList(this.countryId, null).subscribe(result => {
         this.regions = result;
       });
     }
@@ -87,9 +86,8 @@ export class FormDetailesComponent implements OnInit {
   onSelectRegion(event: any) {
     this.regionId = event;
 
-    const query = new RegionsGetListQueryForDashboard({ countryId: null, parentRegionId: this.regionId });
     if (this.regionId) {
-      this.regionsClient.getList(query).subscribe(result => {
+      this.regionsClient.getList(null, this.regionId).subscribe(result => {
         this.subRegions = result;
       });
     }
