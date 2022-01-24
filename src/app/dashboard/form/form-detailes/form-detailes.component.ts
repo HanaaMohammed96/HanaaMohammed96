@@ -74,9 +74,9 @@ export class FormDetailesComponent implements OnInit {
 
   onSelectCountry(event: any) {
     this.countryId = event;
-console.log(event)
     if (this.countryId) {
       this.regionsClient.getList(this.countryId, null).subscribe(result => {
+        console.log('###',result)
         this.regions = result;
       });
     }
@@ -89,6 +89,7 @@ console.log(event)
 
     if (this.regionId) {
       this.regionsClient.getList(null, this.regionId).subscribe(result => {
+        console.log('$$$', result)
         this.subRegions = result;
       });
     }
