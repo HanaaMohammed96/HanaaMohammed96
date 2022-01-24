@@ -84,6 +84,7 @@ export class FormDetailesComponent implements OnInit {
 
     this.formEditorService.countryId = event;
   }
+
   onSelectRegion(event: any) {
     this.regionId = event;
 
@@ -94,6 +95,7 @@ export class FormDetailesComponent implements OnInit {
       });
     }
   }
+
   onSelectSub(event: any) {
     this.formEditorService.subRegionId = event;
   }
