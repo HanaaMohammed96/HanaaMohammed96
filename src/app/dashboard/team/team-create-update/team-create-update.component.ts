@@ -167,6 +167,9 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
         this.data.username = value.username || this.data.username;
 
         this._dialogRef.close();
+        
+      this._handler.handleSuccess();
+
       },
       (err) =>
         this._handler

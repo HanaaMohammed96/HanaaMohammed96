@@ -7,7 +7,10 @@
 
         <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
           [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content" fxLayout="column"
-          fxLayoutAlign="space-evenly center" style="width:700px"
+          fxLayoutAlign="space-evenly center" style="width:700px;
+          background-color: rgb(248 248 248 / 11%); 
+          border-color: rgba(3, 1, 1, 0.253);
+          box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
           class=" p-6 border-dashed border-4 border-blue-600 text-black">
 
           <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
@@ -50,15 +53,17 @@
                 <textarea matInput placeholder="{{formEditorService.toLang(item.placeholder)}}"></textarea>
               </mat-form-field>
 
-              <div *ngIf="item.fieldType == +type.Pdf" cdkDrag
-                class="font-in-dropped ">
-                <button class="upload-box mb-4 p-3 w-full" onclick="document.getElementById('pdf').click(); return false;">PDF</button>
-                <input type="file" (change)="onFileChanged($event)" id ="pdf" multiple class="upload-box mb-4" style="display:none" />
+              <div *ngIf="item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">
+                <button class="upload-box mb-4 p-3 w-full"
+                  onclick="document.getElementById('pdf').click(); return false;">PDF</button>
+                <input type="file" (change)="onFileChanged($event)" id="pdf" multiple class="upload-box mb-4"
+                  style="display:none" />
               </div>
-              <div *ngIf="item.fieldType == +type.Image" cdkDrag
-                class="font-in-dropped ">
-                <button class="upload-box mb-4 p-3 w-full" onclick="document.getElementById('image').click(); return false;">Image</button>
-                <input type="file" (change)="onFileChanged($event)" id ="image" multiple class="upload-box mb-4 " style="display:none" />
+              <div *ngIf="item.fieldType == +type.Image" cdkDrag class="font-in-dropped ">
+                <button class="upload-box mb-4 p-3 w-full"
+                  onclick="document.getElementById('image').click(); return false;">Image</button>
+                <input type="file" (change)="onFileChanged($event)" id="image" multiple class="upload-box mb-4 "
+                  style="display:none" />
               </div>
 
               <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
@@ -114,26 +119,53 @@
     </div>
 
     <!-- dragable Zone -->
-    <div class="col mat-elevation-z8 p-4 editor" cdkDropList #formFields="cdkDropList"
+    <nav class="col mat-elevation-z8 p-4 m-auto" cdkDropList #formFields="cdkDropList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
       position="end" cdkDrag>
+      <div class="sidebar-top">
+        <span class="material-icons shrink-btn">
+          arrow_forward_ios
+        </span>
+      </div>
 
       <div class="text-center ">
         <h4>{{"Select Field" | translate}}</h4>
         <p>{{"Customize your form by drag and drop below fields to the form area." | translate}}</p>
       </div>
 
-      <div *ngFor="let item of fieldModels">
-        <mat-grid-list cols="4" cdkDrag class="form-Prop">
-          <mat-grid-tile class="fields" colspan="1">
-            <mat-icon>{{formEditorService.myIcon(type[item.fieldType])}}</mat-icon>
-          </mat-grid-tile>
-          <mat-grid-tile colspan="3"><span>{{formEditorService.toLang(item.name)}}</span></mat-grid-tile>
-        </mat-grid-list>
+      <div class="search">
+        <i class='bx bx-search'></i>
+        <input type="text" class="hide" placeholder="Quick Search ..." [(ngModel)]="searchText">
       </div>
 
-    </div>
+      <div class="sidebar-links">
+        <!-- <ul *ngFor="let item of fieldModels | filter:searchText" > -->
+        <ul *ngFor="let item of fieldModels">
+          <div class="active-tab"></div>
+          <li class="tooltip-element">
+            <mat-grid-list cols="4" cdkDrag class="form-Prop">
+              <mat-grid-tile colspan="1">
+                <mat-icon>{{formEditorService.myIcon(type[item.fieldType])}}</mat-icon>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="3" class="link hide"><span>{{formEditorService.toLang(item.name)}}</span>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </li>
+
+        </ul>
+      </div>
+    </nav>
+
   </div>
+
+
+
+
+
+
+
+
+
   <!-- in component -->
   <div *ngIf="report" class="text-black mx-auto w-1/2">
 

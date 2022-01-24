@@ -43,6 +43,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   validForm: boolean;
 
+  searchText: string;
 
   constructor(
     public dialog: MatDialog,

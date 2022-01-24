@@ -31,7 +31,7 @@
         <div class="flex flex-col sm:flex-row w-full">
             <mat-form-field appearance="fill" class=" w-full">
                 <mat-label>Country</mat-label>
-                <mat-select (valueChange)="onSelect($event)" formControlName="countryId" [(ngModel)]="data.countryId">
+                <mat-select (valueChange)="onSelect($event)" formControlName="countryId" [(value)]="data.countryId">
                     <mat-option *ngFor="let country of countries" [value]="country.id">
                         {{country.name}}
                     </mat-option>

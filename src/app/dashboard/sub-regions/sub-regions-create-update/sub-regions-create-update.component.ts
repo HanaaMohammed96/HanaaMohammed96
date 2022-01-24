@@ -52,6 +52,7 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._dialogRef.close(this.data);
+    localStorage.removeItem('parentRegion');
   }
 
   post(value: any): any {
@@ -63,13 +64,15 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
 
     const countryId = null;
 
-    const parentRegionId = JSON.parse(localStorage.getItem('parentRegion'));
+    const parentRegionId = JSON.parse(localStorage.getItem('parentRegion')).id;
+
     return new RegionsPostCommand({
       name,
       isActive,
       parentRegionId,
       countryId
     });
+
   }
 
   put(id: any, value: any): any {
@@ -78,9 +81,8 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
 
     const isActive = value.isActive;
 
-    const parentRegionId = this.data.id;
-    // XXXXX
-    const countryId = this.data.countryId;
+    const parentRegionId = JSON.parse(localStorage.getItem('parentRegion')).id;
+    const countryId = null;
 
     return new RegionsPutCommand({
       id,
@@ -108,6 +110,8 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
       this.data.countryId = value.countryId;
 
       this._dialogRef.close();
+
+      this._handler.handleSuccess();
     },
       (err) => {
         this._handler.handleError(err).pushError();

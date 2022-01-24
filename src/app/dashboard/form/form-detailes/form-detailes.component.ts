@@ -77,9 +77,7 @@ export class FormDetailesComponent implements OnInit {
 
     const query = new RegionsGetListQueryForDashboard({ countryId: this.countryId, parentRegionId: null });
     if (this.countryId) {
-      console.log('@@', this.countryId)
       this.regionsClient.getList(query).subscribe(result => {
-        console.log('%%%', result)
         this.regions = result;
       });
     }

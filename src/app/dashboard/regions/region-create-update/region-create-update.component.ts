@@ -31,10 +31,10 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
     this.countriesClient.getList().subscribe(result => {
       this.countries = result;
     })
+
     if (!this.data) {
       this.data = {} as RegionDto;
 
@@ -111,8 +111,11 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
 
       this.data.name = name;
       this.data.isActive = value.isActive;
-      this.data.countryId = value.countryId
+      this.data.countryId = value.countryId;
+
       this._dialogRef.close();
+
+      this._handler.handleSuccess();
     },
       (err) => {
         this._handler.handleError(err).pushError();
