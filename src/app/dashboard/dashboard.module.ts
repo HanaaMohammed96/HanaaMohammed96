@@ -43,7 +43,11 @@ import { SubRegionsComponent } from './sub-regions/sub-regions.component';
 import { RegionCreateUpdateComponent } from './regions/region-create-update/region-create-update.component';
 import { SubRegionsCreateUpdateComponent } from './sub-regions/sub-regions-create-update/sub-regions-create-update.component';
 import { RegionsComponent } from './regions/regions.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { PlansComponent } from './plans/plans.component';
+import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-create-update.component';
+
+
+
 
 @NgModule({
   declarations: [
@@ -86,7 +90,9 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
     SubRegionsComponent,
     RegionCreateUpdateComponent,
     SubRegionsCreateUpdateComponent,
-    RegionsComponent
+    RegionsComponent,
+    PlansComponent,
+    PlansCreateUpdateComponent
   ],
   imports: [
     CommonModule,

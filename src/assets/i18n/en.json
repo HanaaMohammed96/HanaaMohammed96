@@ -63,6 +63,7 @@
     "team": "Admins",
     "partner": "Partners",
     "regoins": "Regions",
+    "plans": "Plans",
     "governorates": "Governorates",
     "districts": "Districts",
     "privacy_policy": "Privacy Policy",
@@ -265,5 +266,13 @@
     "newPassword" : "new password",
     "confirmPassword" : "confirm password"
 
+  },
+  "plans":{
+    "title": "Monjez Plans Table",
+    "description": "This list includes all Plans",
+    "tableName": "Plans",
+    "tableNamePlural": "Plans",
+    "enName": "English Name",
+    "arName": "Arabic Name"
   }
 }

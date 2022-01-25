@@ -15,6 +15,7 @@ import { FormsPageComponent } from './form/forms-page/forms-page.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CountryComponent } from './country/country.component';
 import { RegionsComponent } from './regions/regions.component';
+import { PlansComponent } from './plans/plans.component';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
       { path: 'form-editor', component: FormEditorComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
+      { path: 'plans', component: PlansComponent },
       { path: '**', component: NotFoundComponent },
     ],
   },

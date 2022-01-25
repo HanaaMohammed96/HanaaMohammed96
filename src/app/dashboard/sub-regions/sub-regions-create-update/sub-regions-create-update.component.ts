@@ -52,7 +52,7 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._dialogRef.close(this.data);
-    localStorage.removeItem('parentRegion');
+    // localStorage.removeItem('parentRegion');
   }
 
   post(value: any): any {

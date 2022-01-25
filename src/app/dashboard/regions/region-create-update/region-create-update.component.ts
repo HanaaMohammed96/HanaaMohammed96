@@ -11,6 +11,8 @@ import { ApiHandlerService } from '@core/services/api-handler.service';
 export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
   form: FormGroup;
 
+countryId:number
+// country:CountryVm
   countries: CountryVm[]
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: RegionDto,
@@ -126,7 +128,14 @@ export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
   activate(event: boolean) {
     this.data.isActive = event;
   }
-  onSelect(event: any) {
-    this.data.countryId = event;
+  onSelect(event :any) {
+    this.countryId =event ;
+console.log(this.countryId)
+    // if(this.countryId)
+    // {
+    //   this.countryId= Number( this.countriesClient.getList().subscribe((country)=>{
+    //     this.countries = country;
+    //   }))
+    // }
   }
 }

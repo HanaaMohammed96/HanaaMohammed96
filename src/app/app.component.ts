@@ -95,6 +95,12 @@ export class AppComponent implements OnInit {
             icon: icFilterList,
           } as NavigationLink,
           {
+            type: 'link',
+            label: await this.translate('navigations.plans'),
+            route: '/plans',
+            icon: icFilterList,
+          } as NavigationLink,
+          {
             type: 'dropdown',
             label: await this.translate('navigations.terms_Cond'),
             icon: icPageView,

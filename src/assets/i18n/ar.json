@@ -63,6 +63,7 @@
     "team": "المشرفين",
     "partner": "الشركاء",
     "regoins": "المناطق",
+    "plans": "الخطط",
     "governorates": "المحافظات",
     "districts": "المناطق",
     "privacy_policy": "سياسة الخصوصية",
@@ -268,6 +269,14 @@
     "oldPassword": "الرقم السري الحالى",
     "newPassword": "الرقم السري الجديد",
     "confirmPassword": "تأكيد الرقم السري"
+  },
+  "plans":{
+    "title": "جدول الخطط",
+    "description": "هذه القائمة تحتوى على كل الخطط",
+    "tableName": "الخطط",
+    "tableNamePlural": "الخطط",
+    "enName": "الاسم باللغة الإنجليزية",
+    "arName": "الاسم باللغة العربية"
   }
 }
 
