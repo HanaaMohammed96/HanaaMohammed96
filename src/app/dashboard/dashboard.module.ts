@@ -117,6 +117,8 @@ import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-cr
           [{ align: [] }],
 
           ['clean'], // remove formatting button
+
+          ['link', 'image', 'video']         // link and image, video
         ],
       },
     }),
