@@ -14,9 +14,9 @@ import { finalize } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormDetailesComponent } from '../form-detailes/form-detailes.component';
 import { FormEditorService } from '@core/services/form-editor.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IFormPostPut } from '@models/data-field';
-import { ToastrService } from 'ngx-toastr';
+import { IFormDto } from './../../../@core/api';
 
 @Component({
   selector: 'app-form-editor',
@@ -33,11 +33,11 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   fieldModels: Array<IDataFieldDto> = [];
 
-  model: IFormPostPut;
+  model: IFormDto;
 
   report = false;
 
-  reports: IFormPostPut;
+  reports: IFormDto;
 
   formId: number;
 
@@ -53,6 +53,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     private translateService: TranslateService,
     public formEditorService: FormEditorService,
     private route: ActivatedRoute,
+    private router: Router
   ) {
     localStorage.setItem('resetFormDetailes', JSON.stringify(this.formEditorService._model))
 
@@ -69,8 +70,9 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).subscribe(result => {
-        console.log("&&", result)
+        console.log('editor in case exist formId<update>= ', result)
         this.model = result;
+
       });
     }
   }
@@ -149,26 +151,25 @@ export class FormEditorComponent implements OnInit, OnDestroy {
   }
 
   formDetails() {
-console.log("%%", this.model)
     const dialoRef = this.dialog.open(FormDetailesComponent, {
-      data: this.model as IFormPostPut
+      data: this.model
     });
 
     dialoRef.afterClosed().subscribe(result => {
       if (!result) {
         if (this.formId) {
           // update form
-          this._FormsClient.get(this.formId).subscribe( result => {
+          this._FormsClient.get(this.formId).subscribe(result => {
             this.model = result;
           });
         } else {
           // to reset incase cancel
-          this.model = JSON.parse( localStorage.getItem('resetFormDetailes'));
+          this.model = JSON.parse(localStorage.getItem('resetFormDetailes'));
           this.formEditorService.countryId = this.formEditorService.subRegionId = null;
           this.model.fields = this.formEditorService._model.fields;
         }
-      }else{
-        localStorage.setItem('resetFormDetailes',JSON.stringify(this.model))
+      } else {
+        localStorage.setItem('resetFormDetailes', JSON.stringify(this.model))
       }
     });
     this.validForm = this.formEditorService.validForm(this.model);
@@ -179,8 +180,8 @@ console.log("%%", this.model)
     this.model.type = (Number)(this.model.type)
     let action: Observable<any>;
     const form = this.model;
+    console.log('%%', form)
     this.loading = true;
-
     if (!this.formId) {
       action = this._FormsClient.post(
         form.name.ar,
@@ -205,7 +206,8 @@ console.log("%%", this.model)
         if (response) {
           this.model = response;
         }
-        this._handler.handleSuccess()
+        this._handler.handleSuccess();
+        this.router.navigate(['/forms']);
       },
       (err) => {
         this._handler.handleError(err).pushError();

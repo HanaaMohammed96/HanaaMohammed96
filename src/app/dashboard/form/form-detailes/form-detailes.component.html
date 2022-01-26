@@ -68,7 +68,7 @@
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>SubRegion</mat-label>
         <mat-select [disabled]="subRegions?.length <= 0" (valueChange)="onSelectSub($event)"
-          [(value)]="formEditorService.subRegionId">
+          [(value)]="data.regionId">
           <mat-option *ngFor="let sub of subRegions" [value]="sub.id">
             {{sub.name}}
           </mat-option>

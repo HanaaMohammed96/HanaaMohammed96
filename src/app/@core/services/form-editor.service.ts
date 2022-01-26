@@ -14,6 +14,8 @@ export class FormEditorService {
 
   countryId: number;
   subRegionId: number;
+  regionId: number;
+  type: number;
 
   constructor() {
     this.lang = localStorage.getItem('lang') as string;

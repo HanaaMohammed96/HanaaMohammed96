@@ -34,6 +34,7 @@ countryId:number
 
   ngOnInit(): void {
     this.countriesClient.getList().subscribe(result => {
+      console.log('@@',result)
       this.countries = result;
     })
 
@@ -54,7 +55,7 @@ countryId:number
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-       countryId: [this.data.countryId || '', Validators.required],
+        countryId: [this.data.countryId || '', Validators.required],
         isActive: [''],
       });
     }
