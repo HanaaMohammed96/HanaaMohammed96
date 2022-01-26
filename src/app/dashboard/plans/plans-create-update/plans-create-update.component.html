@@ -28,19 +28,31 @@
                 </mat-form-field>
             </div>
         </div>
-        <div class="flex flex-col sm:flex-row w-full">
-            <mat-form-field appearance="fill" class=" w-full">
-                <mat-label>Country</mat-label>
-                <mat-select (valueChange)="onSelect($event)" formControlName="countryId" [(ngModel)]="countryId">
-                    <mat-option *ngFor="let country of countries" [value]="country.id">
-                        {{country.name}}
-                    </mat-option>
-                </mat-select>
-                <mat-error *ngIf=" nameEn.hasError('validation')">{{
-                        nameEn.errors.validation
-                        }}</mat-error>
+  
+          <div class="flex flex-col sm:flex-row">
+            <mat-form-field
+              *ngIf="'team.phone_number' | translate as phone_number"
+              appearance="outline"
+              class="flex-auto"
+            >
+              <mat-label>{{ phone_number }}</mat-label>
+              <span *ngIf="!isArabic" matPrefix>+20 &nbsp;</span>
+              <input
+                class="english-text text-left"
+                formControlName="phoneNumber"
+                matInput
+                max="10"
+                type="tel"
+              />
+              <span *ngIf="isArabic" matSuffix>+20 &nbsp;</span>
+              <mat-error *ngIf="form.get('phoneNumber').hasError('required')">{{
+                'validations.required' | translate: { field: phone_number }
+              }}</mat-error>
+              <mat-error *ngIf="form.get('phoneNumber').hasError('validation')">{{
+                form.get('phoneNumber').errors.validation
+              }}</mat-error>
             </mat-form-field>
-        </div>
+        
 
        
     </div>

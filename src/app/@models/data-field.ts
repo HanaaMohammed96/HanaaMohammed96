@@ -7,6 +7,8 @@ export interface IFormPostPut {
   realStateId?: number;
   type?: RequestType;
   regionId?: number;
+  parentRegionId?: number;
+  countryId?: number;
   fields?: DataFieldDto[];
 }
 

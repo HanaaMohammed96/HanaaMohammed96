@@ -45,6 +45,7 @@ import { SubRegionsCreateUpdateComponent } from './sub-regions/sub-regions-creat
 import { RegionsComponent } from './regions/regions.component';
 import { PlansComponent } from './plans/plans.component';
 import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-create-update.component';
+import { TestPlanComponent } from './plans/test-plan/test-plan.component';
 
 
 
@@ -92,7 +93,8 @@ import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-cr
     SubRegionsCreateUpdateComponent,
     RegionsComponent,
     PlansComponent,
-    PlansCreateUpdateComponent
+    PlansCreateUpdateComponent,
+    TestPlanComponent
   ],
   imports: [
     CommonModule,

@@ -41,7 +41,7 @@ export class FormDetailesComponent implements OnInit {
     private regionsClient: RegionsClient,
     public formEditorService: FormEditorService
   ) {
-
+console.log("##",this.data)
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
   }
 

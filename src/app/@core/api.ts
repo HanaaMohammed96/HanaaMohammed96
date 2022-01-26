@@ -5218,6 +5218,9 @@ export class FormDto implements IFormDto {
     name?: LocalizedStringDto | undefined;
     description?: LocalizedStringDto | undefined;
     realStateId?: number;
+    countryId?: number;
+    parentRegionId?: number;
+    regionId?: number | undefined;
     type?: RequestType;
     fields?: DataFieldDto[] | undefined;
 
@@ -5236,6 +5239,9 @@ export class FormDto implements IFormDto {
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
             this.description = _data["description"] ? LocalizedStringDto.fromJS(_data["description"]) : <any>undefined;
             this.realStateId = _data["realStateId"];
+            this.countryId = _data["countryId"];
+            this.parentRegionId = _data["parentRegionId"];
+            this.regionId = _data["regionId"];
             this.type = _data["type"];
             if (Array.isArray(_data["fields"])) {
                 this.fields = [] as any;
@@ -5258,6 +5264,9 @@ export class FormDto implements IFormDto {
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
         data["description"] = this.description ? this.description.toJSON() : <any>undefined;
         data["realStateId"] = this.realStateId;
+        data["countryId"] = this.countryId;
+        data["parentRegionId"] = this.parentRegionId;
+        data["regionId"] = this.regionId;
         data["type"] = this.type;
         if (Array.isArray(this.fields)) {
             data["fields"] = [];
@@ -5273,6 +5282,9 @@ export interface IFormDto {
     name?: LocalizedStringDto | undefined;
     description?: LocalizedStringDto | undefined;
     realStateId?: number;
+    countryId?: number;
+    parentRegionId?: number;
+    regionId?: number | undefined;
     type?: RequestType;
     fields?: DataFieldDto[] | undefined;
 }

@@ -69,6 +69,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).subscribe(result => {
+        console.log("&&", result)
         this.model = result;
       });
     }
@@ -148,9 +149,9 @@ export class FormEditorComponent implements OnInit, OnDestroy {
   }
 
   formDetails() {
-
+console.log("%%", this.model)
     const dialoRef = this.dialog.open(FormDetailesComponent, {
-      data: this.model
+      data: this.model as IFormPostPut
     });
 
     dialoRef.afterClosed().subscribe(result => {
