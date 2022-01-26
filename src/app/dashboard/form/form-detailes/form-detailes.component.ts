@@ -9,6 +9,7 @@ import {
 } from '@core/api';
 import { FormEditorService } from '@core/services/form-editor.service';
 import { IFormPostPut } from '@models/data-field';
+import { IFormDto } from './../../../@core/api';
 
 @Component({
   selector: 'app-form-detailes',
@@ -32,8 +33,10 @@ export class FormDetailesComponent implements OnInit {
 
   types = [];
 
+  type: number;
+
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: IFormPostPut,
+    @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialogRef: MatDialogRef<FormDetailesComponent>,
     private realStateClient: RealStatesClient,
     private _FormsClient: FormsClient,
@@ -41,7 +44,7 @@ export class FormDetailesComponent implements OnInit {
     private regionsClient: RegionsClient,
     public formEditorService: FormEditorService
   ) {
-    console.log("##", this.data)
+    console.log('data in open form detailes component=>', this.data)
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
   }
 
@@ -52,13 +55,14 @@ export class FormDetailesComponent implements OnInit {
     });
 
     if (this.data.id) {
-      this._FormsClient.get(this.data.id).subscribe(result => {
-        this.data.realStateId = result.realStateId;
-        this.data.type = +result.type;
-        this.data.countryId = result.countryId;
-        this.data.parentRegionId = +result.parentRegionId;
-        this.data.regionId = result.regionId;
-      });
+      // this._FormsClient.get(this.data.id).subscribe(result => {
+
+      //   this.data.realStateId = result.realStateId;
+      //   this.data.type = +result.type;
+      //   this.data.countryId = +result.countryId;
+      //   this.data.parentRegionId = +result.parentRegionId;
+      //   this.data.regionId = +result.regionId;
+      // });
     }
 
     this.countriesClient.getList().subscribe(result => {
@@ -79,7 +83,6 @@ export class FormDetailesComponent implements OnInit {
     this.countryId = event;
     if (this.countryId) {
       this.regionsClient.getList(this.countryId, null).subscribe(result => {
-        console.log('###', result)
         this.regions = result;
       });
     }
@@ -89,10 +92,9 @@ export class FormDetailesComponent implements OnInit {
 
   onSelectRegion(event: any) {
     this.regionId = event;
-
+    this.data.regionId = event;
     if (this.regionId) {
       this.regionsClient.getList(null, this.regionId).subscribe(result => {
-        console.log('$$$', result)
         this.subRegions = result;
       });
     }

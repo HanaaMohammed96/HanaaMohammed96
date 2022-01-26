@@ -18,6 +18,8 @@ import icPageView from '@iconify/icons-ic/twotone-pageview';
 import icReceipt from '@iconify/icons-ic/twotone-receipt';
 import icFilterList from '@iconify/icons-ic/twotone-filter-list';
 import icMoreVert from '@iconify/icons-ic/twotone-more-vert';
+import icAssessment from '@iconify/icons-ic/twotone-assessment';
+import icBook from '@iconify/icons-ic/twotone-book';
 
 @Component({
   selector: 'app-root',
@@ -80,7 +82,7 @@ export class AppComponent implements OnInit {
             type: 'link',
             label: await this.translate('navigations.country'),
             route: '/country',
-            icon: icReceipt,
+            icon: icAssessment,
           }as NavigationLink,
           {
             type: 'link',
@@ -98,7 +100,7 @@ export class AppComponent implements OnInit {
             type: 'link',
             label: await this.translate('navigations.plans'),
             route: '/plans',
-            icon: icFilterList,
+            icon: icBook,
           } as NavigationLink,
           {
             type: 'dropdown',

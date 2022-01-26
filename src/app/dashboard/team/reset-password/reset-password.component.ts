@@ -63,6 +63,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
       .subscribe(
         () => {
           this._dialogRef.close();
+          this._handler.handleSuccess()
         },
         (err) =>
           this._handler

@@ -219,10 +219,18 @@
               <textarea matInput placeholder="{{formEditorService.toLang(item.placeholder)}}"></textarea>
             </mat-form-field>
 
-            <div *ngIf="item.fieldType == +type.Image || item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">
-              <input type="file" (change)="onFileChanged($event)" multiple class="upload-box mb-4" />
+            <div *ngIf="item.fieldType == +type.Image" cdkDrag class="font-in-dropped ">
+              <button class="upload-box mb-4 p-3 w-full"
+                onclick="document.getElementById('image').click(); return false;">Image</button>
+              <input type="file" (change)="onFileChanged($event)" id="image" multiple class="upload-box mb-4 "
+                style="display:none" />
             </div>
-
+            <div *ngIf="item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">
+              <button class="upload-box mb-4 p-3 w-full"
+                onclick="document.getElementById('pdf').click(); return false;">PDF</button>
+              <input type="file" (change)="onFileChanged($event)" id="pdf" multiple class="upload-box mb-4"
+                style="display:none" />
+            </div>
             <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
               <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
                 <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
