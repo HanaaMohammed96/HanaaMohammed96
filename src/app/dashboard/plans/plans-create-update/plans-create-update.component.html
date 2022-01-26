@@ -1,58 +1,89 @@
-<app-form-dialog [id]="this.data.id" [title]="'regions.tableName'" [formGroup]="form" [client]="_RegionsClient"
-    [post]="post" [put]="put" (request)="submit($event)">
-    <div form-dialog-content>
-        <div formGroupName="name">
-            <div class="flex flex-col sm:flex-row">
-                <mat-form-field *ngIf="'general.ar' | translate as ar" appearance="outline" class="mt-6 flex-auto">
-                    <mat-label>{{ ar }}</mat-label>
-                    <input cdkFocusInitial formControlName="Ar" matInput />
-                    <mat-error *ngIf="nameAr.hasError('required')">{{
-                        'validations.required' | translate: { field: ar }
-                        }}</mat-error>
-                    <mat-error *ngIf="nameAr.hasError('validation')">{{
-                        nameAr.errors.validation
-                        }}</mat-error>
-                </mat-form-field>
-            </div>
+<app-form-dialog [id]="this.data.id" [title]="'plans.tableName'" [formGroup]="form" [client]="_PlansClient"
+  [post]="post" [put]="put" (request)="submit($event)">
+  <div form-dialog-content>
+    <div formGroupName="name">
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field *ngIf="'general.ar' | translate as ar" appearance="outline" class="mt-6 flex-auto">
+          <mat-label>{{ ar }}</mat-label>
+          <input cdkFocusInitial formControlName="Ar" matInput />
+          <mat-error *ngIf="nameAr.hasError('required')">{{
+            'validations.required' | translate: { field: ar }
+            }}</mat-error>
+          <mat-error *ngIf="nameAr.hasError('validation')">{{
+            nameAr.errors.validation
+            }}</mat-error>
+        </mat-form-field>
+      </div>
 
-            <div class="flex flex-col sm:flex-row">
-                <mat-form-field *ngIf="'general.en' | translate as en" appearance="outline" class="flex-auto">
-                    <mat-label>{{ en }}</mat-label>
-                    <input formControlName="En" matInput />
-                    <mat-error *ngIf="nameEn.hasError('required')">{{
-                        'validations.required' | translate: { field: en }
-                        }}</mat-error>
-                    <mat-error *ngIf="nameEn.hasError('validation')">{{
-                        nameEn.errors.validation
-                        }}</mat-error>
-                </mat-form-field>
-            </div>
-        </div>
-  
-          <div class="flex flex-col sm:flex-row">
-            <mat-form-field
-              *ngIf="'plans.messageNumber' | translate as message_Number"
-              appearance="outline"
-              class="flex-auto"
-            >
-              <mat-label>{{ messageNumber }}</mat-label>
-              <input
-                class="english-text text-left"
-                formControlName="messageNumber"
-                matInput
-                max="10"
-                type="tel"
-              />
-              <mat-error *ngIf="form.get('messageNumber').hasError('required')">{{
-                'validations.required' | translate: { field: message_number }
-              }}</mat-error>
-              <mat-error *ngIf="form.get('messageNumber').hasError('validation')">{{
-                form.get('messageNumber').errors.validation
-              }}</mat-error>
-            </mat-form-field>
-        
-
-       
-          </div>
+      <div class="flex flex-col sm:flex-row">
+        <mat-form-field *ngIf="'general.en' | translate as en" appearance="outline" class="flex-auto">
+          <mat-label>{{ en }}</mat-label>
+          <input formControlName="En" matInput />
+          <mat-error *ngIf="nameEn.hasError('required')">{{
+            'validations.required' | translate: { field: en }
+            }}</mat-error>
+          <mat-error *ngIf="nameEn.hasError('validation')">{{
+            nameEn.errors.validation
+            }}</mat-error>
+        </mat-form-field>
+      </div>
     </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.messageNumber' | translate as messageNumber" appearance="outline"
+        class="flex-auto">
+        <mat-label>{{ messageNumber }}</mat-label>
+        <input class="english-text text-left" formControlName="messageNumber" matInput max="10" type="number" />
+      </mat-form-field>
+    </div>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.emailNumber' | translate as emailNumber" appearance="outline"
+      class="flex-auto">
+      <mat-label>{{ emailNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="emailNumber" matInput max="10" type="number" />
+    </mat-form-field>
+    </div>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.adminNumber' | translate as adminNumber" appearance="outline"
+      class="flex-auto">
+      <mat-label>{{ adminNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="adminNumber" matInput max="10" type="number" />
+    </mat-form-field>
+    </div>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.inspectorNumber' | translate as  inspectorNumber" appearance="outline"
+      class="flex-auto">
+      <mat-label>{{  inspectorNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="inspectorNumber" matInput max="10" type="number" />
+    </mat-form-field>
+    </div>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.evaluatorNumber' | translate as  evaluatorNumber" appearance="outline"
+      class="flex-auto">
+      <mat-label>{{  evaluatorNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="evaluatorNumber" matInput max="10" type="number" />
+    </mat-form-field>
+    </div>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.auditorNumber' | translate as  auditorNumber" appearance="outline"
+      class="flex-auto">
+      <mat-label>{{  auditorNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="auditorNumber" matInput max="10" type="number" />
+    </mat-form-field>
+    </div>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.commissionerNumber' | translate as  commissionerNumber" appearance="outline"
+      class="flex-auto">
+      <mat-label>{{  commissionerNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="commissionerNumber" matInput max="10" type="number" />
+    </mat-form-field>
+    </div>
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field *ngIf="'plans.reportsSentNumber' | translate as  reportsSentNumber" appearance="outline"
+      class="flex-auto">
+      <mat-label>{{  reportsSentNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="reportsSentNumber" matInput max="10" type="number" />
+    </mat-form-field>
+    </div>
+  </div>
 </app-form-dialog>
