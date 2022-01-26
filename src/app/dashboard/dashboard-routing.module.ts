@@ -16,7 +16,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CountryComponent } from './country/country.component';
 import { RegionsComponent } from './regions/regions.component';
 import { PlansComponent } from './plans/plans.component';
-import { TestPlanComponent } from './plans/test-plan/test-plan.component';
 
 const routes: Routes = [
   {
@@ -50,7 +49,7 @@ const routes: Routes = [
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
     // { provide: MdDialogRef, useValue: {} }
-]
+  ]
 })
 export class DashboardRoutingModule {
   static resolvers = [];

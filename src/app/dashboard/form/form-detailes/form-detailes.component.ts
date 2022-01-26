@@ -41,7 +41,7 @@ export class FormDetailesComponent implements OnInit {
     private regionsClient: RegionsClient,
     public formEditorService: FormEditorService
   ) {
-console.log("##",this.data)
+    console.log("##", this.data)
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
   }
 
@@ -55,6 +55,9 @@ console.log("##",this.data)
       this._FormsClient.get(this.data.id).subscribe(result => {
         this.data.realStateId = result.realStateId;
         this.data.type = +result.type;
+        this.data.countryId = result.countryId;
+        this.data.parentRegionId = +result.parentRegionId;
+        this.data.regionId = result.regionId;
       });
     }
 
@@ -76,7 +79,7 @@ console.log("##",this.data)
     this.countryId = event;
     if (this.countryId) {
       this.regionsClient.getList(this.countryId, null).subscribe(result => {
-        console.log('###',result)
+        console.log('###', result)
         this.regions = result;
       });
     }

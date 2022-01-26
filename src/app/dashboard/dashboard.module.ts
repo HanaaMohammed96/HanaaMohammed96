@@ -45,7 +45,6 @@ import { SubRegionsCreateUpdateComponent } from './sub-regions/sub-regions-creat
 import { RegionsComponent } from './regions/regions.component';
 import { PlansComponent } from './plans/plans.component';
 import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-create-update.component';
-import { TestPlanComponent } from './plans/test-plan/test-plan.component';
 
 
 
@@ -94,7 +93,6 @@ import { TestPlanComponent } from './plans/test-plan/test-plan.component';
     RegionsComponent,
     PlansComponent,
     PlansCreateUpdateComponent,
-    TestPlanComponent
   ],
   imports: [
     CommonModule,
@@ -127,4 +125,4 @@ import { TestPlanComponent } from './plans/test-plan/test-plan.component';
   ],
   providers: [...DashboardRoutingModule.resolvers],
 })
-export class DashboardModule {}
+export class DashboardModule { }

@@ -149,9 +149,8 @@ export class FormEditorComponent implements OnInit, OnDestroy {
   }
 
   formDetails() {
-console.log("%%", this.model)
     const dialoRef = this.dialog.open(FormDetailesComponent, {
-      data: this.model as IFormPostPut
+      data: this.model
     });
 
     dialoRef.afterClosed().subscribe(result => {
@@ -163,12 +162,12 @@ console.log("%%", this.model)
           });
         } else {
           // to reset incase cancel
-          this.model = JSON.parse( localStorage.getItem('resetFormDetailes'));
+          this.model = JSON.parse(localStorage.getItem('resetFormDetailes'));
           this.formEditorService.countryId = this.formEditorService.subRegionId = null;
           this.model.fields = this.formEditorService._model.fields;
         }
-      }else{
-        localStorage.setItem('resetFormDetailes',JSON.stringify(this.model))
+      } else {
+        localStorage.setItem('resetFormDetailes', JSON.stringify(this.model))
       }
     });
     this.validForm = this.formEditorService.validForm(this.model);
