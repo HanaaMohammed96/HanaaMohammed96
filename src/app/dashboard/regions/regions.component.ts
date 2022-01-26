@@ -124,7 +124,7 @@ export class RegionsComponent implements OnInit {
       },
     ];
   }
-
+ 
   getData(pagingOptions: PagingOptions): Observable<PaginatedListOfRegionVmForDashboard> {
 
     return this.regionsClient.getPage(
