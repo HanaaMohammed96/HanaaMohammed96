@@ -100,6 +100,12 @@ export class PlansComponent implements OnInit {
         type: 'text',
         visible: true,
       },
+      {
+        label: 'reportsSentNumber',
+        property: 'reportsSentNumber',
+        type: 'text',
+        visible: true,
+      },
       // {
       //   label: 'Actions',
       //   property: 'actions',
