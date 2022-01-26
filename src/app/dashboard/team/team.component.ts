@@ -131,9 +131,6 @@ export class TeamComponent implements OnInit {
   }
 
   getData(pagingOptions: PagingOptions): Observable<PaginatedListOfAdminVm> {
-
-    const spId = +this.form.get('serviceProviderId').value;
-
     return this.accountsClient.getAdminsPage(
       Role.Admin,
       pagingOptions.pageSize,

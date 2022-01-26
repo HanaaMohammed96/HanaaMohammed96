@@ -45,7 +45,7 @@ countryId:number
           Ar: ['', Validators.required],
           En: ['', Validators.required],
         }),
-        countryId: ['', Validators.required],
+        countryId: [this.data.countryId ||'', Validators.required],
         isActive: [''],
       });
     } else {
@@ -54,7 +54,7 @@ countryId:number
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-        countryId: ['', Validators.required],
+       countryId: [this.data.countryId || '', Validators.required],
         isActive: [''],
       });
     }
@@ -114,6 +114,7 @@ countryId:number
       this.data.name = name;
       this.data.isActive = value.isActive;
       this.data.countryId = value.countryId;
+      this.data.countryName = this.countries.filter(r => r.id == value.countryId)[0].name
 
       this._dialogRef.close();
 
@@ -129,8 +130,8 @@ countryId:number
     this.data.isActive = event;
   }
   onSelect(event :any) {
-    this.countryId =event ;
-console.log(this.countryId)
+    this.data.countryId =event ;
+// console.log(this.countryId)
     // if(this.countryId)
     // {
     //   this.countryId= Number( this.countriesClient.getList().subscribe((country)=>{

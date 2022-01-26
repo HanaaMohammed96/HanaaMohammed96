@@ -6161,6 +6161,7 @@ export class RegionDto implements IRegionDto {
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
     countryId?: number;
+    countryName?: string | undefined;
 
     constructor(data?: IRegionDto) {
         if (data) {
@@ -6177,6 +6178,7 @@ export class RegionDto implements IRegionDto {
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
             this.isActive = _data["isActive"];
             this.countryId = _data["countryId"];
+            this.countryName = _data["countryName"];
         }
     }
 
@@ -6193,6 +6195,7 @@ export class RegionDto implements IRegionDto {
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
         data["isActive"] = this.isActive;
         data["countryId"] = this.countryId;
+        data["countryName"] = this.countryName;
         return data;
     }
 }
@@ -6202,6 +6205,7 @@ export interface IRegionDto {
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
     countryId?: number;
+    countryName?: string | undefined;
 }
 
 export class PaginatedListOfRegionVmForDashboard implements IPaginatedListOfRegionVmForDashboard {
@@ -6256,6 +6260,7 @@ export class RegionVmForDashboard implements IRegionVmForDashboard {
     id?: number;
     name?: LocalizedStringDto | undefined;
     countryName?: string | undefined;
+    countryId?: number;
     isActive?: boolean;
 
     constructor(data?: IRegionVmForDashboard) {
@@ -6272,6 +6277,7 @@ export class RegionVmForDashboard implements IRegionVmForDashboard {
             this.id = _data["id"];
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
             this.countryName = _data["countryName"];
+            this.countryId = _data["countryId"];
             this.isActive = _data["isActive"];
         }
     }
@@ -6288,6 +6294,7 @@ export class RegionVmForDashboard implements IRegionVmForDashboard {
         data["id"] = this.id;
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
         data["countryName"] = this.countryName;
+        data["countryId"] = this.countryId;
         data["isActive"] = this.isActive;
         return data;
     }
@@ -6297,6 +6304,7 @@ export interface IRegionVmForDashboard {
     id?: number;
     name?: LocalizedStringDto | undefined;
     countryName?: string | undefined;
+    countryId?: number;
     isActive?: boolean;
 }
 
