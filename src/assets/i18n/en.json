@@ -195,7 +195,8 @@
     "Option1":"Option 1",
     "Option2":"Option 2",
     "Option3":"Option 3",
-    "enterText":"enter your text"
+    "enterText":"enter your text",
+    "search":"Quick Search"
   },
   "model":{
     "name":"Form Name",

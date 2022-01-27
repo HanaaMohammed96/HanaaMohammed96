@@ -10,7 +10,7 @@ import { cloneDeep } from 'lodash';
 import { EditFieldComponent } from '../edit-field/edit-field.component';
 import icSave from '@iconify/icons-ic/baseline-save';
 import { ApiHandlerService } from '@core/services/api-handler.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormDetailesComponent } from '../form-detailes/form-detailes.component';
 import { FormEditorService } from '@core/services/form-editor.service';
@@ -45,6 +45,8 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   searchText: string;
 
+  lang:string;
+
   constructor(
     public dialog: MatDialog,
     private _FormsClient: FormsClient,
@@ -60,6 +62,8 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     this.model = this.formEditorService._model;
 
     this.fieldModels = this.formEditorService._fieldModels;
+
+    this.lang = localStorage.getItem('lang')
 
   }
   ngOnDestroy(): void {
@@ -178,10 +182,13 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   save(): void {
     this.model.type = (Number)(this.model.type)
+    
     let action: Observable<any>;
+
     const form = this.model;
-    console.log('%%', form)
+
     this.loading = true;
+
     if (!this.formId) {
       action = this._FormsClient.post(
         form.name.ar,
@@ -215,4 +222,17 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     );
   }
 
+  search(){
+    if(this.searchText == ""){
+      this.fieldModels = this.formEditorService._fieldModels;
+    }else{
+      this.fieldModels = this.fieldModels.filter(res=>{
+        if(this.lang=='ar'){
+          return res.name.ar.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase());
+        }else{
+          return res.name.en.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase());
+        }
+      })
+    }
+  }
 }

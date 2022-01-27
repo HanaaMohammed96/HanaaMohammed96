@@ -47,7 +47,7 @@ export class EditFieldComponent implements OnInit {
 
   openDialog(item, index): void {
 
-    localStorage.setItem('resetIem', JSON.stringify(item));
+    localStorage.setItem('reseValue', JSON.stringify(item));
 
     const dialogRef = this.dialog.open(EditValueComponent, {
       data: item,
@@ -57,17 +57,23 @@ export class EditFieldComponent implements OnInit {
     dialogRef.afterClosed().subscribe((result => {
       if (!result) {
 
-        this.data.dataValues[index] = JSON.parse(localStorage.getItem('resetIem')) as DataValueDto;
+        this.data.dataValues[index] = JSON.parse(localStorage.getItem('reseValue')) as DataValueDto;
 
       } else {
 
         this.data.dataValues[index] = result;
       }
 
-      localStorage.removeItem('resetIem');
+      localStorage.removeItem('reseValue');
 
     }));
 
   }
-
+  setValue( e) {
+    if (e.checked) {
+      this.data.isRequired = true
+    } else {
+      this.data.isRequired = false
+    }
+  }
 }

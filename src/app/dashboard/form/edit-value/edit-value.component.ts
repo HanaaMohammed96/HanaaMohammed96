@@ -6,24 +6,25 @@ import { FormEditorService } from '@core/services/form-editor.service';
 @Component({
   selector: 'app-edit-value',
   template: `
-  <div fxLayout="row" fxLayoutAlign="space-evenly center" class="m-4" >
-    <mat-icon color="accent" class='w-14'>add_task</mat-icon>
-    <h3 class="whitespace-normal w-3/6"> {{formEditorService.toLang(data.value)}} </h3>
-  </div>
-  <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-evenly center" >
-    <mat-form-field>
-    <mat-label>English value</mat-label>
-    <input type="text" [(ngModel)]="data.value.en" matInput />
-    </mat-form-field>
+  <div class="max-w-xs">
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" class="m-4" >
+      <mat-icon color="accent" class='w-14'>add_task</mat-icon>
+    </div>
+    <div mat-dialog-content fxLayout="column" fxLayoutAlign="space-evenly center" >
+      <mat-form-field appearance="outline" fxFlex="grow">
+      <mat-label>English value</mat-label>
+      <input type="text" [(ngModel)]="data.value.en" matInput />
+      </mat-form-field>
 
-    <mat-form-field>
-      <mat-label>Arabic value</mat-label>
-      <input type="text" [(ngModel)]="data.value.ar" matInput />
-    </mat-form-field>
-  </div>
-  <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" class="m-4">
-    <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" | translate}}</button>
-    <button mat-button [mat-dialog-close]="false" mat-raised-button color="primary">{{"No" | translate}}</button>
+      <mat-form-field appearance="outline" fxFlex="grow">
+        <mat-label>Arabic value</mat-label>
+        <input type="text" [(ngModel)]="data.value.ar" matInput />
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions fxLayout="row" fxLayoutAlign="center center" class="m-4">
+      <button mat-button [mat-dialog-close]="data" mat-raised-button color="primary">{{"Yes" | translate}}</button>
+      <button mat-button [mat-dialog-close]="false" mat-raised-button color="primary">{{"No" | translate}}</button>
+    </div>
   </div>
   `,
   styles: [

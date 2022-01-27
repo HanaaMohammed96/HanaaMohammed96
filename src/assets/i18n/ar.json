@@ -196,7 +196,8 @@
     "Option1":"اختيار 1",
     "Option2":"اختيار 2",
     "Option3":"اختيار 3",
-    "enterText":"ادخل وصف"
+    "enterText":"ادخل وصف",
+    "search":"بحث سريع"
 
   },
   "model":{
@@ -229,8 +230,8 @@
   "realState":{
     "title":"الأصول",
     "description":"هذه القائمة تشمل كل الأصول",
-    "TableName":"العقار",
-    "tableNamePlural":"العقار",
+    "TableName":"الأصل",
+    "tableNamePlural":"الأصل",
     "name":"الاسم",
     "created_at": "تاريخ الإنشاء"
   },
@@ -249,7 +250,7 @@
     "enDescription": "الوصف باللغة لإنجليزية",
     "arDescription": "الوصف باللغة العربية",
     "type": "نوع النموذج",
-    "RealState": "العقار",
+    "RealState": "الأصل",
     "requestsNumber": "عدد الطلبات",
     "title_table_page": "جدول النماذج",
     "description_table_page": "هذه القائمة تحتوي على جميع النماذج",

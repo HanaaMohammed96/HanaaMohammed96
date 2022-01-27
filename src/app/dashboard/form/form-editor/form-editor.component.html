@@ -7,47 +7,47 @@
 
         <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
           [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content" fxLayout="column"
-          fxLayoutAlign="space-evenly center" style="width:700px;
-          background-color: rgb(248 248 248 / 11%); 
-          border-color: rgba(3, 1, 1, 0.253);
-          box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;"
-          class=" p-6 border-dashed border-4 border-blue-600 text-black">
+          fxLayoutAlign="space-evenly center" class=" p-6  text-black dropzone">
 
-          <mat-icon color="accent" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
+          <mat-icon color="primary" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
           </mat-icon>
-          <h4 *ngIf="model.fields?.length == 0" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
+          <h4 *ngIf="model.fields.length == 0" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
 
           <div *ngFor="let item of model.fields; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
             <div fxLayout="row" fxLayoutAlign="space-evenly center">
               <span
-                class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-4">{{item.code}}</span>
+                class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-8">{{item.code}}</span>
 
               <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
-                class="font-in-dropped">
+                class="font-in-dropped" appearance="outline" fxFlex="grow">
                 <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
                 </mat-label>
                 <input type="text" placeholder="{{formEditorService.toLang(item.placeholder)}}" matInput />
               </mat-form-field>
 
-              <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
+              <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
                 <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
                 </mat-label>
                 <input type="number" matInput />
               </mat-form-field>
 
-              <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped">
+              <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped" appearance="outline"
+                fxFlex="grow">
                 <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
                 </mat-label>
                 <input type="date" matInput />
               </mat-form-field>
 
-              <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped">
+              <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
                 <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
                 </mat-label>
                 <input type="datetime-local" matInput />
               </mat-form-field>
 
-              <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
+              <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
                 <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
                 </mat-label>
                 <textarea matInput placeholder="{{formEditorService.toLang(item.placeholder)}}"></textarea>
@@ -66,8 +66,9 @@
                   style="display:none" />
               </div>
 
-              <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
-                <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+              <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag
+                class="font-in-dropped flex flex-row flex-nowrap mb-8">
+                <div style="text-center;max-width: 90px;overflow-wrap: break-word">
                   <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
                 </div>
                 <div class="flex flex-column flex-wrap">
@@ -81,7 +82,8 @@
                 </div>
               </div>
 
-              <div *ngIf="item.fieldType == +type.Radio " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
+              <div *ngIf="item.fieldType == +type.Radio " cdkDrag
+                class="font-in-dropped flex flex-row flex-nowrap mb-8">
                 <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
                   <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
                 </div>
@@ -99,17 +101,28 @@
               <div *ngIf="item.fieldType == +type.Select " cdkDrag>
                 <mat-form-field appearance="fill" class="font-in-dropped ">
                   <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
-                  <mat-select>
+                  <input type="text" placeholder="Pick one" matInput [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
                     <mat-option *ngFor="let i of item.dataValues" value="{{formEditorService.toLang(i.value)}}">
                       {{formEditorService.toLang(i.value)}}
                     </mat-option>
-                  </mat-select>
+                  </mat-autocomplete>
                 </mat-form-field>
               </div>
 
-              <mat-icon (click)="openDialog(item,i)" color="primary"> expand_more</mat-icon>
-              <mat-icon (click)="removeField(i)" color="accent"> delete </mat-icon>
-
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="mb-8">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item>
+                  <mat-icon (click)="openDialog(item,i)" color="primary">edit</mat-icon>
+                  <span> Edit </span>
+                </button>
+                <button mat-menu-item>
+                  <mat-icon (click)="removeField(i)" color="primary"> delete </mat-icon>
+                  <span> Delete </span>
+                </button>
+              </mat-menu>
             </div>
           </div>
           <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |
@@ -122,11 +135,11 @@
     <nav class="col mat-elevation-z8 p-4 m-auto" cdkDropList #formFields="cdkDropList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
       position="end" cdkDrag>
-      <!-- <div class="sidebar-top">
+      <div class="sidebar-top">
         <span class="material-icons shrink-btn">
           arrow_forward_ios
         </span>
-      </div> -->
+      </div>
 
       <div class="text-center ">
         <h4>{{"Select Field" | translate}}</h4>
@@ -135,11 +148,11 @@
 
       <div class="search">
         <i class='bx bx-search'></i>
-        <input type="text" class="hide" placeholder="Quick Search ..." [(ngModel)]="searchText">
+        <input type="text" class="hide" placeholder="{{ 'formFields.search' | translate }} ..." [(ngModel)]="searchText"
+          (ngModelChange)="search()">
       </div>
 
       <div class="sidebar-links">
-        <!-- <ul *ngFor="let item of fieldModels | filter:searchText" > -->
         <ul *ngFor="let item of fieldModels">
           <div class="active-tab"></div>
           <li class="tooltip-element">
@@ -151,7 +164,6 @@
               </mat-grid-tile>
             </mat-grid-list>
           </li>
-
         </ul>
       </div>
     </nav>
@@ -167,17 +179,17 @@
 
 
   <!-- in component -->
-  <div *ngIf="report" class="text-black mx-auto w-1/2">
+  <div *ngIf="report" class="text-black mx-auto w-1/2 p-6">
 
     <div class="text-center icon-display">
       <button (click)="report=false">
-        <mat-icon color="accent">keyboard_return</mat-icon>
+        <mat-icon color="primary" class="m-4 ">swap_horizontal_circle</mat-icon>
       </button>
     </div>
 
     <div>
       <!-- if records found -->
-      <div *ngIf="reports?.fields.length > 0" class="p-8 rounded shadow bg-white " style="border:2px solid #ccc;">
+      <div *ngIf="reports.fields.length > 0" class="p-8 rounded shadow bg-white " style="border:2px solid #ccc;">
 
         <div>
           <h3 class="text-center m-6 ">{{formEditorService.toLang(model.name)}}</h3>
@@ -189,31 +201,35 @@
           <div>
 
             <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
-              class="font-in-dropped">
+              class="font-in-dropped" appearance="outline" fxFlex="grow">
               <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
               </mat-label>
               <input type="text" placeholder="{{formEditorService.toLang(item.placeholder)}}" matInput />
             </mat-form-field>
 
-            <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped">
+            <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped" appearance="outline"
+              fxFlex="grow">
               <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
               </mat-label>
               <input type="number" matInput />
             </mat-form-field>
 
-            <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped">
+            <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped" appearance="outline"
+              fxFlex="grow">
               <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
               </mat-label>
               <input type="date" matInput />
             </mat-form-field>
 
-            <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped">
+            <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped"
+              appearance="outline" fxFlex="grow">
               <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
               </mat-label>
               <input type="datetime-local" matInput />
             </mat-form-field>
 
-            <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped">
+            <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped"
+              appearance="outline" fxFlex="grow">
               <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
               </mat-label>
               <textarea matInput placeholder="{{formEditorService.toLang(item.placeholder)}}"></textarea>
@@ -264,11 +280,12 @@
             <div *ngIf="item.fieldType == +type.Select " cdkDrag>
               <mat-form-field appearance="fill" class="font-in-dropped ">
                 <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
-                <mat-select>
-                  <mat-option *ngFor="let i of item.dataValues" value="">
-                    {{formEditorService.toLang(i)}}
+                <input type="text" placeholder="Pick one" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let i of item.dataValues" value="{{formEditorService.toLang(i.value)}}">
+                    {{formEditorService.toLang(i.value)}}
                   </mat-option>
-                </mat-select>
+                </mat-autocomplete>
               </mat-form-field>
             </div>
 
@@ -281,7 +298,7 @@
       </div>
 
       <!-- if no records found -->
-      <div *ngIf="reports?.fields.length == 0" class="text-center pt-8">
+      <div *ngIf="reports.fields.length == 0" class="text-center pt-8">
         {{"No response found" | translate}}
       </div>
     </div>

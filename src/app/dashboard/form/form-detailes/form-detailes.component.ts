@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, NgModule } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   CountriesClient,
@@ -8,7 +8,6 @@ import {
   RegionVm, RequestType
 } from '@core/api';
 import { FormEditorService } from '@core/services/form-editor.service';
-import { IFormPostPut } from '@models/data-field';
 import { IFormDto } from './../../../@core/api';
 
 @Component({
@@ -39,7 +38,6 @@ export class FormDetailesComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialogRef: MatDialogRef<FormDetailesComponent>,
     private realStateClient: RealStatesClient,
-    private _FormsClient: FormsClient,
     private countriesClient: CountriesClient,
     private regionsClient: RegionsClient,
     public formEditorService: FormEditorService
@@ -72,6 +70,7 @@ export class FormDetailesComponent implements OnInit {
   }
 
   onSelectRealState(event: any) {
+    console.log('@@',event)
     this.data.realStateId = event;
   }
 
@@ -102,6 +101,12 @@ export class FormDetailesComponent implements OnInit {
 
   onSelectSub(event: any) {
     this.formEditorService.subRegionId = event;
+  }
+  displayRealState(realState){
+    this.data.realStateId = realState.id;
+    console.log('22',this.data,realState.id)
+    return realState ? realState.name : undefined;
+
   }
 
 }
