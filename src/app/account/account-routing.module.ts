@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       { path: 'login', component: LoginComponent },
       { path: 'logout', component: LogoutComponent },
-       { path: 'forget', component: ForgotPasswordComponent },
+      { path: 'forget', component: ForgotPasswordComponent },
       { path: 'validate', component: ValidateTokenComponent },
       { path: 'change-password', component: ChangePasswodComponent },
       { path: '**', redirectTo: 'login' },
