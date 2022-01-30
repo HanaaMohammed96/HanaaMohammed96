@@ -26,7 +26,7 @@ import { MatDialog } from '@angular/material/dialog';
     [tableName]="'team.tableName' | translate"
     [tableNamePlural]="'team.tableNamePlural' | translate"
     [client]="accountsClient"
-    [createUpdateComponent]="component"    
+    [createUpdateComponent]="component"
     [columns]="columns"
     [actions]="actions"
     [dataObserable]="'getData'"

@@ -20,7 +20,7 @@ import { PlansCreateUpdateComponent } from './plans-create-update/plans-create-u
   [tableName]="'plans.tableName' | translate"
   [tableNamePlural]="'plans.tableNamePlural' | translate"
   [client]="plansClient"
-  [createUpdateComponent]="component"  
+  [createUpdateComponent]="component"
   [columns]="columns"
   [actions]="actions"
   [dataObserable]="'getData'"

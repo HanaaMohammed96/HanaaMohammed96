@@ -27,15 +27,15 @@
       </div>
     </div>
     <div class="flex flex-row justify-evenly">
-      <!-- <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
+      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.RealState' | translate}}</mat-label>
         <mat-select (valueChange)="onSelectRealState($event)" [(value)]="data.realStateId">
           <mat-option *ngFor="let realState of realStates" [value]="realState.id">
             {{realState.name}}
           </mat-option>
         </mat-select>
-      </mat-form-field> -->
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
+      </mat-form-field>
+      <!-- <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.RealState' | translate}}</mat-label>
         <input type="text" placeholder="Pick one"matInput 
           [matAutocomplete]="auto">
@@ -44,7 +44,7 @@
             {{realState.name}}
           </mat-option>
         </mat-autocomplete>
-      </mat-form-field>
+      </mat-form-field> -->
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.type' | translate}}</mat-label>
         <mat-select (valueChange)="onSelectType($event)" [(value)]="data.type">
