@@ -8,6 +8,9 @@ import {
   AccountDto,
   ExternalLoginCommand,
   ExternalRegisterCommand,
+  ForgetPasswordCommand,
+  ResetPasswordCommand,
+  ValidateResetPasswordToken,
 } from '@core/api';
 import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
@@ -96,6 +99,13 @@ export class IdentityManager {
     );
   }
 
+  public resetPassword(command : ResetPasswordCommand){
+    return this.processResultToken(
+      this._accountsClient.resetPassword(command),
+      false
+    );
+  }
+
   public externalLogin(user: SocialUser, rememberMe: boolean): Observable<AuthResult> {
     return this.processResultToken(
       this._accountsClient.externalLogin(
@@ -152,6 +162,14 @@ export class IdentityManager {
     }
   }
 
+  public forgetPassword(command : ForgetPasswordCommand){
+    return this._accountsClient.forgetPassword(command);
+  }
+
+  public validateToken(command : ValidateResetPasswordToken){
+    return this._accountsClient.validateToken(command);
+  }
+
   /** Precess result. Save token if success result. Set logout timer */
   private processResultToken(
     tokenObservable: Observable<AuthResponse>,
@@ -191,4 +209,5 @@ export class IdentityManager {
       .get()
       .subscribe((account: AccountDto) => this.account$.next(account));
   }
+
 }

@@ -86,7 +86,16 @@
     "password": "كلمة المرور",
     "remember_me": "تذكرني",
     "forgot_password": "هل نسيت كلمة المرور؟",
-    "sign_in": "تسجيل الدخول"
+    "sign_in": "تسجيل الدخول",
+    "forgotPassword" : "يمكنك إستعاده كلمه المرور عبر البريد الإلكترونى",
+    "sendCode" : "إرسال الرمز",
+    "validate" : "تحقق",
+    "resendCode" : "إعادة إرسال الرمز",
+    "code" : "رمز التحقق",
+    "validateCode" : "التجقق من ملكية الحساب",
+    "newPassword" : "كلمة المرور الجديدة",
+    "confirmChange" : "تأكيد التغير",
+    "confirmPassword" :"تأكيد كلمة المرور"
   },
   "forbidden": {
     "title": "403",

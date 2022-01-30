@@ -67,7 +67,6 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
         }),
         email: ['', Validators.required],
         phoneNumber: ['', Validators.required],
-        username: ['', Validators.required],
         password: ['', Validators.required],
         confirmPassword: ['', Validators.required],
       });
@@ -133,7 +132,6 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
           email: rawValue.email,
           phoneNumber,
           role: Role.Partner,
-          username: value.username,
           password: rawValue.password,
           confirmPassword: rawValue.confirmPassword,
         })
@@ -145,7 +143,6 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
           fullName,
           email: rawValue.email,
           phoneNumber,
-          username: value.username
         })
       );
     }
