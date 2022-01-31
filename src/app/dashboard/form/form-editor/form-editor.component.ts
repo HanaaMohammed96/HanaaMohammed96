@@ -45,7 +45,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   searchText: string;
 
-  lang:string;
+  lang: string;
 
   constructor(
     public dialog: MatDialog,
@@ -71,11 +71,14 @@ export class FormEditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.formEditorService._validateForm.subscribe(data => {
+      this.validForm = data;
+    })
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).subscribe(result => {
         this.model = result;
-
+        this.formEditorService.validForm(this.model);
       });
     }
   }
@@ -103,7 +106,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
       this.model.fields[event.currentIndex].code += `${event.container.data.length}`;
     }
-    this.validForm = this.formEditorService.validForm(this.model)
+    this.formEditorService.validForm(this.model)
 
   }
 
@@ -115,6 +118,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
         } else {
           return;
         }
+        this.formEditorService.validForm(this.model);
       });
   }
 
@@ -160,10 +164,12 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
     dialoRef.afterClosed().subscribe(result => {
       if (!result) {
+        const { fields } = this.model
         if (this.formId) {
           // update form
           this._FormsClient.get(this.formId).subscribe(result => {
             this.model = result;
+            this.model.fields = fields;
           });
         } else {
           // to reset incase cancel
@@ -175,13 +181,13 @@ export class FormEditorComponent implements OnInit, OnDestroy {
         localStorage.setItem('resetFormDetailes', JSON.stringify(this.model))
       }
     });
-    this.validForm = this.formEditorService.validForm(this.model);
+    this.formEditorService.validForm(this.model);
 
   }
 
   save(): void {
     this.model.type = (Number)(this.model.type)
-    
+
     let action: Observable<any>;
 
     const form = this.model;
@@ -221,17 +227,18 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     );
   }
 
-  search(){
-    if(this.searchText == ""){
+  search() {
+    if (this.searchText == "") {
       this.fieldModels = this.formEditorService._fieldModels;
-    }else{
-      this.fieldModels = this.fieldModels.filter(res=>{
-        if(this.lang=='ar'){
+    } else {
+      this.fieldModels = this.fieldModels.filter(res => {
+        if (this.lang == 'ar') {
           return res.name.ar.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase());
-        }else{
+        } else {
           return res.name.en.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase());
         }
       })
     }
   }
+
 }

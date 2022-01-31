@@ -3,7 +3,7 @@
 
     <!--dropzone-->
     <div class="col-span-3">
-      <div class="content  mb-8" fxLayout="column" fxLayoutAlign="center center">
+      <div class="content  mb-8" fxLayout="column" fxLayoutAlign="start center">
 
         <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
           [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content" fxLayout="column"
@@ -55,13 +55,13 @@
 
               <div *ngIf="item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">
                 <button class="upload-box mb-4 p-3 w-full"
-                  onclick="document.getElementById('pdf').click(); return false;">PDF</button>
+                  onclick="document.getElementById('pdf').click(); return false;">{{'PDF' | translate}}</button>
                 <input type="file" (change)="onFileChanged($event)" id="pdf" multiple class="upload-box mb-4"
                   style="display:none" />
               </div>
               <div *ngIf="item.fieldType == +type.Image" cdkDrag class="font-in-dropped ">
                 <button class="upload-box mb-4 p-3 w-full"
-                  onclick="document.getElementById('image').click(); return false;">Image</button>
+                  onclick="document.getElementById('image').click(); return false;">{{'Image' | translate}}</button>
                 <input type="file" (change)="onFileChanged($event)" id="image" multiple class="upload-box mb-4 "
                   style="display:none" />
               </div>
@@ -135,11 +135,11 @@
     <nav class="col mat-elevation-z8 p-4 m-auto" cdkDropList #formFields="cdkDropList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
       position="end" cdkDrag>
-      <div class="sidebar-top">
+      <!-- <div class="sidebar-top">
         <span class="material-icons shrink-btn">
           arrow_forward_ios
         </span>
-      </div>
+      </div> -->
 
       <div class="text-center ">
         <h4>{{"Select Field" | translate}}</h4>
@@ -189,7 +189,7 @@
 
     <div>
       <!-- if records found -->
-      <div *ngIf="reports.fields.length > 0" class="p-8 rounded shadow bg-white " style="border:2px solid #ccc;">
+      <div *ngIf="reports.fields.length > 0" class="p-8 rounded" style="border:2px solid #ccc;box-shadow: 0 0 10px gray;">
 
         <div>
           <h3 class="text-center m-6 ">{{formEditorService.toLang(model.name)}}</h3>
@@ -291,10 +291,11 @@
 
           </div>
         </div>
-
-        <button type="submit" mat-raised-button color="primary" (click)="report=false"
-          style="margin-left: 39%;">{{"Submit" | translate}}
-        </button>
+        <div class="flex flex-row justify-center items-center">
+          <button type="submit" mat-raised-button color="primary" (click)="report=false">
+            {{"Submit" | translate}}
+          </button>
+        </div>
       </div>
 
       <!-- if no records found -->

@@ -232,6 +232,8 @@
   "Form Name":"Form Name",
   "Form Description":"Form Description",
   "No response found":"No response found",
+  "Image":"Image",
+  "PDF":"PDF",
   "realState":{
     "title":"Monjez Portal RealStates Page",
     "description":"This list includes all RealStates",

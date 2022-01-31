@@ -12,9 +12,10 @@
     *ngIf="level === 0"
     [icIcon]="item.icon"
     class="item-icon"
+    style="margin-right: 0px;"
     fxFlex="none"
   ></mat-icon>
-  <span class="item-label" fxFlex="auto">{{ item.label }}</span>
+  <span class="item-label mx-3" fxFlex="auto">{{ item.label }}</span>
   <span
     *ngIf="item.badge"
     [ngClass]="[item.badge.bgClass, item.badge.textClass]"
@@ -61,9 +62,10 @@
       *ngIf="level === 0"
       [icIcon]="item.icon"
       class="item-icon"
+      style="margin-right: 0px;"
       fxFlex="none"
     ></mat-icon>
-    <span class="item-label" fxFlex="auto">{{ item.label }}</span>
+    <span class="item-label mx-3" fxFlex="auto">{{ item.label }}</span>
     <span
       *ngIf="item.badge"
       [ngClass]="[item.badge.bgClass, item.badge.textClass]"

@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
   CountriesClient,
-  CountryVm, FormsClient,
+  CountryVm,
   RealStatesClient, RealStatesVm,
   RegionsClient,
   RegionVm, RequestType
@@ -30,6 +30,10 @@ export class FormDetailesComponent implements OnInit {
 
   type: number;
 
+  arabicTypes = [];
+
+  lang: string;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: IFormDto,
     public dialogRef: MatDialogRef<FormDetailesComponent>,
@@ -39,6 +43,8 @@ export class FormDetailesComponent implements OnInit {
     public formEditorService: FormEditorService
   ) {
     this.types = Object.keys(this.formType).filter(f => !isNaN(Number(f)));
+    this.lang = localStorage.getItem('lang')
+    this.arabicTypes = ['معاينة','تقييم'];
   }
 
   ngOnInit(): void {

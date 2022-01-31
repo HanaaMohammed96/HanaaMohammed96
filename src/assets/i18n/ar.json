@@ -73,9 +73,9 @@
     "terms_Cond_ar": "للعربية",
     "terms_Cond_en": "للإنجليزية",
     "reservations": "الحجوزات",
-    "form": "إنشاء نماذج",
+    "form": "النماذج",
     "realState": "الأصول",
-    "country": "المدن"
+    "country": "الدول"
 
   },
   "account": {
@@ -236,6 +236,8 @@
   "Form Description":"وصف النموذج",
   "arDescription":"وصف النموذج",
   "No response found":"لم يتم إدخال بيانات",
+  "Image":"صورة",
+  "PDF":"ملف",
   "realState":{
     "title":"الأصول",
     "description":"هذه القائمة تشمل كل الأصول",
@@ -246,10 +248,10 @@
   },
   "isActive":"تفعيل",
   "country":{
-    "title":"المدن",
-    "description":"هذه القائمة تشمل كل المدن",
-    "TableName":"المدن",
-    "tableNamePlural":"المدن",
+    "title":"الدول",
+    "description":"هذه القائمة تشمل كل الدول",
+    "TableName":"دولة",
+    "tableNamePlural":"الدول",
     "name":"الاسم",
     "created_at": "تاريخ الإنشاء"
   },

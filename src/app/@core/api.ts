@@ -6249,6 +6249,7 @@ export class RealStateDto implements IRealStateDto {
     id?: number;
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
+    order?: number;
 
     constructor(data?: IRealStateDto) {
         if (data) {
@@ -6264,6 +6265,7 @@ export class RealStateDto implements IRealStateDto {
             this.id = _data["id"];
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
             this.isActive = _data["isActive"];
+            this.order = _data["order"];
         }
     }
 
@@ -6279,6 +6281,7 @@ export class RealStateDto implements IRealStateDto {
         data["id"] = this.id;
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
         data["isActive"] = this.isActive;
+        data["order"] = this.order;
         return data;
     }
 }
@@ -6287,6 +6290,7 @@ export interface IRealStateDto {
     id?: number;
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
+    order?: number;
 }
 
 export class RealStatesVmForDashboard implements IRealStatesVmForDashboard {
