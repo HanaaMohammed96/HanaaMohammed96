@@ -74,7 +74,6 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).subscribe(result => {
-        console.log('editor in case exist formId<update>= ', result)
         this.model = result;
 
       });
