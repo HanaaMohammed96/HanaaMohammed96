@@ -35,9 +35,9 @@ export class SidenavComponent implements OnInit {
     this.layoutService.collapseCloseSidenav();
   }
 
-  toggleCollapse() {
-    this.collapsed
-      ? this.layoutService.expandSidenav()
-      : this.layoutService.collapseSidenav();
-  }
+  // toggleCollapse() {
+  //   this.collapsed
+  //     ? this.layoutService.expandSidenav()
+  //     : this.layoutService.collapseSidenav();
+  // }
 }

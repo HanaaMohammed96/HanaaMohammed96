@@ -7,7 +7,7 @@
   [class.has-footer]="isFooterVisible$ | async"
   [class.scroll-disabled]="scrollDisabled$ | async"
   [class.toolbar-fixed]="isToolbarFixed$ | async"
-  [class.sidenav-collapsed]="sidenavCollapsed$ | async"
+  [class.sidenav-collapsed]="!(sidenavCollapsed$ | async)"
   [class.content-container]="containerEnabled$ | async"
   [class.with-search]="searchOpen$ | async"
   class="page-container"
@@ -25,7 +25,7 @@
       [opened]="(isDesktop$ | async) && !(isLayoutVertical$ | async)"
       class="sidenav"
     >
-      <app-sidenav [collapsed]="sidenavCollapsed$ | async"></app-sidenav>
+      <app-sidenav [collapsed]="!(sidenavCollapsed$ | async)"></app-sidenav>
     </mat-sidenav>
 
     <mat-sidenav
