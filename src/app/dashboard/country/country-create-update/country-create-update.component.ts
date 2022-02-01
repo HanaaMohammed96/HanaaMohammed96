@@ -72,7 +72,6 @@ export class CountryCreateUpdateComponent implements OnInit {
   put(id: any, value: any): any {
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
     const isActive = value.isActive;
-    const order = value.order;
 
     return new CountriesPutCommand({
       id,

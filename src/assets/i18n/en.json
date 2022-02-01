@@ -85,7 +85,16 @@
     "password": "Password",
     "remember_me": "Remember Me",
     "forgot_password": "Forgot Password?",
-    "sign_in": "Sign In"
+    "sign_in": "Sign In",
+    "forgotPassword" : "you can change your password by email",
+    "sendCode" : "Send code",
+    "validate" : "validate",
+    "resendCode" : "Resend code",
+    "code" : "Code",
+    "validateCode" : "Validate from onarshep of account",
+    "newPassword" : "new password",
+    "confirmChange" : "Confirm",
+    "confirmPassword" :"Confirm Password"
   },
   "forbidden": {
     "title": "403",
@@ -195,7 +204,8 @@
     "Option1":"Option 1",
     "Option2":"Option 2",
     "Option3":"Option 3",
-    "enterText":"enter your text"
+    "enterText":"enter your text",
+    "search":"Quick Search"
   },
   "model":{
     "name":"Form Name",
@@ -222,6 +232,8 @@
   "Form Name":"Form Name",
   "Form Description":"Form Description",
   "No response found":"No response found",
+  "Image":"Image",
+  "PDF":"PDF",
   "realState":{
     "title":"Monjez Portal RealStates Page",
     "description":"This list includes all RealStates",

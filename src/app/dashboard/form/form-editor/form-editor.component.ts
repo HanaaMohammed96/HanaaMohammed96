@@ -10,7 +10,7 @@ import { cloneDeep } from 'lodash';
 import { EditFieldComponent } from '../edit-field/edit-field.component';
 import icSave from '@iconify/icons-ic/baseline-save';
 import { ApiHandlerService } from '@core/services/api-handler.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { FormDetailesComponent } from '../form-detailes/form-detailes.component';
 import { FormEditorService } from '@core/services/form-editor.service';
@@ -45,6 +45,8 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   searchText: string;
 
+  lang: string;
+
   constructor(
     public dialog: MatDialog,
     private _FormsClient: FormsClient,
@@ -61,18 +63,22 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
     this.fieldModels = this.formEditorService._fieldModels;
 
+    this.lang = localStorage.getItem('lang')
+
   }
   ngOnDestroy(): void {
     localStorage.removeItem('resetFormDetailes');
   }
 
   ngOnInit(): void {
+    this.formEditorService._validateForm.subscribe(data => {
+      this.validForm = data;
+    })
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).subscribe(result => {
-        console.log('editor in case exist formId<update>= ', result)
         this.model = result;
-
+        this.formEditorService.validForm(this.model);
       });
     }
   }
@@ -100,7 +106,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
       this.model.fields[event.currentIndex].code += `${event.container.data.length}`;
     }
-    this.validForm = this.formEditorService.validForm(this.model)
+    this.formEditorService.validForm(this.model)
 
   }
 
@@ -112,6 +118,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
         } else {
           return;
         }
+        this.formEditorService.validForm(this.model);
       });
   }
 
@@ -157,10 +164,12 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
     dialoRef.afterClosed().subscribe(result => {
       if (!result) {
+        const { fields } = this.model
         if (this.formId) {
           // update form
           this._FormsClient.get(this.formId).subscribe(result => {
             this.model = result;
+            this.model.fields = fields;
           });
         } else {
           // to reset incase cancel
@@ -172,16 +181,19 @@ export class FormEditorComponent implements OnInit, OnDestroy {
         localStorage.setItem('resetFormDetailes', JSON.stringify(this.model))
       }
     });
-    this.validForm = this.formEditorService.validForm(this.model);
+    this.formEditorService.validForm(this.model);
 
   }
 
   save(): void {
     this.model.type = (Number)(this.model.type)
+
     let action: Observable<any>;
+
     const form = this.model;
-    console.log('%%', form)
+
     this.loading = true;
+
     if (!this.formId) {
       action = this._FormsClient.post(
         form.name.ar,
@@ -213,6 +225,20 @@ export class FormEditorComponent implements OnInit, OnDestroy {
         this._handler.handleError(err).pushError();
       }
     );
+  }
+
+  search() {
+    if (this.searchText == "") {
+      this.fieldModels = this.formEditorService._fieldModels;
+    } else {
+      this.fieldModels = this.fieldModels.filter(res => {
+        if (this.lang == 'ar') {
+          return res.name.ar.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase());
+        } else {
+          return res.name.en.toLocaleLowerCase().match(this.searchText.toLocaleLowerCase());
+        }
+      })
+    }
   }
 
 }

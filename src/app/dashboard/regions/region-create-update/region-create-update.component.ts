@@ -34,7 +34,6 @@ countryId:number
 
   ngOnInit(): void {
     this.countriesClient.getList().subscribe(result => {
-      console.log('@@',result)
       this.countries = result;
     })
 

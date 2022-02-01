@@ -33,6 +33,7 @@ export class RealStateCreateUpdateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     if (!this.data) {
       this.data = {} as RealStateDto;
+      
       this.form = this._fb.group({
         name: this._fb.group({
           Ar: ['', Validators.required],

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataValueDto, FieldType, FormDto, IDataFieldDto, LocalizedStringDto } from '@core/api';
 import { IFormPostPut } from '@models/data-field';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,9 @@ export class FormEditorService {
   subRegionId: number;
   regionId: number;
   type: number;
+
+  private validateForm = new BehaviorSubject<boolean>(false);
+  _validateForm = this.validateForm.asObservable();
 
   constructor() {
     this.lang = localStorage.getItem('lang') as string;
@@ -184,17 +188,19 @@ export class FormEditorService {
     }
   }
 
-  validForm(form): boolean {
-    console.log('form in fun', form)
+  validForm(form){
     if (form.name.ar != '' &&
         form.name.en != '' &&
         form.description.ar != '' &&
         form.description.en != '' &&
         form.realStateId!= null &&
-        form.type!= null && form.regionId!= null && form.fields!=[]) {
-        return true;
+        form.type!= null && form.regionId!= null && form.fields.length !=0) {
+        // return true;
+        return this.validateForm.next(true)
       }else{
-        return false;
+        // return false;
+        return this.validateForm.next(false)
+
       }
   }
 

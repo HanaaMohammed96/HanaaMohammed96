@@ -1,0 +1,62 @@
+<div class="card overflow-hidden w-full">
+  <div class="p-6 pb-0" fxLayout="column" fxLayoutAlign="center center">
+    <div class="fill-current text-center">
+      <img class="w-16" src="assets/img/demo/أيقونة 1.png" />
+    </div>
+  </div>
+
+  <div class="text-center mt-4">
+    <h2 class="title m-0">{{ 'account.login_title' | translate }}</h2>
+    <h4 class="body-2 text-secondary m-0">
+      {{ 'account.validateCode' | translate }}
+    </h4>
+  </div>
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="Send()"
+    class="p-6"
+    fxLayout="column"
+    fxLayoutGap="16px"
+  >
+    <div fxFlex="auto" fxLayout="column">
+      <mat-form-field
+        *ngIf="'account.code' | translate as email"
+        fxFlex="grow"
+        appearance="outline"
+      >
+        <mat-label>{{ email }}</mat-label>
+        <input formControlName="token" matInput required />
+        <mat-error *ngIf="form.get('token').hasError('required')">{{
+          'validations.required' | translate: { field: email }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('token').hasError('validation')">{{
+          form.get('token').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <button (click)="resend()" [disabled]="timer <= 60" mat-flat-button class="caption">
+        {{ 'account.resendCode' | translate }} <span *ngIf="timer <= 60"> {{timer}} </span>
+      </button>
+    </div>
+
+    <div class="text-center text-red">
+      <p *ngIf="errors.detail" class="caption">{{ errors.detail }}</p>
+      <p *ngIf="errors.key" class="caption">{{ errors.key | translate }}</p>
+    </div>
+
+    <button
+      [disabled]="!form.valid || loading"
+      [class.spinner]="loading"
+      color="primary"
+      mat-raised-button
+      type="submit"
+    >
+      <span [class.p-10]="loading">{{
+        !loading ? ('account.validate' | translate) : ''
+      }}</span>
+    </button>
+  </form>
+</div>

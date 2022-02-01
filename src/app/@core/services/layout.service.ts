@@ -49,7 +49,8 @@ export class LayoutService {
 
   isMobile = () => this.breakpointObserver.isMatched(`(max-width: 599px)`);
 
-  constructor(private router: Router, private breakpointObserver: BreakpointObserver) {}
+  constructor(private router: Router, private breakpointObserver: BreakpointObserver) {
+  }
 
   openQuickpanel() {
     this._quickpanelOpenSubject.next(true);

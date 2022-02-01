@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import icAdd from '@iconify/icons-ic/twotone-add';
 import icMoreHoriz from '@iconify/icons-ic/twotone-more-horiz';
 import icEdit from '@iconify/icons-ic/twotone-edit';
@@ -7,19 +7,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { finalize } from 'rxjs/operators';
-import { IRealStatesClient, RealStateDto, RealStatesClient, RealStatesPutCommand, RealStatesPutOrderCommand } from '@core/api';
+import { RealStateDto, RealStatesClient, RealStatesPutOrderCommand } from '@core/api';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
 import { RealStateCreateUpdateComponent } from './real-state-create-update/real-state-create-update.component';
 
-export enum Status {
-  Active = 0,
-  NotActive = 1,
-}
+
 @Component({
   selector: 'app-real-states',
   templateUrl: './real-state.component.html',
   styleUrls: ['./real-state.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RealStatesComponent implements OnInit {
 
@@ -75,7 +71,7 @@ export class RealStatesComponent implements OnInit {
       .afterClosed()
       .subscribe((item: RealStateDto) => {
         if (item.id) {
-          item.id = this.list.length + 1;
+          item.order = this.list.length + 1;
 
           this.list.push(item);
 

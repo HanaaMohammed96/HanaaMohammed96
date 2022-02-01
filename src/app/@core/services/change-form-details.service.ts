@@ -16,9 +16,7 @@ export class ChangeFormDetailsService {
   resetForm: any;
   constructor(
     public dialog: MatDialog
-  ) {
-    console.log('&&&', this.resetForm)
-  }
+  ) {}
 
   openEditFielDialog(): Observable<any> {
     const dialogRef = this.dialog.open(EditFieldComponent, {

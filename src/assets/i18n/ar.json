@@ -73,9 +73,9 @@
     "terms_Cond_ar": "للعربية",
     "terms_Cond_en": "للإنجليزية",
     "reservations": "الحجوزات",
-    "form": "إنشاء نماذج",
+    "form": "النماذج",
     "realState": "الأصول",
-    "country": "المدن"
+    "country": "الدول"
 
   },
   "account": {
@@ -86,7 +86,16 @@
     "password": "كلمة المرور",
     "remember_me": "تذكرني",
     "forgot_password": "هل نسيت كلمة المرور؟",
-    "sign_in": "تسجيل الدخول"
+    "sign_in": "تسجيل الدخول",
+    "forgotPassword" : "يمكنك إستعاده كلمه المرور عبر البريد الإلكترونى",
+    "sendCode" : "إرسال الرمز",
+    "validate" : "تحقق",
+    "resendCode" : "إعادة إرسال الرمز",
+    "code" : "رمز التحقق",
+    "validateCode" : "التجقق من ملكية الحساب",
+    "newPassword" : "كلمة المرور الجديدة",
+    "confirmChange" : "تأكيد التغير",
+    "confirmPassword" :"تأكيد كلمة المرور"
   },
   "forbidden": {
     "title": "403",
@@ -196,7 +205,8 @@
     "Option1":"اختيار 1",
     "Option2":"اختيار 2",
     "Option3":"اختيار 3",
-    "enterText":"ادخل وصف"
+    "enterText":"ادخل وصف",
+    "search":"بحث سريع"
 
   },
   "model":{
@@ -226,20 +236,22 @@
   "Form Description":"وصف النموذج",
   "arDescription":"وصف النموذج",
   "No response found":"لم يتم إدخال بيانات",
+  "Image":"صورة",
+  "PDF":"ملف",
   "realState":{
     "title":"الأصول",
     "description":"هذه القائمة تشمل كل الأصول",
-    "TableName":"العقار",
-    "tableNamePlural":"العقار",
+    "TableName":"الأصل",
+    "tableNamePlural":"الأصل",
     "name":"الاسم",
     "created_at": "تاريخ الإنشاء"
   },
   "isActive":"تفعيل",
   "country":{
-    "title":"المدن",
-    "description":"هذه القائمة تشمل كل المدن",
-    "TableName":"المدن",
-    "tableNamePlural":"المدن",
+    "title":"الدول",
+    "description":"هذه القائمة تشمل كل الدول",
+    "TableName":"دولة",
+    "tableNamePlural":"الدول",
     "name":"الاسم",
     "created_at": "تاريخ الإنشاء"
   },
@@ -249,7 +261,7 @@
     "enDescription": "الوصف باللغة لإنجليزية",
     "arDescription": "الوصف باللغة العربية",
     "type": "نوع النموذج",
-    "RealState": "العقار",
+    "RealState": "الأصل",
     "requestsNumber": "عدد الطلبات",
     "title_table_page": "جدول النماذج",
     "description_table_page": "هذه القائمة تحتوي على جميع النماذج",
