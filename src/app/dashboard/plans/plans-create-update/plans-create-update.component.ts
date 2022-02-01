@@ -54,14 +54,14 @@ export class PlansCreateUpdateComponent implements OnInit {
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-        messageNumber: [''],
-        emailNumber: [''],
-        adminNumber: [''],
-        incpectorNumber: [''],
-        evaluatorNumber: [''],
-        auditorNumber: [''],
-        commissionerNumber:[''],
-        reportsSentNumber:['']
+        messageNumber: [this.data.messageNumber,''],
+        emailNumber: [this.data.emailNumber,''],
+        adminNumber: [this.data.adminNumber,''],
+        incpectorNumber: [this.data.inspectorNumber,''],
+        evaluatorNumber: [this.data.evaluatorNumber,''],
+        auditorNumber: [this.data.auditorNumber,''],
+        commissionerNumber:[this.data.commissionerNumber,''],
+        reportsSentNumber:[this.data.reportsSentNumber,'']
       });
     }
   }
