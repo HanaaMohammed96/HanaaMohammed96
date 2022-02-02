@@ -17,6 +17,7 @@ import { MenuItem } from '../interfaces/menu-item.interface';
 import { UpdateProfileComponent } from 'src/app/dashboard/update-profile/update-profile.component';
 import { UpdatePasswordComponent } from 'src/app/dashboard/update-password/update-password.component';
 import { Observable } from 'rxjs';
+import { UpdatePhoneNumberComponent } from 'src/app/dashboard/update-phone-number/update-phone-number.component';
 
 @Component({
   selector: 'app-toolbar-user-dropdown',
@@ -90,7 +91,7 @@ export class ToolbarUserDropdownComponent {
         break;
 
       case 2:
-        component = null;
+        component = UpdatePhoneNumberComponent;
         break;
 
       case 3:

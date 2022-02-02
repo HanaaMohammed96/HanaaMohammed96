@@ -7,6 +7,7 @@ import icVisibilityOff from '@iconify/icons-ic/twotone-visibility-off';
 import { IdentityManager} from '@core/auth';
 import { finalize } from 'rxjs/operators';
 import { ForgetPasswordCommand } from '@core/api';
+import { ApiHandlerService } from '@core/services/api-handler.service';
 
 @Component({
   selector: 'app-forgot-password',
@@ -35,7 +36,8 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private _identityManager : IdentityManager,
     private _router: Router,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _handler: ApiHandlerService
   ) {}
 
   ngOnInit() {
@@ -60,7 +62,10 @@ export class ForgotPasswordComponent implements OnInit {
           this._router.navigate([`${PATHS.Validate}`], {queryParams : {emali : value.email}});
         },
         (err) => {
-          this.errors.detail = err.detail;
+          this._handler
+            .handleError(err)
+            .assignValidationErrors(this.form)
+            .assignErrors(this.errors)
         }
       );
   }

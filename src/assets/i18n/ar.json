@@ -280,7 +280,10 @@
     "password": "الرقم السري",
     "oldPassword": "الرقم السري الحالى",
     "newPassword": "الرقم السري الجديد",
-    "confirmPassword": "تأكيد الرقم السري"
+    "confirmPassword": "تأكيد الرقم السري",
+    "phoneNumber": "رقم الهاتف المحمول",
+    "phoneNumberTitle": " تحديث رقم الهاتف المحمول",
+    "confirmPhoneNumber" : "تأكيد الرقم الهاتف المحمول"
   },
   "plans":{
     "title": "جدول الخطط",

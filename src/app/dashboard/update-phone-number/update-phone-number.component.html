@@ -1,0 +1,52 @@
+<app-form-dialog
+  *ngIf="form"
+  [id]="this.id"
+  [title]="'profile.phoneNumberTitle' | translate"
+  [formGroup]="form"
+  [loading]="loading"
+  [errors]="errors"
+  (fgSubmit)="submit()"
+>
+  >
+  <div form-dialog-content>
+    <div *ngIf="!canConfirm" class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'profile.phoneNumber' | translate as phoneNumber"
+        appearance="outline"
+        class="mt-6 flex-auto"
+      >
+        <mat-label>{{ phoneNumber }}</mat-label>
+        <input cdkFocusInitial formControlName="phoneNumber" type="phoneNumber" matInput />
+        <mat-error *ngIf="form.get('phoneNumber').hasError('required')">{{
+          'validations.required' | translate: { field: phoneNumber }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('phoneNumber').hasError('validation')">{{
+          form.get('phoneNumber').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div *ngIf="canConfirm" class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'account.code' | translate as confirmPhoneNumber"
+        appearance="outline"
+        class="mt-6 flex-auto"
+      >
+        <mat-label>{{ confirmPhoneNumber }}</mat-label>
+        <input cdkFocusInitial formControlName="token" type="phoneNumber" matInput />
+        <mat-error *ngIf="form.get('token').hasError('required')">{{
+          'validations.required' | translate: { field: confirmPhoneNumber }
+        }}</mat-error>
+        <mat-error *ngIf="form.get('token').hasError('validation')">{{
+          form.get('token').errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+    <div *ngIf="canConfirm" fxLayout="row" fxLayoutAlign="space-between center">
+      <button (click)="resend()" [disabled]="timer <= 60" mat-flat-button class="caption">
+        {{ 'account.resendCode' | translate }} <span *ngIf="timer <= 60"> {{timer}} </span>
+      </button>
+    </div>
+
+  </div>
+</app-form-dialog>

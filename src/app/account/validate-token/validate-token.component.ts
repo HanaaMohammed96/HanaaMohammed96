@@ -6,8 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import icVisibility from '@iconify/icons-ic/twotone-visibility';
 import icVisibilityOff from '@iconify/icons-ic/twotone-visibility-off';
 import { finalize } from 'rxjs/operators';
-import { AccountsClient, ForgetPasswordCommand, ValidateResetPasswordToken } from '@core/api';
-import { AuthResult, IdentityManager } from '@core/auth';
+import { ForgetPasswordCommand, ValidateResetPasswordToken } from '@core/api';
+import { IdentityManager } from '@core/auth';
+import { ApiHandlerService } from '@core/services/api-handler.service';
 
 @Component({
   selector: 'app-validate-token',
@@ -40,7 +41,8 @@ export class ValidateTokenComponent implements OnInit {
     private _identityManager: IdentityManager,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _handler: ApiHandlerService
   ) { }
 
   ngOnInit() {
@@ -50,6 +52,8 @@ export class ValidateTokenComponent implements OnInit {
   }
 
   startTimer() {
+    this.timer = 0;
+
     this.interval = setInterval(() => {
       this.timer = +this.timer + 1;
 
@@ -79,8 +83,10 @@ export class ValidateTokenComponent implements OnInit {
         },
         (err) =>{
 
-          this.errors.detail = err.detail;
-          console.log(err)
+          this._handler
+          .handleError(err)
+          .assignValidationErrors(this.form)
+          .assignErrors(this.errors)
         }
       );
   }
@@ -93,13 +99,15 @@ export class ValidateTokenComponent implements OnInit {
       .pipe(finalize(() => (this.loading = false)))
       .subscribe(
         () => {
-          this.timer = 0;
           this.startTimer()
         },
         (err) =>{
-          this.timer = 0;
           this.startTimer();
-          this.errors.detail = err.detail;
+
+          this._handler
+          .handleError(err)
+          .assignValidationErrors(this.form)
+          .assignErrors(this.errors)
         }
       );
   }

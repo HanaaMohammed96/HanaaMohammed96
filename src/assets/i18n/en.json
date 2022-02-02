@@ -276,8 +276,10 @@
     "password" : "Password",
     "oldPassword" : "old password",
     "newPassword" : "new password",
-    "confirmPassword" : "confirm password"
-
+    "confirmPassword" : "confirm password",
+    "phoneNumber": "Phone number",
+    "phoneNumberTitle": "Edit phone number",
+    "confirmPhoneNumber" : "confirm phoneNumber"
   },
   "plans":{
     "title": "Monjez Plans Table",
