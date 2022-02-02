@@ -74,7 +74,7 @@
     "terms_Cond_en": "For English",
     "reservations": "Reservations",
     "form": "Forms",
-    "realState": "RealStates",
+    "realState": "RealEstates",
     "country": "Countries"
   },
   "account": {
@@ -246,10 +246,10 @@
   "Image":"Image",
   "PDF":"PDF",
   "realState":{
-    "title":"Monjez Portal RealStates Page",
-    "description":"This list includes all RealStates",
-    "TableName":" RealState",
-    "tableNamePlural":"RealState",
+    "title":"Monjez Portal RealEstates Page",
+    "description":"This list includes all RealEstates",
+    "TableName":" RealEstate",
+    "tableNamePlural":"RealEstate",
     "name":"Name",
     "created_at": "Created At"
   },
