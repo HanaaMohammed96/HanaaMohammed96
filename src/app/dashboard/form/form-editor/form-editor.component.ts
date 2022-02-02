@@ -106,7 +106,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     // if (event.container.connectedTo[0].id == 'cdk-drop-list-0') {
     // if (this.lang =='en' && event.distance.x > 1 || this.lang =='ar' && event.distance.x < 1) {
     if (event.container.id == 'drag-Zone') {
-      this.removeField(event.currentIndex);
+      // this.removeField(event.currentIndex);
       return;
     }
     // for coping item in dropzone
@@ -132,7 +132,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
       .afterClosed().subscribe(data => {
         if (data) {
-          console.log('$$',this.model.fields)
+          console.log('$$', this.model.fields)
           this.model.fields.splice(i, 1);
         } else {
           return;

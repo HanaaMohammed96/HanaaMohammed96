@@ -7,7 +7,7 @@
 
         <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
           [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content" fxLayout="column"
-          fxLayoutAlign="space-evenly center" class=" p-6  text-black dropzone">
+          fxLayoutAlign="space-evenly center" class=" p-6  text-black dropzone bg-white">
 
           <mat-icon color="primary" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
           </mat-icon>
@@ -189,7 +189,7 @@
 
     <div>
       <!-- if records found -->
-      <div *ngIf="reports.fields.length > 0" class="p-8 rounded" style="border:2px solid #ccc;box-shadow: 0 0 10px gray;">
+      <div *ngIf="reports.fields.length > 0" class="p-8 rounded bg-white" style="border:2px solid #ccc;box-shadow: 0 0 10px gray;">
 
         <div>
           <h3 class="text-center m-6 ">{{formEditorService.toLang(model.name)}}</h3>
