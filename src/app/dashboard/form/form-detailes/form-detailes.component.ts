@@ -56,13 +56,15 @@ export class FormDetailesComponent implements OnInit {
     this.countriesClient.getList().subscribe(result => {
       this.countries = result;
     });
-    if (this.data.id) {
-      this.data.type = this.data.type;
-
+    // this.data.type = this.data.type;
+    if (this.data.countryId){
       this.regionsClient.getList(this.data.countryId, null).subscribe(result => {
+        console.log('@',this.data.countryId)
         this.regions = result;
       });
+    }
 
+    if (this.data.countryId && this.data.parentRegionId) {
       this.regionsClient.getList(null, this.data.parentRegionId).subscribe(result => {
         this.subRegions = result;
       });
@@ -81,7 +83,12 @@ export class FormDetailesComponent implements OnInit {
   onSelectCountry(event: any) {
     if (event) {
       this.regionsClient.getList(event, null).subscribe(result => {
-        this.regions = result;
+        if(result.length == 0){
+          this.regions = this.subRegions = result;
+        }else{
+          this.regions = result;
+          this.data.parentRegionId = null;
+        }
       });
     }
 
@@ -94,9 +101,6 @@ export class FormDetailesComponent implements OnInit {
         this.subRegions = result;
       });
     }
-  }
-
-  onSelectSub(event: any) {
   }
 
 }

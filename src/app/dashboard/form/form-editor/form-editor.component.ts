@@ -2,7 +2,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {
-  DataFieldDto, FieldType, FormsClient, IDataFieldDto
+  DataFieldDto, FieldType, FormsClient, IDataFieldDto, LocalizedStringDto
 } from '@core/api';
 import { ChangeFormDetailsService } from '@core/services/change-form-details.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -63,11 +63,29 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
     this.fieldModels = this.formEditorService._fieldModels;
 
-    this.lang = localStorage.getItem('lang')
+    this.lang = localStorage.getItem('lang');
+
+    this.formEditorService.validForm(this.model)
 
   }
   ngOnDestroy(): void {
     localStorage.removeItem('resetFormDetailes');
+    localStorage.removeItem('resetIem');
+
+    this.formEditorService._model = {
+      name: new LocalizedStringDto({
+        ar: '',
+        en: ''
+      }),
+      description: new LocalizedStringDto({
+        ar: '',
+        en: ''
+      }),
+      realStateId: null,
+      type: null,
+      fields: [],
+    };
+
   }
 
   ngOnInit(): void {
@@ -85,8 +103,9 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
   drop(event: CdkDragDrop<string[]>) {
     // for prevent duplicate items in dragable list
-    if (event.container.connectedTo[0].id == 'cdk-drop-list-0') {
-
+    // if (event.container.connectedTo[0].id == 'cdk-drop-list-0') {
+    // if (this.lang =='en' && event.distance.x > 1 || this.lang =='ar' && event.distance.x < 1) {
+    if (event.container.id == 'drag-Zone') {
       this.removeField(event.currentIndex);
       return;
     }
@@ -98,7 +117,6 @@ export class FormEditorComponent implements OnInit, OnDestroy {
       this.model.fields[event.currentIndex].orders = event.currentIndex + 1;
 
     } else {
-
       const clone = cloneDeep(event.previousContainer.data[event.previousIndex]);
       event.container.data.splice(event.currentIndex, 0, clone);
 
@@ -114,6 +132,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
       .afterClosed().subscribe(data => {
         if (data) {
+          console.log('$$',this.model.fields)
           this.model.fields.splice(i, 1);
         } else {
           return;
@@ -178,10 +197,10 @@ export class FormEditorComponent implements OnInit, OnDestroy {
           this.model.fields = this.formEditorService._model.fields;
         }
       } else {
-        localStorage.setItem('resetFormDetailes', JSON.stringify(this.model))
+        localStorage.setItem('resetFormDetailes', JSON.stringify(this.model));
       }
+      this.formEditorService.validForm(this.model);
     });
-    this.formEditorService.validForm(this.model);
 
   }
 

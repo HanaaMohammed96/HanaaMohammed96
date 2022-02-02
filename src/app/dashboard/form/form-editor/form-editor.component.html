@@ -1,5 +1,5 @@
 <div class=" lg:container p-4 mx-auto">
-  <div class="grid grid-cols-4 gap-4" [class.hidden]="report">
+  <div class="grid grid-cols-4 gap-4 limit" [class.hidden]="report">
 
     <!--dropzone-->
     <div class="col-span-3">
@@ -114,13 +114,13 @@
                 <mat-icon>more_vert</mat-icon>
               </button>
               <mat-menu #menu="matMenu">
-                <button mat-menu-item>
-                  <mat-icon (click)="openDialog(item,i)" color="primary">edit</mat-icon>
-                  <span> Edit </span>
+                <button mat-menu-item (click)="openDialog(item,i)">
+                  <mat-icon  color="primary">edit</mat-icon>
+                  <span> {{'general.update' | translate}} </span>
                 </button>
-                <button mat-menu-item>
-                  <mat-icon (click)="removeField(i)" color="primary"> delete </mat-icon>
-                  <span> Delete </span>
+                <button mat-menu-item (click)="removeField(i)">
+                  <mat-icon  color="primary"> delete </mat-icon>
+                  <span> {{'general.delete' | translate}} </span>
                 </button>
               </mat-menu>
             </div>
@@ -134,7 +134,7 @@
     <!-- dragable Zone -->
     <nav class="col mat-elevation-z8 p-4 m-auto" cdkDropList #formFields="cdkDropList"
       (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
-      position="end" cdkDrag>
+      position="end" cdkDrag cdkDragBoundary=".limit" id="drag-Zone">
       <!-- <div class="sidebar-top">
         <span class="material-icons shrink-btn">
           arrow_forward_ios

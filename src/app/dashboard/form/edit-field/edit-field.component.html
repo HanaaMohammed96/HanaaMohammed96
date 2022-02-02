@@ -8,51 +8,51 @@
         <mat-slide-toggle [checked]="data.isRequired === true ? true : false" (change)="setValue( $event )" class='w-14'>
         </mat-slide-toggle>
       </div>
-      <h3 *ngIf="data.isRequired" class="whitespace-normal w-3/6">{{"Required" | translate}}</h3>
-      <h3 *ngIf="!data.isRequired" class="whitespace-normal w-3/6"> {{"Not Required"| translate}}</h3>
+      <h3 *ngIf="data.isRequired" class="whitespace-normal w-3/6">{{"required" | translate}}</h3>
+      <h3 *ngIf="!data.isRequired" class="whitespace-normal w-3/6"> {{"notRequired"| translate}}</h3>
       <!-- <h3 class="whitespace-normal w-3/6"> {{formEditorService.toLang(data.name)}} </h3> -->
     </div>
     <div fxLayout="row" fxLayoutAlign="space-evenly start"  class="max-w-3xl">
       <div fxLayout="column" fxLayoutAlign="space-evenly start" class="m-6 w-3/6">
         <mat-form-field *ngIf="data.fieldType >=0" class="w-full" appearance="outline" fxFlex="grow">
-          <mat-label>English Label</mat-label>
+          <mat-label>{{'formFields.enLabel' | translate}}</mat-label>
           <input type="text" [(ngModel)]="data.name.en" matInput max="200" />
         </mat-form-field>
   
         <mat-form-field *ngIf="data.fieldType >=0" class="w-full" appearance="outline" fxFlex="grow">
-          <mat-label>Arabic Label</mat-label>
+          <mat-label>{{'formFields.arLabel' | translate}}</mat-label>
           <input type="text" [(ngModel)]="data.name.ar" matInput max="200" />
         </mat-form-field>
   
         <mat-form-field *ngIf="data.fieldType == +type.Text || data.fieldType == +type.TextArea" class="w-full"
           appearance="outline" fxFlex="grow">
-          <mat-label>English Placeholder</mat-label>
+          <mat-label>{{'formFields.enPlacHolder' | translate}}</mat-label>
           <input type="text" [(ngModel)]="data.placeholder.en" matInput />
         </mat-form-field>
   
         <mat-form-field *ngIf="data.fieldType == +type.Text || data.fieldType == +type.TextArea" class="w-full"
           appearance="outline" fxFlex="grow">
-          <mat-label>Arabic Placeholder</mat-label>
+          <mat-label>{{'formFields.arPlacHolder' | translate}}</mat-label>
           <input type="text" [(ngModel)]="data.placeholder.ar" matInput />
         </mat-form-field>
   
         <mat-form-field *ngIf="data.fieldType == +type.Text " class="w-full" appearance="outline" fxFlex="grow">
-          <mat-label>Regex</mat-label>
+          <mat-label>{{'formFields.regex' | translate}}</mat-label>
           <input type="text" [(ngModel)]="data.regex" matInput />
         </mat-form-field>
   
         <mat-form-field *ngIf="data.fieldType == +type.Result " class="w-full" appearance="outline" fxFlex="grow">
-          <mat-label>Equation</mat-label>
+          <mat-label>{{'formFields.equation' | translate}}</mat-label>
           <input type="text" [(ngModel)]="data.equation" matInput />
         </mat-form-field>
   
         <mat-form-field class="w-full" appearance="outline" fxFlex="grow" *ngIf="data.fieldType == +type.CheckBox || data.fieldType == +type.Radio || data.fieldType == +type.Select">
-          <mat-label>English value</mat-label>
+          <mat-label>{{'formFields.enValue' | translate}}</mat-label>
           <input type="text" [(ngModel)]="value.en" matInput />
         </mat-form-field>
   
         <mat-form-field class="w-full" appearance="outline" fxFlex="grow" *ngIf="data.fieldType == +type.CheckBox || data.fieldType == +type.Radio || data.fieldType == +type.Select">
-          <mat-label>Arabic value</mat-label>
+          <mat-label>{{'formFields.arValue' | translate}}</mat-label>
           <input type="text" [(ngModel)]="value.ar" matInput />
         </mat-form-field>
         <mat-icon (click)="addValue(data.dataValues)" mat-fab color="primary" 
@@ -71,13 +71,13 @@
               <mat-icon>more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-              <button mat-menu-item>
-                <mat-icon (click)="openDialog(i,valueIndex)" color="primary">edit</mat-icon>
-                <span> Edit </span>
+              <button mat-menu-item (click)="openDialog(i,valueIndex)">
+                <mat-icon  color="primary">edit</mat-icon>
+                <span> {{'general.update' | translate}} </span>
               </button>
-              <button mat-menu-item>
-                <mat-icon (click)="data.dataValues.splice(valueIndex,1)" color="primary"> delete </mat-icon>
-                <span> Delete </span>
+              <button mat-menu-item (click)="data.dataValues.splice(valueIndex,1)">
+                <mat-icon  color="primary"> delete </mat-icon>
+                <span> {{'general.delete' | translate}} </span>
               </button>
             </mat-menu>
           </div>

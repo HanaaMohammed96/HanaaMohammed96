@@ -55,18 +55,15 @@
 
     <div class="flex flex-row justify-evenly">
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
-        <mat-label>Country</mat-label>
+        <mat-label>{{'formFields.country' |translate}}</mat-label>
         <mat-select (valueChange)="onSelectCountry($event)" [(value)]="data.countryId">
           <mat-option *ngFor="let country of countries" [value]="country.id">
             {{country.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
-    </div>
-
-    <div class="flex flex-row justify-evenly" >
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
-        <mat-label>Region</mat-label>
+        <mat-label>{{'formFields.region' | translate}}</mat-label>
         <mat-select [(value)]="data.parentRegionId" (valueChange)="onSelectRegion($event)"
           [disabled]="regions?.length <= 0">
           <mat-option *ngFor="let region of regions" [value]="region.id">
@@ -74,9 +71,12 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </div>
+
+    <div class="flex flex-row justify-evenly" >
       <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
-        <mat-label>SubRegion</mat-label>
-        <mat-select [disabled]="subRegions?.length <= 0" (valueChange)="onSelectSub($event)" [(value)]="data.regionId">
+        <mat-label>{{'formFields.subRegion' | translate}}</mat-label>
+        <mat-select [disabled]="subRegions?.length <= 0" [(value)]="data.regionId">
           <mat-option *ngFor="let sub of subRegions" [value]="sub.id">
             {{sub.name}}
           </mat-option>
