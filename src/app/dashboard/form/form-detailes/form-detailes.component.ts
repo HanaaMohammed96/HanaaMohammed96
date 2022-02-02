@@ -56,10 +56,8 @@ export class FormDetailesComponent implements OnInit {
     this.countriesClient.getList().subscribe(result => {
       this.countries = result;
     });
-    // this.data.type = this.data.type;
     if (this.data.countryId){
       this.regionsClient.getList(this.data.countryId, null).subscribe(result => {
-        console.log('@',this.data.countryId)
         this.regions = result;
       });
     }
@@ -85,6 +83,7 @@ export class FormDetailesComponent implements OnInit {
       this.regionsClient.getList(event, null).subscribe(result => {
         if(result.length == 0){
           this.regions = this.subRegions = result;
+          this.data.parentRegionId = this.data.regionId = null;
         }else{
           this.regions = result;
           this.data.parentRegionId = null;
