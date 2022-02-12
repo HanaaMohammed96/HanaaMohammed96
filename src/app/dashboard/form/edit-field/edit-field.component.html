@@ -41,7 +41,7 @@
           <input type="text" [(ngModel)]="data.regex" matInput />
         </mat-form-field>
   
-        <mat-form-field *ngIf="data.fieldType == +type.Result " class="w-full" appearance="outline" fxFlex="grow">
+        <mat-form-field *ngIf="data.fieldType == +type.Result  || data.fieldType == +type.Hidden" class="w-full" appearance="outline" fxFlex="grow">
           <mat-label>{{'formFields.equation' | translate}}</mat-label>
           <input type="text" [(ngModel)]="data.equation" matInput />
         </mat-form-field>

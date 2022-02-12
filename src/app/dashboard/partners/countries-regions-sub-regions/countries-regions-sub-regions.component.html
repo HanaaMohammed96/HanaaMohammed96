@@ -1,0 +1,64 @@
+<!-- <div class="example-action-buttons">
+  <button mat-button (click)="accordion.openAll()">Expand All</button>
+  <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+</div> -->
+<div mat-dialog-title fxLayout="row" fxLayoutAlign="space-between center" class="text-start p-4 rounded">
+  <mat-icon>flag</mat-icon>
+  <h1>{{data.username }}</h1>
+  <mat-icon (click)="onNoClick()" class="cursor-pointer">close</mat-icon>
+</div>
+
+<div mat-dialog-content>
+  <mat-accordion>
+    <mat-expansion-panel *ngFor="let country of countries" (opened)="getRegions(country)" class="p-0">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <!-- <mat-checkbox [checked]="checklistSelection.isSelected(country)"  (click)="$event.stopPropagation();" (change)="setAll($event)"> -->
+          <mat-checkbox [checked]="checklistSelectionRegions.isSelected(country) && isAllSelected()"
+            [indeterminate]="checklistSelectionRegions.hasValue() || checklistSelectionSubRegions.hasValue()" (click)="$event.stopPropagation();"
+            (change)="$event ? countryToggle($event) : null">
+
+            {{displayContentAccordingLang.toLang(country.name)}}
+          </mat-checkbox>
+        </mat-panel-title>
+        <mat-panel-description>
+          #{{country.id}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Regions -->
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let region of regionsCtry; let index = index"
+          (opened)="getSubRegions(region,accordion)">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-checkbox [checked]="checklistSelectionSubRegions.isSelected(region) && isSubsSelected()" (click)="$event.stopPropagation();"
+              [indeterminate]="checklistSelectionSubRegions.hasValue()"
+              (change)="$event ? regionToggle($event) : null">
+                <!-- (change)="$event ? checklistSelectionSubRegions.toggle(region) : null"> -->
+                {{displayContentAccordingLang.toLang(region.name)}}
+              </mat-checkbox>
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <!-- Subs -->
+          <mat-list *ngFor="let subRegion of subRegionsRegion">
+            <mat-list-item>
+              <mat-panel-title>
+                <mat-checkbox [checked]="choosenSubs">
+                  {{displayContentAccordingLang.toLang(subRegion.name)}}
+                </mat-checkbox>
+              </mat-panel-title>
+            </mat-list-item>
+          </mat-list>
+        </mat-expansion-panel>
+      </mat-accordion>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+<mat-dialog-actions align="center">
+
+  <button mat-raised-button color="primary" [mat-dialog-close]="data">Yes</button>
+  <button mat-flat-button (click)="onNoClick()">No</button>
+</mat-dialog-actions>

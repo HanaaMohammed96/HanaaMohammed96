@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ResetPasswordComponent } from '../team/reset-password/reset-password.component';
 import { PartnerCreateUpdateComponent } from './partner-create-update/partner-create-update.component';
+import { CountriesRegionsSubRegionsComponent } from './countries-regions-sub-regions/countries-regions-sub-regions.component';
 
 @Component({
   selector: 'app-partners',
@@ -49,7 +50,7 @@ export class PartnersComponent implements OnInit {
     private _fb: FormBuilder,
     private _dialog: MatDialog,
     private _translateService: TranslateService,
-  ) { 
+  ) {
     this.form = this._fb.group({
       serviceProviderId: [''],
     });
@@ -59,7 +60,7 @@ export class PartnersComponent implements OnInit {
     const roles = {
       Partner: { name: await this.translate('team.roles.partner'), color: 'bg-teal' }
     };
-    
+
 
     this.columns = [
       {
@@ -105,6 +106,14 @@ export class PartnersComponent implements OnInit {
 
     this.actions = [
       {
+        label: await this.translate('team.showAreas'),
+        ref: this,
+        actionName: 'showAreas',
+        icon: this.table.icEdit,
+        disabled: false,
+        loading: false,
+      },
+      {
         label: await this.translate('team.resetPassword'),
         ref: this,
         actionName: 'resetPassword',
@@ -131,7 +140,7 @@ export class PartnersComponent implements OnInit {
     ];
   }
   getData(pagingOptions: PagingOptions): Observable<PaginatedListOfAdminVm> {
-    
+
     const spId = +this.form.get('serviceProviderId').value;
 
     return this.accountsClient.getAdminsPage(
@@ -147,6 +156,14 @@ export class PartnersComponent implements OnInit {
   resetPassword(action: SelectionAction, item: AdminVm): void {
     this._dialog.open(ResetPasswordComponent, {
       minWidth: this.table.minWidth,
+      data: item,
+    });
+  }
+  showAreas(action: SelectionAction, item: AdminVm): void {
+    this._dialog.open(CountriesRegionsSubRegionsComponent, {
+      // height: '600px',
+      width: '700px',
+      autoFocus: false,
       data: item,
     });
   }

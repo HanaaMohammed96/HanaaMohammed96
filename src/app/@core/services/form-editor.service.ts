@@ -88,6 +88,17 @@ export class FormEditorService {
       },
       {
         name: new LocalizedStringDto({
+          ar: 'حقل مخفي',
+          en: 'Hidden'
+        }),
+        orders: null,
+        isRequired: false,
+        equation: null,
+        fieldType: FieldType.Hidden,
+        code: 'A'
+      },
+      {
+        name: new LocalizedStringDto({
           ar: 'تاريخ',
           en: 'Date'
         }),
@@ -235,6 +246,9 @@ export class FormEditorService {
         break;
       case 'Pdf':
         return 'picture_as_pdf';
+        break;
+      case 'Hidden':
+        return 'visibility_off';
         break;
       default:
         return 'text_fields';

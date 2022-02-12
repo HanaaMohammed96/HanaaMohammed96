@@ -171,7 +171,8 @@
     "serviceProvider": "Service Provider",
     "branch": "Branch",
     "service": "Service",
-    "resetPassword": "Reset Password"
+    "resetPassword": "Reset Password",
+    "showAreas": "Show Belongs Areas"
   },
   "regions":{
     "title": "Monjez Regions Table",

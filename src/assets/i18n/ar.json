@@ -172,7 +172,8 @@
     "serviceProvider": "مقدم الخدمة",
     "branch": "الفرع",
     "service": "الخدمة",
-    "resetPassword": "تغير كلمة المرور"
+    "resetPassword": "تغير كلمة المرور",
+    "showAreas": "تعديل المناطق "
   },
   "regions":{
     "title": "جدول المناطق",

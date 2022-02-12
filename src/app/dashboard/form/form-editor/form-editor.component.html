@@ -25,6 +25,13 @@
                 <input type="text" placeholder="{{formEditorService.toLang(item.placeholder)}}" matInput />
               </mat-form-field>
 
+              <mat-form-field *ngIf="item.fieldType == +type.Hidden" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
+                <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+                </mat-label>
+                <input type="text" matInput />
+              </mat-form-field>
+              
               <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped"
                 appearance="outline" fxFlex="grow">
                 <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
@@ -189,7 +196,7 @@
 
     <div>
       <!-- if records found -->
-      <div *ngIf="reports.fields.length > 0" class="p-8 rounded bg-white" style="border:2px solid #ccc;box-shadow: 0 0 10px gray;">
+      <div *ngIf="reports.fields.length > 0" class="p-8 rounded bg-white" style="border:2px solid #ccc; box-shadow: 0 0 10px gray;">
 
         <div>
           <h3 class="text-center m-6 ">{{formEditorService.toLang(model.name)}}</h3>
@@ -212,6 +219,13 @@
               <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
               </mat-label>
               <input type="number" matInput />
+            </mat-form-field>
+
+            <mat-form-field *ngIf="item.fieldType == +type.Hidden" cdkDrag class="font-in-dropped hidden" appearance="outline"
+              fxFlex="grow" >
+              <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+              </mat-label>
+              <input type="text" matInput />
             </mat-form-field>
 
             <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped" appearance="outline"

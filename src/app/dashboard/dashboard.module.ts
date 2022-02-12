@@ -46,6 +46,7 @@ import { RegionsComponent } from './regions/regions.component';
 import { PlansComponent } from './plans/plans.component';
 import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-create-update.component';
 import { UpdatePhoneNumberComponent } from './update-phone-number/update-phone-number.component';
+import { CountriesRegionsSubRegionsComponent } from './partners/countries-regions-sub-regions/countries-regions-sub-regions.component';
 
 
 
@@ -94,7 +95,8 @@ import { UpdatePhoneNumberComponent } from './update-phone-number/update-phone-n
     RegionsComponent,
     PlansComponent,
     PlansCreateUpdateComponent,
-    UpdatePhoneNumberComponent
+    UpdatePhoneNumberComponent,
+    CountriesRegionsSubRegionsComponent
   ],
   imports: [
     CommonModule,
