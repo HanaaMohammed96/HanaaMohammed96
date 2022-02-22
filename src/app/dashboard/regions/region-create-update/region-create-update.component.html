@@ -29,7 +29,7 @@
             </div>
         </div>
         <div class="flex flex-col sm:flex-row w-full">
-            <mat-form-field appearance="fill" class=" w-full">
+            <mat-form-field appearance="outline" class=" w-full">
                 <mat-label>{{'regions.ctryName' | translate}}</mat-label>
                 <mat-select (valueChange)="onSelect($event)" formControlName="countryId" [value]="data.countryId">
                     <mat-option *ngFor="let country of countries" [value]="country.id">

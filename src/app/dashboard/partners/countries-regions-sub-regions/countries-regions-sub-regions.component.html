@@ -14,7 +14,7 @@
       <mat-expansion-panel-header>
         <mat-panel-title>
           <!-- <mat-checkbox [checked]="checklistSelection.isSelected(country)"  (click)="$event.stopPropagation();" (change)="setAll($event)"> -->
-          <mat-checkbox [checked]="checklistSelectionRegions.isSelected(country) && isAllSelected()"
+          <mat-checkbox [checked]="checklistSelection.isSelected(country) && isAllSelected()"
             [indeterminate]="checklistSelectionRegions.hasValue() || checklistSelectionSubRegions.hasValue()" (click)="$event.stopPropagation();"
             (change)="$event ? countryToggle($event) : null">
 

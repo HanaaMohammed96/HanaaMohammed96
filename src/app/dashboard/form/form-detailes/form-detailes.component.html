@@ -27,15 +27,16 @@
       </div>
     </div>
     <div class="flex flex-row justify-evenly">
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
+      <mat-form-field appearance="outline" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'Form.RealState' | translate}}</mat-label>
         <mat-select (valueChange)="onSelectRealState($event)" [(value)]="data.realStateId">
           <mat-option *ngFor="let realState of realStates" [value]="realState.id">
-            {{realState.name}}
+            {{formEditorService.toLang(realState.name)}}
+            <!-- {{realState.name}} -->
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4" *ngIf="lang=='en'">
+      <mat-form-field appearance="outline" class="flex flex-row justify-evenly p-4" *ngIf="lang=='en'">
         <mat-label>{{'Form.type' | translate}}</mat-label>
         <mat-select (valueChange)="onSelectType($event)" [(value)]="data.type">
           <mat-option *ngFor="let type of types" [value]="+type">
@@ -43,7 +44,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4" *ngIf="lang=='ar'">
+      <mat-form-field appearance="outline" class="flex flex-row justify-evenly p-4" *ngIf="lang=='ar'">
         <mat-label>{{'Form.type' | translate}}</mat-label>
         <mat-select (valueChange)="onSelectType($event)" [(value)]="data.type">
           <mat-option *ngFor="let type of arabicTypes; let index=index" [value]="+index">
@@ -54,7 +55,7 @@
     </div>
 
     <div class="flex flex-row justify-evenly">
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
+      <mat-form-field appearance="outline" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'formFields.country' |translate}}</mat-label>
         <mat-select (valueChange)="onSelectCountry($event)" [(value)]="data.countryId">
           <mat-option *ngFor="let country of countries" [value]="country.id">
@@ -62,7 +63,7 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
+      <mat-form-field appearance="outline" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'formFields.region' | translate}}</mat-label>
         <mat-select [(value)]="data.parentRegionId" (valueChange)="onSelectRegion($event)"
           [disabled]="regions?.length <= 0">
@@ -74,7 +75,7 @@
     </div>
 
     <div class="flex flex-row justify-evenly" >
-      <mat-form-field appearance="fill" class="flex flex-row justify-evenly p-4">
+      <mat-form-field appearance="outline" class="flex flex-row justify-evenly p-4">
         <mat-label>{{'formFields.subRegion' | translate}}</mat-label>
         <mat-select [disabled]="subRegions?.length <= 0" [(value)]="data.regionId">
           <mat-option *ngFor="let sub of subRegions" [value]="sub.id">

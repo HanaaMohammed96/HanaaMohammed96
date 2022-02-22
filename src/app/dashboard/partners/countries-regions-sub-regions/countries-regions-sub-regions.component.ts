@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatAccordion } from '@angular/material/expansion';
 import { AdminVm, LocalizedStringDto } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { pluck } from 'rxjs/operators';
 import { FormEditorService } from './../../../@core/services/form-editor.service';
 
 interface CountriesPartnerVm {
@@ -43,6 +44,7 @@ export class CountriesRegionsSubRegionsComponent implements OnInit {
   choosenSubs: boolean = false;
   // multi select
   selectedParent:CountriesPartnerVm | null = null;
+  checklistSelection = new SelectionModel<RegionCountryVm>(true,[]);
   checklistSelectionRegions = new SelectionModel<RegionCountryVm>(true,[]);
   checklistSelectionSubRegions = new SelectionModel<SubRegionCountryVm>(true,[]);
 
@@ -240,6 +242,9 @@ export class CountriesRegionsSubRegionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.checklistSelection.changed
+    .pipe(pluck('source', 'selected'))
+    .subscribe((selected) => console.log(selected));
   }
   getRegions(ctry){
     this.regionsCtry = this.regions.filter(ele=>ele.countryId == ctry.id);
@@ -256,30 +261,33 @@ export class CountriesRegionsSubRegionsComponent implements OnInit {
   //   this.choosenRegions = this.choosenSubs = e.checked;
   // };
   isAllSelected() {
-    const numSelected = this.checklistSelectionRegions.selected.length;
-    const numRegions = this.regions.length;
-    const numSubs = this.subRegions.length;
-    return numSelected === numRegions + numSubs;
+    
+    // const numSelected = this.checklistSelectionRegions.selected.length;
+    // const numRegions = this.regions.length;
+    // const numSubs = this.subRegions.length;
+    // return numSelected === numRegions + numSubs;
   }
   isSubsSelected() {
     const numSelected = this.checklistSelectionSubRegions.selected.length;
-    const numSubs = this.subRegions.length;
-    return numSelected === numSubs;
+    console.log('subs',numSelected)
+    // const numSubs = this.subRegions.length;
+    // return numSelected === numSubs;
   }
   countryToggle(e) {
     this.choosenRegions = this.choosenSubs = e.checked;
-    this.isAllSelected() ?
-        this.checklistSelectionRegions.clear() :
-        this.regions.forEach(row => this.checklistSelectionRegions.select(row));
+    // this.isAllSelected() ?
+    //     this.checklistSelectionRegions.clear() :
+    //     this.regions.forEach(row => this.checklistSelectionRegions.select(row));
   }
   regionToggle(e) {
-    this.choosenSubs = e.checked;
-    this.isAllSelected() ?
-        this.checklistSelectionSubRegions.clear() :
-        this.subRegions.forEach(row => this.checklistSelectionSubRegions.select(row));
+    // this.choosenSubs = e.checked;
+    // this.isAllSelected() ?
+    //     this.checklistSelectionSubRegions.clear() :
+    //     this.subRegions.forEach(row => this.checklistSelectionSubRegions.select(row));
   }
 
   onNoClick(){
-    this._dialogRef.close();
+    this._dialogRef.afterClosed().subscribe(d=>console.log('##', this.checklistSelectionRegions))
+    this._dialogRef.close()
   }
 }

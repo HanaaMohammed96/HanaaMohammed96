@@ -17,6 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ResetPasswordComponent } from '../team/reset-password/reset-password.component';
 import { PartnerCreateUpdateComponent } from './partner-create-update/partner-create-update.component';
 import { CountriesRegionsSubRegionsComponent } from './countries-regions-sub-regions/countries-regions-sub-regions.component';
+import  icBusiness from '@iconify/icons-ic/twotone-business';
+import icCheckCircle from '@iconify/icons-ic/twotone-check-circle';
 
 @Component({
   selector: 'app-partners',
@@ -109,7 +111,7 @@ export class PartnersComponent implements OnInit {
         label: await this.translate('team.showAreas'),
         ref: this,
         actionName: 'showAreas',
-        icon: this.table.icEdit,
+        icon: icBusiness,
         disabled: false,
         loading: false,
       },
@@ -117,7 +119,7 @@ export class PartnersComponent implements OnInit {
         label: await this.translate('team.resetPassword'),
         ref: this,
         actionName: 'resetPassword',
-        icon: this.table.icEdit,
+        icon: icCheckCircle,
         disabled: false,
         loading: false,
       },

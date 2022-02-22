@@ -2246,7 +2246,7 @@ export interface ICountriesClient {
     delete(id: number | undefined): Observable<void>;
     getPage(): Observable<CountryDto[]>;
     getList(): Observable<CountryVm[]>;
-    getListAll(): Observable<CountryVmForList[]>;
+    getListAll(): Observable<FullCountryVm[]>;
     putOrder(command: CountriesPutOrderCommand): Observable<void>;
 }
 
@@ -2659,7 +2659,7 @@ export class CountriesClient implements ICountriesClient {
         }
     }
 
-    getListAll(): Observable<CountryVmForList[]> {
+    getListAll(): Observable<FullCountryVm[]> {
         let url_ = this.baseUrl + "/api/Countries/GetListAll";
         url_ = url_.replace(/[?&]$/, "");
 
@@ -2678,14 +2678,14 @@ export class CountriesClient implements ICountriesClient {
                 try {
                     return this.processGetListAll(<any>response_);
                 } catch (e) {
-                    return <Observable<CountryVmForList[]>><any>_observableThrow(e);
+                    return <Observable<FullCountryVm[]>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<CountryVmForList[]>><any>_observableThrow(response_);
+                return <Observable<FullCountryVm[]>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetListAll(response: HttpResponseBase): Observable<CountryVmForList[]> {
+    protected processGetListAll(response: HttpResponseBase): Observable<FullCountryVm[]> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -2699,7 +2699,7 @@ export class CountriesClient implements ICountriesClient {
                 if (Array.isArray(resultData200)) {
                     result200 = [] as any;
                     for (let item of resultData200)
-                        result200!.push(CountryVmForList.fromJS(item));
+                        result200!.push(FullCountryVm.fromJS(item));
                 }
                 else {
                     result200 = <any>null;
@@ -2793,8 +2793,8 @@ export class CountriesClient implements ICountriesClient {
 export interface IFormsClient {
     get(id: number): Observable<FormDto>;
     getPage(offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfFormVmForDashboard>;
-    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<HttpResultOfInteger>;
-    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<void>;
+    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined, requests: RequestDto[] | null | undefined): Observable<HttpResultOfInteger>;
+    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined, requests: RequestDto[] | null | undefined): Observable<void>;
     delete(id: number | undefined): Observable<void>;
 }
 
@@ -2965,9 +2965,44 @@ export class FormsClient implements IFormsClient {
             throw new Error("The parameter 'regionId' cannot be null.");
         else
             content_.append("RegionId", regionId.toString());
-        if (fields !== null && fields !== undefined)
-            fields.forEach(item_ => content_.append("Fields", item_.toString()));
 
+        if (fields !== null && fields !== undefined) {
+            fields.forEach((item_, index_) => {
+
+                if (item_.name) {
+                    content_.append(`Fields[${index_}].name.ar`, item_.name.ar.toString())
+                }
+                if (item_.name) {
+                    content_.append(`Fields[${index_}].name.en`, item_.name.en.toString())
+                }
+                if (item_.placeholder) {
+                    content_.append(`Fields[${index_}].placeholder.ar`, item_.placeholder.ar.toString())
+                }
+                if (item_.placeholder) {
+                    content_.append(`Fields[${index_}].placeholder.en`, item_.placeholder.en.toString())
+                }
+
+                if (item_.orders) {
+                    content_.append(`Fields[${index_}].orders`, item_.orders.toString())
+                }
+                if (item_.code) {
+                    content_.append(`Fields[${index_}].code`, item_.code.toString())
+                }
+                if (item_.equation) {
+                    content_.append(`Fields[${index_}].equation`, item_.equation.toString())
+                }
+                if (item_.regex) {
+                    content_.append(`Fields[${index_}].regex`, item_.regex.toString())
+                }
+                if (item_.isRequired) {
+                    content_.append(`Fields[${index_}].isRequired`, item_.isRequired.toString())
+                }
+                if (item_.fieldType) {
+                    content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
+                }
+
+            });
+        }
         let options_: any = {
             body: content_,
             observe: "response",
@@ -3065,8 +3100,44 @@ export class FormsClient implements IFormsClient {
             throw new Error("The parameter 'regionId' cannot be null.");
         else
             content_.append("RegionId", regionId.toString());
-        if (fields !== null && fields !== undefined)
-            fields.forEach(item_ => content_.append("Fields", item_.toString()));
+
+        if (fields !== null && fields !== undefined) {
+            fields.forEach((item_, index_) => {
+
+                if (item_.name) {
+                    content_.append(`Fields[${index_}].name.ar`, item_.name.ar.toString())
+                }
+                if (item_.name) {
+                    content_.append(`Fields[${index_}].name.en`, item_.name.en.toString())
+                }
+                if (item_.placeholder) {
+                    content_.append(`Fields[${index_}].placeholder.ar`, item_.placeholder.ar.toString())
+                }
+                if (item_.placeholder) {
+                    content_.append(`Fields[${index_}].placeholder.en`, item_.placeholder.en.toString())
+                }
+
+                if (item_.orders) {
+                    content_.append(`Fields[${index_}].orders`, item_.orders.toString())
+                }
+                if (item_.code) {
+                    content_.append(`Fields[${index_}].code`, item_.code.toString())
+                }
+                if (item_.equation) {
+                    content_.append(`Fields[${index_}].equation`, item_.equation.toString())
+                }
+                if (item_.regex) {
+                    content_.append(`Fields[${index_}].regex`, item_.regex.toString())
+                }
+                if (item_.isRequired) {
+                    content_.append(`Fields[${index_}].isRequired`, item_.isRequired.toString())
+                }
+                if (item_.fieldType) {
+                    content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
+                }
+
+            });
+        }
 
         let options_: any = {
             body: content_,
@@ -4014,7 +4085,7 @@ export class RealStatesClient implements IRealStatesClient {
 
 export interface IRegionsClient {
     get(id: number): Observable<RegionDto>;
-    getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard>;
+    getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionDto>;
     getList(countryId: number | null | undefined, parentRegionId: number | null | undefined): Observable<RegionVm[]>;
     post(command: RegionsPostCommand): Observable<HttpResultOfLong>;
     put(command: RegionsPutCommand): Observable<void>;
@@ -4094,7 +4165,7 @@ export class RegionsClient implements IRegionsClient {
         }
     }
 
-    getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionVmForDashboard> {
+    getPage(parentId: number | null | undefined, offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfRegionDto> {
         let url_ = this.baseUrl + "/api/Regions/GetPage?";
         if (parentId !== undefined && parentId !== null)
             url_ += "ParentId=" + encodeURIComponent("" + parentId) + "&";
@@ -4127,14 +4198,14 @@ export class RegionsClient implements IRegionsClient {
                 try {
                     return this.processGetPage(<any>response_);
                 } catch (e) {
-                    return <Observable<PaginatedListOfRegionVmForDashboard>><any>_observableThrow(e);
+                    return <Observable<PaginatedListOfRegionDto>><any>_observableThrow(e);
                 }
             } else
-                return <Observable<PaginatedListOfRegionVmForDashboard>><any>_observableThrow(response_);
+                return <Observable<PaginatedListOfRegionDto>><any>_observableThrow(response_);
         }));
     }
 
-    protected processGetPage(response: HttpResponseBase): Observable<PaginatedListOfRegionVmForDashboard> {
+    protected processGetPage(response: HttpResponseBase): Observable<PaginatedListOfRegionDto> {
         const status = response.status;
         const responseBlob =
             response instanceof HttpResponse ? response.body :
@@ -4145,7 +4216,7 @@ export class RegionsClient implements IRegionsClient {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
                 let result200: any = null;
                 let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result200 = PaginatedListOfRegionVmForDashboard.fromJS(resultData200);
+                result200 = PaginatedListOfRegionDto.fromJS(resultData200);
                 return _observableOf(result200);
             }));
         } else if (status === 422) {
@@ -4457,6 +4528,7 @@ export class RegionsClient implements IRegionsClient {
 
 export interface IUserRegionClient {
     get(partnerId: string | null | undefined): Observable<UserRegionDto[]>;
+    post(userId: string | null | undefined, regionIds: number[] | null | undefined): Observable<void>;
 }
 
 @Injectable({
@@ -4520,6 +4592,77 @@ export class UserRegionClient implements IUserRegionClient {
                     result200 = <any>null;
                 }
                 return _observableOf(result200);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    post(userId: string | null | undefined, regionIds: number[] | null | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/UserRegion?";
+        if (userId !== undefined && userId !== null)
+            url_ += "UserId=" + encodeURIComponent("" + userId) + "&";
+        if (regionIds !== undefined && regionIds !== null)
+            regionIds && regionIds.forEach(item => { url_ += "RegionIds=" + encodeURIComponent("" + item) + "&"; });
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPost(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPost(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
             }));
         } else if (status === 422) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -6188,12 +6331,12 @@ export interface ICountryVm {
     name?: string | undefined;
 }
 
-export class CountryVmForList implements ICountryVmForList {
+export class FullCountryVm implements IFullCountryVm {
     id?: number;
     name?: string | undefined;
-    regions?: RegionVm[] | undefined;
+    regions?: RegionVmForDashboard[] | undefined;
 
-    constructor(data?: ICountryVmForList) {
+    constructor(data?: IFullCountryVm) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -6209,14 +6352,14 @@ export class CountryVmForList implements ICountryVmForList {
             if (Array.isArray(_data["regions"])) {
                 this.regions = [] as any;
                 for (let item of _data["regions"])
-                    this.regions!.push(RegionVm.fromJS(item));
+                    this.regions!.push(RegionVmForDashboard.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): CountryVmForList {
+    static fromJS(data: any): FullCountryVm {
         data = typeof data === 'object' ? data : {};
-        let result = new CountryVmForList();
+        let result = new FullCountryVm();
         result.init(data);
         return result;
     }
@@ -6234,18 +6377,18 @@ export class CountryVmForList implements ICountryVmForList {
     }
 }
 
-export interface ICountryVmForList {
+export interface IFullCountryVm {
     id?: number;
     name?: string | undefined;
-    regions?: RegionVm[] | undefined;
+    regions?: RegionVmForDashboard[] | undefined;
 }
 
-export class RegionVm implements IRegionVm {
+export class RegionVmForDashboard implements IRegionVmForDashboard {
     id?: number;
     name?: string | undefined;
     subRegion?: RegionVm[] | undefined;
 
-    constructor(data?: IRegionVm) {
+    constructor(data?: IRegionVmForDashboard) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -6266,9 +6409,9 @@ export class RegionVm implements IRegionVm {
         }
     }
 
-    static fromJS(data: any): RegionVm {
+    static fromJS(data: any): RegionVmForDashboard {
         data = typeof data === 'object' ? data : {};
-        let result = new RegionVm();
+        let result = new RegionVmForDashboard();
         result.init(data);
         return result;
     }
@@ -6286,10 +6429,50 @@ export class RegionVm implements IRegionVm {
     }
 }
 
-export interface IRegionVm {
+export interface IRegionVmForDashboard {
     id?: number;
     name?: string | undefined;
     subRegion?: RegionVm[] | undefined;
+}
+
+export class RegionVm implements IRegionVm {
+    id?: number;
+    name?: string | undefined;
+
+    constructor(data?: IRegionVm) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.name = _data["name"];
+        }
+    }
+
+    static fromJS(data: any): RegionVm {
+        data = typeof data === 'object' ? data : {};
+        let result = new RegionVm();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["name"] = this.name;
+        return data;
+    }
+}
+
+export interface IRegionVm {
+    id?: number;
+    name?: string | undefined;
 }
 
 export class HttpResultOfInteger implements IHttpResultOfInteger {
@@ -6478,6 +6661,7 @@ export class FormDto implements IFormDto {
     regionId?: number | undefined;
     type?: RequestType;
     fields?: DataFieldDto[] | undefined;
+    values?: ValueDto[] | undefined;
 
     constructor(data?: IFormDto) {
         if (data) {
@@ -6502,6 +6686,11 @@ export class FormDto implements IFormDto {
                 this.fields = [] as any;
                 for (let item of _data["fields"])
                     this.fields!.push(DataFieldDto.fromJS(item));
+            }
+            if (Array.isArray(_data["values"])) {
+                this.values = [] as any;
+                for (let item of _data["values"])
+                    this.values!.push(ValueDto.fromJS(item));
             }
         }
     }
@@ -6528,6 +6717,11 @@ export class FormDto implements IFormDto {
             for (let item of this.fields)
                 data["fields"].push(item.toJSON());
         }
+        if (Array.isArray(this.values)) {
+            data["values"] = [];
+            for (let item of this.values)
+                data["values"].push(item.toJSON());
+        }
         return data;
     }
 }
@@ -6542,6 +6736,7 @@ export interface IFormDto {
     regionId?: number | undefined;
     type?: RequestType;
     fields?: DataFieldDto[] | undefined;
+    values?: ValueDto[] | undefined;
 }
 
 /** 0 = Preview 1 = Evaluation */
@@ -6686,6 +6881,62 @@ export interface IDataValueDto {
     value?: LocalizedStringDto | undefined;
 }
 
+export class ValueDto implements IValueDto {
+    isSelected?: boolean;
+    saveValue?: string | undefined;
+    requestId?: number;
+    dataFieldId?: number;
+    dataValueId?: number | undefined;
+    attachmentId?: string | undefined;
+
+    constructor(data?: IValueDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.isSelected = _data["isSelected"];
+            this.saveValue = _data["saveValue"];
+            this.requestId = _data["requestId"];
+            this.dataFieldId = _data["dataFieldId"];
+            this.dataValueId = _data["dataValueId"];
+            this.attachmentId = _data["attachmentId"];
+        }
+    }
+
+    static fromJS(data: any): ValueDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new ValueDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["isSelected"] = this.isSelected;
+        data["saveValue"] = this.saveValue;
+        data["requestId"] = this.requestId;
+        data["dataFieldId"] = this.dataFieldId;
+        data["dataValueId"] = this.dataValueId;
+        data["attachmentId"] = this.attachmentId;
+        return data;
+    }
+}
+
+export interface IValueDto {
+    isSelected?: boolean;
+    saveValue?: string | undefined;
+    requestId?: number;
+    dataFieldId?: number;
+    dataValueId?: number | undefined;
+    attachmentId?: string | undefined;
+}
+
 export class PaginatedListOfFormVmForDashboard implements IPaginatedListOfFormVmForDashboard {
     pageInfo?: PageInfo | undefined;
     items?: FormVmForDashboard[] | undefined;
@@ -6784,6 +7035,54 @@ export interface IFormVmForDashboard {
     type?: RequestType;
     realState?: string | undefined;
     requestsNumber?: number;
+}
+
+export class RequestDto implements IRequestDto {
+    id?: number;
+    values?: ValueDto[] | undefined;
+
+    constructor(data?: IRequestDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            if (Array.isArray(_data["values"])) {
+                this.values = [] as any;
+                for (let item of _data["values"])
+                    this.values!.push(ValueDto.fromJS(item));
+            }
+        }
+    }
+
+    static fromJS(data: any): RequestDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new RequestDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        if (Array.isArray(this.values)) {
+            data["values"] = [];
+            for (let item of this.values)
+                data["values"].push(item.toJSON());
+        }
+        return data;
+    }
+}
+
+export interface IRequestDto {
+    id?: number;
+    values?: ValueDto[] | undefined;
 }
 
 export class PaginatedListOfPlanVmForDashborad implements IPaginatedListOfPlanVmForDashborad {
@@ -7398,11 +7697,11 @@ export interface IRegionDto {
     countryName?: string | undefined;
 }
 
-export class PaginatedListOfRegionVmForDashboard implements IPaginatedListOfRegionVmForDashboard {
+export class PaginatedListOfRegionDto implements IPaginatedListOfRegionDto {
     pageInfo?: PageInfo | undefined;
-    items?: RegionVmForDashboard[] | undefined;
+    items?: RegionDto[] | undefined;
 
-    constructor(data?: IPaginatedListOfRegionVmForDashboard) {
+    constructor(data?: IPaginatedListOfRegionDto) {
         if (data) {
             for (var property in data) {
                 if (data.hasOwnProperty(property))
@@ -7417,14 +7716,14 @@ export class PaginatedListOfRegionVmForDashboard implements IPaginatedListOfRegi
             if (Array.isArray(_data["items"])) {
                 this.items = [] as any;
                 for (let item of _data["items"])
-                    this.items!.push(RegionVmForDashboard.fromJS(item));
+                    this.items!.push(RegionDto.fromJS(item));
             }
         }
     }
 
-    static fromJS(data: any): PaginatedListOfRegionVmForDashboard {
+    static fromJS(data: any): PaginatedListOfRegionDto {
         data = typeof data === 'object' ? data : {};
-        let result = new PaginatedListOfRegionVmForDashboard();
+        let result = new PaginatedListOfRegionDto();
         result.init(data);
         return result;
     }
@@ -7441,61 +7740,9 @@ export class PaginatedListOfRegionVmForDashboard implements IPaginatedListOfRegi
     }
 }
 
-export interface IPaginatedListOfRegionVmForDashboard {
+export interface IPaginatedListOfRegionDto {
     pageInfo?: PageInfo | undefined;
-    items?: RegionVmForDashboard[] | undefined;
-}
-
-export class RegionVmForDashboard implements IRegionVmForDashboard {
-    id?: number;
-    name?: LocalizedStringDto | undefined;
-    countryName?: string | undefined;
-    countryId?: number;
-    isActive?: boolean;
-
-    constructor(data?: IRegionVmForDashboard) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
-            this.countryName = _data["countryName"];
-            this.countryId = _data["countryId"];
-            this.isActive = _data["isActive"];
-        }
-    }
-
-    static fromJS(data: any): RegionVmForDashboard {
-        data = typeof data === 'object' ? data : {};
-        let result = new RegionVmForDashboard();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        data["name"] = this.name ? this.name.toJSON() : <any>undefined;
-        data["countryName"] = this.countryName;
-        data["countryId"] = this.countryId;
-        data["isActive"] = this.isActive;
-        return data;
-    }
-}
-
-export interface IRegionVmForDashboard {
-    id?: number;
-    name?: LocalizedStringDto | undefined;
-    countryName?: string | undefined;
-    countryId?: number;
-    isActive?: boolean;
+    items?: RegionDto[] | undefined;
 }
 
 export class RegionsPostPutCommon implements IRegionsPostPutCommon {
@@ -7607,7 +7854,8 @@ export interface IRegionsPutCommand extends IRegionsPostPutCommon {
 }
 
 export class UserRegionDto implements IUserRegionDto {
-    id?: number;
+    regionId?: number;
+    name?: string | undefined;
 
     constructor(data?: IUserRegionDto) {
         if (data) {
@@ -7620,7 +7868,8 @@ export class UserRegionDto implements IUserRegionDto {
 
     init(_data?: any) {
         if (_data) {
-            this.id = _data["id"];
+            this.regionId = _data["regionId"];
+            this.name = _data["name"];
         }
     }
 
@@ -7633,13 +7882,15 @@ export class UserRegionDto implements IUserRegionDto {
 
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
+        data["regionId"] = this.regionId;
+        data["name"] = this.name;
         return data;
     }
 }
 
 export interface IUserRegionDto {
-    id?: number;
+    regionId?: number;
+    name?: string | undefined;
 }
 
 export interface FileParameter {
