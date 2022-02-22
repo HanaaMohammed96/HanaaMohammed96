@@ -31,8 +31,8 @@
         <mat-label>{{'Form.RealState' | translate}}</mat-label>
         <mat-select (valueChange)="onSelectRealState($event)" [(value)]="data.realStateId">
           <mat-option *ngFor="let realState of realStates" [value]="realState.id">
-            {{formEditorService.toLang(realState.name)}}
-            <!-- {{realState.name}} -->
+            <!-- {{formEditorService.toLang(realState.name)}} -->
+            {{realState.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>

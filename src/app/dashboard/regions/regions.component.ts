@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { PaginatedListOfRegionVmForDashboard, RegionsClient, RegionVmForDashboard } from '@core/api';
+import { PaginatedListOfRegionDto, RegionsClient, RegionVmForDashboard } from '@core/api';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
 import { SelectionAction } from '@core/interfaces/selection-action';
 import { TableColumn } from '@core/interfaces/table-column.interface';
@@ -125,7 +125,7 @@ export class RegionsComponent implements OnInit {
     ];
   }
  
-  getData(pagingOptions: PagingOptions): Observable<PaginatedListOfRegionVmForDashboard> {
+  getData(pagingOptions: PagingOptions): Observable<PaginatedListOfRegionDto> {
 
     return this.regionsClient.getPage(
       null,

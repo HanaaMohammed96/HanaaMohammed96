@@ -210,7 +210,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     let action: Observable<any>;
 
     const form = this.model;
-
+console.log(form)
     this.loading = true;
 
     if (!this.formId) {
