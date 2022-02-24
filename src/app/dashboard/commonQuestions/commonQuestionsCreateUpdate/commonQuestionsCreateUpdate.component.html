@@ -1,0 +1,87 @@
+<app-form-dialog
+  [id]="this.data.id"
+  [title]="'commonQuestion.TableName'"
+  [formGroup]="form"
+  [client]="_commonQuestionClient"
+  [post]="post"
+  [put]="put"
+  (request)="submit($event)"
+>
+<div form-dialog-content>
+  <div formGroupName="question">
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'general.ar' | translate as ar"
+        appearance="outline"
+        class="mt-6 flex-auto"
+      >
+        <mat-label>{{ 'commonQuestion.arQuestion' |translate }}</mat-label>
+        <input cdkFocusInitial formControlName="Ar" matInput />
+        <mat-error *ngIf="questionAr.hasError('required')">{{
+          'validations.required' | translate: { field: 'commonQuestion.arQuestion' |translate}
+        }}</mat-error>
+        <mat-error *ngIf="questionAr.hasError('validation')">{{
+          questionAr.errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'general.en' | translate as en"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{ 'commonQuestion.enQuestion' |translate }}</mat-label>
+        <input formControlName="En" matInput />
+        <mat-error *ngIf="questionEn.hasError('required')">{{
+          'validations.required' | translate: { field: 'commonQuestion.enQuestion' |translate }
+        }}</mat-error>
+        <mat-error *ngIf="questionEn.hasError('validation')">{{
+          questionEn.errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+  
+  </div>
+  <div formGroupName="answer">
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'general.ar' | translate as ar"
+        appearance="outline"
+        class="mt-6 flex-auto"
+      >
+        <mat-label>{{'commonQuestion.arAnswer' |translate}}</mat-label>
+        <textarea cdkFocusInitial formControlName="Ar" matInput></textarea>
+        <mat-error *ngIf="answerAr.hasError('required')">{{
+          'validations.required' | translate: { field: 'commonQuestion.arAnswer' |translate }
+        }}</mat-error>
+        <mat-error *ngIf="answerAr.hasError('validation')">{{
+          answerAr.errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="flex flex-col sm:flex-row">
+      <mat-form-field
+        *ngIf="'general.en' | translate as en"
+        appearance="outline"
+        class="flex-auto"
+      >
+        <mat-label>{{'commonQuestion.enAnswer' |translate}}</mat-label>
+        <textarea cdkFocusInitial formControlName="En" matInput></textarea>
+
+        <mat-error *ngIf="answerEn.hasError('required')">{{
+          'validations.required' | translate: { field: 'commonQuestion.enAnswer' |translate }
+        }}</mat-error>
+        <mat-error *ngIf="answerEn.hasError('validation')">{{
+          answerEn.errors.validation
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+  
+  </div>
+
+</div>
+</app-form-dialog>
+

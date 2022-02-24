@@ -75,7 +75,8 @@
     "reservations": "Reservations",
     "form": "Forms",
     "realState": "RealEstates",
-    "country": "Countries"
+    "country": "Countries",
+    "questions": "Common Questions"
   },
   "account": {
     "login_title": "Welcome to Monjez Portal!",
@@ -308,6 +309,18 @@
     "auditorNumber" : "Auditor Number",
     "commissionerNumber" : "Commissioner Number",
     "reportsSentNumber" : "Reports Sent Number"
+
+  },
+  "commonQuestion":{
+    "title":"Monjez Portal Common Questions Page",
+    "description":"This list includes all Common Questions",
+    "TableName":"Quetion",
+    "tableNamePlural":"Common Quetions",
+    "created_at": "Created At",
+    "arQuestion": "Arabic Question",
+    "enQuestion": "English Question",
+    "arAnswer": "Arabic Answer",
+    "enAnswer": "English Answer"
 
   }
 }

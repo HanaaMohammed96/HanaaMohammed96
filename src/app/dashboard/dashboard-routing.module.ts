@@ -16,6 +16,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CountryComponent } from './country/country.component';
 import { RegionsComponent } from './regions/regions.component';
 import { PlansComponent } from './plans/plans.component';
+import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
 
 const routes: Routes = [
   {
@@ -37,7 +38,7 @@ const routes: Routes = [
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: 'plans', component: PlansComponent },
-      // {path: 'plans' , component :TestPlanComponent},
+      {path: 'common-question' , component :CommonQuestionsComponent},
       { path: '**', component: NotFoundComponent },
     ],
   },
@@ -45,7 +46,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule],
+exports: [RouterModule],
   providers: [
     { provide: MAT_DIALOG_DATA, useValue: {} },
     // { provide: MdDialogRef, useValue: {} }

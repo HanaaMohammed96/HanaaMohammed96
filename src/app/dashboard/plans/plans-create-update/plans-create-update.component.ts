@@ -54,118 +54,118 @@ export class PlansCreateUpdateComponent implements OnInit {
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-        messageNumber: [this.data.messageNumber,''],
-        emailNumber: [this.data.emailNumber,''],
-        adminNumber: [this.data.adminNumber,''],
-        incpectorNumber: [this.data.inspectorNumber,''],
-        evaluatorNumber: [this.data.evaluatorNumber,''],
-        auditorNumber: [this.data.auditorNumber,''],
-        commissionerNumber:[this.data.commissionerNumber,''],
-        reportsSentNumber:[this.data.reportsSentNumber,'']
+      //   messageNumber: [this.data.messageNumber,''],
+      //   emailNumber: [this.data.emailNumber,''],
+      //   adminNumber: [this.data.adminNumber,''],
+      //   incpectorNumber: [this.data.inspectorNumber,''],
+      //   evaluatorNumber: [this.data.evaluatorNumber,''],
+      //   auditorNumber: [this.data.auditorNumber,''],
+      //   commissionerNumber:[this.data.commissionerNumber,''],
+      //   reportsSentNumber:[this.data.reportsSentNumber,'']
       });
     }
   }
 
   ngOnDestroy(): void {
-    this._dialogRef.close(this.data);
+    // this._dialogRef.close(this.data);
   }
 
-  post(value: any): any {
+  // post(value: any): any {
 
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    const messageNumber = value.messageNumber;
+  //   const messageNumber = value.messageNumber;
 
-    const emailNumber = value.emailNumber;
+  //   const emailNumber = value.emailNumber;
 
-    const adminNumber = value.adminNumber;
+  //   const adminNumber = value.adminNumber;
 
-    const  inspectorNumber = value.inspectorNumber;
+  //   const  inspectorNumber = value.inspectorNumber;
 
-    const  evaluatorNumber = value.evaluatorNumber;
+  //   const  evaluatorNumber = value.evaluatorNumber;
 
-    const  auditorNumber = value.auditorNumber;
+  //   const  auditorNumber = value.auditorNumber;
 
-    const  commissionerNumber = value.commissionerNumber;
+  //   const  commissionerNumber = value.commissionerNumber;
 
-    const  reportsSentNumber = value.reportsSentNumber;
+  //   const  reportsSentNumber = value.reportsSentNumber;
 
-    return new PlansPostCommand({
-      name,
-      messageNumber,
-      emailNumber,
-      adminNumber,
-      inspectorNumber,
-      evaluatorNumber,
-      auditorNumber,
-      commissionerNumber,
-      reportsSentNumber
-    });
-  }
+  //   return new PlansPostCommand({
+  //     name,
+  //     // messageNumber,
+  //     emailNumber,
+  //     adminNumber,
+  //     inspectorNumber,
+  //     evaluatorNumber,
+  //     auditorNumber,
+  //     commissionerNumber,
+  //     reportsSentNumber
+  //   });
+  // }
 
-  put(id: any, value: any): any {
+  // put(id: any, value: any): any {
 
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    const messageNumber = value.messageNumber;
+  //   const messageNumber = value.messageNumber;
 
-    const emailNumber = value.emailNumber;
+  //   const emailNumber = value.emailNumber;
 
-    const adminNumber = value.adminNumber;
+  //   const adminNumber = value.adminNumber;
 
-    const  inspectorNumber = value.inspectorNumber;
+  //   const  inspectorNumber = value.inspectorNumber;
 
-    const  evaluatorNumber = value.evaluatorNumber;
+  //   const  evaluatorNumber = value.evaluatorNumber;
 
-    const  auditorNumber = value.auditorNumber;
+  //   const  auditorNumber = value.auditorNumber;
 
-    const  commissionerNumber = value.commissionerNumber;
+  //   const  commissionerNumber = value.commissionerNumber;
 
-    const  reportsSentNumber = value.reportsSentNumber;
+  //   const  reportsSentNumber = value.reportsSentNumber;
 
-    return new PlansPutCommand({
-      id,
-      name,
-      messageNumber,
-      emailNumber,
-      adminNumber,
-      inspectorNumber,
-      evaluatorNumber,
-      auditorNumber,
-      commissionerNumber,
-      reportsSentNumber
-    });
-  }
+  //   return new PlansPutCommand({
+  //     id,
+  //     name,
+  //     // messageNumber,
+  //     // emailNumber,
+  //     // adminNumber,
+  //     // inspectorNumber,
+  //     // evaluatorNumber,
+  //     // auditorNumber,
+  //     // commissionerNumber,
+  //     // reportsSentNumber
+  //   });
+  // }
 
-  submit(event: any) {
-    const value = event.value;
+  // submit(event: any) {
+  //   const value = event.value;
 
-    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    event.action.subscribe((response: any) => {
-      if (response) {
-        this.data.id = response.result;
-      }
+  //   event.action.subscribe((response: any) => {
+  //     if (response) {
+  //       this.data.id = response.result;
+  //     }
 
-      this.data.name = name;
-      this.data.messageNumber = value.messageNumber;
-      this.data.emailNumber = value.emailNumber;
-      this.data.adminNumber = value.adminNumber;
-      this.data.inspectorNumber = value.inspectorNumber;
-      this.data.evaluatorNumber = value.evaluatorNumber;
-      this.data.auditorNumber = value.auditorNumber;
-      this.data.commissionerNumber = value.commissionerNumber;
-      this.data.reportsSentNumber = value.reportsSentNumber;
+  //     this.data.name = name;
+  //     // this.data.messageNumber = value.messageNumber;
+  //     // this.data.emailNumber = value.emailNumber;
+  //     // this.data.adminNumber = value.adminNumber;
+  //     // this.data.inspectorNumber = value.inspectorNumber;
+  //     // this.data.evaluatorNumber = value.evaluatorNumber;
+  //     // this.data.auditorNumber = value.auditorNumber;
+  //     // this.data.commissionerNumber = value.commissionerNumber;
+  //     // this.data.reportsSentNumber = value.reportsSentNumber;
 
-      this._dialogRef.close();
+  //     this._dialogRef.close();
 
-      this._handler.handleSuccess();
-    },
-      (err) => {
-        this._handler.handleError(err).pushError();
-      }
-    );
-  }
+  //     this._handler.handleSuccess();
+  //   },
+  //     (err) => {
+  //       this._handler.handleError(err).pushError();
+  //     }
+  //   );
+  // }
 
 
 }

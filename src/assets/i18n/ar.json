@@ -75,7 +75,8 @@
     "reservations": "الحجوزات",
     "form": "النماذج",
     "realState": "الأصول",
-    "country": "الدول"
+    "country": "الدول",
+    "questions": "أسئلة شائعة"
 
   },
   "account": {
@@ -304,6 +305,18 @@
     "tableNamePlural": "الخطط",
     "enName": "الاسم باللغة الإنجليزية",
     "arName": "الاسم باللغة العربية"
+  },
+  "commonQuestion": {
+    "title":"الأسئلة الشائعة",
+    "description":"هذه القائمة تشمل كل الأسئلة الشائعة",
+    "TableName":"سؤال",
+    "tableNamePlural":"الأسئلة الشائعة",
+    "created_at": "تاريخ الإنشاء",
+    "answer": "الإجابة",
+    "arQuestion": "السؤال باللغة العربية",
+    "enQuestion": "السؤال باللغة الإنجليزية",
+    "arAnswer": "الإجابة باللغة العربية",
+    "enAnswer": "الإجابة باللغة الإنجليزية"
   }
 }
 

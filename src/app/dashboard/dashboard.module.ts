@@ -47,6 +47,8 @@ import { PlansComponent } from './plans/plans.component';
 import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-create-update.component';
 import { UpdatePhoneNumberComponent } from './update-phone-number/update-phone-number.component';
 import { CountriesRegionsSubRegionsComponent } from './partners/countries-regions-sub-regions/countries-regions-sub-regions.component';
+import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
+import { CommonQuestionsCreateUpdateComponent } from './commonQuestions/commonQuestionsCreateUpdate/commonQuestionsCreateUpdate.component';
 
 
 
@@ -96,7 +98,9 @@ import { CountriesRegionsSubRegionsComponent } from './partners/countries-region
     PlansComponent,
     PlansCreateUpdateComponent,
     UpdatePhoneNumberComponent,
-    CountriesRegionsSubRegionsComponent
+    CountriesRegionsSubRegionsComponent,
+    CommonQuestionsComponent,
+    CommonQuestionsCreateUpdateComponent
   ],
   imports: [
     CommonModule,

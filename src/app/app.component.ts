@@ -20,6 +20,7 @@ import icFilterList from '@iconify/icons-ic/twotone-filter-list';
 import icMoreVert from '@iconify/icons-ic/twotone-more-vert';
 import icAssessment from '@iconify/icons-ic/twotone-assessment';
 import icBook from '@iconify/icons-ic/twotone-book';
+import  icAssigment from '@iconify/icons-ic/twotone-assignment';
 
 @Component({
   selector: 'app-root',
@@ -95,6 +96,12 @@ export class AppComponent implements OnInit {
             label: await this.translate('navigations.form'),
             route: '/forms',
             icon: icFilterList,
+          } as NavigationLink,
+          {
+            type: 'link',
+            label: await this.translate('navigations.questions'),
+            route: '/common-question',
+            icon: icAssigment,
           } as NavigationLink,
           {
             type: 'link',
