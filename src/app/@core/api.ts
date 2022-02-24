@@ -1980,6 +1980,450 @@ export class AccountsClient implements IAccountsClient {
     }
 }
 
+export interface ICommonQuestionsClient {
+    get(id: number | undefined): Observable<CommonQuestion>;
+    post(command: CommonQuestionPostCommand): Observable<HttpResultOfInteger>;
+    put(command: CommonQuestionPutCommand): Observable<void>;
+    delete(id: number | undefined): Observable<void>;
+    getList(query: CommonQuestionGetLocalizedListQuery | null | undefined): Observable<CommonQuestion[]>;
+    putOrder(command: CommonQuestionPutOrderCommand): Observable<void>;
+}
+
+@Injectable({
+    providedIn: 'root'
+})
+export class CommonQuestionsClient implements ICommonQuestionsClient {
+    private http: HttpClient;
+    private baseUrl: string;
+    protected jsonParseReviver: ((key: string, value: any) => any) | undefined = undefined;
+
+    constructor(@Inject(HttpClient) http: HttpClient, @Optional() @Inject(API_BASE_URL) baseUrl?: string) {
+        this.http = http;
+        this.baseUrl = baseUrl !== undefined && baseUrl !== null ? baseUrl : "";
+    }
+
+    get(id: number | undefined): Observable<CommonQuestion> {
+        let url_ = this.baseUrl + "/api/CommonQuestions?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGet(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGet(<any>response_);
+                } catch (e) {
+                    return <Observable<CommonQuestion>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CommonQuestion>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGet(response: HttpResponseBase): Observable<CommonQuestion> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = CommonQuestion.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    post(command: CommonQuestionPostCommand): Observable<HttpResultOfInteger> {
+        let url_ = this.baseUrl + "/api/CommonQuestions";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("post", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPost(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPost(<any>response_);
+                } catch (e) {
+                    return <Observable<HttpResultOfInteger>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<HttpResultOfInteger>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPost(response: HttpResponseBase): Observable<HttpResultOfInteger> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result200 = HttpResultOfInteger.fromJS(resultData200);
+                return _observableOf(result200);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    put(command: CommonQuestionPutCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/CommonQuestions";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPut(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPut(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPut(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    delete(id: number | undefined): Observable<void> {
+        let url_ = this.baseUrl + "/api/CommonQuestions?";
+        if (id === null)
+            throw new Error("The parameter 'id' cannot be null.");
+        else if (id !== undefined)
+            url_ += "id=" + encodeURIComponent("" + id) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+            })
+        };
+
+        return this.http.request("delete", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processDelete(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processDelete(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processDelete(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+
+    getList(query: CommonQuestionGetLocalizedListQuery | null | undefined): Observable<CommonQuestion[]> {
+        let url_ = this.baseUrl + "/api/CommonQuestions/GetList?";
+        if (query !== undefined && query !== null)
+            url_ += "query=" + encodeURIComponent("" + query) + "&";
+        url_ = url_.replace(/[?&]$/, "");
+
+        let options_: any = {
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Accept": "application/json"
+            })
+        };
+
+        return this.http.request("get", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processGetList(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processGetList(<any>response_);
+                } catch (e) {
+                    return <Observable<CommonQuestion[]>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<CommonQuestion[]>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processGetList(response: HttpResponseBase): Observable<CommonQuestion[]> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result200: any = null;
+                let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                if (Array.isArray(resultData200)) {
+                    result200 = [] as any;
+                    for (let item of resultData200)
+                        result200!.push(CommonQuestion.fromJS(item));
+                }
+                else {
+                    result200 = <any>null;
+                }
+                return _observableOf(result200);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let resultdefault: any = null;
+                let resultDatadefault = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                resultdefault = ProblemDetails.fromJS(resultDatadefault);
+                return throwException("A server side error occurred.", status, _responseText, _headers, resultdefault);
+            }));
+        }
+    }
+
+    putOrder(command: CommonQuestionPutOrderCommand): Observable<void> {
+        let url_ = this.baseUrl + "/api/CommonQuestions/PutOrder";
+        url_ = url_.replace(/[?&]$/, "");
+
+        const content_ = JSON.stringify(command);
+
+        let options_: any = {
+            body: content_,
+            observe: "response",
+            responseType: "blob",
+            headers: new HttpHeaders({
+                "Content-Type": "application/json",
+            })
+        };
+
+        return this.http.request("put", url_, options_).pipe(_observableMergeMap((response_: any) => {
+            return this.processPutOrder(response_);
+        })).pipe(_observableCatch((response_: any) => {
+            if (response_ instanceof HttpResponseBase) {
+                try {
+                    return this.processPutOrder(<any>response_);
+                } catch (e) {
+                    return <Observable<void>><any>_observableThrow(e);
+                }
+            } else
+                return <Observable<void>><any>_observableThrow(response_);
+        }));
+    }
+
+    protected processPutOrder(response: HttpResponseBase): Observable<void> {
+        const status = response.status;
+        const responseBlob =
+            response instanceof HttpResponse ? response.body :
+                (<any>response).error instanceof Blob ? (<any>response).error : undefined;
+
+        let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); } }
+        if (status === 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 200) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return _observableOf<void>(<any>null);
+            }));
+        } else if (status === 404) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result404: any = null;
+                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result404 = ProblemDetails.fromJS(resultData404);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
+            }));
+        } else if (status === 400) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result400: any = null;
+                let resultData400 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result400 = ProblemDetails.fromJS(resultData400);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result400);
+            }));
+        } else if (status === 422) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                let result422: any = null;
+                let resultData422 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
+                result422 = ValidationProblemDetails.fromJS(resultData422);
+                return throwException("A server side error occurred.", status, _responseText, _headers, result422);
+            }));
+        } else if (status !== 200 && status !== 204) {
+            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
+                return throwException("An unexpected server error occurred.", status, _responseText, _headers);
+            }));
+        }
+        return _observableOf<void>(<any>null);
+    }
+}
+
 export interface IContentsClient {
     getTnc(): Observable<ContentVm>;
     getPnp(): Observable<ContentVm>;
@@ -2793,8 +3237,8 @@ export class CountriesClient implements ICountriesClient {
 export interface IFormsClient {
     get(id: number): Observable<FormDto>;
     getPage(offset: number | null | undefined, pageIndex: number | null | undefined, search: string | null | undefined, ascending: boolean | undefined, sortBy: string | null | undefined): Observable<PaginatedListOfFormVmForDashboard>;
-    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined, requests: RequestDto[] | null | undefined): Observable<HttpResultOfInteger>;
-    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined, requests: RequestDto[] | null | undefined): Observable<void>;
+    post(name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<HttpResultOfInteger>;
+    put(id: number | undefined, name_Ar: string | null | undefined, name_En: string | null | undefined, description_Ar: string | null | undefined, description_En: string | null | undefined, realStateId: number | undefined, type: RequestType | undefined, regionId: number | undefined, fields: DataFieldDto[] | null | undefined): Observable<void>;
     delete(id: number | undefined): Observable<void>;
 }
 
@@ -2965,7 +3409,6 @@ export class FormsClient implements IFormsClient {
             throw new Error("The parameter 'regionId' cannot be null.");
         else
             content_.append("RegionId", regionId.toString());
-
         if (fields !== null && fields !== undefined) {
             fields.forEach((item_, index_) => {
 
@@ -3003,6 +3446,7 @@ export class FormsClient implements IFormsClient {
 
             });
         }
+
         let options_: any = {
             body: content_,
             observe: "response",
@@ -3039,13 +3483,6 @@ export class FormsClient implements IFormsClient {
                 let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = HttpResultOfInteger.fromJS(resultData200);
                 return _observableOf(result200);
-            }));
-        } else if (status === 404) {
-            return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
-                let result404: any = null;
-                let resultData404 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
-                result404 = ProblemDetails.fromJS(resultData404);
-                return throwException("A server side error occurred.", status, _responseText, _headers, result404);
             }));
         } else if (status === 400) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
@@ -3100,7 +3537,6 @@ export class FormsClient implements IFormsClient {
             throw new Error("The parameter 'regionId' cannot be null.");
         else
             content_.append("RegionId", regionId.toString());
-
         if (fields !== null && fields !== undefined) {
             fields.forEach((item_, index_) => {
 
@@ -6117,6 +6553,445 @@ export interface IAccountsBanCommand {
     ban?: boolean;
 }
 
+export abstract class AuditableEntity implements IAuditableEntity {
+    created?: Date;
+    createdBy?: string | undefined;
+    lastModified?: Date | undefined;
+    lastModifiedBy?: string | undefined;
+
+    constructor(data?: IAuditableEntity) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.created = _data["created"] ? new Date(_data["created"].toString()) : <any>undefined;
+            this.createdBy = _data["createdBy"];
+            this.lastModified = _data["lastModified"] ? new Date(_data["lastModified"].toString()) : <any>undefined;
+            this.lastModifiedBy = _data["lastModifiedBy"];
+        }
+    }
+
+    static fromJS(data: any): AuditableEntity {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'AuditableEntity' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["created"] = this.created ? this.created.toISOString() : <any>undefined;
+        data["createdBy"] = this.createdBy;
+        data["lastModified"] = this.lastModified ? this.lastModified.toISOString() : <any>undefined;
+        data["lastModifiedBy"] = this.lastModifiedBy;
+        return data;
+    }
+}
+
+export interface IAuditableEntity {
+    created?: Date;
+    createdBy?: string | undefined;
+    lastModified?: Date | undefined;
+    lastModifiedBy?: string | undefined;
+}
+
+export class CommonQuestion extends AuditableEntity implements ICommonQuestion {
+    id?: number;
+    question?: LocalizedString | undefined;
+    answer?: LocalizedString | undefined;
+    order?: number;
+
+    constructor(data?: ICommonQuestion) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.id = _data["id"];
+            this.question = _data["question"] ? LocalizedString.fromJS(_data["question"]) : <any>undefined;
+            this.answer = _data["answer"] ? LocalizedString.fromJS(_data["answer"]) : <any>undefined;
+            this.order = _data["order"];
+        }
+    }
+
+    static fromJS(data: any): CommonQuestion {
+        data = typeof data === 'object' ? data : {};
+        let result = new CommonQuestion();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["question"] = this.question ? this.question.toJSON() : <any>undefined;
+        data["answer"] = this.answer ? this.answer.toJSON() : <any>undefined;
+        data["order"] = this.order;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface ICommonQuestion extends IAuditableEntity {
+    id?: number;
+    question?: LocalizedString | undefined;
+    answer?: LocalizedString | undefined;
+    order?: number;
+}
+
+export abstract class ValueObject implements IValueObject {
+
+    constructor(data?: IValueObject) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): ValueObject {
+        data = typeof data === 'object' ? data : {};
+        throw new Error("The abstract class 'ValueObject' cannot be instantiated.");
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data;
+    }
+}
+
+export interface IValueObject {
+}
+
+export class WeakLocalizedString extends ValueObject implements IWeakLocalizedString {
+    ar?: string | undefined;
+    en?: string | undefined;
+
+    constructor(data?: IWeakLocalizedString) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.ar = _data["ar"];
+            this.en = _data["en"];
+        }
+    }
+
+    static fromJS(data: any): WeakLocalizedString {
+        data = typeof data === 'object' ? data : {};
+        let result = new WeakLocalizedString();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ar"] = this.ar;
+        data["en"] = this.en;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface IWeakLocalizedString extends IValueObject {
+    ar?: string | undefined;
+    en?: string | undefined;
+}
+
+export class LocalizedString extends WeakLocalizedString implements ILocalizedString {
+    ar?: string | undefined;
+    en?: string | undefined;
+
+    constructor(data?: ILocalizedString) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.ar = _data["ar"];
+            this.en = _data["en"];
+        }
+    }
+
+    static fromJS(data: any): LocalizedString {
+        data = typeof data === 'object' ? data : {};
+        let result = new LocalizedString();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ar"] = this.ar;
+        data["en"] = this.en;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface ILocalizedString extends IWeakLocalizedString {
+    ar?: string | undefined;
+    en?: string | undefined;
+}
+
+export class CommonQuestionGetLocalizedListQuery implements ICommonQuestionGetLocalizedListQuery {
+
+    constructor(data?: ICommonQuestionGetLocalizedListQuery) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+    }
+
+    static fromJS(data: any): CommonQuestionGetLocalizedListQuery {
+        data = typeof data === 'object' ? data : {};
+        let result = new CommonQuestionGetLocalizedListQuery();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        return data;
+    }
+}
+
+export interface ICommonQuestionGetLocalizedListQuery {
+}
+
+export class HttpResultOfInteger implements IHttpResultOfInteger {
+    result?: number;
+
+    constructor(data?: IHttpResultOfInteger) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.result = _data["result"];
+        }
+    }
+
+    static fromJS(data: any): HttpResultOfInteger {
+        data = typeof data === 'object' ? data : {};
+        let result = new HttpResultOfInteger();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["result"] = this.result;
+        return data;
+    }
+}
+
+export interface IHttpResultOfInteger {
+    result?: number;
+}
+
+export class CommonQuestionPostPutCommon implements ICommonQuestionPostPutCommon {
+    question?: LocalizedStringDto | undefined;
+    answer?: LocalizedStringDto | undefined;
+
+    constructor(data?: ICommonQuestionPostPutCommon) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.question = _data["question"] ? LocalizedStringDto.fromJS(_data["question"]) : <any>undefined;
+            this.answer = _data["answer"] ? LocalizedStringDto.fromJS(_data["answer"]) : <any>undefined;
+        }
+    }
+
+    static fromJS(data: any): CommonQuestionPostPutCommon {
+        data = typeof data === 'object' ? data : {};
+        let result = new CommonQuestionPostPutCommon();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["question"] = this.question ? this.question.toJSON() : <any>undefined;
+        data["answer"] = this.answer ? this.answer.toJSON() : <any>undefined;
+        return data;
+    }
+}
+
+export interface ICommonQuestionPostPutCommon {
+    question?: LocalizedStringDto | undefined;
+    answer?: LocalizedStringDto | undefined;
+}
+
+export class CommonQuestionPostCommand extends CommonQuestionPostPutCommon implements ICommonQuestionPostCommand {
+
+    constructor(data?: ICommonQuestionPostCommand) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+    }
+
+    static fromJS(data: any): CommonQuestionPostCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CommonQuestionPostCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface ICommonQuestionPostCommand extends ICommonQuestionPostPutCommon {
+}
+
+export class LocalizedStringDto implements ILocalizedStringDto {
+    ar?: string | undefined;
+    en?: string | undefined;
+
+    constructor(data?: ILocalizedStringDto) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.ar = _data["ar"];
+            this.en = _data["en"];
+        }
+    }
+
+    static fromJS(data: any): LocalizedStringDto {
+        data = typeof data === 'object' ? data : {};
+        let result = new LocalizedStringDto();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["ar"] = this.ar;
+        data["en"] = this.en;
+        return data;
+    }
+}
+
+export interface ILocalizedStringDto {
+    ar?: string | undefined;
+    en?: string | undefined;
+}
+
+export class CommonQuestionPutCommand extends CommonQuestionPostPutCommon implements ICommonQuestionPutCommand {
+    id?: number;
+
+    constructor(data?: ICommonQuestionPutCommand) {
+        super(data);
+    }
+
+    init(_data?: any) {
+        super.init(_data);
+        if (_data) {
+            this.id = _data["id"];
+        }
+    }
+
+    static fromJS(data: any): CommonQuestionPutCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CommonQuestionPutCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        super.toJSON(data);
+        return data;
+    }
+}
+
+export interface ICommonQuestionPutCommand extends ICommonQuestionPostPutCommon {
+    id?: number;
+}
+
+export class CommonQuestionPutOrderCommand implements ICommonQuestionPutOrderCommand {
+    id?: number;
+    order?: number;
+
+    constructor(data?: ICommonQuestionPutOrderCommand) {
+        if (data) {
+            for (var property in data) {
+                if (data.hasOwnProperty(property))
+                    (<any>this)[property] = (<any>data)[property];
+            }
+        }
+    }
+
+    init(_data?: any) {
+        if (_data) {
+            this.id = _data["id"];
+            this.order = _data["order"];
+        }
+    }
+
+    static fromJS(data: any): CommonQuestionPutOrderCommand {
+        data = typeof data === 'object' ? data : {};
+        let result = new CommonQuestionPutOrderCommand();
+        result.init(data);
+        return result;
+    }
+
+    toJSON(data?: any) {
+        data = typeof data === 'object' ? data : {};
+        data["id"] = this.id;
+        data["order"] = this.order;
+        return data;
+    }
+}
+
+export interface ICommonQuestionPutOrderCommand {
+    id?: number;
+    order?: number;
+}
+
 export class ContentVm implements IContentVm {
     value?: string | undefined;
 
@@ -6249,46 +7124,6 @@ export interface ICountryDto {
     name?: LocalizedStringDto | undefined;
     isActive?: boolean;
     order?: number;
-}
-
-export class LocalizedStringDto implements ILocalizedStringDto {
-    ar?: string | undefined;
-    en?: string | undefined;
-
-    constructor(data?: ILocalizedStringDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.ar = _data["ar"];
-            this.en = _data["en"];
-        }
-    }
-
-    static fromJS(data: any): LocalizedStringDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new LocalizedStringDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["ar"] = this.ar;
-        data["en"] = this.en;
-        return data;
-    }
-}
-
-export interface ILocalizedStringDto {
-    ar?: string | undefined;
-    en?: string | undefined;
 }
 
 export class CountryVm implements ICountryVm {
@@ -6473,42 +7308,6 @@ export class RegionVm implements IRegionVm {
 export interface IRegionVm {
     id?: number;
     name?: string | undefined;
-}
-
-export class HttpResultOfInteger implements IHttpResultOfInteger {
-    result?: number;
-
-    constructor(data?: IHttpResultOfInteger) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.result = _data["result"];
-        }
-    }
-
-    static fromJS(data: any): HttpResultOfInteger {
-        data = typeof data === 'object' ? data : {};
-        let result = new HttpResultOfInteger();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["result"] = this.result;
-        return data;
-    }
-}
-
-export interface IHttpResultOfInteger {
-    result?: number;
 }
 
 export class CountriesPostPutCommon implements ICountriesPostPutCommon {
@@ -7037,54 +7836,6 @@ export interface IFormVmForDashboard {
     requestsNumber?: number;
 }
 
-export class RequestDto implements IRequestDto {
-    id?: number;
-    values?: ValueDto[] | undefined;
-
-    constructor(data?: IRequestDto) {
-        if (data) {
-            for (var property in data) {
-                if (data.hasOwnProperty(property))
-                    (<any>this)[property] = (<any>data)[property];
-            }
-        }
-    }
-
-    init(_data?: any) {
-        if (_data) {
-            this.id = _data["id"];
-            if (Array.isArray(_data["values"])) {
-                this.values = [] as any;
-                for (let item of _data["values"])
-                    this.values!.push(ValueDto.fromJS(item));
-            }
-        }
-    }
-
-    static fromJS(data: any): RequestDto {
-        data = typeof data === 'object' ? data : {};
-        let result = new RequestDto();
-        result.init(data);
-        return result;
-    }
-
-    toJSON(data?: any) {
-        data = typeof data === 'object' ? data : {};
-        data["id"] = this.id;
-        if (Array.isArray(this.values)) {
-            data["values"] = [];
-            for (let item of this.values)
-                data["values"].push(item.toJSON());
-        }
-        return data;
-    }
-}
-
-export interface IRequestDto {
-    id?: number;
-    values?: ValueDto[] | undefined;
-}
-
 export class PaginatedListOfPlanVmForDashborad implements IPaginatedListOfPlanVmForDashborad {
     pageInfo?: PageInfo | undefined;
     items?: PlanVmForDashborad[] | undefined;
@@ -7136,14 +7887,9 @@ export interface IPaginatedListOfPlanVmForDashborad {
 export class PlanVmForDashborad implements IPlanVmForDashborad {
     id?: number;
     name?: LocalizedStringDto | undefined;
-    messageNumber?: number | undefined;
-    emailNumber?: number | undefined;
-    adminNumber?: number | undefined;
-    inspectorNumber?: number | undefined;
-    evaluatorNumber?: number | undefined;
-    auditorNumber?: number | undefined;
-    commissionerNumber?: number | undefined;
-    reportsSentNumber?: number | undefined;
+    reportsNumber?: number | undefined;
+    price?: number;
+    usersNumber?: number | undefined;
 
     constructor(data?: IPlanVmForDashborad) {
         if (data) {
@@ -7158,14 +7904,9 @@ export class PlanVmForDashborad implements IPlanVmForDashborad {
         if (_data) {
             this.id = _data["id"];
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
-            this.messageNumber = _data["messageNumber"];
-            this.emailNumber = _data["emailNumber"];
-            this.adminNumber = _data["adminNumber"];
-            this.inspectorNumber = _data["inspectorNumber"];
-            this.evaluatorNumber = _data["evaluatorNumber"];
-            this.auditorNumber = _data["auditorNumber"];
-            this.commissionerNumber = _data["commissionerNumber"];
-            this.reportsSentNumber = _data["reportsSentNumber"];
+            this.reportsNumber = _data["reportsNumber"];
+            this.price = _data["price"];
+            this.usersNumber = _data["usersNumber"];
         }
     }
 
@@ -7180,14 +7921,9 @@ export class PlanVmForDashborad implements IPlanVmForDashborad {
         data = typeof data === 'object' ? data : {};
         data["id"] = this.id;
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
-        data["messageNumber"] = this.messageNumber;
-        data["emailNumber"] = this.emailNumber;
-        data["adminNumber"] = this.adminNumber;
-        data["inspectorNumber"] = this.inspectorNumber;
-        data["evaluatorNumber"] = this.evaluatorNumber;
-        data["auditorNumber"] = this.auditorNumber;
-        data["commissionerNumber"] = this.commissionerNumber;
-        data["reportsSentNumber"] = this.reportsSentNumber;
+        data["reportsNumber"] = this.reportsNumber;
+        data["price"] = this.price;
+        data["usersNumber"] = this.usersNumber;
         return data;
     }
 }
@@ -7195,14 +7931,9 @@ export class PlanVmForDashborad implements IPlanVmForDashborad {
 export interface IPlanVmForDashborad {
     id?: number;
     name?: LocalizedStringDto | undefined;
-    messageNumber?: number | undefined;
-    emailNumber?: number | undefined;
-    adminNumber?: number | undefined;
-    inspectorNumber?: number | undefined;
-    evaluatorNumber?: number | undefined;
-    auditorNumber?: number | undefined;
-    commissionerNumber?: number | undefined;
-    reportsSentNumber?: number | undefined;
+    reportsNumber?: number | undefined;
+    price?: number;
+    usersNumber?: number | undefined;
 }
 
 export class HttpResultOfLong implements IHttpResultOfLong {
@@ -7243,14 +7974,9 @@ export interface IHttpResultOfLong {
 
 export class PlanPostPutCommon implements IPlanPostPutCommon {
     name?: LocalizedStringDto | undefined;
-    messageNumber?: number | undefined;
-    emailNumber?: number | undefined;
-    adminNumber?: number | undefined;
-    inspectorNumber?: number | undefined;
-    evaluatorNumber?: number | undefined;
-    auditorNumber?: number | undefined;
-    commissionerNumber?: number | undefined;
-    reportsSentNumber?: number | undefined;
+    reportsNumber?: number | undefined;
+    price?: number;
+    usersNumber?: number | undefined;
 
     constructor(data?: IPlanPostPutCommon) {
         if (data) {
@@ -7264,14 +7990,9 @@ export class PlanPostPutCommon implements IPlanPostPutCommon {
     init(_data?: any) {
         if (_data) {
             this.name = _data["name"] ? LocalizedStringDto.fromJS(_data["name"]) : <any>undefined;
-            this.messageNumber = _data["messageNumber"];
-            this.emailNumber = _data["emailNumber"];
-            this.adminNumber = _data["adminNumber"];
-            this.inspectorNumber = _data["inspectorNumber"];
-            this.evaluatorNumber = _data["evaluatorNumber"];
-            this.auditorNumber = _data["auditorNumber"];
-            this.commissionerNumber = _data["commissionerNumber"];
-            this.reportsSentNumber = _data["reportsSentNumber"];
+            this.reportsNumber = _data["reportsNumber"];
+            this.price = _data["price"];
+            this.usersNumber = _data["usersNumber"];
         }
     }
 
@@ -7285,28 +8006,18 @@ export class PlanPostPutCommon implements IPlanPostPutCommon {
     toJSON(data?: any) {
         data = typeof data === 'object' ? data : {};
         data["name"] = this.name ? this.name.toJSON() : <any>undefined;
-        data["messageNumber"] = this.messageNumber;
-        data["emailNumber"] = this.emailNumber;
-        data["adminNumber"] = this.adminNumber;
-        data["inspectorNumber"] = this.inspectorNumber;
-        data["evaluatorNumber"] = this.evaluatorNumber;
-        data["auditorNumber"] = this.auditorNumber;
-        data["commissionerNumber"] = this.commissionerNumber;
-        data["reportsSentNumber"] = this.reportsSentNumber;
+        data["reportsNumber"] = this.reportsNumber;
+        data["price"] = this.price;
+        data["usersNumber"] = this.usersNumber;
         return data;
     }
 }
 
 export interface IPlanPostPutCommon {
     name?: LocalizedStringDto | undefined;
-    messageNumber?: number | undefined;
-    emailNumber?: number | undefined;
-    adminNumber?: number | undefined;
-    inspectorNumber?: number | undefined;
-    evaluatorNumber?: number | undefined;
-    auditorNumber?: number | undefined;
-    commissionerNumber?: number | undefined;
-    reportsSentNumber?: number | undefined;
+    reportsNumber?: number | undefined;
+    price?: number;
+    usersNumber?: number | undefined;
 }
 
 export class PlansPostCommand extends PlanPostPutCommon implements IPlansPostCommand {
