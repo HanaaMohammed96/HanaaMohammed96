@@ -30,27 +30,27 @@
     </div>
 
     <div class="flex flex-col sm:flex-row">
-      <mat-form-field *ngIf="'plans.messageNumber' | translate as messageNumber" appearance="outline"
+      <mat-form-field *ngIf="'plans.reportsNumber' | translate as reportsNumber" appearance="outline"
         class="flex-auto">
-        <mat-label>{{ messageNumber }}</mat-label>
-        <input class="english-text text-left" formControlName="messageNumber" matInput max="10" type="number" />
+        <mat-label>{{ reportsNumber }}</mat-label>
+        <input class="english-text text-left" formControlName="reportsNumber" matInput max="10" type="number" />
       </mat-form-field>
     </div>
     <div class="flex flex-col sm:flex-row">
-      <mat-form-field *ngIf="'plans.emailNumber' | translate as emailNumber" appearance="outline"
+      <mat-form-field *ngIf="'plans.price' | translate as price" appearance="outline"
       class="flex-auto">
-      <mat-label>{{ emailNumber }}</mat-label>
-      <input class="english-text text-left" formControlName="emailNumber" matInput max="10" type="number" />
+      <mat-label>{{ price }}</mat-label>
+      <input class="english-text text-left" formControlName="price" matInput max="10" type="number" />
     </mat-form-field>
     </div>
     <div class="flex flex-col sm:flex-row">
-      <mat-form-field *ngIf="'plans.adminNumber' | translate as adminNumber" appearance="outline"
+      <mat-form-field *ngIf="'plans.usersNumber' | translate as usersNumber" appearance="outline"
       class="flex-auto">
-      <mat-label>{{ adminNumber }}</mat-label>
-      <input class="english-text text-left" formControlName="adminNumber" matInput max="10" type="number" />
+      <mat-label>{{ usersNumber }}</mat-label>
+      <input class="english-text text-left" formControlName="usersNumber" matInput max="10" type="number" />
     </mat-form-field>
     </div>
-    <div class="flex flex-col sm:flex-row">
+    <!-- <div class="flex flex-col sm:flex-row">
       <mat-form-field *ngIf="'plans.inspectorNumber' | translate as  inspectorNumber" appearance="outline"
       class="flex-auto">
       <mat-label>{{  inspectorNumber }}</mat-label>
@@ -84,6 +84,6 @@
       <mat-label>{{  reportsSentNumber }}</mat-label>
       <input class="english-text text-left" formControlName="reportsSentNumber" matInput max="10" type="number" />
     </mat-form-field>
-    </div>
+    </div> -->
   </div>
 </app-form-dialog>

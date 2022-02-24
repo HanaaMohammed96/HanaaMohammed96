@@ -39,14 +39,9 @@ export class PlansCreateUpdateComponent implements OnInit {
           Ar: ['', Validators.required],
           En: ['', Validators.required],
         }),
-        messageNumber: [''],
-        emailNumber: [''],
-        adminNumber: [''],
-        incpectorNumber: [''],
-        evaluatorNumber: [''],
-        auditorNumber: [''],
-        commissionerNumber:[''],
-        reportsSentNumber:['']
+        reportsNumber: [''],
+        price: [''],
+        usersNumber: [''],
       });
     } else {
       this.form = this._fb.group({
@@ -54,14 +49,9 @@ export class PlansCreateUpdateComponent implements OnInit {
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-        messageNumber: [this.data.messageNumber,''],
-        emailNumber: [this.data.emailNumber,''],
-        adminNumber: [this.data.adminNumber,''],
-        incpectorNumber: [this.data.inspectorNumber,''],
-        evaluatorNumber: [this.data.evaluatorNumber,''],
-        auditorNumber: [this.data.auditorNumber,''],
-        commissionerNumber:[this.data.commissionerNumber,''],
-        reportsSentNumber:[this.data.reportsSentNumber,'']
+        reportsNumber: [this.data.reportsNumber,''],
+        price: [this.data.price,''],
+        usersNumber: [this.data.usersNumber,''],
       });
     }
   }
@@ -74,32 +64,17 @@ export class PlansCreateUpdateComponent implements OnInit {
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    const messageNumber = value.messageNumber;
+    const reportsNumber = value.reportsNumber;
 
-    const emailNumber = value.emailNumber;
+    const price = value.price;
 
-    const adminNumber = value.adminNumber;
-
-    const  inspectorNumber = value.inspectorNumber;
-
-    const  evaluatorNumber = value.evaluatorNumber;
-
-    const  auditorNumber = value.auditorNumber;
-
-    const  commissionerNumber = value.commissionerNumber;
-
-    const  reportsSentNumber = value.reportsSentNumber;
+    const usersNumber = value.usersNumber;
 
     return new PlansPostCommand({
       name,
-      messageNumber,
-      emailNumber,
-      adminNumber,
-      inspectorNumber,
-      evaluatorNumber,
-      auditorNumber,
-      commissionerNumber,
-      reportsSentNumber
+      reportsNumber,
+      price,
+      usersNumber,
     });
   }
 
@@ -107,33 +82,18 @@ export class PlansCreateUpdateComponent implements OnInit {
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    const messageNumber = value.messageNumber;
+    const reportsNumber = value.reportsNumber;
 
-    const emailNumber = value.emailNumber;
+    const price = value.price;
 
-    const adminNumber = value.adminNumber;
-
-    const  inspectorNumber = value.inspectorNumber;
-
-    const  evaluatorNumber = value.evaluatorNumber;
-
-    const  auditorNumber = value.auditorNumber;
-
-    const  commissionerNumber = value.commissionerNumber;
-
-    const  reportsSentNumber = value.reportsSentNumber;
+    const usersNumber = value.usersNumber;
 
     return new PlansPutCommand({
       id,
       name,
-      messageNumber,
-      emailNumber,
-      adminNumber,
-      inspectorNumber,
-      evaluatorNumber,
-      auditorNumber,
-      commissionerNumber,
-      reportsSentNumber
+      reportsNumber,
+      price,
+      usersNumber,
     });
   }
 
@@ -148,14 +108,9 @@ export class PlansCreateUpdateComponent implements OnInit {
       }
 
       this.data.name = name;
-      this.data.messageNumber = value.messageNumber;
-      this.data.emailNumber = value.emailNumber;
-      this.data.adminNumber = value.adminNumber;
-      this.data.inspectorNumber = value.inspectorNumber;
-      this.data.evaluatorNumber = value.evaluatorNumber;
-      this.data.auditorNumber = value.auditorNumber;
-      this.data.commissionerNumber = value.commissionerNumber;
-      this.data.reportsSentNumber = value.reportsSentNumber;
+      this.data.reportsNumber = value.reportsNumber;
+      this.data.price = value.price;
+      this.data.usersNumber = value.usersNumber;
 
       this._dialogRef.close();
 
