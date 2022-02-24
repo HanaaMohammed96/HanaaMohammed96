@@ -39,14 +39,9 @@ export class PlansCreateUpdateComponent implements OnInit {
           Ar: ['', Validators.required],
           En: ['', Validators.required],
         }),
-        messageNumber: [''],
-        emailNumber: [''],
-        adminNumber: [''],
-        incpectorNumber: [''],
-        evaluatorNumber: [''],
-        auditorNumber: [''],
-        commissionerNumber:[''],
-        reportsSentNumber:['']
+        reportsNumber: [''],
+        price: [''],
+        usersNumber: [''],
       });
     } else {
       this.form = this._fb.group({
@@ -54,118 +49,78 @@ export class PlansCreateUpdateComponent implements OnInit {
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-      //   messageNumber: [this.data.messageNumber,''],
-      //   emailNumber: [this.data.emailNumber,''],
-      //   adminNumber: [this.data.adminNumber,''],
-      //   incpectorNumber: [this.data.inspectorNumber,''],
-      //   evaluatorNumber: [this.data.evaluatorNumber,''],
-      //   auditorNumber: [this.data.auditorNumber,''],
-      //   commissionerNumber:[this.data.commissionerNumber,''],
-      //   reportsSentNumber:[this.data.reportsSentNumber,'']
+        reportsNumber: [this.data.reportsNumber,''],
+        price: [this.data.price,''],
+        usersNumber: [this.data.usersNumber,''],
       });
     }
   }
 
   ngOnDestroy(): void {
-    // this._dialogRef.close(this.data);
+    this._dialogRef.close(this.data);
   }
 
-  // post(value: any): any {
+  post(value: any): any {
 
-  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-  //   const messageNumber = value.messageNumber;
+    const reportsNumber = value.reportsNumber;
 
-  //   const emailNumber = value.emailNumber;
+    const price = value.price;
 
-  //   const adminNumber = value.adminNumber;
+    const usersNumber = value.usersNumber;
 
-  //   const  inspectorNumber = value.inspectorNumber;
+    return new PlansPostCommand({
+      name,
+      reportsNumber,
+      price,
+      usersNumber,
+    });
+  }
 
-  //   const  evaluatorNumber = value.evaluatorNumber;
+  put(id: any, value: any): any {
 
-  //   const  auditorNumber = value.auditorNumber;
+    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-  //   const  commissionerNumber = value.commissionerNumber;
+    const reportsNumber = value.reportsNumber;
 
-  //   const  reportsSentNumber = value.reportsSentNumber;
+    const price = value.price;
 
-  //   return new PlansPostCommand({
-  //     name,
-  //     // messageNumber,
-  //     emailNumber,
-  //     adminNumber,
-  //     inspectorNumber,
-  //     evaluatorNumber,
-  //     auditorNumber,
-  //     commissionerNumber,
-  //     reportsSentNumber
-  //   });
-  // }
+    const usersNumber = value.usersNumber;
 
-  // put(id: any, value: any): any {
+    return new PlansPutCommand({
+      id,
+      name,
+      reportsNumber,
+      price,
+      usersNumber,
+    });
+  }
 
-  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
+  submit(event: any) {
+    const value = event.value;
 
-  //   const messageNumber = value.messageNumber;
+    const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-  //   const emailNumber = value.emailNumber;
+    event.action.subscribe((response: any) => {
+      if (response) {
+        this.data.id = response.result;
+      }
 
-  //   const adminNumber = value.adminNumber;
+      this.data.name = name;
+      this.data.reportsNumber = value.reportsNumber;
+      this.data.price = value.price;
+      this.data.usersNumber = value.usersNumber;
 
-  //   const  inspectorNumber = value.inspectorNumber;
+      this._dialogRef.close();
 
-  //   const  evaluatorNumber = value.evaluatorNumber;
-
-  //   const  auditorNumber = value.auditorNumber;
-
-  //   const  commissionerNumber = value.commissionerNumber;
-
-  //   const  reportsSentNumber = value.reportsSentNumber;
-
-  //   return new PlansPutCommand({
-  //     id,
-  //     name,
-  //     // messageNumber,
-  //     // emailNumber,
-  //     // adminNumber,
-  //     // inspectorNumber,
-  //     // evaluatorNumber,
-  //     // auditorNumber,
-  //     // commissionerNumber,
-  //     // reportsSentNumber
-  //   });
-  // }
-
-  // submit(event: any) {
-  //   const value = event.value;
-
-  //   const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
-
-  //   event.action.subscribe((response: any) => {
-  //     if (response) {
-  //       this.data.id = response.result;
-  //     }
-
-  //     this.data.name = name;
-  //     // this.data.messageNumber = value.messageNumber;
-  //     // this.data.emailNumber = value.emailNumber;
-  //     // this.data.adminNumber = value.adminNumber;
-  //     // this.data.inspectorNumber = value.inspectorNumber;
-  //     // this.data.evaluatorNumber = value.evaluatorNumber;
-  //     // this.data.auditorNumber = value.auditorNumber;
-  //     // this.data.commissionerNumber = value.commissionerNumber;
-  //     // this.data.reportsSentNumber = value.reportsSentNumber;
-
-  //     this._dialogRef.close();
-
-  //     this._handler.handleSuccess();
-  //   },
-  //     (err) => {
-  //       this._handler.handleError(err).pushError();
-  //     }
-  //   );
-  // }
+      this._handler.handleSuccess();
+    },
+      (err) => {
+        this._handler.handleError(err).pushError();
+      }
+    );
+  }
 
 
 }

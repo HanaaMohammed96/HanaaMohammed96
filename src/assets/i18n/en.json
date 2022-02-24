@@ -301,15 +301,9 @@
     "tableNamePlural": "Plans",
     "enName": "English Name",
     "arName": "Arabic Name",
-    "messageNumber" : "Message Number",
-    "emailNumber" : "Enail Number",
-    "adminNumber" : "Admin Number",
-    "inspectorNumber" : "Inspector Number",
-    "evaluatorNumber" : "Evaluator Number",
-    "auditorNumber" : "Auditor Number",
-    "commissionerNumber" : "Commissioner Number",
-    "reportsSentNumber" : "Reports Sent Number"
-
+    "reportsNumber" :"ReportsNumber",
+    "price" :"Price",
+    "usersNumber" :"usersNumber"
   },
   "commonQuestion":{
     "title":"Monjez Portal Common Questions Page",
@@ -321,6 +315,4 @@
     "enQuestion": "English Question",
     "arAnswer": "Arabic Answer",
     "enAnswer": "English Answer"
-
-  }
 }

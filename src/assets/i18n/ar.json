@@ -304,7 +304,10 @@
     "tableName": "الخطط",
     "tableNamePlural": "الخطط",
     "enName": "الاسم باللغة الإنجليزية",
-    "arName": "الاسم باللغة العربية"
+    "arName": "الاسم باللغة العربية",
+    "reportsNumber" :"عدد التقارير",
+    "price" :"السعر",
+    "usersNumber" :"عدد المستخدمين"
   },
   "commonQuestion": {
     "title":"الأسئلة الشائعة",
