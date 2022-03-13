@@ -97,8 +97,19 @@ export class FormEditorComponent implements OnInit, OnDestroy {
       this._FormsClient.get(this.formId).subscribe(result => {
         this.model = result;
         this.formEditorService.validForm(this.model);
+        console.log(this.model)
       });
     }
+  }
+
+  isValid() {
+    console.log(this.model)
+    return this.model.name.ar != '' &&
+      this.model.name.en != '' &&
+      this.model.description.ar != '' &&
+      this.model.description.en != '' &&
+      this.model.realStateId != null &&
+      this.model.type != null && (this.model.parentRegionId != null || this.model.regionId != null) && this.model.fields.length != 0;
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -209,8 +220,11 @@ export class FormEditorComponent implements OnInit, OnDestroy {
 
     let action: Observable<any>;
 
+    if (this.model.regionId == null)
+      this.model.regionId = this.model.parentRegionId
+
     const form = this.model;
-console.log(form)
+
     this.loading = true;
 
     if (!this.formId) {

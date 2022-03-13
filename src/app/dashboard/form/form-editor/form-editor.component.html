@@ -322,7 +322,7 @@
 
 </div>
 <div class="inline-block fixed mx-6 bottom-5">
-  <button [class.spinner]="loading" mat-mini-fab color="accent" (click)="save()" [disabled]="!validForm">
+  <button [class.spinner]="loading" mat-mini-fab color="accent" (click)="save()" [disabled]="!isValid()">
     <mat-icon *ngIf="!loading" [icIcon]="icSave"></mat-icon>
   </button>
 </div>

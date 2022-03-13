@@ -17,7 +17,7 @@ import icEdit from '@iconify/icons-ic/twotone-edit';
 import icPageView from '@iconify/icons-ic/twotone-pageview';
 import icReceipt from '@iconify/icons-ic/twotone-receipt';
 import icFilterList from '@iconify/icons-ic/twotone-filter-list';
-import icMoreVert from '@iconify/icons-ic/twotone-more-vert';
+import icMoreVert from '@iconify/icons-ic/store';
 import icAssessment from '@iconify/icons-ic/twotone-assessment';
 import icBook from '@iconify/icons-ic/twotone-book';
 import  icAssigment from '@iconify/icons-ic/twotone-assignment';
