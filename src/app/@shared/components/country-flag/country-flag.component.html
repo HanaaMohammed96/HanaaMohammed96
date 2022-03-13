@@ -1,7 +1,8 @@
 <mat-select (selectionChange)="setCode($event)" style="width: 60px;" *ngIf="!phone">
   <mat-option *ngFor="let country of countries" [value]="country.code" class="flex flex-row justify-between items-center">
-    <img [src]="country.icon" alt="country.code" width="30" style="display: inline-block;">
-    <span>{{toLang(country.name)}}</span>
+    <img [src]="country.icon" alt="country.code" width="30" style="display: inline-block; margin: 0 15px;">
+    {{toLang(country.name)}}
+    ({{country.code}})
   </mat-option>
 </mat-select>
 <mat-select (selectionChange)="setCode($event)" style="width: 60px;" *ngIf="phone" [(value)]="dataCode" >
