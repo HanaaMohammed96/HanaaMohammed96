@@ -21,6 +21,8 @@ import {
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { LocalizationService } from '@core/services/localization.service';
+import { CountryFlagsService, ICountry } from '@core/services/countryFlags.service';
+import { FormEditorService } from './../../../@core/services/form-editor.service';
 
 @Component({
   selector: 'app-team-create-update',
@@ -38,6 +40,8 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
 
   isArabic = false;
 
+  code:string;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AdminVm,
     private _accountsClient: AccountsClient,
@@ -47,6 +51,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
     private _localizationService: LocalizationService,
   ) {
     this.isArabic = this._localizationService.getLang() === Language.Ar;
+
   }
 
   get firstName(): AbstractControl {
@@ -108,6 +113,11 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
     this._dialogRef.close(this.data);
   }
 
+
+  serCountryCode(event:string):void{
+    this.code = event;
+  }
+
   submit(): void {
     const value = this.form.value;
     const rawValue = this.form.getRawValue();
@@ -126,7 +136,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
 
     let action: Observable<any>;
 
-    const phoneNumber = rawValue.phoneNumber ? '+20 ' + rawValue.phoneNumber : null;
+    const phoneNumber = rawValue.phoneNumber ? this.code + rawValue.phoneNumber : null;
 
     if (!this.data.id) {
       action = this._accountsClient.post(

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DataValueDto, FieldType, FormDto, IDataFieldDto, LocalizedStringDto } from '@core/api';
+import { DataValueDto, FieldType, IDataFieldDto, LocalizedStringDto } from '@core/api';
 import { IFormPostPut } from '@models/data-field';
 import { BehaviorSubject } from 'rxjs';
 
@@ -199,24 +199,24 @@ export class FormEditorService {
     }
   }
 
-  validForm(form){
+  validForm(form) {
     if (form.name.ar != '' &&
-        form.name.en != '' &&
-        form.description.ar != '' &&
-        form.description.en != '' &&
-        form.realStateId!= null &&
-        form.type!= null && form.regionId!= null && form.fields.length !=0) {
-        // return true;
-        return this.validateForm.next(true)
-      }else{
-        // return false;
-        return this.validateForm.next(false)
+      form.name.en != '' &&
+      form.description.ar != '' &&
+      form.description.en != '' &&
+      form.realStateId != null &&
+      form.type != null && form.regionId != null && form.fields.length != 0) {
+      // return true;
+      return this.validateForm.next(true)
+    } else {
+      // return false;
+      return this.validateForm.next(false)
 
-      }
+    }
   }
 
-  myIcon(type): string{
-    switch(type){
+  myIcon(type): string {
+    switch (type) {
       case 'Text':
         return 'format_color_text';
         break;
@@ -255,5 +255,5 @@ export class FormEditorService {
     }
 
   }
-  
+
 }

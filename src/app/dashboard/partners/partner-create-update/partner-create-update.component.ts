@@ -37,6 +37,9 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
   errors = { detail: null, key: null };
 
   isArabic = false;
+
+  code:string;
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: AdminVm,
     private _accountsClient: AccountsClient,
@@ -105,6 +108,10 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
     this._dialogRef.close(this.data);
   }
 
+  serCountryCode(event:string):void{
+    this.code = event;
+  }
+  
   submit(): void {
     const value = this.form.value;
     const rawValue = this.form.getRawValue();
@@ -123,7 +130,7 @@ export class PartnerCreateUpdateComponent implements OnInit, OnDestroy {
 
     let action: Observable<any>;
 
-    const phoneNumber = rawValue.phoneNumber ? '+20 ' + rawValue.phoneNumber : null;
+    const phoneNumber = rawValue.phoneNumber ? this.code + rawValue.phoneNumber : null;
 
     if (!this.data.id) {
       action = this._accountsClient.post(

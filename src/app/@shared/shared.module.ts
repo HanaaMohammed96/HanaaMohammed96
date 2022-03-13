@@ -38,6 +38,7 @@ import { AioTableComponent } from './components/widgets/aio-table/aio-table.comp
 import { FormDialogComponent } from './components/form-dialog/form-dialog.component';
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { MegaMenuComponent } from './components/mega-menu/mega-menu.component';
+import { CountryFlagComponent } from './components/country-flag/country-flag.component';
 
 const LOCAL_DIRECTIVES = [];
 
@@ -59,6 +60,7 @@ const SHARED_COMPONENTS = [
   FilterDialogComponent,
   SearchComponent,
   MegaMenuComponent,
+  CountryFlagComponent
 ];
 
 const WIDGETS = [

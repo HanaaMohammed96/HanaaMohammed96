@@ -69,15 +69,16 @@
         class="flex-auto"
       >
         <mat-label>{{ phone_number }}</mat-label>
-        <span *ngIf="!isArabic" matPrefix>+20 &nbsp;</span>
-        <input
-          class="english-text text-left"
-          formControlName="phoneNumber"
-          matInput
-          max="10"
-          type="tel"
-        />
-        <span *ngIf="isArabic" matSuffix>+20 &nbsp;</span>
+        <div class=" flex flex-row justify-start items-center">
+          <input
+            class="english-text text-left"
+            formControlName="phoneNumber"
+            matInput
+            max="10"
+            type="tel"
+          />
+          <app-country-flag (code)="serCountryCode($event)" [phone]="data?.phoneNumber"></app-country-flag>
+        </div>
         <mat-error *ngIf="form.get('phoneNumber').hasError('required')">{{
           'validations.required' | translate: { field: phone_number }
         }}</mat-error>
