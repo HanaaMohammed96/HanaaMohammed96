@@ -15,6 +15,7 @@ export class CountryFlagComponent implements OnInit, OnChanges {
   countries: ICountry[] = [];
 
   dataCode: string;
+  _code:string;
 
   constructor(
     private _countryService: CountryFlagsService,
@@ -50,6 +51,7 @@ export class CountryFlagComponent implements OnInit, OnChanges {
   }
 
   setCode(event) {
+    this._code = event.value.toString();
     this.code.emit(event.value.toString());
   }
 

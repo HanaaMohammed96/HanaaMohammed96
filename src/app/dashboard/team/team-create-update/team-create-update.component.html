@@ -75,7 +75,7 @@
           max="10"
           type="tel"
         />
-          <app-country-flag (code)="serCountryCode($event)" [phone]="data?.phoneNumber"></app-country-flag>
+          <app-country-flag (code)="setCountryCode($event)" [phone]="data?.phoneNumber"></app-country-flag>
       </div>
         <mat-error *ngIf="form.get('phoneNumber').hasError('required')">{{
           'validations.required' | translate: { field: phone_number }
