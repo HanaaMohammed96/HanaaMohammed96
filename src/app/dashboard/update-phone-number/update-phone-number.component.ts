@@ -41,13 +41,13 @@ export class UpdatePhoneNumberComponent implements OnInit {
 
     this._accountsClient.get().subscribe((account: AccountDto) => {
       this.account = account;
-      
-      const code = this._countryCodeService.getCode(account.phoneNumber);
 
-      this.form = this._fb.group({
-        phoneNumber: [this.account.phoneNumber.replace(code, ''), Validators.required],
-        token: [''],
-      });
+      const code = this._countryCodeService.getCode(account.phoneNumber);
+      if(code)
+        this.form = this._fb.group({
+          phoneNumber: [this.account.phoneNumber.replace(code, ''), Validators.required],
+          token: [''],
+        });
 
     });
   }

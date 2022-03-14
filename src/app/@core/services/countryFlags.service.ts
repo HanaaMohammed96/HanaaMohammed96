@@ -87,7 +87,7 @@ export class CountryFlagsService {
     return this._countries;
   }
 
-  getCode(phone: string): string {
+  getCode(phone: string): string | void {
     if (phone) {
       for (let country of this.countries) {
         if (phone.includes(country.code)) {
