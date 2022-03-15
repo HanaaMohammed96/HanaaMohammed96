@@ -17,6 +17,7 @@ import { CountryComponent } from './country/country.component';
 import { RegionsComponent } from './regions/regions.component';
 import { PlansComponent } from './plans/plans.component';
 import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
+import { AuthorizeGuard } from '@core/auth/guards/authorize.guard';
 
 const routes: Routes = [
   {
@@ -39,6 +40,18 @@ const routes: Routes = [
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: 'plans', component: PlansComponent },
       {path: 'common-question' , component :CommonQuestionsComponent},
+      {
+      path: 'apps',
+        children: [
+          {
+            path: 'chat',
+            canLoad: [AuthorizeGuard],
+            loadChildren: () => import('../chat/chat.module').then((m) => m.ChatModule),
+            data: {
+              toolbarShadowEnabled: true
+            }
+          }
+        ]},
       { path: '**', component: NotFoundComponent },
     ],
   },

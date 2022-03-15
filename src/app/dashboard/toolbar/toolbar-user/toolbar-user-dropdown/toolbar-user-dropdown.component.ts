@@ -18,6 +18,14 @@ import { UpdateProfileComponent } from 'src/app/dashboard/update-profile/update-
 import { UpdatePasswordComponent } from 'src/app/dashboard/update-password/update-password.component';
 import { Observable } from 'rxjs';
 import { UpdatePhoneNumberComponent } from 'src/app/dashboard/update-phone-number/update-phone-number.component';
+import { Icon } from '@visurel/iconify-angular';
+
+export interface OnlineStatus {
+  id: 'online' | 'away' | 'dnd' | 'offline';
+  label: string;
+  icon: Icon;
+  colorClass: string;
+}
 
 @Component({
   selector: 'app-toolbar-user-dropdown',
