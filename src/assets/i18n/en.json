@@ -316,6 +316,23 @@
     "enQuestion": "English Question",
     "arAnswer": "Arabic Answer",
     "enAnswer": "English Answer"
+  },
+  "chat": {
+    "welcome": "Start a conversation",
+    "search": "Search or start a new chat",
+    "chats": "Chats",
+    "type": "Type a message",
+    "statuses": {
+      "online": "Online",
+      "away": "Away",
+      "disturb": "Do not disturb",
+      "off": "Offline"
+    },
+    "account": {
+      "info": "Contac Info",
+      "mute": "Mute Chat",
+      "clear": "Clear Messages"
+    }
   }
 }
 

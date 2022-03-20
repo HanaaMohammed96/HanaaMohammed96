@@ -44,7 +44,7 @@
       <div class="border rounded-full text-hint overflow-hidden bg-card ltr:pl-6 rtl:pr-6" fxFlex="auto" fxLayout="row"
         fxLayoutAlign="start center">
         <input class="outline-none border-0 h-12 w-240 placeholder:text-secondary body-1 bg-card"
-          formControlName="message" fxFlex="auto" placeholder="Type a message..." type="text">
+          formControlName="message" fxFlex="auto" placeholder="{{'chat.type' | translate}}" type="text">
         <button [class.text-primary]="form.get('message').value" [disabled]="!form.get('message').value"
           class="ltr:mr-4 rtl:ml-4 ltr:ml-3 rtl:mr-3" mat-icon-button type="submit">
           <mat-icon [icIcon]="icSend"></mat-icon>
@@ -57,16 +57,16 @@
 <mat-menu #chatMenu="matMenu" xPosition="after" yPosition="below">
   <button mat-menu-item>
     <mat-icon [icIcon]="icAccountCircle"></mat-icon>
-    <span>Contact Info</span>
+    <span>{{'chat.account.info' | translate}}</span>
   </button>
 
   <button mat-menu-item>
     <mat-icon [icIcon]="icVolumeMute"></mat-icon>
-    <span>Mute Chat</span>
+    <span>{{'chat.account.mute' | translate}}</span>
   </button>
 
   <button mat-menu-item>
     <mat-icon [icIcon]="icClearAll"></mat-icon>
-    <span>Clear Messages</span>
+    <span>{{'chat.account.clear' | translate}}</span>
   </button>
 </mat-menu>

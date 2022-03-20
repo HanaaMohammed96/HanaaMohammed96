@@ -72,7 +72,7 @@ export class AppComponent implements OnInit {
       {
         type: 'link',
         label: await this.translate('navigations.chat'),
-        route: '/apps/chat',
+        route: '/chat',
         icon: icChat,
         badge: {
           value: '16',

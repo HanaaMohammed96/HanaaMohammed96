@@ -16,6 +16,7 @@ import icOfflineBolt from '@iconify/icons-ic/twotone-offline-bolt';
 import { trackById } from '@core/utils/track-by';
 import { OnlineStatus } from '../dashboard/toolbar/toolbar-user/toolbar-user-dropdown/toolbar-user-dropdown.component';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { TranslateService } from '@ngx-translate/core';
 
 export interface Chat {
   id: number;
@@ -53,34 +54,9 @@ export class ChatComponent implements OnInit, OnDestroy{
   mobileQuery = this.mediaMatcher.matchMedia('(max-width: 959px)');
   drawerOpen$ = this.chatService.drawerOpen$;
 
-  statuses: OnlineStatus[] = [
-    {
-      id: 'online',
-      label: 'Online',
-      icon: icCheckCircle,
-      colorClass: 'text-green'
-    },
-    {
-      id: 'away',
-      label: 'Away',
-      icon: icAccessTime,
-      colorClass: 'text-orange'
-    },
-    {
-      id: 'dnd',
-      label: 'Do not disturb',
-      icon: icDoNotDisturb,
-      colorClass: 'text-red'
-    },
-    {
-      id: 'offline',
-      label: 'Offline',
-      icon: icOfflineBolt,
-      colorClass: 'text-gray'
-    }
-  ];
+  statuses: OnlineStatus[] ;
 
-  activeStatus: OnlineStatus = this.statuses[0];
+  activeStatus: OnlineStatus;
 
   icCheckCircle = icCheckCircle;
   icSearch = icSearch;
@@ -92,8 +68,14 @@ export class ChatComponent implements OnInit, OnDestroy{
     private cd: ChangeDetectorRef,
     private router: Router,
     private mediaMatcher: MediaMatcher,
-    private chatService: ChatService
-  ) { }
+    private chatService: ChatService,
+    private _translateService: TranslateService,
+  ) {
+    this.getStatus().then(statuses=>{
+      this.statuses = statuses;
+      this.activeStatus = statuses[0];
+    });
+  }
 
   ngOnInit() {
     this.mobileQuery.matches ? this.closeDrawer() : this.openDrawer();
@@ -114,6 +96,35 @@ export class ChatComponent implements OnInit, OnDestroy{
     this.activeStatus = status;
     this.cd.markForCheck();
   }
+  async getStatus(): Promise<OnlineStatus[]>{
+    const statuses: OnlineStatus[] = [
+      {
+        id: 'online',
+        label: await this.translate('chat.statuses.online'),
+        icon: icCheckCircle,
+        colorClass: 'text-green'
+      },
+      {
+        id: 'away',
+        label: await this.translate('chat.statuses.away'),
+        icon: icAccessTime,
+        colorClass: 'text-orange'
+      },
+      {
+        id: 'dnd',
+        label: await this.translate('chat.statuses.disturb'),
+        icon: icDoNotDisturb,
+        colorClass: 'text-red'
+      },
+      {
+        id: 'offline',
+        label: await this.translate('chat.statuses.off'),
+        icon: icOfflineBolt,
+        colorClass: 'text-gray'
+      }
+    ];
+    return statuses;
+  }
 
   drawerChange(drawerOpen: boolean) {
     this.chatService.drawerOpen.next(drawerOpen);
@@ -133,4 +144,7 @@ export class ChatComponent implements OnInit, OnDestroy{
     this.mobileQuery.removeEventListener('change', this._mobileQueryListener);
   }
 
+  private translate(key: string): Promise<string> {
+    return this._translateService.get(key).toPromise();
+  }
 }

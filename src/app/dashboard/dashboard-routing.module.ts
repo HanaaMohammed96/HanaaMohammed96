@@ -40,18 +40,19 @@ const routes: Routes = [
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: 'plans', component: PlansComponent },
       {path: 'common-question' , component :CommonQuestionsComponent},
-      {
-      path: 'apps',
-        children: [
-          {
-            path: 'chat',
-            canLoad: [AuthorizeGuard],
-            loadChildren: () => import('../chat/chat.module').then((m) => m.ChatModule),
-            data: {
-              toolbarShadowEnabled: true
-            }
-          }
-        ]},
+      // {
+      // path: 'apps',
+      //   children: [
+      //     {
+      //       path: 'chat',
+      //       canLoad: [AuthorizeGuard],
+      //       loadChildren: () => import('../chat/chat.module').then((m) => m.ChatModule),
+      //       data: {
+      //         toolbarShadowEnabled: true
+      //       }
+      //     }
+      //   ]
+      // },
       { path: '**', component: NotFoundComponent },
     ],
   },
