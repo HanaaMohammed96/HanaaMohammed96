@@ -128,6 +128,23 @@ export class AppComponent implements OnInit {
           } as NavigationDropdown,
           {
             type: 'dropdown',
+            label: await this.translate('navigations.contact_us'),
+            icon: icPageView,
+            children: [
+              {
+                type: 'link',
+                label: await this.translate('navigations.contact_us_ar'),
+                route: '/ctu/ar',
+              } as NavigationLink,
+              {
+                type: 'link',
+                label: await this.translate('navigations.contact_us_en'),
+                route: '/ctu/en',
+              } as NavigationLink,
+            ],
+          } as NavigationDropdown,
+          {
+            type: 'dropdown',
             label: await this.translate('navigations.privacy_policy'),
             icon: icPolicy,
             children: [

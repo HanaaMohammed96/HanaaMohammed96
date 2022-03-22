@@ -49,6 +49,7 @@ import { UpdatePhoneNumberComponent } from './update-phone-number/update-phone-n
 import { CountriesRegionsSubRegionsComponent } from './partners/countries-regions-sub-regions/countries-regions-sub-regions.component';
 import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
 import { CommonQuestionsCreateUpdateComponent } from './commonQuestions/commonQuestionsCreateUpdate/commonQuestionsCreateUpdate.component';
+import { ContactusComponent } from './contactus/contactus.component';
 
 
 
@@ -100,7 +101,8 @@ import { CommonQuestionsCreateUpdateComponent } from './commonQuestions/commonQu
     UpdatePhoneNumberComponent,
     CountriesRegionsSubRegionsComponent,
     CommonQuestionsComponent,
-    CommonQuestionsCreateUpdateComponent
+    CommonQuestionsCreateUpdateComponent,
+    ContactusComponent
   ],
   imports: [
     CommonModule,

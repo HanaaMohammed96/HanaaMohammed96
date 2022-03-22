@@ -7032,6 +7032,7 @@ export interface IContentVm {
 export enum ContentType {
     TermsAndConditions = 0,
     PrivacyPolicy = 1,
+    ContactUs = 2,
 }
 
 export class ContentsPutCommand implements IContentsPutCommand {
