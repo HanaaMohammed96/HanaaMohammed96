@@ -114,7 +114,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
   }
 
 
-  serCountryCode(event:string):void{
+  setCountryCode(event:string):void{
     this.code = event;
   }
 

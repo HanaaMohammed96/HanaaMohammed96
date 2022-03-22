@@ -20,7 +20,8 @@ import icFilterList from '@iconify/icons-ic/twotone-filter-list';
 import icMoreVert from '@iconify/icons-ic/store';
 import icAssessment from '@iconify/icons-ic/twotone-assessment';
 import icBook from '@iconify/icons-ic/twotone-book';
-import  icAssigment from '@iconify/icons-ic/twotone-assignment';
+import icAssigment from '@iconify/icons-ic/twotone-assignment';
+import icChat from '@iconify/icons-ic/twotone-chat';
 
 @Component({
   selector: 'app-root',
@@ -68,6 +69,17 @@ export class AppComponent implements OnInit {
         route: '/partners',
         icon: icUsers,
       } as NavigationLink,
+      {
+        type: 'link',
+        label: await this.translate('navigations.chat'),
+        route: '/chat',
+        icon: icChat,
+        badge: {
+          value: '16',
+          bgClass: 'bg-cyan',
+          textClass: 'text-cyan-contrast',
+        },
+      }as NavigationLink,
       {
         type: 'subheading',
         label: await this.translate('navigations.content'),
