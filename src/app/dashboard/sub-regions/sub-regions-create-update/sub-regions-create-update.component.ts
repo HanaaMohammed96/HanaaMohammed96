@@ -3,8 +3,10 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand, RegionVmForDashboard } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
-import { SubregionService } from '../subregion.service';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 
+
+@UntilDestroy()
 @Component({
   selector: 'app-sub-regions-create-update',
   templateUrl: './sub-regions-create-update.component.html'
@@ -98,7 +100,7 @@ export class SubRegionsCreateUpdateComponent implements OnInit, OnDestroy {
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    event.action.subscribe((response: any) => {
+    event.action.pipe(untilDestroyed(this)).subscribe((response: any) => {
       if (response) {
         this.data.id = response.result;
       }

@@ -23,7 +23,10 @@ import { ApiHandlerService } from '@core/services/api-handler.service';
 import { LocalizationService } from '@core/services/localization.service';
 import { CountryFlagsService, ICountry } from '@core/services/countryFlags.service';
 import { FormEditorService } from './../../../@core/services/form-editor.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+
+@UntilDestroy()
 @Component({
   selector: 'app-team-create-update',
   templateUrl: './team-create-update.component.html',
@@ -80,6 +83,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
     } else {
       this._accountsClient
         .getUser(this.data.id)
+        .pipe(untilDestroyed(this))
         .subscribe((account: AccountDashboardDto) => {
           this.dto = account;
           this.form = this._fb.group({
@@ -160,7 +164,7 @@ export class TeamCreateUpdateComponent implements OnInit, OnDestroy {
       );
     }
 
-    action.pipe(finalize(() => (this.loading = false))).subscribe(
+    action.pipe(finalize(() => (this.loading = false)), untilDestroyed(this)).subscribe(
       (response: any) => {
         if (response) {
           this.data.id = response.id;

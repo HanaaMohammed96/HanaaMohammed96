@@ -3,7 +3,11 @@ import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/fo
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CountriesClient, CountryVm, LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+
+
+@UntilDestroy()
 @Component({
   selector: 'app-region-create-update',
   templateUrl: './region-create-update.component.html'
@@ -33,7 +37,7 @@ countryId:number
   }
 
   ngOnInit(): void {
-    this.countriesClient.getList().subscribe(result => {
+    this.countriesClient.getList().pipe(untilDestroyed(this)).subscribe(result => {
       this.countries = result;
     })
 
@@ -106,7 +110,7 @@ countryId:number
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    event.action.subscribe((response: any) => {
+    event.action.pipe(untilDestroyed(this)).subscribe((response: any) => {
       if (response) {
         this.data.id = response.result;
       }
@@ -134,7 +138,7 @@ countryId:number
 // console.log(this.countryId)
     // if(this.countryId)
     // {
-    //   this.countryId= Number( this.countriesClient.getList().subscribe((country)=>{
+    //   this.countryId= Number( this.countriesClient.getList().pipe(untilDestroyed(this)).subscribe((country)=>{
     //     this.countries = country;
     //   }))
     // }

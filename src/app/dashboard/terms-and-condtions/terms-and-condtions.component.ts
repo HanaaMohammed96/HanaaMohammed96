@@ -13,7 +13,10 @@ import {
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+
+@UntilDestroy()
 @Component({
   selector: 'app-terms-and-condtions',
   templateUrl: './terms-and-condtions.component.html',
@@ -43,7 +46,7 @@ export class TermsAndCondtionsComponent implements OnInit {
     this._route.paramMap.subscribe((param: ParamMap) => {
       this.lang = param.get('lang') === 'en' ? Language.En : Language.Ar;
 
-      this._contentClient.get(this.lang, ContentType.TermsAndConditions).subscribe(
+      this._contentClient.get(this.lang, ContentType.TermsAndConditions).pipe(untilDestroyed(this)).subscribe(
         (dto: ContentVm) => {
           this.form.setValue(dto.value);
         },
@@ -63,7 +66,7 @@ export class TermsAndCondtionsComponent implements OnInit {
           value: this.form.value,
         })
       )
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.loading = false)),untilDestroyed(this))
       .subscribe(
         () => this._handler.handleSuccess(),
         (err) =>{           

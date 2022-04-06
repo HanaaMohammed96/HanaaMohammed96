@@ -10,7 +10,10 @@ import { Component, Inject, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+
+@UntilDestroy()
 @Component({
   selector: 'app-reset-password',
   templateUrl: './reset-password.component.html',
@@ -59,7 +62,7 @@ export class ResetPasswordComponent implements OnInit, OnDestroy {
           confirmPassword: value.confirmPassword,
         })
       )
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.loading = false)), untilDestroyed(this))
       .subscribe(
         () => {
           this._dialogRef.close();
