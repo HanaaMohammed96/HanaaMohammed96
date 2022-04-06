@@ -37,6 +37,7 @@ const routes: Routes = [
       { path: 'form-update/:id', component: FormBuilderComponent },
       { path: 'form-editor', component: FormBuilderComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
+      { path: 'contact-us/:lang', component: ContactusComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: 'plans', component: PricePlansComponent },
       {path: 'common-question' , component :CommonQuestionsComponent},

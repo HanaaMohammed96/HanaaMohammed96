@@ -12,7 +12,9 @@ import {
 } from '@core/api';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-contactus',
   templateUrl: './contactus.component.html',
@@ -40,10 +42,10 @@ export class ContactusComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this._route.paramMap.subscribe((param: ParamMap) => {
+    this._route.paramMap.pipe(untilDestroyed(this)).subscribe((param: ParamMap) => {
       this.lang = param.get('lang') === 'en' ? Language.En : Language.Ar;
 
-      this._contentClient.get(this.lang, ContentType.PrivacyPolicy).subscribe(
+      this._contentClient.get(this.lang, ContentType.ContactUs).pipe(untilDestroyed(this)).subscribe(
         (dto: ContentVm) => {
           this.form.setValue(dto.value);
         },
@@ -58,12 +60,12 @@ export class ContactusComponent implements OnInit {
     this._contentClient
       .put(
         new ContentsPutCommand({
-          type: ContentType.PrivacyPolicy,
+          type: ContentType.ContactUs,
           lang: this.lang,
           value: this.form.value,
         })
       )
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.loading = false)), untilDestroyed(this))
       .subscribe(
         () => this._handler.handleSuccess(),
         (err) => this._handler.handleError(err).pushError()

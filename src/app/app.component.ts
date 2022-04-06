@@ -146,12 +146,12 @@ export class AppComponent implements OnInit {
               {
                 type: 'link',
                 label: await this.translate('navigations.contact_us_ar'),
-                route: '/ctu/ar',
+                route: '/contact-us/ar',
               } as NavigationLink,
               {
                 type: 'link',
                 label: await this.translate('navigations.contact_us_en'),
-                route: '/ctu/en',
+                route: '/contact-us/en',
               } as NavigationLink,
             ],
           } as NavigationDropdown,
