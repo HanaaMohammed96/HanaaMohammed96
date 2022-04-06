@@ -1,1 +1,39 @@
-<p>form-builder works!</p>
+<div class=" lg:container p-4 mx-auto">
+  <div class="grid grid-cols-4 gap-4 limit " [class.hidden]="report">
+
+    <!--dropzone-->
+    <app-drop-zone cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]"
+      (cdkDropListDropped)="drop($event)" [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".limit"
+      fxLayout="column" fxLayoutAlign="space-evenly center" [formId]="formId" (displayReport)="report=$event"
+      (reportFields)="reports=$event" [model]="model" [displayForm]="report" [evt]="sendEvent"></app-drop-zone>
+
+
+    <!-- dragable Zone -->
+
+    <app-dragable-zone cdkDropList #formFields="cdkDropList" (cdkDropListDropped)="drop($event)"
+      [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels" position="end" cdkDrag cdkDragBoundary=".limit"
+      id="drag-Zone"></app-dragable-zone>
+
+  </div>
+
+
+  <!-- Show Form -->
+  <div *ngIf="report" class="text-black mx-auto w-1/2 p-6">
+    <div class="text-center icon-display">
+      <button (click)="report=false">
+        <mat-icon color="primary" class="m-4 ">swap_horizontal_circle</mat-icon>
+      </button>
+    </div>
+
+    <app-show-form [reports]="reports" (togglereport)="report=$event"></app-show-form>
+
+  </div>
+
+</div>
+
+
+<div class="inline-block fixed mx-6 bottom-5">
+  <button [class.spinner]="loading" mat-mini-fab color="accent" (click)="save()" [disabled]="!isValid()">
+    <mat-icon *ngIf="!loading" [icIcon]="icSave"></mat-icon>
+  </button>
+</div>

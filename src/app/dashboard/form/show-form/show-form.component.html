@@ -1,0 +1,48 @@
+<ng-container>
+  <div *ngIf="reports.fields.length > 0" class="p-8 rounded bg-white"
+    style="border:2px solid #ccc; box-shadow: 0 0 10px gray;">
+
+    <div>
+      <h3 class="text-center m-6 ">{{formEditorService.toLang(reports.name)}}</h3>
+      <p class="text-center m-6">{{formEditorService.toLang(reports.description)}}</p>
+    </div>
+
+    <div *ngFor="let item of reports.fields" fxLayout="column" fxLayoutAlign="space-evenly center">
+
+      <ng-container
+        *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Date || item.fieldType == +type.DateTime || item.fieldType == +type.Number || item.fieldType == +type.Result || item.fieldType == +type.Hidden">
+        <app-text [item]="item" cdkDrag></app-text>
+      </ng-container>
+
+      <ng-container *ngIf="item.fieldType == +type.TextArea">
+        <app-textarea [item]="item" cdkDrag></app-textarea>
+      </ng-container>
+
+      <ng-container
+        *ngIf="item.fieldType == +type.SingleImage || item.fieldType == +type.MultiImages || item.fieldType == +type.Pdf">
+        <app-file [item]="item" cdkDrag></app-file>
+      </ng-container>
+
+      <ng-container *ngIf="item.fieldType == +type.CheckBox">
+        <app-checkbox [item]="item" cdkDrag></app-checkbox>
+      </ng-container>
+
+      <ng-container *ngIf="item.fieldType == +type.Radio">
+        <app-radio-button [item]="item" cdkDrag></app-radio-button>
+      </ng-container>
+      <ng-container *ngIf="item.fieldType == +type.Select">
+        <app-drop-down [item]="item" cdkDrag></app-drop-down>
+      </ng-container>
+    </div>
+    <div class="flex flex-row justify-center items-center">
+      <button type="submit" mat-raised-button color="primary" (click)="closeReport()">
+        {{"Submit" | translate}}
+      </button>
+    </div>
+  </div>
+
+  <!-- if no records found -->
+  <div *ngIf="reports.fields.length == 0" class="text-center pt-8">
+    {{"No response found" | translate}}
+  </div>
+</ng-container>

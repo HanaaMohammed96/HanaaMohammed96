@@ -1,26 +1,6 @@
-:host{
-  ::ng-deep .font-in-dropped{
-    font-size: 16px;
-    width: 345px !important;
-    margin-bottom: 32px;
-  }
-  ::ng-deep .upload-box{
-    background: #5C77FD;
-    border-radius: 50px; 
-    max-width: 345px;
-    outline: none;
-  }
-  ::ng-deep ::-webkit-file-upload-button{
-    color: white;
-    background:#5C77FE;
-    padding: 10px;
-    max-height: 50px;
-    border:none;
-    cursor: pointer;
-    border-radius: 50px;
-    box-shadow: 0px 0px 1px 1px #6b4559;
-    outline: none;
-  }
+.editor{
+  
+  // max-height: fit-content !important;
 }
 
 .content {
@@ -54,7 +34,11 @@
 	transform: scale(1.1, 1.1);
 }
 
-
+.font-in-dropped{
+  font-size: 16px;
+  width: 345px !important;
+  margin-bottom: 32px;
+}
 .example-margin{
   margin-left: 10px;
   
@@ -110,12 +94,25 @@ nav {
   transition: width 0.5s ease-in-out;
 }
 
+// nav::before {
+//   content: "";
+//   position: absolute;
+//   width: 2rem;
+//   height: 100%;
+//   top: 0;
+//   left: 100%;
+// }
+
 
 .sidebar-top {
   position: relative;
   display: flex;
   align-items: center;
 }
+
+
+
+
 
 .shrink-btn {
   position: absolute;

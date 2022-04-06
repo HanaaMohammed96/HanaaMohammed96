@@ -19,6 +19,7 @@ import { PlansComponent } from './plans/plans.component';
 import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
 import { ContactusComponent } from './contactus/contactus.component';
 import { AuthorizeGuard } from '@core/auth/guards/authorize.guard';
+import { FormBuilderComponent } from './form/form-builder/form-builder.component';
 
 const routes: Routes = [
   {
@@ -35,8 +36,10 @@ const routes: Routes = [
       { path: 'regions', component: RegionsComponent },
       { path: 'partners', component: PartnersComponent },
       { path: 'forms', component: FormsPageComponent },
-      { path: 'form-update/:id', component: FormEditorComponent },
-      { path: 'form-editor', component: FormEditorComponent },
+      { path: 'form-update/:id', component: FormBuilderComponent },
+      // { path: 'form-update/:id', component: FormEditorComponent },
+      // { path: 'form-editor', component: FormEditorComponent },
+      { path: 'form-editor', component: FormBuilderComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
       { path: 'plans', component: PlansComponent },

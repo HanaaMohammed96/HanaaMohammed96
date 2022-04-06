@@ -18,42 +18,115 @@
               <span
                 class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-8">{{item.code}}</span>
 
-              <ng-container
-                *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Date || item.fieldType == +type.DateTime || item.fieldType == +type.Number || item.fieldType == +type.Result || item.fieldType == +type.Hidden">
-                <app-text [item]="item" cdkDrag></app-text>
-              </ng-container>
+              <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
+                class="font-in-dropped" appearance="outline" fxFlex="grow">
+                <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+                </mat-label>
+                <input type="text" placeholder="{{formEditorService.toLang(item.placeholder)}}" matInput />
+              </mat-form-field>
 
-              <ng-container *ngIf="item.fieldType == +type.TextArea">
-                <app-textarea [item]="item" cdkDrag></app-textarea>
-              </ng-container>
+              <mat-form-field *ngIf="item.fieldType == +type.Hidden" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
+                <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+                </mat-label>
+                <input type="text" matInput />
+              </mat-form-field>
+              
+              <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
+                <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+                </mat-label>
+                <input type="number" matInput />
+              </mat-form-field>
 
-              <ng-container
-                *ngIf="item.fieldType == +type.SingleImage || item.fieldType == +type.MultiImages || item.fieldType == +type.Pdf">
-                <app-file [item]="item" cdkDrag></app-file>
-              </ng-container>
+              <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped" appearance="outline"
+                fxFlex="grow">
+                <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+                </mat-label>
+                <input type="date" matInput />
+              </mat-form-field>
 
-              <ng-container *ngIf="item.fieldType == +type.CheckBox">
-                <app-checkbox [item]="item" cdkDrag></app-checkbox>
-              </ng-container>
+              <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
+                <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+                </mat-label>
+                <input type="datetime-local" matInput />
+              </mat-form-field>
 
-              <ng-container *ngIf="item.fieldType == +type.Radio">
-                <app-radio-button [item]="item" cdkDrag></app-radio-button>
-              </ng-container>
-              <ng-container *ngIf="item.fieldType == +type.Select">
-                <app-drop-down [item]="item" cdkDrag></app-drop-down>
-              </ng-container>
+              <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped"
+                appearance="outline" fxFlex="grow">
+                <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+                </mat-label>
+                <textarea matInput placeholder="{{formEditorService.toLang(item.placeholder)}}"></textarea>
+              </mat-form-field>
+
+              <div *ngIf="item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">
+                <button class="upload-box mb-4 p-3 w-full"
+                  onclick="document.getElementById('pdf').click(); return false;">{{'PDF' | translate}}</button>
+                <input type="file" (change)="onFileChanged($event)" id="pdf" multiple class="upload-box mb-4"
+                  style="display:none" />
+              </div>
+              <div *ngIf="item.fieldType == +type.SingleImage" cdkDrag class="font-in-dropped ">
+                <button class="upload-box mb-4 p-3 w-full"
+                  onclick="document.getElementById('image').click(); return false;">{{'Image' | translate}}</button>
+                <input type="file" (change)="onFileChanged($event)" id="image" multiple class="upload-box mb-4 "
+                  style="display:none" />
+              </div>
+
+              <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag
+                class="font-in-dropped flex flex-row flex-nowrap mb-8">
+                <div style="text-center;max-width: 90px;overflow-wrap: break-word">
+                  <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
+                </div>
+                <div class="flex flex-column flex-wrap">
+                  <div *ngFor="let i of item.dataValues">
+                    <mat-checkbox class="px-3">
+                      <span class="whitespace-normal">
+                        {{formEditorService.toLang(i.value)}}
+                      </span>
+                    </mat-checkbox>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="item.fieldType == +type.Radio " cdkDrag
+                class="font-in-dropped flex flex-row flex-nowrap mb-8">
+                <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+                  <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
+                </div>
+                <div class="flex flex-column flex-wrap">
+                  <mat-radio-group aria-label="Select an option" *ngFor="let i of item.dataValues">
+                    <mat-radio-button value="" class="px-3">
+                      <span class="whitespace-normal">
+                        {{formEditorService.toLang(i.value)}}
+                      </span>
+                    </mat-radio-button>
+                  </mat-radio-group>
+                </div>
+              </div>
+
+              <div *ngIf="item.fieldType == +type.Select " cdkDrag>
+                <mat-form-field appearance="fill" class="font-in-dropped ">
+                  <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
+                  <input type="text" placeholder="Pick one" matInput [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let i of item.dataValues" value="{{formEditorService.toLang(i.value)}}">
+                      {{formEditorService.toLang(i.value)}}
+                    </mat-option>
+                  </mat-autocomplete>
+                </mat-form-field>
+              </div>
 
               <button mat-icon-button [matMenuTriggerFor]="menu" class="mb-8">
                 <mat-icon>more_vert</mat-icon>
               </button>
-
               <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="openDialog(item,i)">
-                  <mat-icon color="primary">edit</mat-icon>
+                  <mat-icon  color="primary">edit</mat-icon>
                   <span> {{'general.update' | translate}} </span>
                 </button>
                 <button mat-menu-item (click)="removeField(i)">
-                  <mat-icon color="primary"> delete </mat-icon>
+                  <mat-icon  color="primary"> delete </mat-icon>
                   <span> {{'general.delete' | translate}} </span>
                 </button>
               </mat-menu>
@@ -64,7 +137,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- dragable Zone -->
     <nav class="col mat-elevation-z8 p-4 m-auto" cdkDropList #formFields="cdkDropList"
@@ -122,9 +194,9 @@
       </button>
     </div>
 
-    <ng-container>
-      <div *ngIf="reports.fields.length > 0" class="p-8 rounded bg-white"
-        style="border:2px solid #ccc; box-shadow: 0 0 10px gray;">
+    <div>
+      <!-- if records found -->
+      <div *ngIf="reports.fields.length > 0" class="p-8 rounded bg-white" style="border:2px solid #ccc; box-shadow: 0 0 10px gray;">
 
         <div>
           <h3 class="text-center m-6 ">{{formEditorService.toLang(model.name)}}</h3>
@@ -133,30 +205,105 @@
 
         <div *ngFor="let item of reports.fields" fxLayout="column" fxLayoutAlign="space-evenly center">
 
-          <ng-container
-            *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Date || item.fieldType == +type.DateTime || item.fieldType == +type.Number || item.fieldType == +type.Result || item.fieldType == +type.Hidden">
-            <app-text [item]="item" cdkDrag></app-text>
-          </ng-container>
+          <div>
 
-          <ng-container *ngIf="item.fieldType == +type.TextArea">
-            <app-textarea [item]="item" cdkDrag></app-textarea>
-          </ng-container>
+            <mat-form-field *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Result" cdkDrag
+              class="font-in-dropped" appearance="outline" fxFlex="grow">
+              <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+              </mat-label>
+              <input type="text" placeholder="{{formEditorService.toLang(item.placeholder)}}" matInput />
+            </mat-form-field>
 
-          <ng-container
-            *ngIf="item.fieldType == +type.SingleImage || item.fieldType == +type.MultiImages || item.fieldType == +type.Pdf">
-            <app-file [item]="item" cdkDrag></app-file>
-          </ng-container>
+            <mat-form-field *ngIf="item.fieldType == +type.Number" cdkDrag class="font-in-dropped" appearance="outline"
+              fxFlex="grow">
+              <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+              </mat-label>
+              <input type="number" matInput />
+            </mat-form-field>
 
-          <ng-container *ngIf="item.fieldType == +type.CheckBox">
-            <app-checkbox [item]="item" cdkDrag></app-checkbox>
-          </ng-container>
+            <mat-form-field *ngIf="item.fieldType == +type.Hidden" cdkDrag class="font-in-dropped hidden" appearance="outline"
+              fxFlex="grow" >
+              <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+              </mat-label>
+              <input type="text" matInput />
+            </mat-form-field>
 
-          <ng-container *ngIf="item.fieldType == +type.Radio">
-            <app-radio-button [item]="item" cdkDrag></app-radio-button>
-          </ng-container>
-          <ng-container *ngIf="item.fieldType == +type.Select">
-            <app-drop-down [item]="item" cdkDrag></app-drop-down>
-          </ng-container>
+            <mat-form-field *ngIf="item.fieldType == +type.Date" cdkDrag class="font-in-dropped" appearance="outline"
+              fxFlex="grow">
+              <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+              </mat-label>
+              <input type="date" matInput />
+            </mat-form-field>
+
+            <mat-form-field *ngIf="item.fieldType == +type.DateTime" cdkDrag class="font-in-dropped"
+              appearance="outline" fxFlex="grow">
+              <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+              </mat-label>
+              <input type="datetime-local" matInput />
+            </mat-form-field>
+
+            <mat-form-field *ngIf="item.fieldType == +type.TextArea" cdkDrag class="font-in-dropped"
+              appearance="outline" fxFlex="grow">
+              <mat-label>{{formEditorService.toLang(item.name)}}<label *ngIf="item.isRequired" color="warn">*</label>
+              </mat-label>
+              <textarea matInput placeholder="{{formEditorService.toLang(item.placeholder)}}"></textarea>
+            </mat-form-field>
+
+            <div *ngIf="item.fieldType == +type.SingleImage" cdkDrag class="font-in-dropped ">
+              <button class="upload-box mb-4 p-3 w-full"
+                onclick="document.getElementById('image').click(); return false;">Image</button>
+              <input type="file" (change)="onFileChanged($event)" id="image" multiple class="upload-box mb-4 "
+                style="display:none" />
+            </div>
+            <div *ngIf="item.fieldType == +type.Pdf" cdkDrag class="font-in-dropped ">
+              <button class="upload-box mb-4 p-3 w-full"
+                onclick="document.getElementById('pdf').click(); return false;">PDF</button>
+              <input type="file" (change)="onFileChanged($event)" id="pdf" multiple class="upload-box mb-4"
+                style="display:none" />
+            </div>
+            <div *ngIf="item.fieldType == +type.CheckBox " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
+              <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+                <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
+              </div>
+              <div class="flex flex-column flex-wrap">
+                <div *ngFor="let i of item.dataValues">
+                  <mat-checkbox class="px-3">
+                    <span class="whitespace-normal">
+                      {{formEditorService.toLang(i.value)}}
+                    </span>
+                  </mat-checkbox>
+                </div>
+              </div>
+            </div>
+
+            <div *ngIf="item.fieldType == +type.Radio " cdkDrag class="font-in-dropped flex flex-row flex-nowrap">
+              <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
+                <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
+              </div>
+              <div class="flex flex-column flex-wrap">
+                <mat-radio-group aria-label="Select an option" *ngFor="let i of item.dataValues">
+                  <mat-radio-button value="" class="px-3">
+                    <span class="whitespace-normal">
+                      {{formEditorService.toLang(i.value)}}
+                    </span>
+                  </mat-radio-button>
+                </mat-radio-group>
+              </div>
+            </div>
+
+            <div *ngIf="item.fieldType == +type.Select " cdkDrag>
+              <mat-form-field appearance="fill" class="font-in-dropped ">
+                <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
+                <input type="text" placeholder="Pick one" matInput [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete">
+                  <mat-option *ngFor="let i of item.dataValues" value="{{formEditorService.toLang(i.value)}}">
+                    {{formEditorService.toLang(i.value)}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+
+          </div>
         </div>
         <div class="flex flex-row justify-center items-center">
           <button type="submit" mat-raised-button color="primary" (click)="report=false">
@@ -169,7 +316,7 @@
       <div *ngIf="reports.fields.length == 0" class="text-center pt-8">
         {{"No response found" | translate}}
       </div>
-    </ng-container>
+    </div>
 
   </div>
 

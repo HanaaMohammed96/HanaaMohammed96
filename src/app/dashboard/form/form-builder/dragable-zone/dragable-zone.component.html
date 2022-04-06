@@ -1,1 +1,33 @@
-<p>dragable-zone works!</p>
+<nav class="col mat-elevation-z8 p-4 m-auto" >
+      <!-- <div class="sidebar-top">
+        <span class="material-icons shrink-btn">
+          arrow_forward_ios
+        </span>
+      </div> -->
+
+      <div class="text-center ">
+        <h4>{{"Select Field" | translate}}</h4>
+        <p>{{"Customize your form by drag and drop below fields to the form area." | translate}}</p>
+      </div>
+
+      <div class="search">
+        <i class='bx bx-search'></i>
+        <input type="text" class="hide" placeholder="{{ 'formFields.search' | translate }} ..." [(ngModel)]="searchText"
+          (ngModelChange)="search()">
+      </div>
+
+      <div class="sidebar-links">
+        <ul *ngFor="let item of fieldModels">
+          <div class="active-tab"></div>
+          <li class="tooltip-element">
+            <mat-grid-list cols="4" cdkDrag class="form-Prop">
+              <mat-grid-tile colspan="1">
+                <mat-icon>{{formEditorService.myIcon(type[item.fieldType])}}</mat-icon>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="3" class="link hide"><span>{{formEditorService.toLang(item.name)}}</span>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </li>
+        </ul>
+      </div>
+    </nav>
