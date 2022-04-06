@@ -58,6 +58,7 @@ import { FileComponent } from './form/form-builder/atoms/file/file.component';
 import { RadioButtonComponent } from './form/form-builder/atoms/radio-button/radio-button.component';
 import { TextComponent } from './form/form-builder/atoms/text-number-date-time/text.component';
 import { TextareaComponent } from './form/form-builder/atoms/textarea/textarea.component';
+import { ContactusComponent } from './contactus/contactus.component';
 
 
 
@@ -118,7 +119,8 @@ import { TextareaComponent } from './form/form-builder/atoms/textarea/textarea.c
     FileComponent,
     RadioButtonComponent,
     TextComponent,
-    TextareaComponent
+    TextareaComponent,
+    ContactusComponent
   ],
   imports: [
     CommonModule,
