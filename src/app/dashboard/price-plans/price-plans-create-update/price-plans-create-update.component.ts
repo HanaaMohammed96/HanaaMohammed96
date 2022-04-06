@@ -1,15 +1,19 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { LocalizedStringDto, PlansClient, PlansPostCommand, PlansPutCommand, PlanVmForDashborad } from '@core/api';
+import { FormGroup, FormBuilder, AbstractControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { PlanVmForDashborad, PlansClient, LocalizedStringDto, PlansPostCommand, PlansPutCommand } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 
+
+@UntilDestroy()
 @Component({
-  selector: 'app-plans-create-update',
-  templateUrl: './plans-create-update.component.html',
+  selector: 'app-price-plans-create-update',
+  templateUrl: 'price-plans-create-update.html',
+  styles: [
+  ]
 })
-export class PlansCreateUpdateComponent implements OnInit {
-
+export class PricePlansCreateUpdateComponent implements OnInit {
 
   form: FormGroup;
 
@@ -17,7 +21,7 @@ export class PlansCreateUpdateComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: PlanVmForDashborad,
     public _PlansClient: PlansClient,
-    private _dialogRef: MatDialogRef<PlansCreateUpdateComponent>,
+    private _dialogRef: MatDialogRef<PricePlansCreateUpdateComponent>,
     private _handler: ApiHandlerService,
     private _fb: FormBuilder,
   ) { }
@@ -102,7 +106,7 @@ export class PlansCreateUpdateComponent implements OnInit {
 
     const name = new LocalizedStringDto({ ar: value.name.Ar, en: value.name.En });
 
-    event.action.subscribe((response: any) => {
+    event.action.pipe(untilDestroyed(this)).subscribe((response: any) => {
       if (response) {
         this.data.id = response.result;
       }
@@ -124,4 +128,3 @@ export class PlansCreateUpdateComponent implements OnInit {
 
 
 }
-

@@ -8,11 +8,14 @@ import { TranslateService } from '@ngx-translate/core';
 import { FormDetailesComponent } from '../../form-detailes/form-detailes.component';
 import { cloneDeep } from 'lodash';
 import { EditFieldComponent } from '../../edit-field/edit-field.component';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+
+@UntilDestroy()
 @Component({
   selector: 'app-drop-zone',
   templateUrl: './drop-zone.component.html',
-  styleUrls: ['./drop-zone.component.scss']
+  styles: []
 })
 export class DropZoneComponent implements OnInit, OnChanges {
   @Output() displayReport = new EventEmitter<boolean>();
@@ -76,7 +79,7 @@ export class DropZoneComponent implements OnInit, OnChanges {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe((result => {
+    dialogRef.afterClosed().pipe(untilDestroyed(this)).subscribe((result => {
 
       if (!result) {
 
@@ -94,7 +97,7 @@ export class DropZoneComponent implements OnInit, OnChanges {
   }
   removeField(i: number) {
     this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
-      .afterClosed().subscribe(data => {
+      .afterClosed().pipe(untilDestroyed(this)).subscribe(data => {
         if (data) {
           this.model.fields.splice(i, 1);
         } else {
@@ -116,12 +119,12 @@ export class DropZoneComponent implements OnInit, OnChanges {
       data: this.model
     });
 
-    dialoRef.afterClosed().subscribe(result => {
+    dialoRef.afterClosed().pipe(untilDestroyed(this)).subscribe(result => {
       if (!result) {
         const { fields } = this.model
         if (this.formId) {
           // update form
-          this._FormsClient.get(this.formId).subscribe(result => {
+          this._FormsClient.get(this.formId).pipe(untilDestroyed(this)).subscribe(result => {
             this.model = result;
             this.model.fields = fields;
           });

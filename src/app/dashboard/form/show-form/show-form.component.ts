@@ -15,7 +15,6 @@ export class ShowFormComponent implements OnInit {
   constructor(public formEditorService: FormEditorService) { }
 
   ngOnInit(): void {
-    console.log('===>', this.reports)
   }
 
   closeReport(){

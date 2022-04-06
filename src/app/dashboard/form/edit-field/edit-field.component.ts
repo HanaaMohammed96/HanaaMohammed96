@@ -4,7 +4,9 @@ import { DataValueDto, FieldType, IDataFieldDto, LocalizedStringDto } from '@cor
 import { FormEditorService } from '@core/services/form-editor.service';
 import { EditValueComponent } from '../edit-value/edit-value.component';
 import { FormBuilderComponent } from '../form-builder/form-builder.component';
+import { untilDestroyed, UntilDestroy } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-edit-field',
   templateUrl: './edit-field.component.html',
@@ -54,7 +56,7 @@ export class EditFieldComponent implements OnInit {
       disableClose: true
     });
 
-    dialogRef.afterClosed().subscribe((result => {
+    dialogRef.afterClosed().pipe(untilDestroyed(this)).subscribe((result => {
       if (!result) {
 
         this.data.dataValues[index] = JSON.parse(localStorage.getItem('reseValue')) as DataValueDto;

@@ -5,7 +5,7 @@ import { FormEditorService } from '@core/services/form-editor.service';
 @Component({
   selector: 'app-dragable-zone',
   templateUrl: './dragable-zone.component.html',
-  styleUrls: ['./dragable-zone.component.scss']
+  styles: []
 })
 export class DragableZoneComponent implements OnInit {
   fieldModels: Array<IDataFieldDto> = [];

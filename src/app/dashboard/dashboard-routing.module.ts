@@ -14,11 +14,10 @@ import { FormsPageComponent } from './form/forms-page/forms-page.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CountryComponent } from './country/country.component';
 import { RegionsComponent } from './regions/regions.component';
-import { PlansComponent } from './plans/plans.component';
 import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
 import { ContactusComponent } from './contactus/contactus.component';
-import { AuthorizeGuard } from '@core/auth/guards/authorize.guard';
 import { FormBuilderComponent } from './form/form-builder/form-builder.component';
+import { PricePlansComponent } from './price-plans/price-plans.component';
 
 const routes: Routes = [
   {
@@ -39,7 +38,7 @@ const routes: Routes = [
       { path: 'form-editor', component: FormBuilderComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
-      { path: 'plans', component: PlansComponent },
+      { path: 'plans', component: PricePlansComponent },
       {path: 'common-question' , component :CommonQuestionsComponent},
       {path: 'Contactus' , component :ContactusComponent},
       // {

@@ -9,7 +9,9 @@ import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { DragableZoneComponent } from './dragable-zone/dragable-zone.component';
 import icSave from '@iconify/icons-ic/baseline-save';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-form-builder',
   templateUrl: './form-builder.component.html',
@@ -73,12 +75,12 @@ export class FormBuilderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formEditorService._validateForm.subscribe(data => {
+    this.formEditorService._validateForm.pipe(untilDestroyed(this)).subscribe(data => {
       this.validForm = data;
     })
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
-      this._FormsClient.get(this.formId).subscribe(result => {
+      this._FormsClient.get(this.formId).pipe(untilDestroyed(this)).subscribe(result => {
         this.model = result;
         this.formEditorService.validForm(this.model);
         console.log(this.model)
@@ -132,7 +134,7 @@ export class FormBuilderComponent implements OnInit {
         form.realStateId,
         form.type, form.regionId, form.fields);
     }
-    action.pipe(finalize(() => (this.loading = false))).subscribe(
+    action.pipe(finalize(() => (this.loading = false))).pipe(untilDestroyed(this)).subscribe(
       (response: any) => {
         if (response) {
           this.model = response;

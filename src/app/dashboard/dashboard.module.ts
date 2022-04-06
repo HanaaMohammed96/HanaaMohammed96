@@ -42,8 +42,6 @@ import { SubRegionsComponent } from './sub-regions/sub-regions.component';
 import { RegionCreateUpdateComponent } from './regions/region-create-update/region-create-update.component';
 import { SubRegionsCreateUpdateComponent } from './sub-regions/sub-regions-create-update/sub-regions-create-update.component';
 import { RegionsComponent } from './regions/regions.component';
-import { PlansComponent } from './plans/plans.component';
-import { PlansCreateUpdateComponent } from './plans/plans-create-update/plans-create-update.component';
 import { UpdatePhoneNumberComponent } from './update-phone-number/update-phone-number.component';
 import { CountriesRegionsSubRegionsComponent } from './partners/countries-regions-sub-regions/countries-regions-sub-regions.component';
 import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
@@ -59,6 +57,8 @@ import { FileComponent } from './form/form-builder/atoms/file/file.component';
 import { RadioButtonComponent } from './form/form-builder/atoms/radio-button/radio-button.component';
 import { TextComponent } from './form/form-builder/atoms/text-number-date-time/text.component';
 import { TextareaComponent } from './form/form-builder/atoms/textarea/textarea.component';
+import { PricePlansComponent } from './price-plans/price-plans.component';
+import { PricePlansCreateUpdateComponent } from './price-plans/price-plans-create-update/price-plans-create-update.component';
 
 
 
@@ -104,8 +104,6 @@ import { TextareaComponent } from './form/form-builder/atoms/textarea/textarea.c
     RegionCreateUpdateComponent,
     SubRegionsCreateUpdateComponent,
     RegionsComponent,
-    PlansComponent,
-    PlansCreateUpdateComponent,
     UpdatePhoneNumberComponent,
     CountriesRegionsSubRegionsComponent,
     CommonQuestionsComponent,
@@ -120,7 +118,9 @@ import { TextareaComponent } from './form/form-builder/atoms/textarea/textarea.c
     TextComponent,
     TextareaComponent,
     ContactusComponent,
-    ShowFormComponent
+    ShowFormComponent,
+    PricePlansComponent,
+    PricePlansCreateUpdateComponent
   ],
   imports: [
     CommonModule,
