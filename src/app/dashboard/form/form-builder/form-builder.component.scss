@@ -1,15 +1,15 @@
 
 :host ::ng-deep{
-  .content {
-    border-radius: 10px;
-    margin: 16px;
-    padding: 50px 0;
-    margin-left: 32px;
-    height:100%;
-    overflow: hidden;
-    font-size: 2rem;
-    color: rgb(90, 87, 87);
-  }
+  // .content {
+  //   border-radius: 10px;
+  //   margin: 16px;
+  //   padding: 50px 0;
+  //   margin-left: 32px;
+  //   height:100%;
+  //   overflow: hidden;
+  //   font-size: 2rem;
+  //   color: rgb(90, 87, 87);
+  // }
   .dropzone{
     width:700px;
     // background-color: rgb(255, 251, 251); 
@@ -110,6 +110,11 @@
     transition: 0.3s;
   }
   
+  .font-in-dropped{
+    font-size: 16px;
+    width: 345px !important;
+    margin-bottom: 32px;
+  }
   
   .shrink-btn:hover {
     background-color: #3651d4;

@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 import { DataValueDto, FieldType, IDataFieldDto, LocalizedStringDto } from '@core/api';
 import { FormEditorService } from '@core/services/form-editor.service';
 import { EditValueComponent } from '../edit-value/edit-value.component';
-import { FormEditorComponent } from '../form-editor/form-editor.component';
+import { FormBuilderComponent } from '../form-builder/form-builder.component';
 
 @Component({
   selector: 'app-edit-field',
@@ -18,7 +18,7 @@ export class EditFieldComponent implements OnInit {
 
 
   constructor(
-    public dialogRef: MatDialogRef<FormEditorComponent>,
+    public dialogRef: MatDialogRef<FormBuilderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: IDataFieldDto,
     public dialog: MatDialog,
     public formEditorService: FormEditorService,

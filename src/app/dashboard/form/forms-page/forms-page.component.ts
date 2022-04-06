@@ -8,7 +8,7 @@ import { TableColumn } from '@core/interfaces/table-column.interface';
 import { TranslateService } from '@ngx-translate/core';
 import { AioTableComponent } from '@shared/components/widgets/aio-table/aio-table.component';
 import { Observable } from 'rxjs';
-import { FormEditorComponent } from '../form-editor/form-editor.component';
+import { FormBuilderComponent } from '../form-builder/form-builder.component';
 
 @Component({
   selector: 'app-forms-page',
@@ -33,7 +33,7 @@ export class FormsPageComponent implements OnInit {
 
   form: FormGroup;
 
-  component = FormEditorComponent;
+  component = FormBuilderComponent;
 
   columns: TableColumn<FormVmForDashboard>[] = [];
   actions: SelectionAction[] = [];

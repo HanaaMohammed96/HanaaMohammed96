@@ -1,7 +1,5 @@
-<div class="col-span-3">
-  <div class="content  mb-8" fxLayout="column" fxLayoutAlign="start center">
-
-    <div class=" p-6  text-black dropzone bg-white" >
+  <div class="mb-8" fxLayout="column" fxLayoutAlign="start center">
+    <div class=" p-6  text-black dropzone bg-white flex flex-col justify-center items-center" >
 
       <mat-icon color="primary" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="displayForm">edit_note
       </mat-icon>
@@ -57,5 +55,4 @@
       <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |
         translate}}</button>
     </div>
-  </div>
 </div>

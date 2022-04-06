@@ -9,7 +9,6 @@ import { ForbiddenAccessComponent } from './forbidden-access/forbidden-access.co
 import { TeamComponent } from './team/team.component';
 import { TermsAndCondtionsComponent } from './terms-and-condtions/terms-and-condtions.component';
 import { PartnersComponent } from './partners/partners.component';
-import { FormEditorComponent } from './form/form-editor/form-editor.component';
 import { RealStatesComponent } from './real-states/real-states.component';
 import { FormsPageComponent } from './form/forms-page/forms-page.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -37,8 +36,6 @@ const routes: Routes = [
       { path: 'partners', component: PartnersComponent },
       { path: 'forms', component: FormsPageComponent },
       { path: 'form-update/:id', component: FormBuilderComponent },
-      // { path: 'form-update/:id', component: FormEditorComponent },
-      // { path: 'form-editor', component: FormEditorComponent },
       { path: 'form-editor', component: FormBuilderComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },
