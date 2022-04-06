@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://worckcycleportal.azurewebsites.net'
-  //  apiUrl: 'https://localhost:5003'
+  // apiUrl: 'https://worckcycleportal.azurewebsites.net'
+   apiUrl: 'https://localhost:5003'
 };
 
 /*

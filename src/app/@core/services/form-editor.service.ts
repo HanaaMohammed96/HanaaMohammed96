@@ -139,7 +139,17 @@ export class FormEditorService {
         }),
         orders: null,
         isRequired: false,
-        fieldType: FieldType.Image,
+        fieldType: FieldType.SingleImage,
+        code: 'A',
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: ' صور',
+          en: 'Images'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.MultiImages,
         code: 'A',
       },
       {
@@ -182,6 +192,17 @@ export class FormEditorService {
         orders: null,
         isRequired: false,
         fieldType: FieldType.Select,
+        code: 'A',
+        dataValues: [dataValues]
+      },
+      {
+        name: new LocalizedStringDto({
+          ar: 'قائمة منسدلة متعددة الاختيارت',
+          en: 'Dropdown menu with multi select'
+        }),
+        orders: null,
+        isRequired: false,
+        fieldType: FieldType.MultiSelect,
         code: 'A',
         dataValues: [dataValues]
       }
@@ -241,8 +262,14 @@ export class FormEditorService {
       case 'Select':
         return 'menu';
         break;
-      case 'Image':
-        return 'image';
+      case 'MultiSelect':
+        return 'keyboard_double_arrow_down';
+        break;
+      case 'SingleImage':
+        return 'insert_photo';
+        break;
+      case 'MultiImages':
+        return 'collections';
         break;
       case 'Pdf':
         return 'picture_as_pdf';

@@ -49,6 +49,15 @@ import { UpdatePhoneNumberComponent } from './update-phone-number/update-phone-n
 import { CountriesRegionsSubRegionsComponent } from './partners/countries-regions-sub-regions/countries-regions-sub-regions.component';
 import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.component';
 import { CommonQuestionsCreateUpdateComponent } from './commonQuestions/commonQuestionsCreateUpdate/commonQuestionsCreateUpdate.component';
+import { FormBuilderComponent } from './form/form-builder/form-builder.component';
+import { DragableZoneComponent } from './form/form-builder/dragable-zone/dragable-zone.component';
+import { DropZoneComponent } from './form/form-builder/drop-zone/drop-zone.component';
+import { CheckboxComponent } from './form/form-builder/atoms/checkbox/checkbox.component';
+import { DropDownComponent } from './form/form-builder/atoms/drop-down/drop-down.component';
+import { FileComponent } from './form/form-builder/atoms/file/file.component';
+import { RadioButtonComponent } from './form/form-builder/atoms/radio-button/radio-button.component';
+import { TextComponent } from './form/form-builder/atoms/text-number-date-time/text.component';
+import { TextareaComponent } from './form/form-builder/atoms/textarea/textarea.component';
 
 
 
@@ -100,7 +109,16 @@ import { CommonQuestionsCreateUpdateComponent } from './commonQuestions/commonQu
     UpdatePhoneNumberComponent,
     CountriesRegionsSubRegionsComponent,
     CommonQuestionsComponent,
-    CommonQuestionsCreateUpdateComponent
+    CommonQuestionsCreateUpdateComponent,
+    FormBuilderComponent,
+    DragableZoneComponent,
+    DropZoneComponent,
+    CheckboxComponent,
+    DropDownComponent,
+    FileComponent,
+    RadioButtonComponent,
+    TextComponent,
+    TextareaComponent
   ],
   imports: [
     CommonModule,

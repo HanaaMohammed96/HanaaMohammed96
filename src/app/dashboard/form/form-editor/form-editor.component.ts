@@ -143,7 +143,6 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
       .afterClosed().subscribe(data => {
         if (data) {
-          console.log('$$', this.model.fields)
           this.model.fields.splice(i, 1);
         } else {
           return;

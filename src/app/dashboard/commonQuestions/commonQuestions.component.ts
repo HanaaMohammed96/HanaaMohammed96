@@ -5,13 +5,15 @@ import icEdit from '@iconify/icons-ic/twotone-edit';
 import icDelete from '@iconify/icons-ic/twotone-delete';
 import { MatDialog } from '@angular/material/dialog';
 import { PagingOptions } from '@core/interfaces/paging-options.interface';
-import { CommonQuestion, CommonQuestionGetLocalizedListQuery, CommonQuestionPutOrderCommand } from '@core/api';
+import { CommonQuestion, CommonQuestionGetListQuery, CommonQuestionPutOrderCommand } from '@core/api';
 import { CommonQuestionsClient } from './../../@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
 import { CommonQuestionsCreateUpdateComponent } from './commonQuestionsCreateUpdate/commonQuestionsCreateUpdate.component';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { finalize } from 'rxjs/operators';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-commonQuestions',
   templateUrl: './commonQuestions.component.html',
@@ -35,7 +37,7 @@ export class CommonQuestionsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this._commonQuestionClient.getList(new CommonQuestionGetLocalizedListQuery()).subscribe((list: any)=>{
+    this._commonQuestionClient.getList(new CommonQuestionGetListQuery()).subscribe((list: any)=>{
       this.list = list;
       this._cd.detectChanges();
 
@@ -50,6 +52,7 @@ export class CommonQuestionsComponent implements OnInit {
           order: event.currentIndex + 1,
         })
       )
+      .pipe(untilDestroyed(this))
       .subscribe(
         () => { },
         (err) => {
@@ -86,6 +89,7 @@ export class CommonQuestionsComponent implements OnInit {
         data: item,
       })
       .afterClosed()
+      .pipe(untilDestroyed(this))
       .subscribe(() => this._cd.detectChanges());
   }
 
@@ -94,7 +98,7 @@ export class CommonQuestionsComponent implements OnInit {
 
     this._commonQuestionClient
       .delete(item.id)
-      .pipe(finalize(() => (this.loading = false)))
+      .pipe(finalize(() => (this.loading = false)), untilDestroyed(this))
       .subscribe(
         (a) => {
           this.remove(item);
