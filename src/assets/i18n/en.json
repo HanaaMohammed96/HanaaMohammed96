@@ -283,7 +283,8 @@
     "types": {
       "preview": "Preview",
       "evaluation": "Evaluation"
-    }
+    },
+    "copy": "Copy Form"
   },
   "profile": {
     "title": "Edit profile",

@@ -48,7 +48,7 @@ export class DropZoneComponent implements OnInit, OnChanges {
     // for prevent duplicate items in dragable list
     // if (event.container.connectedTo[0].id == 'cdk-drop-list-0') {
     // if (this.lang =='en' && event.distance.x > 1 || this.lang =='ar' && event.distance.x < 1) {
-    if (event.container.id == 'drag-Zone') {
+    if (event.container?.id == 'drag-Zone') {
       // this.removeField(event.currentIndex);
       return;
     }
@@ -70,8 +70,9 @@ export class DropZoneComponent implements OnInit, OnChanges {
     this.formEditorService.validForm(this.model)
 
   }
-  openDialog(item: IDataFieldDto, index: number) {
 
+
+  openDialog(item: IDataFieldDto, index: number) {
     localStorage.setItem('resetIem', JSON.stringify(this.model.fields[index]));
 
     const dialogRef = this.dialog.open(EditFieldComponent, {
@@ -80,21 +81,16 @@ export class DropZoneComponent implements OnInit, OnChanges {
     });
 
     dialogRef.afterClosed().pipe(untilDestroyed(this)).subscribe((result => {
-
       if (!result) {
-
         this.model.fields[index] = JSON.parse(localStorage.getItem('resetIem')) as DataFieldDto;
-
       } else {
-
         this.model.fields[index] = result;
       }
-
-      localStorage.removeItem('resetIem');
-
+        localStorage.removeItem('resetIem');
     }));
 
   }
+
   removeField(i: number) {
     this.formDetailesModel.openConfirmDialog(this.translateService.instant('formFields.delete'))
       .afterClosed().pipe(untilDestroyed(this)).subscribe(data => {
@@ -106,10 +102,15 @@ export class DropZoneComponent implements OnInit, OnChanges {
         this.formEditorService.validForm(this.model);
       });
   }
+
+
   onFileChanged(event) {
     const file = event.target.files[0];
   }
+
+
   initReport() {
+    console.log('model in drop zone', this.model)
     this.displayReport.emit(true);
     this.reportFields.emit({ ...this.model });
   }

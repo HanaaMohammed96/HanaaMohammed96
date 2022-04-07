@@ -21,24 +21,27 @@ export class FormBuilderComponent implements OnInit {
 
   @ViewChild(DragableZoneComponent) dragArea: DragableZoneComponent;
   fieldModels: Array<IDataFieldDto> = [];
-  loading = false;
-  icSave = icSave;
+  sendEvent: CdkDragDrop<string[]>;
   type = FieldType;
   model: IFormDto;
-  report = false;
   reports: IFormDto;
   formId: number;
+
+  icSave = icSave;
+
   validForm: boolean;
+  loading = false;
+  report = false;
+
   lang: string;
-  sendEvent: CdkDragDrop<string[]>;
 
   constructor(
     public dialog: MatDialog,
+    private route: ActivatedRoute,
+    private router: Router,
     private _FormsClient: FormsClient,
     private _handler: ApiHandlerService,
     public formEditorService: FormEditorService,
-    private route: ActivatedRoute,
-    private router: Router
   ) {
     localStorage.setItem('resetFormDetailes', JSON.stringify(this.formEditorService._model))
 
@@ -46,7 +49,7 @@ export class FormBuilderComponent implements OnInit {
 
     this.lang = localStorage.getItem('lang');
 
-    this.formEditorService.validForm(this.model)
+    // this.formEditorService.validForm(this.model)
 
   }
 
@@ -77,7 +80,8 @@ export class FormBuilderComponent implements OnInit {
   ngOnInit(): void {
     this.formEditorService._validateForm.pipe(untilDestroyed(this)).subscribe(data => {
       this.validForm = data;
-    })
+    });
+
     this.formId = this.route.snapshot.params.id;
     if (this.formId) {
       this._FormsClient.get(this.formId).pipe(untilDestroyed(this)).subscribe(result => {
@@ -89,7 +93,6 @@ export class FormBuilderComponent implements OnInit {
   }
 
   isValid() {
-    console.log(this.model)
     return this.model.name.ar != '' &&
       this.model.name.en != '' &&
       this.model.description.ar != '' &&
@@ -99,7 +102,7 @@ export class FormBuilderComponent implements OnInit {
   }
 
   drop(evt) {
-    this.sendEvent = evt
+    this.sendEvent = evt;
   }
 
 

@@ -1,0 +1,135 @@
+<div class=" lg:container p-4 mx-auto">
+  <div class="grid grid-cols-4 gap-4 limit" [class.hidden]="report">
+
+    <!--dropzone-->
+    <div class="col-span-3">
+      <button mat-raised-button color="primary" *ngIf="formId" (click)="copyForm()"> {{'Form.copy' | translate}}</button>
+      <div class="content  mb-8" fxLayout="column" fxLayoutAlign="start center">
+
+        <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
+          [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content" fxLayout="column"
+          fxLayoutAlign="space-evenly center" class=" p-6  text-black dropzone bg-white">
+
+          <mat-icon color="primary" class="icon-display mb-8" (click)="formDetails()" [class.hidden]="report">edit_note
+          </mat-icon>
+          <h4 *ngIf="model.fields.length == 0" class="build-form text-black">{{"Drop Field Here" | translate}}</h4>
+
+          <div *ngFor="let item of model.fields; let i = index" fxLayout="column" fxLayoutAlign="space-evenly center">
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+              <span
+                class="inline-flex items-center justify-center p-6 text-sm font-bold leading-none mb-8">{{item.code}}</span>
+
+              <ng-container
+                *ngIf="item.fieldType == +type.Text || item.fieldType == +type.Date || item.fieldType == +type.DateTime || item.fieldType == +type.Number || item.fieldType == +type.Result || item.fieldType == +type.Hidden">
+                <app-text [item]="item" cdkDrag></app-text>
+              </ng-container>
+
+              <ng-container *ngIf="item.fieldType == +type.TextArea">
+                <app-textarea [item]="item" cdkDrag></app-textarea>
+              </ng-container>
+
+              <ng-container
+                *ngIf="item.fieldType == +type.SingleImage || item.fieldType == +type.MultiImages || item.fieldType == +type.Pdf">
+                <app-file [item]="item" cdkDrag></app-file>
+              </ng-container>
+
+              <ng-container *ngIf="item.fieldType == +type.CheckBox">
+                <app-checkbox [item]="item" cdkDrag></app-checkbox>
+              </ng-container>
+
+              <ng-container *ngIf="item.fieldType == +type.Radio">
+                <app-radio-button [item]="item" cdkDrag></app-radio-button>
+              </ng-container>
+              <ng-container *ngIf="item.fieldType == +type.Select">
+                <app-drop-down [item]="item" cdkDrag></app-drop-down>
+              </ng-container>
+
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="mb-8">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="openDialog(item,i)">
+                  <mat-icon color="primary">edit</mat-icon>
+                  <span> {{'general.update' | translate}} </span>
+                </button>
+                <button mat-menu-item (click)="removeField(i)">
+                  <mat-icon color="primary"> delete </mat-icon>
+                  <span> {{'general.delete' | translate}} </span>
+                </button>
+              </mat-menu>
+            </div>
+          </div>
+          <button type="submit" mat-raised-button color="primary" (click)="initReport()">{{"Submit" |
+            translate}}</button>
+        </div>
+      </div>
+    </div>
+
+
+    
+    <!-- dragable Zone -->
+    <nav class="col mat-elevation-z8 p-4 m-auto" cdkDropList #formFields="cdkDropList"
+      (cdkDropListDropped)="drop($event)" [cdkDropListConnectedTo]="[form]" [cdkDropListData]="fieldModels"
+      position="end" cdkDrag cdkDragBoundary=".limit" id="drag-Zone">
+      <!-- <div class="sidebar-top">
+        <span class="material-icons shrink-btn">
+          arrow_forward_ios
+        </span>
+      </div> -->
+
+      <div class="text-center ">
+        <h4>{{"Select Field" | translate}}</h4>
+        <p>{{"Customize your form by drag and drop below fields to the form area." | translate}}</p>
+      </div>
+
+      <div class="search">
+        <i class='bx bx-search'></i>
+        <input type="text" class="hide" placeholder="{{ 'formFields.search' | translate }} ..." [(ngModel)]="searchText"
+          (ngModelChange)="search()">
+      </div>
+
+      <div class="sidebar-links">
+        <ul *ngFor="let item of fieldModels">
+          <div class="active-tab"></div>
+          <li class="tooltip-element">
+            <mat-grid-list cols="4" cdkDrag class="form-Prop">
+              <mat-grid-tile colspan="1">
+                <mat-icon>{{formEditorService.myIcon(type[item.fieldType])}}</mat-icon>
+              </mat-grid-tile>
+              <mat-grid-tile colspan="3" class="link hide"><span>{{formEditorService.toLang(item.name)}}</span>
+              </mat-grid-tile>
+            </mat-grid-list>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  <!-- in component -->
+  <div *ngIf="report" class="text-black mx-auto w-1/2 p-6">
+
+    <div class="text-center icon-display">
+      <button (click)="report=false">
+        <mat-icon color="primary" class="m-4 ">swap_horizontal_circle</mat-icon>
+      </button>
+    </div>
+
+    <app-show-form [reports]="reports" (togglereport)="report=$event"></app-show-form>
+
+  </div>
+
+</div>
+<div class="inline-block fixed mx-6 bottom-5">
+  <button [class.spinner]="loading" mat-mini-fab color="accent" (click)="save()" [disabled]="!isValid()">
+    <mat-icon *ngIf="!loading" [icIcon]="icSave"></mat-icon>
+  </button>
+</div>

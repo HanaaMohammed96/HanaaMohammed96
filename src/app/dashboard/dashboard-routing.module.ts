@@ -18,6 +18,7 @@ import { CommonQuestionsComponent } from './commonQuestions/commonQuestions.comp
 import { ContactusComponent } from './contactus/contactus.component';
 import { FormBuilderComponent } from './form/form-builder/form-builder.component';
 import { PricePlansComponent } from './price-plans/price-plans.component';
+import { FormEditorComponent } from './form/form-editor/form-editor.component';
 
 const routes: Routes = [
   {
@@ -34,8 +35,10 @@ const routes: Routes = [
       { path: 'regions', component: RegionsComponent },
       { path: 'partners', component: PartnersComponent },
       { path: 'forms', component: FormsPageComponent },
-      { path: 'form-update/:id', component: FormBuilderComponent },
-      { path: 'form-editor', component: FormBuilderComponent },
+      { path: 'form-update/:id', component: FormEditorComponent },
+      { path: 'form-editor', component: FormEditorComponent },
+      // { path: 'form-update/:id', component: FormBuilderComponent },
+      // { path: 'form-editor', component: FormBuilderComponent },
       { path: 'pnp/:lang', component: PrivacyPolicyComponent },
       { path: 'contact-us/:lang', component: ContactusComponent },
       { path: 'tnc/:lang', component: TermsAndCondtionsComponent },

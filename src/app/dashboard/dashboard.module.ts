@@ -51,14 +51,15 @@ import { ShowFormComponent } from './form/show-form/show-form.component';
 import { DropZoneComponent } from './form/form-builder/drop-zone/drop-zone.component';
 import { DragableZoneComponent } from './form/form-builder/dragable-zone/dragable-zone.component';
 import { FormBuilderComponent } from './form/form-builder/form-builder.component';
-import { CheckboxComponent } from './form/form-builder/atoms/checkbox/checkbox.component';
-import { DropDownComponent } from './form/form-builder/atoms/drop-down/drop-down.component';
-import { FileComponent } from './form/form-builder/atoms/file/file.component';
-import { RadioButtonComponent } from './form/form-builder/atoms/radio-button/radio-button.component';
-import { TextComponent } from './form/form-builder/atoms/text-number-date-time/text.component';
-import { TextareaComponent } from './form/form-builder/atoms/textarea/textarea.component';
 import { PricePlansComponent } from './price-plans/price-plans.component';
 import { PricePlansCreateUpdateComponent } from './price-plans/price-plans-create-update/price-plans-create-update.component';
+import { FormEditorComponent } from './form/form-editor/form-editor.component';
+import { DropDownComponent } from './form/form-editor/atoms/drop-down/drop-down.component';
+import { FileComponent } from './form/form-editor/atoms/file/file.component';
+import { RadioButtonComponent } from './form/form-editor/atoms/radio-button/radio-button.component';
+import { TextComponent } from './form/form-editor/atoms/text-number-date-time/text.component';
+import { TextareaComponent } from './form/form-editor/atoms/textarea/textarea.component';
+import { CheckboxComponent } from './form/form-editor/atoms/checkbox/checkbox.component';
 
 
 
@@ -120,7 +121,8 @@ import { PricePlansCreateUpdateComponent } from './price-plans/price-plans-creat
     ContactusComponent,
     ShowFormComponent,
     PricePlansComponent,
-    PricePlansCreateUpdateComponent
+    PricePlansCreateUpdateComponent,
+    FormEditorComponent
   ],
   imports: [
     CommonModule,
