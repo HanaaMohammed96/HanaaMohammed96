@@ -30,7 +30,7 @@
 
               <ng-container
                 *ngIf="item.fieldType == +type.SingleImage || item.fieldType == +type.MultiImages || item.fieldType == +type.Pdf">
-                <app-file [item]="item" cdkDrag></app-file>
+                <app-file clas="upload-box" [item]="item" cdkDrag></app-file>
               </ng-container>
 
               <ng-container *ngIf="item.fieldType == +type.CheckBox">

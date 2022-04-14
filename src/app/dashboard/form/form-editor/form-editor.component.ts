@@ -132,6 +132,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
       this.model.fields[event.currentIndex].code += `${event.container.data.length}`;
     }
     this.formEditorService.validForm(this.model)
+    console.log('(:', this.model)
 
   }
 

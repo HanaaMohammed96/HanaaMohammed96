@@ -48,14 +48,14 @@
   padding:50px;
 }
 
-.upload-box{
-  background: #5C77FD;
-  border-radius: 50px; 
+:host ::ng-deep .upload-box{
+  // background: #5C77FD;
+  // border-radius: 50px; 
   max-width: 345px;
   outline: none;
 }
 
-::-webkit-file-upload-button{
+:host ::ng-deep  ::-webkit-file-upload-button{
   color: white;
   background:#5C77FE;
   padding: 10px;
