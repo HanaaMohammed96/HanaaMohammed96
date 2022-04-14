@@ -219,7 +219,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
       this.model.regionId = this.model.parentRegionId
 
     const form = this.model;
-
+console.log('form', this.model)
     this.loading = true;
 
     if (!this.formId) {

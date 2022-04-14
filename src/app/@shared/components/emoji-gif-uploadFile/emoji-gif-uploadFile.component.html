@@ -1,0 +1,33 @@
+<div class="flex flex-row justify-start items-center p-3 emo" *ngIf="!hide">
+  <!-- <mat-icon style="border: 1px solid #ccc; border-radius: 10px;" (click)="gifSearch = !gifSearch"
+    class="cursor-pointer">gif</mat-icon> -->
+
+    <mat-icon (click)="toggled = !toggled" class="cursor-pointer">sentiment_satisfied_alt
+    </mat-icon>
+
+  <mat-icon (click)="file.click()" class="cursor-pointer">attach_file</mat-icon>
+  <input type="file" id="image" multiple class="upload-box mb-4 " accept="image/*" (change)="upload(file.files)"
+    style="display:none" #file />
+</div>
+
+<div class="flex flex-row justify-start items-center p-3 " *ngIf="!!hide">
+  <mat-icon (click)="toggled = !toggled" class="cursor-pointer">sentiment_satisfied_alt
+  </mat-icon>
+  <button 
+    class="ltr:mr-4 rtl:ml-4 ltr:ml-3 rtl:mr-3" mat-icon-button type="submit">
+    <mat-icon [icIcon]="icSend" *ngIf="lang=='en'" color="primary"></mat-icon>
+    <mat-icon [icIcon]="icSend" *ngIf="lang=='ar'" color="primary" style="transform: rotate(180deg);"></mat-icon>
+  </button>
+</div>
+
+<ng-container *ngIf="toggled">
+  <!-- <emoji-mart
+    [i18n]="{ search: 'Search', categories: { search: 'Result', recent: 'Recent' } }"
+    title="Awesome !!!"
+    [style]="{ position: 'absolute',
+      bottom:'63px',
+      right: '10px',
+      backgroundColor: '#fff'}"
+    (emojiClick)="addEmoji($event)">
+  </emoji-mart> -->
+</ng-container>

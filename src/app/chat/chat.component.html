@@ -29,28 +29,32 @@
           <span class="block">{{'chat.chats' | translate}}</span>
         </h2>
 
-        <app-scrollbar *ngIf="chats$ | async as chats" [@stagger]="chats.length" class="flex-auto">
-          <a *ngFor="let chat of chats; trackBy: trackById" @fadeInUp [routerLink]="[chat.id]"
+        <app-scrollbar  *ngIf="chats$ | async as chats" [@stagger]="chats?.length" class="flex-auto">
+          <a *ngFor="let chat of chats; trackBy: trackById" @fadeInUp [routerLink]="[chat.chatId]"
             class="border-b px-4 py-6 hover:bg-hover cursor-pointer relative select-none block no-underline text-dark"
             matRipple routerLinkActive="bg-hover">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
               <div class="relative" fxFlex="none">
-                <img [src]="chat.imageSrc" class="avatar">
-                <ic-icon *ngIf="chat.status === 'Online'" [icon]="icCheckCircle"
-                  class="bg-card absolute -bottom-1 -right-1 rounded-full text-green"></ic-icon>
+                <img *ngIf="chat.receiver.picture" [src]="chat.receiver?.picture" class="avatar">
+                <img *ngIf="!chat.receiver.picture"  class="avatar" src="assets/img/avatars/default.jpg">
+                <!-- <ic-icon *ngIf="chat.status === 'Online'" [icon]="icCheckCircle"
+                  class="bg-card absolute -bottom-1 -right-1 rounded-full text-green"></ic-icon> -->
               </div>
               <div class="overflow-hidden" fxFlex="auto">
-                <div [class.font-medium]="chat.unreadCount > 0" class="subheading-2 leading-snug">{{ chat.from }}</div>
+                <!-- <div [class.font-medium]="chat.unreadCount > 0" class="subheading-2 leading-snug">{{ chat.from }}</div>
                 <div [class.font-medium]="chat.unreadCount > 0" class="body-1 text-secondary truncate">{{ chat.message
-                  }}</div>
+                  }}</div> -->
+                <div class="subheading-2 leading-snug">{{ chat.receiver?.fullName }}</div>
+                <!-- <div class="body-1 text-secondary truncate">{{ chat.message
+                  }}</div> -->
               </div>
-              <div fxFlex="none" fxLayout="column" fxLayoutAlign="center end">
+              <!-- <div fxFlex="none" fxLayout="column" fxLayoutAlign="center end">
                 <div class="caption font-medium text-secondary">{{ chat.timestamp }}</div>
                 <div *ngIf="chat.unreadCount > 0"
                   class="w-5 h-5 bg-primary text-primary-contrast rounded-full caption text-center mt-1">
                   {{ chat.unreadCount }}
                 </div>
-              </div>
+              </div> -->
             </div>
           </a>
         </app-scrollbar>

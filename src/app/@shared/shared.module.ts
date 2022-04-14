@@ -39,6 +39,14 @@ import { FormDialogComponent } from './components/form-dialog/form-dialog.compon
 import { FormFieldComponent } from './components/form-field/form-field.component';
 import { MegaMenuComponent } from './components/mega-menu/mega-menu.component';
 import { CountryFlagComponent } from './components/country-flag/country-flag.component';
+import { EmojiGifUploadFileComponent } from './components/emoji-gif-uploadFile/emoji-gif-uploadFile.component';
+import { NgxEmojiPickerModule } from 'ngx-emoji-picker';
+import { PickerModule } from '@ctrl/ngx-emoji-mart';
+
+
+
+
+
 
 const LOCAL_DIRECTIVES = [];
 
@@ -60,7 +68,8 @@ const SHARED_COMPONENTS = [
   FilterDialogComponent,
   SearchComponent,
   MegaMenuComponent,
-  CountryFlagComponent
+  CountryFlagComponent,
+  EmojiGifUploadFileComponent
 ];
 
 const WIDGETS = [
@@ -82,6 +91,8 @@ const THIRD_MODULES = [
   LoadingBarRouterModule,
   TranslateModule,
   ToastrModule,
+  NgxEmojiPickerModule,
+  PickerModule
 ];
 
 const COMMON_MODULES = [

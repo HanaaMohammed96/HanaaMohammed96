@@ -3736,6 +3736,18 @@ export class FormsClient implements IFormsClient {
                 if (item_.fieldType) {
                     content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
                 }
+                if (item_.dataValues) {
+                    if(item_.dataValues !== null && item_.dataValues !== undefined){
+                        item_.dataValues.forEach((valueItem, index_)=>{
+                            if (valueItem.value) {
+                                content_.append(`Fields[${index_}].dataValues[${index_}].value.ar`, valueItem.value.ar.toString())
+                            }
+                            if (valueItem.value) {
+                                content_.append(`Fields[${index_}].dataValues[${index_}].value.en`, valueItem.value.en.toString())
+                            }
+                        })
+                    }
+                }
 
             });
         }
@@ -3863,6 +3875,18 @@ export class FormsClient implements IFormsClient {
                 }
                 if (item_.fieldType) {
                     content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
+                }
+                if (item_.dataValues) {
+                    if(item_.dataValues !== null && item_.dataValues !== undefined){
+                        item_.dataValues.forEach((valueItem, index_)=>{
+                            if (valueItem.value) {
+                                content_.append(`Fields[${index_}].dataValues[${index_}].value.ar`, valueItem.value.ar.toString())
+                            }
+                            if (valueItem.value) {
+                                content_.append(`Fields[${index_}].dataValues[${index_}].value.en`, valueItem.value.en.toString())
+                            }
+                        })
+                    }
                 }
 
             });
@@ -8129,7 +8153,7 @@ export enum RequestType {
 }
 
 export class DataFieldDto implements IDataFieldDto {
-    id?: number;
+    id?: string;
     name?: LocalizedStringDto | undefined;
     placeholder?: LocalizedStringDto | undefined;
     orders?: number;
@@ -8196,7 +8220,7 @@ export class DataFieldDto implements IDataFieldDto {
 }
 
 export interface IDataFieldDto {
-    id?: number;
+    id?: string;
     name?: LocalizedStringDto | undefined;
     placeholder?: LocalizedStringDto | undefined;
     orders?: number;
@@ -8227,7 +8251,7 @@ export enum FieldType {
 }
 
 export class DataValueDto implements IDataValueDto {
-    id?: number;
+    id?: string;
     value?: LocalizedStringDto | undefined;
 
     constructor(data?: IDataValueDto) {
@@ -8262,16 +8286,16 @@ export class DataValueDto implements IDataValueDto {
 }
 
 export interface IDataValueDto {
-    id?: number;
+    id?: string;
     value?: LocalizedStringDto | undefined;
 }
 
 export class ValueDto implements IValueDto {
     isSelected?: boolean;
     saveValue?: string | undefined;
-    requestId?: number;
-    dataFieldId?: number;
-    dataValueId?: number | undefined;
+    requestId?: string;
+    dataFieldId?: string;
+    dataValueId?: string | undefined;
 
     constructor(data?: IValueDto) {
         if (data) {
@@ -8313,9 +8337,9 @@ export class ValueDto implements IValueDto {
 export interface IValueDto {
     isSelected?: boolean;
     saveValue?: string | undefined;
-    requestId?: number;
-    dataFieldId?: number;
-    dataValueId?: number | undefined;
+    requestId?: string;
+    dataFieldId?: string;
+    dataValueId?: string | undefined;
 }
 
 export class PaginatedListOfFormVmForDashboard implements IPaginatedListOfFormVmForDashboard {

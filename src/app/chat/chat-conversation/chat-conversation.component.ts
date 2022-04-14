@@ -18,6 +18,8 @@ import { map } from 'rxjs/operators';
 import { chats } from 'src/static-data/chats';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { chatMessages } from 'src/static-data/chat-messages';
+import { ChatVm, MessageVm } from '@core/api';
+import { ChatsClient } from './../../@core/api';
 
 @UntilDestroy()
 @Component({
@@ -32,8 +34,10 @@ import { chatMessages } from 'src/static-data/chat-messages';
 })
 export class ChatConversationComponent implements OnInit {
 
-  chat: Chat;
-  messages: ChatMessage[];
+  chat: ChatVm;
+  messages: MessageVm[];
+  // chat: Chat;
+  // messages: ChatMessage[];
 
   form = new FormGroup({
     message: new FormControl()
@@ -48,22 +52,29 @@ export class ChatConversationComponent implements OnInit {
   icMenu = icMenu;
   trackById = trackById;
 
+  hide: boolean = false;
+  hideEmoji: boolean = false;
+
   @ViewChild(ScrollbarComponent, { static: true }) scrollbar: ScrollbarComponent;
 
   constructor(private route: ActivatedRoute,
               private chatService: ChatService,
+              private _chatsClient: ChatsClient,
               private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     this.route.paramMap.pipe(
-      map(paramMap => +paramMap.get('chatId')),
+      map(paramMap => paramMap.get('chatId')),
       untilDestroyed(this)
     ).subscribe(chatId => {
       this.messages = [];
       this.cd.detectChanges();
-      this.chat = chats.find(chat => chat.id === chatId);
-      this.chat.unreadCount = 0;
-      this.filterMessages(chatId);
+      // this.chat = chats.find(chat => chat.id === chatId);
+      // this.chat.unreadCount = 0;
+      this._chatsClient.getMessages(chatId, 3, 0, '', true, '').subscribe(chat=>{
+        this.messages = chat.items;
+      })
+      // this.filterMessages(chatId);
       this.cd.detectChanges();
 
       this.scrollToBottom();
@@ -71,15 +82,16 @@ export class ChatConversationComponent implements OnInit {
   }
 
   filterMessages(id: ChatMessage['id']) {
-    this.messages = chatMessages.filter(message => message.id === id);
+    // this.messages = chatMessages.filter(message => message.id === id);
   }
 
   send() {
-    this.messages.push({
-      id: this.chat.id,
-      from: 'me',
-      message: this.form.get('message').value
-    });
+    // this.messages.push({
+    //   id: this.chat.id,
+    //   from: 'me',
+    //   message: this.form.get('message').value
+    // });
+    // this._chatsClient.sendMessage()
 
     this.form.get('message').setValue('');
 
@@ -102,6 +114,14 @@ export class ChatConversationComponent implements OnInit {
   closeDrawer() {
     this.chatService.drawerOpen.next(false);
     this.cd.markForCheck();
+  }
+
+  pickEmoji(event){
+    if(this.form.get('message').value){
+      this.form.get('message').setValue(`${this.form.get('message').value} ${event}`);
+    }else{
+      this.form.get('message').setValue(`${event}`)
+    }
   }
 
 }
