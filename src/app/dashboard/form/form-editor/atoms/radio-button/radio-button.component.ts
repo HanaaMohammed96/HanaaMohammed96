@@ -12,7 +12,7 @@ import { trackByValue } from '@core/utils/track-by';
       </div>
       <div class="flex flex-column flex-wrap">
         <mat-radio-group aria-label="Select an option" *ngFor="let i of item.dataValues; trackBy:trackByValue">
-          <mat-radio-button value="" class="px-3">
+          <mat-radio-button value="formEditorService.toLang(i.value)" name="formEditorService.toLang(item.name)" class="px-3">
             <span class="whitespace-normal">
             {{formEditorService.toLang(i.value)}}
             </span>

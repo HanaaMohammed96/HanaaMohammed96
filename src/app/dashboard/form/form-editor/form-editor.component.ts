@@ -1,6 +1,6 @@
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import {
   DataFieldDto, FieldType, FormsClient, IDataFieldDto, LocalizedStringDto
 } from '@core/api';
@@ -219,7 +219,6 @@ export class FormEditorComponent implements OnInit, OnDestroy {
       this.model.regionId = this.model.parentRegionId
 
     const form = this.model;
-console.log('form', this.model)
     this.loading = true;
 
     if (!this.formId) {
@@ -241,7 +240,7 @@ console.log('form', this.model)
         form.realStateId,
         form.type, form.regionId, form.fields);
     }
-    action.pipe(finalize(() => (this.loading = false)),untilDestroyed(this)).subscribe(
+    action.pipe(finalize(() => (this.loading = false)), untilDestroyed(this)).subscribe(
       (response: any) => {
         if (response) {
           this.model = response;
@@ -254,8 +253,8 @@ console.log('form', this.model)
       }
     );
   }
-  
-  copyForm(){
+
+  copyForm() {
     let action: Observable<any>;
     const form = this.model;
     form.name.en = `${form.name.en} (2)`
@@ -270,18 +269,18 @@ console.log('form', this.model)
       form.realStateId,
       form.type, form.regionId, form.fields);
 
-      action.pipe(finalize(() => (this.loading = false)),untilDestroyed(this)).subscribe(
-        (response: any) => {
-          if (response) {
-            this.model = response;
-          }
-          this._handler.handleSuccess();
-          this.router.navigate(['/forms']);
-        },
-        (err) => {
-          this._handler.handleError(err).pushError();
+    action.pipe(finalize(() => (this.loading = false)), untilDestroyed(this)).subscribe(
+      (response: any) => {
+        if (response) {
+          this.model = response;
         }
-      );
+        this._handler.handleSuccess();
+        this.router.navigate(['/forms']);
+      },
+      (err) => {
+        this._handler.handleError(err).pushError();
+      }
+    );
   }
 
   search() {

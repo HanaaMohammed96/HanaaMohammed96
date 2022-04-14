@@ -53,7 +53,6 @@ export class FormDetailesComponent implements OnInit {
   ngOnInit(): void {
 
     this.realStateClient.getList().pipe(untilDestroyed(this)).subscribe(result => {
-      console.log(result)
       this.realStates = result;
     });
 

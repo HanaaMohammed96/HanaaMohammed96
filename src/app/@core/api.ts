@@ -3737,13 +3737,13 @@ export class FormsClient implements IFormsClient {
                     content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
                 }
                 if (item_.dataValues) {
-                    if(item_.dataValues !== null && item_.dataValues !== undefined){
-                        item_.dataValues.forEach((valueItem, index_)=>{
+                    if(item_.dataValues !== null && item_.dataValues !== undefined && item_.fieldType ==FieldType.Radio || item_.fieldType ==FieldType.CheckBox || item_.fieldType ==FieldType.Select){
+                        item_.dataValues.forEach((valueItem, index__)=>{
                             if (valueItem.value) {
-                                content_.append(`Fields[${index_}].dataValues[${index_}].value.ar`, valueItem.value.ar.toString())
+                                content_.append(`Fields[${index_}].dataValues[${index__}].value.ar`, valueItem.value.ar.toString())
                             }
                             if (valueItem.value) {
-                                content_.append(`Fields[${index_}].dataValues[${index_}].value.en`, valueItem.value.en.toString())
+                                content_.append(`Fields[${index_}].dataValues[${index__}].value.en`, valueItem.value.en.toString())
                             }
                         })
                     }
@@ -3877,13 +3877,13 @@ export class FormsClient implements IFormsClient {
                     content_.append(`Fields[${index_}].fieldType`, item_.fieldType.toString())
                 }
                 if (item_.dataValues) {
-                    if(item_.dataValues !== null && item_.dataValues !== undefined){
-                        item_.dataValues.forEach((valueItem, index_)=>{
+                    if(item_.dataValues !== null && item_.dataValues !== undefined && item_.fieldType ==FieldType.Radio || item_.fieldType ==FieldType.CheckBox || item_.fieldType ==FieldType.Select){
+                        item_.dataValues.forEach((valueItem, index__)=>{
                             if (valueItem.value) {
-                                content_.append(`Fields[${index_}].dataValues[${index_}].value.ar`, valueItem.value.ar.toString())
+                                content_.append(`Fields[${index_}].dataValues[${index__}].value.ar`, valueItem.value.ar.toString())
                             }
                             if (valueItem.value) {
-                                content_.append(`Fields[${index_}].dataValues[${index_}].value.en`, valueItem.value.en.toString())
+                                content_.append(`Fields[${index_}].dataValues[${index__}].value.en`, valueItem.value.en.toString())
                             }
                         })
                     }

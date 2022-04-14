@@ -2,9 +2,9 @@
   <div class="grid grid-cols-4 gap-4 limit" [class.hidden]="report">
 
     <!--dropzone-->
-    <div class="col-span-3">
+    <div class="col-span-3 content">
       <button mat-raised-button color="primary" *ngIf="formId" (click)="copyForm()"> {{'Form.copy' | translate}}</button>
-      <div class="content  mb-8" fxLayout="column" fxLayoutAlign="start center">
+      <div class="  mb-8" fxLayout="column" fxLayoutAlign="start center">
 
         <div cdkDropList #form="cdkDropList" [cdkDropListConnectedTo]="[formFields]" (cdkDropListDropped)="drop($event)"
           [cdkDropListData]="model.fields" cdkDrag cdkDragBoundary=".content" fxLayout="column"
