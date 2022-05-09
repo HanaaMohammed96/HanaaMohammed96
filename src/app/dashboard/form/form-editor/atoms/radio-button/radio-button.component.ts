@@ -6,7 +6,7 @@ import { trackByValue } from '@core/utils/track-by';
 @Component({
   selector: 'app-radio-button',
   template: `
-    <div class="font-in-dropped flex flex-row flex-nowrap" cdkDrag>
+    <div class="font-in-dropped flex flex-row flex-nowrap">
       <div style="padding: 0px 6px 0px 0px;text-center;max-width: 90px;overflow-wrap: break-word">
         <mat-label>{{formEditorService.toLang(item.name)}}</mat-label>
       </div>

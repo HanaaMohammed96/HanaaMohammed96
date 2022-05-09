@@ -22,6 +22,8 @@ import icAssessment from '@iconify/icons-ic/twotone-assessment';
 import icBook from '@iconify/icons-ic/twotone-book';
 import icAssigment from '@iconify/icons-ic/twotone-assignment';
 import icChat from '@iconify/icons-ic/twotone-chat';
+import icBusiness from '@iconify/icons-ic/twotone-business';
+import icContacts from '@iconify/icons-ic/twotone-contacts';
 
 @Component({
   selector: 'app-root',
@@ -111,6 +113,12 @@ export class AppComponent implements OnInit {
           } as NavigationLink,
           {
             type: 'link',
+            label: await this.translate('navigations.evaluationMethods'),
+            route: '/evaluation-methods',
+            icon: icBusiness,
+          } as NavigationLink,
+          {
+            type: 'link',
             label: await this.translate('navigations.questions'),
             route: '/common-question',
             icon: icAssigment,
@@ -141,7 +149,7 @@ export class AppComponent implements OnInit {
           {
             type: 'dropdown',
             label: await this.translate('navigations.contact_us'),
-            icon: icPageView,
+            icon: icContacts,
             children: [
               {
                 type: 'link',

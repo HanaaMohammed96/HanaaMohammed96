@@ -1,30 +1,25 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { CountriesClient, CountryVm, LocalizedStringDto, RegionDto, RegionsClient, RegionsPostCommand, RegionsPutCommand } from '@core/api';
+import { RegionDto, RegionsClient, LocalizedStringDto, RegionsPostCommand, RegionsPutCommand } from '@core/api';
 import { ApiHandlerService } from '@core/services/api-handler.service';
-import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { untilDestroyed } from '@ngneat/until-destroy';
 
-
-
-@UntilDestroy()
 @Component({
-  selector: 'app-region-create-update',
-  templateUrl: './region-create-update.component.html'
+  selector: 'app-evaluation-methods-create-update',
+  templateUrl: './evaluation-methods-create-update.component.html',
 })
-export class RegionCreateUpdateComponent implements OnInit, OnDestroy {
+export class EvaluationMethodsCreateUpdateComponent implements OnInit {
+
   form: FormGroup;
 
 countryId:number
-// country:CountryVm
-  countries: CountryVm[]
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: RegionDto,
     public _RegionsClient: RegionsClient,
-    private _dialogRef: MatDialogRef<RegionCreateUpdateComponent>,
+    private _dialogRef: MatDialogRef<EvaluationMethodsCreateUpdateComponent>,
     private _handler: ApiHandlerService,
     private _fb: FormBuilder,
-    private countriesClient: CountriesClient,
   ) {
   }
 
@@ -37,10 +32,6 @@ countryId:number
   }
 
   ngOnInit(): void {
-    this.countriesClient.getList().pipe(untilDestroyed(this)).subscribe(result => {
-      this.countries = result;
-    })
-
     if (!this.data) {
       this.data = {} as RegionDto;
 
@@ -49,7 +40,6 @@ countryId:number
           Ar: ['', Validators.required],
           En: ['', Validators.required],
         }),
-        countryId: [this.data.countryId ||'', Validators.required],
         isActive: [''],
       });
     } else {
@@ -58,7 +48,6 @@ countryId:number
           Ar: [this.data.name.ar || '', Validators.required],
           En: [this.data.name.en || '', Validators.required],
         }),
-        countryId: [this.data.countryId || '', Validators.required],
         isActive: [''],
       });
     }
@@ -74,7 +63,6 @@ countryId:number
 
     const isActive = value.isActive;
 
-    const countryId = value.countryId;
 
     const parentRegionId = null;
 
@@ -82,7 +70,6 @@ countryId:number
       name,
       isActive,
       parentRegionId,
-      countryId
     });
   }
 
@@ -92,7 +79,6 @@ countryId:number
 
     const isActive = value.isActive;
 
-    const countryId = value.countryId;
 
     const parentRegionId = null;
 
@@ -101,7 +87,6 @@ countryId:number
       name,
       isActive,
       parentRegionId,
-      countryId
     });
   }
 
@@ -118,7 +103,6 @@ countryId:number
       this.data.name = name;
       this.data.isActive = value.isActive;
       this.data.countryId = value.countryId;
-      this.data.countryName = this.countries.filter(r => r.id == value.countryId)[0].name
 
       this._dialogRef.close();
 
@@ -134,6 +118,7 @@ countryId:number
     this.data.isActive = event;
   }
   onSelect(event :any) {
-    this.data.countryId =event;
+    this.data.countryId =event ;
   }
+
 }

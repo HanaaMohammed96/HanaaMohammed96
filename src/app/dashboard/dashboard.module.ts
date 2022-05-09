@@ -60,6 +60,10 @@ import { RadioButtonComponent } from './form/form-editor/atoms/radio-button/radi
 import { TextComponent } from './form/form-editor/atoms/text-number-date-time/text.component';
 import { TextareaComponent } from './form/form-editor/atoms/textarea/textarea.component';
 import { CheckboxComponent } from './form/form-editor/atoms/checkbox/checkbox.component';
+import { EvaluationMethodsComponent } from './evaluation-methods/evaluation-methods.component';
+import { EvaluationMethodsCreateUpdateComponent } from './evaluation-methods/evaluation-methods-create-update/evaluation-methods-create-update.component';
+import { SubEvaluationMethodsComponent } from './sub-evaluation-methods/sub-evaluation-methods.component';
+import { SubEvaluationMethodsCreateUpdateIsComponent } from './sub-evaluation-methods/sub-evaluation-methods-create-update-is/sub-evaluation-methods-create-update-is.component';
 
 
 
@@ -122,7 +126,11 @@ import { CheckboxComponent } from './form/form-editor/atoms/checkbox/checkbox.co
     ShowFormComponent,
     PricePlansComponent,
     PricePlansCreateUpdateComponent,
-    FormEditorComponent
+    FormEditorComponent,
+    EvaluationMethodsComponent,
+    EvaluationMethodsCreateUpdateComponent,
+    SubEvaluationMethodsComponent,
+    SubEvaluationMethodsCreateUpdateIsComponent
   ],
   imports: [
     CommonModule,

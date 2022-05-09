@@ -80,7 +80,8 @@
     "realState": "الأصول",
     "country": "الدول",
     "questions": "أسئلة شائعة",
-    "chat": "الدردشة"
+    "chat": "الدردشة",
+    "evaluationMethods": "أساليب التقييم"
   },
   "account": {
     "login_title": " مرحبًا بك في مُنجز",
@@ -196,6 +197,18 @@
     "subRegionTableNamePlural": "المناطق الفرعية",
     "ctryName": "الدولة"
   },
+  "evaluationMethods": {
+    "title": "جدول أساليب التقييم بمنجز",
+    "description": "هذه القائمة تشمل كل أساليب التقييم",
+    "tableName": "أساليب التقييم",
+    "tableNamePlural": "أساليب التقييم",
+    "enName": "الاسم باللغة الانجليزية",
+    "arName": "الاسم باللغة العربية",
+    "status": "الحالة",
+    "isActive": "مفعل",
+    "isNotActive": "غير مفعل",
+    "viewevaluationMethods": "عرض الأساليب الفرعية للتقييم"
+  },
   "Success":"تم الحفظ",
   "formFields":{
     "text": "إدخال نص",
@@ -260,6 +273,14 @@
     "TableName":"الأصل",
     "tableNamePlural":"الأصل",
     "name":"الاسم",
+    "created_at": "تاريخ الإنشاء"
+  },
+  "subEvaluationMethods": {
+    "title": "أساليب التقييم الفرعية",
+    "description": "هذه القائمة تشمل كل أساليب التقييم الفرعية",
+    "TableName": " أساليب التقييم الفرعية",
+    "tableNamePlural": "أساليب التقييم الفرعية",
+    "name": "الاسم",
     "created_at": "تاريخ الإنشاء"
   },
   "isActive":"تفعيل",

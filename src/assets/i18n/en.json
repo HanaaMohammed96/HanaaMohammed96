@@ -80,7 +80,8 @@
     "realState": "RealEstates",
     "country": "Countries",
     "questions": "Common Questions",
-    "chat": "Chat"
+    "chat": "Chat",
+    "evaluationMethods": "Evaluation Methods"
   },
   "account": {
     "login_title": "Welcome to Monjez Portal!",
@@ -196,6 +197,18 @@
     "subRegionTableNamePlural": "SubRegions",
     "ctryName": "Country"
   },
+  "evaluationMethods": {
+    "title": "Monjez Evaluation Methods Table",
+    "description": "This list includes all Evaluation Methods",
+    "tableName": "Evaluation Methods",
+    "tableNamePlural": "Evaluation Methods",
+    "enName": "English Name",
+    "arName": "Arabic Name",
+    "status": "Status",
+    "isActive": "Active",
+    "isNotActive": "Not Active",
+    "viewevaluationMethods": "View Sub Evaluation Methods"
+  },
   "Success": "Success",
   "formFields": {
     "text": "Text",
@@ -256,6 +269,14 @@
     "description": "This list includes all RealEstates",
     "TableName": " RealEstate",
     "tableNamePlural": "RealEstate",
+    "name": "Name",
+    "created_at": "Created At"
+  },
+  "subEvaluationMethods": {
+    "title": "Monjez Portal Sub Evaluation Methods Page",
+    "description": "This list includes all Sub Evaluation Methods",
+    "TableName": " Sub Evaluation Methods",
+    "tableNamePlural": "Sub Evaluation Methods",
     "name": "Name",
     "created_at": "Created At"
   },

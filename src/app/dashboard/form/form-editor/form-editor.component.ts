@@ -113,6 +113,7 @@ export class FormEditorComponent implements OnInit, OnDestroy {
   }
 
   drop(event: CdkDragDrop<string[]>) {
+    console.log('&&',event)
     if (event.container.id == 'drag-Zone') {
       return;
     }
@@ -120,13 +121,13 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     if (event.previousContainer === event.container) {
       // for sorting items
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-
+      
       this.model.fields[event.currentIndex].orders = event.currentIndex + 1;
 
     } else {
       const clone = cloneDeep(event.previousContainer.data[event.previousIndex]);
       event.container.data.splice(event.currentIndex, 0, clone);
-
+      
       this.model.fields[event.currentIndex].orders = event.currentIndex + 1;
 
       this.model.fields[event.currentIndex].code += `${event.container.data.length}`;
@@ -222,6 +223,10 @@ export class FormEditorComponent implements OnInit, OnDestroy {
     const form = this.model;
     this.loading = true;
 
+    for(let field in form.fields){
+      form.fields[field].orders = +field+1;
+    }
+    
     if (!this.formId) {
       action = this._FormsClient.post(
         form.name.ar,
