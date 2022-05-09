@@ -102,6 +102,7 @@ export class SubEvaluationMethodsCreateUpdateIsComponent implements OnInit {
       (err) => {
         this._handler.handleError(err).pushError();
       }
+      
     );
   }
 
