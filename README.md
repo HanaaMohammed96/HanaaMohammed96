@@ -3,13 +3,13 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=hanaamohammed96&label=Profile%20views&color=0e75b6&style=flat" alt="hanaamohammed96" /> </p>
 
-- 🔭 I’m currently working as [Angular Developer](Starting Solutions)
+- 🔭 I’m currently working as [Angular Developer](ClaroEg Real Estate)
 
-- 🌱 I’m currently learning **Advanced topics in MEAN Stack**
+- 🌱 I’m currently learning **.Net Stack**
 
-- 💬 Ask me about **Javascript|Node.js|Angular|SQL|MongoDB|Express.js|Sass**
+- 💬 Ask me about **Javascript|Node.js|Angular|SQL|Sass|Tailwindcss|Angular Material|C#|.Net|.Net Core|Entity FrameWork| Asp.net MVC|Asp.Net Core|Asp.Net Core Web Api |Desgin Patterns**
 
-- 📫 How to reach me **hanamohammed622@gmail.com**
+- 📫 How to reach me **hanamohammed622@gmail.com| hanaamohammedgad396@gmail.com**
 
 <h3 align="left">Connect with me:</h3>
 <p align="left">
