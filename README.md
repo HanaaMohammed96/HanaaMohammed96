@@ -3,7 +3,7 @@
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=hanaamohammed96&label=Profile%20views&color=0e75b6&style=flat" alt="hanaamohammed96" /> </p>
 
-- 🔭 I’m currently working as [Angular Developer](ClaroEg Real Estate)
+- 🔭 I’m currently working as [Full Stack .Net Developer](ClaroEg Real Estate)
 
 - 🌱 I’m currently learning **.Net Stack**
 
